@@ -8,7 +8,6 @@ void initMotors() {
   pinMode(PIN_RIGHT_BWD, OUTPUT);
   
   stopMoving(); // Đảm bảo xe dừng khi vừa khởi động
-  Serial.println("[SYSTEM] Motor Driver Initialized: IN1:4, IN2:5, IN3:12, IN4:13");
 }
 
 void goForward() {

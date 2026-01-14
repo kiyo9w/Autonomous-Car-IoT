@@ -10,7 +10,7 @@ void setup() {
   Serial.begin(115200);
   delay(1000); // Chờ ổn định
 
-  Serial.println("=== SYSTEM CHECK ===");
+  Serial.println("=== SYSTEM CHECK ===");Ư
   if(psramFound()){
     Serial.printf("PSRAM: %d MB\n", ESP.getPsramSize()/1024/1024);
   } else {
@@ -24,11 +24,14 @@ void setup() {
   initCamera();
 
   // 3. KẾT NỐI WIFI VÀ BẬT CAMERA SERVER (ĐOẠN NÀY ĐANG THIẾU)
-  //startCameraServer(WIFI_SSID, WIFI_PASS); 
+  startCameraServer(WIFI_SSID, WIFI_PASS); 
 }
 
 void loop() {
-  // Để trống loop để tập trung test Camera trước
-  // Sau này mới thêm code điều khiển xe
-  delay(1000);
+  turnLeft();
+  delay(2000);
+  turnRight();
+  delay(2000);
+  goForward();
+  delay(2000);
 }
