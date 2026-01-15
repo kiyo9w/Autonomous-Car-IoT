@@ -30,13 +30,13 @@ const char *WIFI_PASS = "12345678";
 // Chế độ streaming: true = UDP (nhanh, production), false = HTTP (dễ debug)
 // HTTP mode: Access stream at http://<ESP32_IP>:81/stream in Chrome
 // UDP mode: Requires Python receiver, lower latency for real-time control
-const bool USE_UDP_STREAM = false; // 🌐 HTTP mode for browser access
+const bool USE_UDP_STREAM = true; // 🌐 UDP mode for low latency
 
 // IP máy Mac nhận video UDP (chỉ cần khi USE_UDP_STREAM = true)
 // ⚠️ QUAN TRỌNG: IP này phải cùng subnet với ESP32!
 // Nếu ESP32 có IP 172.20.10.x, Mac cũng phải là 172.20.10.x
 // Xem IP bằng: Option + Click WiFi icon trên Mac
-const char *MAC_IP = "172.20.10.1"; // Thường là .1 cho hotspot host
+const char *MAC_IP = "172.20.10.3"; // Updated to host IP from logs
 const int UDP_PORT = 9999;
 
 // Ultrasonic sensor pins
@@ -253,17 +253,17 @@ void setup() {
 // ===========================================
 
 void loop() {
-  // // 1. Unified Control Loop (sensor + safety + motor actuation)
-  // handleControlLoop();
+  // 1. Unified Control Loop (sensor + safety + motor actuation)
+  handleControlLoop();
 
-  // // 2. Stream video if using UDP mode
-  // if (USE_UDP_STREAM) {
-  //   streamFrameUDP();
-  // }
+  // 2. Stream video if using UDP mode
+  if (USE_UDP_STREAM) {
+    streamFrameUDP();
+  }
 
-  // // 3. Send telemetry to Gateway (voltage + distance)
-  // handleConnection(BATTERY_VOLTAGE, currentDistance);
+  // 3. Send telemetry to Gateway (voltage + distance)
+  handleConnection(BATTERY_VOLTAGE, currentDistance);
 
-  // // Small delay to prevent watchdog issues
-  // delay(5);
+  // Small delay to prevent watchdog issues
+  delay(5);
 }
