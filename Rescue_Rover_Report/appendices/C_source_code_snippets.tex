@@ -1,0 +1,310 @@
+% appendices/C_source_code_snippets.tex - Appendix C: Source Code
+% ================================================================
+
+\chapter{Source Code Snippets}
+\label{app:source-code}
+
+% --------------------------------------------------------
+\section{ESP32-S3 Firmware}
+\label{sec:firmware-code}
+
+\subsection{Main Sketch (RescueRobot.ino)}
+
+\begin{lstlisting}[language=C++, caption={Main firmware entry point}]
+#include "CameraModule.h"
+#include "MotorDriver.h"
+#include "ConnectionModule.h"
+
+MotorDriver motor;
+
+void setup() {
+    Serial.begin(115200);
+    Serial.println("Rescue Rover Initializing...");
+    
+    // Initialize subsystems
+    if (!initCamera()) {
+        Serial.println("Camera init failed!");
+        while(1) delay(1000);
+    }
+    
+    motor.begin();
+    initConnection();
+    
+    // Start camera server
+    startCameraServer();
+    
+    Serial.println("Rescue Rover Ready!");
+}
+
+void loop() {
+    // Check for connection timeout
+    checkHeartbeat();
+    
+    // Process any pending commands
+    processIncomingCommands();
+    
+    // Send telemetry at 1Hz
+    static unsigned long lastTelemetry = 0;
+    if (millis() - lastTelemetry > 1000) {
+        sendTelemetry();
+        lastTelemetry = millis();
+    }
+    
+    delay(10);
+}
+\end{lstlisting}
+
+\subsection{Camera Initialization}
+
+\begin{lstlisting}[language=C++, caption={Camera module initialization}]
+#include "esp_camera.h"
+#include "CameraPins.h"
+
+bool initCamera() {
+    camera_config_t config;
+    config.ledc_channel = LEDC_CHANNEL_0;
+    config.ledc_timer = LEDC_TIMER_0;
+    config.pin_d0 = Y2_GPIO_NUM;
+    config.pin_d1 = Y3_GPIO_NUM;
+    config.pin_d2 = Y4_GPIO_NUM;
+    config.pin_d3 = Y5_GPIO_NUM;
+    config.pin_d4 = Y6_GPIO_NUM;
+    config.pin_d5 = Y7_GPIO_NUM;
+    config.pin_d6 = Y8_GPIO_NUM;
+    config.pin_d7 = Y9_GPIO_NUM;
+    config.pin_xclk = XCLK_GPIO_NUM;
+    config.pin_pclk = PCLK_GPIO_NUM;
+    config.pin_vsync = VSYNC_GPIO_NUM;
+    config.pin_href = HREF_GPIO_NUM;
+    config.pin_sscb_sda = SIOD_GPIO_NUM;
+    config.pin_sscb_scl = SIOC_GPIO_NUM;
+    config.pin_pwdn = PWDN_GPIO_NUM;
+    config.pin_reset = RESET_GPIO_NUM;
+    
+    config.xclk_freq_hz = 10000000;  // 10MHz for stability
+    config.pixel_format = PIXFORMAT_JPEG;
+    config.frame_size = FRAMESIZE_QVGA;
+    config.jpeg_quality = 12;
+    config.fb_count = 2;
+    config.fb_location = CAMERA_FB_IN_PSRAM;
+    config.grab_mode = CAMERA_GRAB_LATEST;
+    
+    esp_err_t err = esp_camera_init(&config);
+    return (err == ESP_OK);
+}
+\end{lstlisting}
+
+% --------------------------------------------------------
+\section{Python Gateway/Dashboard}
+\label{sec:python-code}
+
+\subsection{Frame Buffer Class}
+
+\begin{lstlisting}[language=Python, caption={Thread-safe frame buffer implementation}]
+import threading
+from dataclasses import dataclass
+from typing import Optional
+import time
+
+@dataclass
+class Telemetry:
+    voltage: float = 0.0
+    distance: int = 0
+    connected: bool = False
+    last_update: float = 0.0
+
+class FrameBuffer:
+    def __init__(self):
+        self._lock = threading.Lock()
+        self._frame: Optional[bytes] = None
+        self._telemetry = Telemetry()
+    
+    def feed_frame(self, jpeg_bytes: bytes, telemetry: dict = None):
+        with self._lock:
+            self._frame = jpeg_bytes
+            if telemetry:
+                self._telemetry.voltage = telemetry.get('voltage', 0.0)
+                self._telemetry.distance = telemetry.get('distance', 0)
+                self._telemetry.connected = True
+                self._telemetry.last_update = time.time()
+    
+    def get_frame(self) -> Optional[bytes]:
+        with self._lock:
+            return self._frame
+    
+    def get_telemetry(self) -> dict:
+        with self._lock:
+            # Check if connection is stale
+            if time.time() - self._telemetry.last_update > 2.0:
+                self._telemetry.connected = False
+            return {
+                'voltage': self._telemetry.voltage,
+                'distance': self._telemetry.distance,
+                'connected': self._telemetry.connected
+            }
+\end{lstlisting}
+
+\subsection{YOLOv8 Processor}
+
+\begin{lstlisting}[language=Python, caption={YOLOv8 detection processor}]
+from ultralytics import YOLO
+import cv2
+import numpy as np
+from typing import List, Dict
+
+class YOLOProcessor:
+    def __init__(self, model_path: str = "yolov8n.pt"):
+        self.model = YOLO(model_path)
+        self.target_classes = ['person', 'chair', 'table', 'door']
+    
+    def process_frame(self, frame_bytes: bytes) -> Dict:
+        # Decode JPEG
+        nparr = np.frombuffer(frame_bytes, np.uint8)
+        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        
+        if img is None:
+            return {"error": "Failed to decode image"}
+        
+        # Run inference
+        results = self.model(img, verbose=False, conf=0.5)
+        
+        # Extract relevant detections
+        detections = []
+        for r in results:
+            for box in r.boxes:
+                class_name = r.names[int(box.cls)]
+                if class_name in self.target_classes:
+                    detections.append({
+                        "class": class_name,
+                        "confidence": round(float(box.conf), 3),
+                        "bbox": [int(x) for x in box.xyxy.tolist()[0]]
+                    })
+        
+        return {
+            "detections": detections,
+            "count": len(detections),
+            "has_person": any(d['class'] == 'person' for d in detections)
+        }
+\end{lstlisting}
+
+\subsection{NiceGUI Dashboard}
+
+\begin{lstlisting}[language=Python, caption={Dashboard main application}]
+from nicegui import ui, app
+from camera_reassembler import FrameBuffer
+from llm_worker import LLMWorker
+import asyncio
+
+# Initialize global state
+frame_buffer = FrameBuffer()
+mission_log = []
+llm_worker = None
+
+@app.get("/api/telemetry")
+def api_telemetry():
+    return frame_buffer.get_telemetry()
+
+@app.get("/api/mission_log")
+def api_mission_log():
+    return {"entries": mission_log[-100:]}
+
+def create_ui():
+    with ui.row().classes('w-full'):
+        # Video panel
+        with ui.column().classes('w-1/2'):
+            ui.label('Live Feed').classes('text-xl font-bold')
+            video = ui.image().classes('w-full')
+            
+        # Telemetry panel
+        with ui.column().classes('w-1/2'):
+            ui.label('Telemetry').classes('text-xl font-bold')
+            voltage_label = ui.label('Voltage: --')
+            distance_label = ui.label('Distance: --')
+            status_label = ui.label('Status: Disconnected')
+    
+    # Mission log
+    ui.label('Mission Log').classes('text-xl font-bold mt-4')
+    log_area = ui.log(max_lines=50).classes('w-full h-64')
+    
+    # Update loop
+    async def update():
+        while True:
+            tel = frame_buffer.get_telemetry()
+            voltage_label.text = f"Voltage: {tel['voltage']:.2f}V"
+            distance_label.text = f"Distance: {tel['distance']}cm"
+            status_label.text = f"Status: {'Connected' if tel['connected'] else 'Disconnected'}"
+            await asyncio.sleep(0.5)
+    
+    ui.timer(0.5, update)
+
+if __name__ == "__main__":
+    create_ui()
+    ui.run(port=8080, title="Rescue Rover Dashboard")
+\end{lstlisting}
+
+% --------------------------------------------------------
+\section{ESP-NOW Communication}
+\label{sec:espnow-code}
+
+\begin{lstlisting}[language=C++, caption={ESP-NOW packet handling}]
+#include <esp_now.h>
+#include <WiFi.h>
+
+// Packet structures
+typedef struct {
+    int8_t x;
+    int8_t y;
+    uint8_t buttons;
+} command_t;
+
+typedef struct {
+    float voltage;
+    uint16_t distance;
+    uint8_t status;
+} telemetry_t;
+
+// Gateway MAC address (configure this)
+uint8_t gatewayMAC[] = {0x24, 0x6F, 0x28, 0xAB, 0xCD, 0xEF};
+
+volatile unsigned long lastPacketTime = 0;
+command_t lastCommand = {0, 0, 0};
+
+void onDataRecv(const uint8_t *mac, const uint8_t *data, int len) {
+    if (len == sizeof(command_t)) {
+        memcpy(&lastCommand, data, sizeof(command_t));
+        lastPacketTime = millis();
+        
+        // Apply joystick values to motors
+        int leftSpeed = lastCommand.y + lastCommand.x;
+        int rightSpeed = lastCommand.y - lastCommand.x;
+        motor.setSpeed(leftSpeed, rightSpeed);
+    }
+}
+
+void initESPNOW() {
+    WiFi.mode(WIFI_STA);
+    
+    if (esp_now_init() != ESP_OK) {
+        Serial.println("ESP-NOW init failed");
+        return;
+    }
+    
+    esp_now_register_recv_cb(onDataRecv);
+    
+    // Add gateway as peer
+    esp_now_peer_info_t peerInfo = {};
+    memcpy(peerInfo.peer_addr, gatewayMAC, 6);
+    peerInfo.channel = 0;
+    peerInfo.encrypt = false;
+    esp_now_add_peer(&peerInfo);
+}
+
+void sendTelemetry() {
+    telemetry_t tel;
+    tel.voltage = readBatteryVoltage();
+    tel.distance = readUltrasonic();
+    tel.status = 0x01;  // OK
+    
+    esp_now_send(gatewayMAC, (uint8_t*)&tel, sizeof(tel));
+}
+\end{lstlisting}

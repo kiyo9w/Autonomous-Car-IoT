@@ -1,0 +1,168 @@
+% chapters/05_ai_software_design.tex - Chapter 5: AI & Software Design
+% =====================================================================
+
+\chapter{AI \& Software Design}
+\label{chap:ai-software-design}
+
+This chapter documents the software architecture of the host application and its integration with cloud-based AI services. The design uses a "Hybrid Cloud" approach: real-time tactical processing runs locally on the host computer, while complex strategic reasoning is offloaded to a cloud server equipped with high-performance GPUs.
+
+% --------------------------------------------------------
+\section{Host Application Architecture}
+\label{sec:host-architecture}
+
+The RoverInterface application acts as the central coordinator. It manages three critical loops running at different frequencies:
+1.  \textbf{The Control Loop (100Hz)}: Reads joystick inputs and sends serial commands.
+2.  \textbf{The Tactical Loop (30Hz)}: Captures video and runs local object detection (YOLO).
+3.  \textbf{The Strategic Loop (0.5Hz)}: Asynchronously sends frames to the cloud for detailed analysis.
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=\textwidth]{figures/software/host_architecture_hybrid.png}
+    \fbox{\parbox{\textwidth}{\centering\vspace{4cm}FIGURE: Host Application Architecture\\Block diagram showing FrameBuffer, Local YOLO Worker, Cloud Client, and Arbiter\vspace{4cm}}}
+    \caption{High level architecture showing the split between local processing and cloud delegation.}
+    \label{fig:host-architecture}
+\end{figure}
+
+\subsection{Tech Stack Changes for Hybrid Cloud}
+
+To support this architecture, the software stack includes networking components to reliably bridge the local application with the cloud instance.
+
+\begin{table}[h!]
+    \centering
+    \caption{Software components and roles}
+    \label{tab:python-deps}
+    \begin{tabular}{llp{6cm}}
+        \toprule
+        \textbf{Component} & \textbf{Type} & \textbf{Purpose} \\
+        \midrule
+        NiceGUI      & Framework  & Operator Dashboard (Local) \\
+        YOLOv8-Nano  & Local AI   & Fast obstacle detection (Safety) \\
+        Qwen2.5-VL   & Remote AI  & Strategic scene understanding (Intelligence) \\
+        ngrok        & Network    & Secure tunnel to Cloud GPU \\
+        FastAPI      & Server     & Cloud inference API host \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% --------------------------------------------------------
+\section{Computer Vision Layer (Local)}
+\label{sec:computer-vision}
+
+The local computer vision layer allows the rover to react immediately to dynamic hazards. It runs entirely on the Host computer (MacBook Pro), ensuring that safety reflexes are not dependent on internet connectivity.
+
+\subsection{YOLOv8 Integration}
+
+We use YOLOv8-Nano exported to CoreML format to leverage the Apple Neural Engine (ANE). This allows inference times of approximately 12ms per frame, leaving the main CPU and GPU free for video decoding and network I/O.
+
+Detailed class filtering ensures the rover stops for "Person" and "Chair" detections with high confidence ($>$ 0.6), but ignores smaller objects that it can traverse.
+
+% --------------------------------------------------------
+\section{Vision Language Model Integration (Cloud)}
+\label{sec:vlm-integration}
+
+Previous iterations of this project attempted to run a Vision Language Model (Moondream2) locally. However, testing revealed that running both video streaming and VLM inference on the same machine caused thermal throttling and system freezes, endangering the control loop.
+
+The final design moves this workload to the cloud.
+
+\subsection{Cloud Architecture}
+
+We utilize a Google Colab instance provisioned with an NVIDIA A100 (40GB VRAM) or T4 GPU. This server hosts:
+1.  \textbf{Qwen2.5-VL-7B-Instruct}: A state-of-the-art VLM capable of spatial reasoning.
+2.  \textbf{vLLM Engine}: A high-throughput serving engine for LLMs.
+3.  \textbf{FastAPI + ngrok}: Exposes a public \texttt{https} endpoint for the rover to contact.
+
+\begin{table}[h!]
+    \centering
+    \caption{Local vs Cloud VLM Comparison}
+    \label{tab:vlm-comparison}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Metric} & \textbf{Local (Moondream2)} & \textbf{Cloud (Qwen2.5-VL)} \\
+        \midrule
+        Model Size      & 1.8 Billion & 7 Billion \\
+        Inference Time  & 400 ms & 200 ms (A100) \\
+        Spatial IQ      & Low & High \\
+        System Load     & Extreme (Freezes) & Minimal (Network I/O) \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{figures/software/cloud_architecture.png}
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}FIGURE: Cloud Server Setup\\Diagram showing Colab notebook hosting vLLM and ngrok tunnel\vspace{3cm}}}
+    \caption{Cloud infrastructure layout for the Strategic Layer.}
+    \label{fig:cloud-architecture}
+\end{figure}
+
+\subsection{Client Implementation}
+
+The Host application implements a \texttt{StrategicNavigator} class that acts as the HTTP client. It samples the video feed at 0.5Hz (once every 2 seconds).
+
+\begin{lstlisting}[language=Python, caption={Cloud Client Implementation}]
+def analyze_frame(self, frame):
+    """Send frame to cloud for analysis"""
+    # 1. Compress frame to JPEG (Quality 85)
+    # 2. Send HTTP POST to config.REMOTE_VLM_URL
+    try:
+        response = requests.post(
+            self.url, 
+            files={'file': frame_bytes}, 
+            timeout=2.0
+        )
+        return parse_json(response.text)
+    except Timeout:
+        return None # Fail silently, don't block
+\end{lstlisting}
+
+This asynchronous approach ensures that network lag never blocks the main UI or the serial control thread. If the cloud hangs, the rover simply continues its last safe behavior or defaults to manual control.
+
+\subsection{Prompt Engineering for Navigation}
+
+The cloud model is prompted to act as a "Robot Driver". We enforce a strict JSON output schema to ensure the Python client can parse the decision deterministically.
+
+\begin{lstlisting}[language=json, caption={VLM JSON Output Schema}]
+{
+    "hazard": false,
+    "nav_goal": "open_space",
+    "steering": "left",
+    "reasoning": "The center path is blocked by a box. Immediate left is clear."
+}
+\end{lstlisting}
+
+% --------------------------------------------------------
+\section{Command Arbitration}
+\label{sec:command-arbiter}
+
+With two AI brains (Local YOLO and Cloud VLM) plus a human operator, conflicting commands are inevitable. A \texttt{CommandArbiter} module resolves these conflicts using a strict priority ladder.
+
+\begin{enumerate}
+    \item \textbf{Priority 1: Safety (Local)}. If YOLO detects a person ($>$40\% frame width) or Firmware detects sonar obstacle ($<$25cm), \textbf{STOP}. This overrides everything.
+    \item \textbf{Priority 2: Manual (Operator)}. If the human touches the joystick, manual control takes over, suppressing Cloud AI commands for 5 seconds.
+    \item \textbf{Priority 3: Strategy (Cloud)}. If path is clear and no manual input, follow the VLM's steering suggestion.
+\end{enumerate}
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=\textwidth]{figures/software/arbiter_logic.png}
+    \fbox{\parbox{\textwidth}{\centering\vspace{3.5cm}FIGURE: Arbitration Logic Flow\\Flowchart showing Safety > Manual > AI priority logic\vspace{3.5cm}}}
+    \caption{Logic flow for the Command Arbiter ensuring safety protocols execute first.}
+    \label{fig:arbiter-logic}
+\end{figure}
+
+% --------------------------------------------------------
+\section{Dashboard \& Telemetry}
+\label{sec:dashboard}
+
+The logic for the dashboard remains largely similar to the local design, but now includes a "Cloud Status" indicator.
+
+\begin{itemize}
+    \item \textbf{Cloud Connected (Green)}: Pings to ngrok URL < 500ms.
+    \item \textbf{Cloud Lagging (Yellow)}: Latency > 1000ms.
+    \item \textbf{Cloud Offline (Red)}: Connection timeout.
+\end{itemize}
+
+This feedback allows the operator to know if the autonomous "Strategic" mode is available or if the rover has degraded to "Reflex Only" mode.

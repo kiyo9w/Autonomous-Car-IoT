@@ -1,0 +1,50 @@
+% frontmatter/abstract.tex - Project Abstract
+% ============================================
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+\textbf{Rescue Rover} is an IoT-based autonomous rescue robot system designed for search and rescue operations in hazardous environments. This project integrates embedded systems, wireless communication, real-time video streaming, and AI-powered decision-making to create an intelligent remotely-operated vehicle (ROV) capable of navigating dangerous areas and providing visual reconnaissance.
+
+\vspace{0.5cm}
+
+\textbf{Problem Statement:} Search and rescue operations in disaster zones, collapsed structures, and hazardous areas pose significant risks to human responders. Traditional approaches often result in delayed response times and limited situational awareness, potentially compromising rescue outcomes.
+
+\vspace{0.5cm}
+
+\textbf{Solution:} The Rescue Rover system addresses these challenges through a distributed architecture comprising three main components:
+
+\begin{itemize}
+    \item \textbf{ESP32-S3 Rover Unit:} An autonomous robot equipped with camera, motor control, and sensors for real-time surveillance and navigation.
+    
+    \item \textbf{Gateway/Courier Module:} Python-based middleware handling ESP-NOW packet reception, JPEG frame reassembly, telemetry aggregation, and AI inference bridging.
+    
+    \item \textbf{Web Dashboard:} A NiceGUI-based interface providing live video feed, mission logging, telemetry monitoring, and remote control capabilities.
+\end{itemize}
+
+\vspace{0.5cm}
+
+\textbf{Key Features:}
+\begin{itemize}
+    \item Real-time video streaming via MJPEG over HTTP
+    \item Low-latency control using ESP-NOW protocol
+    \item AI-assisted navigation with YOLOv8 object detection
+    \item Vision Language Model (VLM) integration for intelligent decision-making
+    \item Telemetry monitoring (battery, distance, connectivity status)
+    \item Evidence collection and mission data retrieval
+\end{itemize}
+
+\vspace{0.5cm}
+
+\textbf{Technical Stack:}
+\begin{itemize}
+    \item \textbf{Hardware:} ESP32-S3, OV2640 camera, L298N motor driver
+    \item \textbf{Firmware:} C++ with Arduino framework
+    \item \textbf{Backend:} Python with NiceGUI and FastAPI
+    \item \textbf{AI:} YOLOv8, Moondream2/MLX Vision Language Model
+    \item \textbf{Protocols:} ESP-NOW, HTTP, WebSocket
+\end{itemize}
+
+\vspace{0.5cm}
+
+\textbf{Keywords:} IoT, Embedded Systems, ESP32, Autonomous Robot, Computer Vision, Search and Rescue, ESP-NOW, Real-time Streaming, AI Navigation

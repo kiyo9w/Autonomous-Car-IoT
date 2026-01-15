@@ -1,0 +1,144 @@
+% chapters/02_system_architecture.tex - Chapter 2: System Architecture
+% =====================================================================
+
+\chapter{System Architecture}
+\label{chap:system-architecture}
+
+This chapter presents the overall system architecture of the Rescue Rover. The design follows a distributed intelligence model spread across three physical tiers and one cloud tier. This hybrid approach allows high-performance AI inference without compromising local real-time control.
+
+% --------------------------------------------------------
+\section{Architectural Overview}
+\label{sec:arch-overview}
+
+The system consists of four distinct processing nodes connected through a hierarchy of communication channels.
+
+\begin{enumerate}
+    \item \textbf{The Rover (Edge Tier 1)}: ESP32-S3 microcontroller. Handles motor control, sensor readings, and video capture. It has no AI capability but provides 10ms-response safety reflexes.
+    \item \textbf{The Gateway (Edge Tier 2)}: ESP32 bridge. Translates between the Rover's wireless ESP-NOW protocol and the Host's USB serial connection.
+    \item \textbf{The Host Computer (Edge Tier 3)}: MacBook Pro. Runs the "Tactical" AI layer (YOLOv8) for immediate object detection and hosts the operator dashboard. It serves as the local command center.
+    \item \textbf{The Cloud Server (Cloud Tier)}: Google Colab via Google Cloud Platform. Runs the "Strategic" AI layer (Qwen2.5-VL-7B) on NVIDIA A100 GPUs. It handles complex scene reasoning that is too heavy for the local host.
+\end{enumerate}
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=\textwidth]{figures/software/system_overview_hybrid.png}
+    \fbox{\parbox{\textwidth}{\centering\vspace{5cm}FIGURE: Hybrid Cloud System Overview\\Shows Rover, Gateway, Host (Mac), and Cloud (Colab) with links\vspace{5cm}}}
+    \caption{High level system architecture showing the four processing nodes and their data links.}
+    \label{fig:system-overview}
+\end{figure}
+
+\subsection{Device Specifications Summary}
+
+\begin{table}[h!]
+    \centering
+    \caption{Device roles and capabilities}
+    \label{tab:device-roles}
+    \begin{tabular}{llp{6cm}}
+        \toprule
+        \textbf{Node} & \textbf{Hardware} & \textbf{Responsibilities} \\
+        \midrule
+        Rover   & ESP32-S3 + OV2640   & Video capture, motor actuation, reflex safety (sonar) \\
+        Gateway & ESP32 WROOM         & Protocol translation (ESP-NOW $\leftrightarrow$ Serial) \\
+        Host    & Apple Silicon Mac   & Dashboard UI, Tactical AI (YOLO), Command Arbitration \\
+        Cloud   & NVIDIA A100 GPU     & Strategic AI (Vision Language Model) \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% --------------------------------------------------------
+\section{Hybrid Intelligence Model}
+\label{sec:hybrid-intelligence}
+
+The system implements a three-layer intelligence architecture that physically separates "reflex" from "reasoning".
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{figures/software/hybrid_layers_cloud.png}
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{4cm}FIGURE: Hybrid Intelligence Pyramid\\Layer 1: Firmware, Layer 2: Local AI, Layer 3: Cloud AI\vspace{4cm}}}
+    \caption{The three-layer hybrid intelligence model distributed across Edge and Cloud.}
+    \label{fig:hybrid-layers}
+\end{figure}
+
+\subsection{Layer 1: Reactive Control (Firmware Level)}
+The reactive layer runs on the ESP32-S3 firmware. It handles immediate threat preservation.
+\begin{itemize}
+    \item \textbf{Input}: Ultrasonic distance sensor.
+    \item \textbf{Action}: Hard E-STOP if distance $<$ 25cm.
+    \item \textbf{Latency}: $<$ 10ms.
+    \item \textbf{Reliability}: 100\% (Works even if WiFi/Host fails).
+\end{itemize}
+
+\subsection{Layer 2: Tactical Processing (Local Host)}
+The tactical layer runs on the local Mac using YOLOv8 (CoreML). It handles dynamic obstacles.
+\begin{itemize}
+    \item \textbf{Input}: Video stream (30 FPS).
+    \item \textbf{Action}: "Stop for Person", "Avoid Chair".
+    \item \textbf{Latency}: $\sim$30ms.
+    \item \textbf{Reliability}: High dependency on WiFi video stream.
+\end{itemize}
+
+\subsection{Layer 3: Strategic Planning (Cloud A100)}
+The strategic layer runs on Google Colab using Qwen2.5-VL-7B. It handles complex navigation logic.
+\begin{itemize}
+    \item \textbf{Input}: Single frame snapshot (sampled at 0.5Hz).
+    \item \textbf{Action}: "The path is blocked by debris, turn around and try the left door."
+    \item \textbf{Latency}: 500-1500ms.
+    \item \textbf{Reliability}: Subject to Internet connectivity. Fails gracefully if disconnected.
+\end{itemize}
+
+% --------------------------------------------------------
+\section{Communication Protocols}
+\label{sec:comm-protocols}
+
+The hybrid architecture introduces internet-layer communication to the stack.
+
+\begin{table}[h!]
+    \centering
+    \caption{Communication protocols by link}
+    \label{tab:protocol-overview}
+    \begin{tabular}{llll}
+        \toprule
+        \textbf{Link} & \textbf{Protocol} & \textbf{Latency} & \textbf{Data Type} \\
+        \midrule
+        Rover $\leftrightarrow$ Gateway & ESP-NOW & 2-5 ms & Commands, Telemetry \\
+        Rover $\rightarrow$ Host & UDP & 80-120 ms & MJPEG Video Stream \\
+        Gateway $\leftrightarrow$ Host & USB Serial & 5 ms & Bridge Data \\
+        Host $\leftrightarrow$ Cloud & HTTP (ngrok) & 200-500 ms & JSON Request/Response \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Cloud Link (HTTP over ngrok)}
+The Host communicates with the Cloud Server using standard HTTP POST requests securely tunneled via \texttt{ngrok}. The Host sends a JPEG image and prompts; the Cloud returns a JSON object with navigation instructions. This request-response cycle occurs asynchronously to avoid blocking the real-time control loop.
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=\textwidth]{figures/software/hybrid_data_flow.png}
+    \fbox{\parbox{\textwidth}{\centering\vspace{4cm}FIGURE: Hybrid Data Flow\\Shows local high-speed loop vs. remote low-speed loop\vspace{4cm}}}
+    \caption{Data flow diagram comparing the high-frequency local control loop and the low-frequency cloud analysis loop.}
+    \label{fig:hybrid-flow}
+\end{figure}
+
+\section{Failure Modes and Recovery}
+
+The introduction of a Cloud dependency adds a specific failure mode: Internet Disconnection.
+
+\begin{table}[h!]
+    \centering
+    \caption{Hybrid Failure Matrix}
+    \label{tab:hybrid-failure}
+    \begin{tabular}{lp{5cm}p{5cm}}
+        \toprule
+        \textbf{Failure} & \textbf{Impact} & \textbf{Recovery} \\
+        \midrule
+        Local WiFi Loss & Video/Control lost & Rover stops (Heartbeat failsafe) \\
+        Internet Loss & Strategic IQ lost & Fallback to "Tactical Only" mode (YOLO remains active) \\
+        Cloud Latency Spike & Old commands & Arbiter ignores stale Cloud commands ($>$ 2s old) \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The design ensures that \textbf{internet loss does not compromise safety}. The Rover can still be controlled manually or stop automatically for obstacles via Layer 1/2, even if the "Brain" (Layer 3) is offline.

@@ -1,0 +1,197 @@
+\contentsline {chapter}{Declaration}{i}{chapter*.1}%
+\contentsline {chapter}{Abstract}{iii}{chapter*.2}%
+\contentsline {chapter}{Acknowledgments}{v}{chapter*.3}%
+\contentsline {chapter}{List of Figures}{xv}{chapter*.5}%
+\contentsline {chapter}{List of Tables}{xvii}{chapter*.6}%
+\contentsline {chapter}{List of Abbreviations}{xviii}{chapter*.7}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Problem Statement}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Challenges in Rescue Robotics}{1}{subsection.1.1.1}%
+\contentsline {section}{\numberline {1.2}Project Objectives}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Primary Objectives}{3}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Secondary Objectives}{3}{subsection.1.2.2}%
+\contentsline {section}{\numberline {1.3}Scope and Constraints}{3}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}What This Project Covers}{3}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}What This Project Does Not Cover}{4}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Design Constraints}{4}{subsection.1.3.3}%
+\contentsline {section}{\numberline {1.4}Methodology}{4}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Development Phases}{5}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Testing Strategy}{5}{subsection.1.4.2}%
+\contentsline {section}{\numberline {1.5}Related Work}{6}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Commercial Rescue Robots}{6}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Academic Research}{6}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}Open Source Projects}{7}{subsection.1.5.3}%
+\contentsline {section}{\numberline {1.6}Contributions}{7}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Report Organization}{8}{section.1.7}%
+\contentsline {chapter}{\numberline {2}System Architecture}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Architectural Overview}{9}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Device Specifications Summary}{10}{subsection.2.1.1}%
+\contentsline {section}{\numberline {2.2}Hybrid Intelligence Model}{10}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Layer 1: Reactive Control (Firmware Level)}{11}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Layer 2: Tactical Processing (Local Host)}{11}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Layer 3: Strategic Planning (Cloud A100)}{12}{subsection.2.2.3}%
+\contentsline {section}{\numberline {2.3}Communication Protocols}{12}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Cloud Link (HTTP over ngrok)}{12}{subsection.2.3.1}%
+\contentsline {section}{\numberline {2.4}Failure Modes and Recovery}{12}{section.2.4}%
+\contentsline {chapter}{\numberline {3}Mechanical \& Electrical Design}{14}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Design Philosophy}{14}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Chassis Design}{14}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Platform Selection}{14}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Track Configuration}{15}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Component Mounting}{16}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Main Controller: ESP32-S3}{17}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Chip Specifications}{17}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Development Board Selection}{17}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}PSRAM Importance}{18}{subsection.3.3.3}%
+\contentsline {section}{\numberline {3.4}Camera System}{19}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}OV2640 Sensor}{19}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Resolution Selection}{19}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Lens and Field of View}{20}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Camera Mounting}{21}{subsection.3.4.4}%
+\contentsline {section}{\numberline {3.5}Motor Control System}{21}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}DC Gear Motors}{22}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}L298N Motor Driver}{22}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}L298N vs TB6612FNG}{23}{subsection.3.5.3}%
+\contentsline {section}{\numberline {3.6}Power Distribution}{24}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Battery Selection}{25}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Power Budget}{25}{subsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.6.3}Voltage Regulation}{26}{subsection.3.6.3}%
+\contentsline {section}{\numberline {3.7}Ultrasonic Distance Sensor}{26}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}HC-SR04 Specifications}{27}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}Mounting Position}{27}{subsection.3.7.2}%
+\contentsline {subsection}{\numberline {3.7.3}Level Shifting}{28}{subsection.3.7.3}%
+\contentsline {section}{\numberline {3.8}Wiring and Interconnections}{29}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}Complete Wiring Diagram}{29}{subsection.3.8.1}%
+\contentsline {subsection}{\numberline {3.8.2}Wire Color Convention}{29}{subsection.3.8.2}%
+\contentsline {section}{\numberline {3.9}Assembly Process}{29}{section.3.9}%
+\contentsline {subsection}{\numberline {3.9.1}Assembly Steps}{30}{subsection.3.9.1}%
+\contentsline {subsection}{\numberline {3.9.2}Testing Procedure}{31}{subsection.3.9.2}%
+\contentsline {chapter}{\numberline {4}Embedded Firmware Design}{33}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Firmware Architecture Overview}{33}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Module Responsibilities}{34}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Memory Layout}{34}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Camera Module Implementation}{35}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Hardware Configuration}{35}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Initialization Sequence}{37}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Streaming Modes}{37}{subsection.4.2.3}%
+\contentsline {subsubsection}{HTTP MJPEG Streaming}{37}{subsection.4.2.3}%
+\contentsline {subsubsection}{UDP Streaming}{39}{figure.caption.63}%
+\contentsline {section}{\numberline {4.3}Motor Control Implementation}{40}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Differential Drive Model}{41}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}L298N Driver Interface}{41}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Pin Assignment}{42}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Turning Mechanics}{43}{subsection.4.3.4}%
+\contentsline {section}{\numberline {4.4}ESP-NOW Communication Module}{44}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Protocol Overview}{44}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Packet Structures}{44}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Receive Callback Design}{45}{subsection.4.4.3}%
+\contentsline {subsection}{\numberline {4.4.4}Telemetry Transmission}{46}{subsection.4.4.4}%
+\contentsline {section}{\numberline {4.5}Safety Mechanisms}{47}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Heartbeat Failsafe}{47}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Ultrasonic Obstacle Detection}{48}{subsection.4.5.2}%
+\contentsline {subsection}{\numberline {4.5.3}Unified Control Loop}{50}{subsection.4.5.3}%
+\contentsline {section}{\numberline {4.6}Main Loop Structure}{52}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Compilation and Deployment}{52}{section.4.7}%
+\contentsline {chapter}{\numberline {5}AI \& Software Design}{54}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Host Application Architecture}{54}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Tech Stack Changes for Hybrid Cloud}{54}{subsection.5.1.1}%
+\contentsline {section}{\numberline {5.2}Computer Vision Layer (Local)}{55}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}YOLOv8 Integration}{55}{subsection.5.2.1}%
+\contentsline {section}{\numberline {5.3}Vision Language Model Integration (Cloud)}{55}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Cloud Architecture}{56}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Client Implementation}{56}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Prompt Engineering for Navigation}{57}{subsection.5.3.3}%
+\contentsline {section}{\numberline {5.4}Command Arbitration}{57}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Dashboard \& Telemetry}{58}{section.5.5}%
+\contentsline {chapter}{\numberline {6}Testing \& Experimental Results}{59}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Testing Methodology}{59}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Test Environment}{59}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Test Equipment}{59}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Test Categories}{59}{subsection.6.1.3}%
+\contentsline {section}{\numberline {6.2}Communication Performance}{60}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Command Latency Measurement}{61}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Video Streaming Latency}{61}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Packet Loss}{62}{subsection.6.2.3}%
+\contentsline {section}{\numberline {6.3}Video Quality Assessment}{63}{section.6.3}%
+\contentsline {subsection}{\numberline {6.3.1}Frame Rate Measurement}{63}{subsection.6.3.1}%
+\contentsline {subsection}{\numberline {6.3.2}JPEG Quality vs Size Trade-off}{63}{subsection.6.3.2}%
+\contentsline {section}{\numberline {6.4}Motor Control Performance}{65}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Command Response Time}{65}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Movement Accuracy}{65}{subsection.6.4.2}%
+\contentsline {subsection}{\numberline {6.4.3}Turning Radius}{66}{subsection.6.4.3}%
+\contentsline {section}{\numberline {6.5}Object Detection Performance}{67}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Test Dataset}{67}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Detection Accuracy}{67}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Inference Speed}{67}{subsection.6.5.3}%
+\contentsline {section}{\numberline {6.6}Obstacle Avoidance Testing}{69}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Distance Accuracy}{69}{subsection.6.6.1}%
+\contentsline {subsection}{\numberline {6.6.2}Collision Avoidance Success Rate}{69}{subsection.6.6.2}%
+\contentsline {section}{\numberline {6.7}Power and Thermal Performance}{70}{section.6.7}%
+\contentsline {subsection}{\numberline {6.7.1}Battery Life}{70}{subsection.6.7.1}%
+\contentsline {subsection}{\numberline {6.7.2}Thermal Performance}{71}{subsection.6.7.2}%
+\contentsline {section}{\numberline {6.8}Cloud VLM Integration Challenges}{71}{section.6.8}%
+\contentsline {subsection}{\numberline {6.8.1}vLLM Prompt Format Errors}{71}{subsection.6.8.1}%
+\contentsline {subsection}{\numberline {6.8.2}Colab Runtime Instability}{72}{subsection.6.8.2}%
+\contentsline {subsection}{\numberline {6.8.3}Legacy Frontend Debugging}{72}{subsection.6.8.3}%
+\contentsline {subsection}{\numberline {6.8.4}vLLM EngineCore Crash (Resolved)}{73}{subsection.6.8.4}%
+\contentsline {section}{\numberline {6.9}Summary of Results}{73}{section.6.9}%
+\contentsline {chapter}{\numberline {7}Conclusion \& Future Work}{75}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Summary of Achievements}{75}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Primary Objective Outcomes}{75}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}Secondary Objective Outcomes}{76}{subsection.7.1.2}%
+\contentsline {subsection}{\numberline {7.1.3}Project Metrics}{76}{subsection.7.1.3}%
+\contentsline {section}{\numberline {7.2}Technical Achievements}{76}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Split-Brain AI Architecture}{77}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Asynchronous Cloud Link}{77}{subsection.7.2.2}%
+\contentsline {section}{\numberline {7.3}Lessons Learned}{77}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Edge Compute Limits}{77}{subsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.3.2}UDP vs HTTP Trade-offs}{77}{subsection.7.3.2}%
+\contentsline {subsection}{\numberline {7.3.3}Secure Tunneling}{77}{subsection.7.3.3}%
+\contentsline {section}{\numberline {7.4}Limitations}{78}{section.7.4}%
+\contentsline {subsection}{\numberline {7.4.1}Internet Dependency}{78}{subsection.7.4.1}%
+\contentsline {subsection}{\numberline {7.4.2}Single Sensor Blind Spots}{78}{subsection.7.4.2}%
+\contentsline {section}{\numberline {7.5}Future Work}{78}{section.7.5}%
+\contentsline {subsection}{\numberline {7.5.1}Short-term Improvements}{78}{subsection.7.5.1}%
+\contentsline {subsection}{\numberline {7.5.2}Long-term Vision}{78}{subsection.7.5.2}%
+\contentsline {section}{\numberline {7.6}Closing Statement}{78}{section.7.6}%
+\contentsline {chapter}{\numberline {A}Pinout Tables}{79}{appendix.A}%
+\contentsline {section}{\numberline {A.1}ESP32-S3 Camera Pin Configuration}{79}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Motor Driver Pin Configuration}{79}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Sensor Pin Configuration}{79}{section.A.3}%
+\contentsline {section}{\numberline {A.4}Complete GPIO Summary}{79}{section.A.4}%
+\contentsline {chapter}{\numberline {B}Circuit Diagrams}{82}{appendix.B}%
+\contentsline {section}{\numberline {B.1}System Wiring Overview}{82}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Power Distribution Schematic}{82}{section.B.2}%
+\contentsline {subsection}{\numberline {B.2.1}Power Flow}{82}{subsection.B.2.1}%
+\contentsline {section}{\numberline {B.3}Motor Driver Connections}{83}{section.B.3}%
+\contentsline {subsection}{\numberline {B.3.1}L298N Wiring Notes}{83}{subsection.B.3.1}%
+\contentsline {section}{\numberline {B.4}Camera Module Connections}{83}{section.B.4}%
+\contentsline {subsection}{\numberline {B.4.1}Camera Cable Pinout}{83}{subsection.B.4.1}%
+\contentsline {section}{\numberline {B.5}Sensor Connections}{83}{section.B.5}%
+\contentsline {subsection}{\numberline {B.5.1}Ultrasonic Sensor (HC-SR04)}{83}{subsection.B.5.1}%
+\contentsline {subsection}{\numberline {B.5.2}Battery Voltage Monitor}{84}{subsection.B.5.2}%
+\contentsline {chapter}{\numberline {C}Source Code Snippets}{85}{appendix.C}%
+\contentsline {section}{\numberline {C.1}ESP32-S3 Firmware}{85}{section.C.1}%
+\contentsline {subsection}{\numberline {C.1.1}Main Sketch (RescueRobot.ino)}{85}{subsection.C.1.1}%
+\contentsline {subsection}{\numberline {C.1.2}Camera Initialization}{86}{subsection.C.1.2}%
+\contentsline {section}{\numberline {C.2}Python Gateway/Dashboard}{87}{section.C.2}%
+\contentsline {subsection}{\numberline {C.2.1}Frame Buffer Class}{87}{subsection.C.2.1}%
+\contentsline {subsection}{\numberline {C.2.2}YOLOv8 Processor}{88}{subsection.C.2.2}%
+\contentsline {subsection}{\numberline {C.2.3}NiceGUI Dashboard}{89}{subsection.C.2.3}%
+\contentsline {section}{\numberline {C.3}ESP-NOW Communication}{90}{section.C.3}%
+\contentsline {chapter}{\numberline {D}User Manual}{92}{appendix.D}%
+\contentsline {section}{\numberline {D.1}Quick Start Guide}{92}{section.D.1}%
+\contentsline {subsection}{\numberline {D.1.1}Hardware Setup}{92}{subsection.D.1.1}%
+\contentsline {subsection}{\numberline {D.1.2}Software Setup}{92}{subsection.D.1.2}%
+\contentsline {section}{\numberline {D.2}Dashboard Interface}{93}{section.D.2}%
+\contentsline {subsection}{\numberline {D.2.1}Interface Components}{93}{subsection.D.2.1}%
+\contentsline {section}{\numberline {D.3}Firmware Upload}{93}{section.D.3}%
+\contentsline {subsection}{\numberline {D.3.1}Requirements}{93}{subsection.D.3.1}%
+\contentsline {subsection}{\numberline {D.3.2}Arduino IDE Setup}{93}{subsection.D.3.2}%
+\contentsline {section}{\numberline {D.4}Troubleshooting}{94}{section.D.4}%
+\contentsline {subsection}{\numberline {D.4.1}Common Issues}{94}{subsection.D.4.1}%
+\contentsline {subsection}{\numberline {D.4.2}LED Status Indicators}{95}{subsection.D.4.2}%
+\contentsline {section}{\numberline {D.5}Safety Guidelines}{95}{section.D.5}%
+\contentsline {section}{\numberline {D.6}Maintenance}{95}{section.D.6}%
+\contentsline {subsection}{\numberline {D.6.1}Regular Maintenance Checklist}{95}{subsection.D.6.1}%
+\contentsline {chapter}{References}{96}{Item.58}%

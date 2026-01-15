@@ -1,0 +1,62 @@
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {1.1}{\ignorespaces Project constraints}}{5}{table.caption.11}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces Device roles and capabilities}}{10}{table.caption.16}%
+\contentsline {table}{\numberline {2.2}{\ignorespaces Communication protocols by link}}{12}{table.caption.18}%
+\contentsline {table}{\numberline {2.3}{\ignorespaces Hybrid Failure Matrix}}{13}{table.caption.20}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Chassis specifications}}{15}{table.caption.22}%
+\contentsline {table}{\numberline {3.2}{\ignorespaces ESP32-S3 technical specifications}}{18}{table.caption.26}%
+\contentsline {table}{\numberline {3.3}{\ignorespaces ESP32-S3 development board comparison}}{18}{table.caption.28}%
+\contentsline {table}{\numberline {3.4}{\ignorespaces OV2640 camera sensor specifications}}{20}{table.caption.30}%
+\contentsline {table}{\numberline {3.5}{\ignorespaces Resolution trade-offs}}{20}{table.caption.32}%
+\contentsline {table}{\numberline {3.6}{\ignorespaces Motor specifications}}{22}{table.caption.36}%
+\contentsline {table}{\numberline {3.7}{\ignorespaces L298N specifications}}{23}{table.caption.38}%
+\contentsline {table}{\numberline {3.8}{\ignorespaces Motor driver comparison}}{24}{table.caption.40}%
+\contentsline {table}{\numberline {3.9}{\ignorespaces Battery specifications}}{25}{table.caption.42}%
+\contentsline {table}{\numberline {3.10}{\ignorespaces System power budget}}{26}{table.caption.44}%
+\contentsline {table}{\numberline {3.11}{\ignorespaces Ultrasonic sensor specifications}}{27}{table.caption.47}%
+\contentsline {table}{\numberline {3.12}{\ignorespaces Wire color coding standard}}{30}{table.caption.52}%
+\contentsline {table}{\numberline {3.13}{\ignorespaces Post-assembly test checklist}}{31}{table.caption.55}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces ESP32-S3 memory regions and their usage in the firmware}}{35}{table.caption.59}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Comparison of streaming modes}}{40}{table.caption.65}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Motor driver pin assignment}}{42}{table.caption.68}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Safety mechanism summary}}{52}{table.caption.76}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Arduino IDE board configuration}}{53}{table.caption.78}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Software components and roles}}{54}{table.caption.81}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Local vs Cloud VLM Comparison}}{56}{table.caption.82}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {6.1}{\ignorespaces Test and measurement equipment}}{60}{table.caption.86}%
+\contentsline {table}{\numberline {6.2}{\ignorespaces Command latency statistics (N=1000 samples)}}{61}{table.caption.87}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces Video latency by streaming mode}}{62}{table.caption.89}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces Packet loss rates at various distances}}{62}{table.caption.91}%
+\contentsline {table}{\numberline {6.5}{\ignorespaces Measured frame rates}}{63}{table.caption.93}%
+\contentsline {table}{\numberline {6.6}{\ignorespaces JPEG quality settings comparison}}{64}{table.caption.95}%
+\contentsline {table}{\numberline {6.7}{\ignorespaces Motor response time}}{65}{table.caption.97}%
+\contentsline {table}{\numberline {6.8}{\ignorespaces Movement accuracy measurements}}{65}{table.caption.99}%
+\contentsline {table}{\numberline {6.9}{\ignorespaces Turning characteristics}}{66}{table.caption.100}%
+\contentsline {table}{\numberline {6.10}{\ignorespaces Test dataset composition}}{67}{table.caption.102}%
+\contentsline {table}{\numberline {6.11}{\ignorespaces YOLOv8n detection metrics}}{67}{table.caption.103}%
+\contentsline {table}{\numberline {6.12}{\ignorespaces YOLOv8n inference timing}}{68}{table.caption.105}%
+\contentsline {table}{\numberline {6.13}{\ignorespaces Ultrasonic sensor accuracy}}{69}{table.caption.107}%
+\contentsline {table}{\numberline {6.14}{\ignorespaces Collision avoidance results}}{70}{table.caption.109}%
+\contentsline {table}{\numberline {6.15}{\ignorespaces Battery runtime results}}{70}{table.caption.110}%
+\contentsline {table}{\numberline {6.16}{\ignorespaces Steady state component temperatures}}{71}{table.caption.112}%
+\contentsline {table}{\numberline {6.17}{\ignorespaces Summary of debugging issues}}{73}{table.caption.114}%
+\contentsline {table}{\numberline {6.18}{\ignorespaces Summary of key performance metrics}}{74}{table.caption.115}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {7.1}{\ignorespaces Final project metrics}}{76}{table.caption.116}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {A.1}{\ignorespaces OV2640 Camera to ESP32-S3 Pin Mapping}}{79}{table.caption.118}%
+\contentsline {table}{\numberline {A.2}{\ignorespaces L298N Motor Driver Pin Mapping}}{80}{table.caption.119}%
+\contentsline {table}{\numberline {A.3}{\ignorespaces Ultrasonic Sensor (HC-SR04) Pin Mapping}}{80}{table.caption.120}%
+\contentsline {table}{\numberline {A.4}{\ignorespaces Battery Voltage Monitor}}{80}{table.caption.121}%
+\contentsline {table}{\numberline {A.5}{\ignorespaces ESP32-S3 GPIO Allocation Summary}}{81}{table.caption.122}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {B.1}{\ignorespaces OV2640 Module Connector Pinout}}{83}{table.caption.123}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {D.1}{\ignorespaces Troubleshooting guide}}{94}{table.caption.124}%
+\contentsline {table}{\numberline {D.2}{\ignorespaces LED status meanings}}{95}{table.caption.125}%

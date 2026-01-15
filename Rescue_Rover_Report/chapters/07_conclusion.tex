@@ -1,0 +1,124 @@
+% chapters/07_conclusion.tex - Chapter 7: Conclusion & Future Work
+% =================================================================
+
+\chapter{Conclusion \& Future Work}
+\label{chap:conclusion}
+
+This chapter summarizes the achievements of the Rescue Rover project, reflects on lessons learned during the pivot to a hybrid cloud architecture, and outlines potential directions for future enhancement.
+
+% --------------------------------------------------------
+\section{Summary of Achievements}
+\label{sec:achievements}
+
+The project successfully delivered a functional prototype that meets or exceeds all primary objectives, demonstrating a novel "Split-Brain" architecture that leverages both Edge and Cloud resources.
+
+\subsection{Primary Objective Outcomes}
+
+\textbf{Remote video operation}: The system streams live video from the rover camera to the operator dashboard with measured latency of 85 milliseconds using UDP. This exceeds the 200 millisecond target.
+
+\textbf{Reliable motor control}: The rover responds to operator commands with 28 millisecond average latency. The implementation of deferred motor actuation eliminated early race conditions.
+
+\textbf{Hybrid Intelligence}: The system successfully integrates two distinct AI models working in concert:
+\begin{itemize}
+    \item \textbf{Safety Layer (Edge)}: YOLOv8 runs locally on the Mac to detect people and obstacles in real-time ($<$30ms), ensuring immediate safety stops.
+    \item \textbf{Strategic Layer (Cloud)}: Qwen2.5-VL runs on a remote A100 GPU to provide high-level scene understanding and path planning, a capability impossible on local hardware alone.
+\end{itemize}
+
+\subsection{Secondary Objective Outcomes}
+
+\textbf{Telemetry monitoring}: Battery voltage and ultrasonic distance readings display on the dashboard with distinct "Cloud Connection" status indicators.
+
+\textbf{Mission logging}: All operator actions and AI detections (both local and cloud-based) are logged with timestamps for post-mission review.
+
+\subsection{Project Metrics}
+
+\begin{table}[h!]
+    \centering
+    \caption{Final project metrics}
+    \label{tab:project-metrics}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Metric} & \textbf{Value} \\
+        \midrule
+        Total development time     & 14 weeks \\
+        Lines of C++ firmware      & 727 \\
+        Lines of Python            & 850 \\
+        Hardware budget            & \$87 USD \\
+        Cloud Resource             & Google Colab (free tier/Pro) \\
+        Battery runtime            & 2.3 hours (driving) \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{figures/hardware/final_prototype.jpg}
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{4cm}FIGURE: Final Prototype Photograph\\Show completed rover from multiple angles\vspace{4cm}}}
+    \caption{The completed Rescue Rover prototype.}
+    \label{fig:final-prototype}
+\end{figure}
+
+% --------------------------------------------------------
+\section{Technical Achievements}
+\label{sec:technical-achievements}
+
+Beyond meeting the specified objectives, the project made several technical contributions worth highlighting.
+
+\subsection{Split-Brain AI Architecture}
+
+The most significant achievement is the successful implementation of a split-brain architecture. By decoupling safety reflexes (Local YOLO) from intelligence (Cloud VLM), the system achieves the "best of both worlds": the low latency of edge computing and the reasoning power of data center GPUs. This solves the classic "Smart but Slow" vs "Fast but Dumb" dilemma in mobile robotics.
+
+\subsection{Asynchronous Cloud Link}
+
+The non-blocking design of the cloud client ensures that network latency never impacts local control. Even if the cloud server hangs or the internet drops, the rover maintains its 30Hz local safety loop. This "Safety Supremacy" principle is critical for real-world deployment.
+
+% --------------------------------------------------------
+\section{Lessons Learned}
+\label{sec:lessons-learned}
+
+Several challenges during development provided valuable learning experiences.
+
+\subsection{Edge Compute Limits}
+
+Initial attempts to run a VLM locally (Moondream2) alongside video streaming resulted in severe thermal throttling and system instability. The lesson: Mobile robots should offload heavy reasoning to the cloud rather than compromising local stability.
+
+\subsection{UDP vs HTTP Trade-offs}
+
+We initially used HTTP streaming for simplicity. Switching to UDP reduced latency by 80 milliseconds. The lesson: measure baseline performance early and switch protocols if targets are not met.
+
+\subsection{Secure Tunneling}
+
+Exposing local servers to the cloud required robust tunneling. Tools like ngrok proved essential for bridging the gap between a local rover and a cloud-based GPU without complex VPN configurations.
+
+% --------------------------------------------------------
+\section{Limitations}
+\label{sec:limitations}
+
+\subsection{Internet Dependency}
+While safety is guaranteed locally, the "High IQ" strategic navigation requires an active internet connection. In RF-denied environments (e.g., deep underground), the rover degrades to a "dumb" manual vehicle.
+
+\subsection{Single Sensor Blind Spots}
+The single forward-facing ultrasonic sensor creates blind spots. Objects to the side can be missed if the camera does not see them first.
+
+% --------------------------------------------------------
+\section{Future Work}
+\label{sec:future-work}
+
+\subsection{Short-term Improvements}
+\begin{itemize}
+    \item \textbf{Offline VLM Fallback}: Implement a smaller, quantized VLM (e.g., Phi-3-Vision) to run locally when the cloud connection is lost.
+    \item \textbf{Audio Two-Way}: Leverage the cloud connection to stream audio, allowing the operator to speak to victims via the rover.
+\end{itemize}
+
+\subsection{Long-term Vision}
+\begin{itemize}
+    \item \textbf{Multi-Rover Swarm}: A single cloud brain could coordinate multiple rovers, sharing a unified map and strategic plan.
+    \item \textbf{Starlink Integration}: To solve the connectivity issue in disaster zones, integrating satellite internet would provide true global coverage.
+\end{itemize}
+
+% --------------------------------------------------------
+\section{Closing Statement}
+\label{sec:closing}
+
+The Rescue Rover demonstrates that high-end AI capabilities are accessible to low-cost robotic platforms through hybrid cloud architectures. By treating the cloud as a "cognitive co-processor," even an \$87 robot can exhibit advanced reasoning behaviors, paving the way for smarter, more accessible search and rescue tools.

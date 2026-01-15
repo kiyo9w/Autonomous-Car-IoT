@@ -1,0 +1,244 @@
+% chapters/01_introduction.tex - Chapter 1: Introduction
+% ========================================================
+
+\chapter{Introduction}
+\label{chap:introduction}
+
+Search and rescue operations in disaster environments present extreme challenges for human responders. Collapsed buildings, toxic gases, and unstable structures create conditions where sending people is dangerous or impossible. Small robotic platforms offer an alternative for initial reconnaissance and victim location. This thesis presents the design and implementation of a low cost autonomous rescue rover capable of remote operation and basic AI assisted navigation.
+
+% --------------------------------------------------------
+\section{Problem Statement}
+\label{sec:problem-statement}
+
+After earthquakes, building collapses, or industrial accidents, first responders must quickly assess the situation and locate survivors. Human access to damaged structures carries significant risk. Aftershocks can trigger secondary collapses. Dust and debris create respiratory hazards. Confined spaces limit visibility and mobility.
+
+Commercially available rescue robots exist, but their costs range from tens of thousands to hundreds of thousands of dollars. This price point places them beyond reach for most local emergency services, particularly in developing regions. A need exists for low cost platforms that can perform basic reconnaissance using readily available components.
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{figures/hardware/disaster_scene.jpg}
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{4cm}FIGURE: Post-disaster Scene\\Shows collapsed structure with rubble and confined spaces\vspace{4cm}}}
+    \caption{Typical post-disaster environment where robotic reconnaissance would be valuable.}
+    \label{fig:disaster-scene}
+\end{figure}
+
+\subsection{Challenges in Rescue Robotics}
+
+Rescue environments present specific technical challenges that distinguish them from other mobile robotics applications.
+
+\textbf{Unpredictable terrain} includes rubble, debris, inclines, and gaps. Wheeled platforms frequently become stuck. Tracked designs offer improved traction but add mechanical complexity.
+
+\textbf{Limited communications} result from building materials blocking radio signals and network infrastructure being damaged. Systems must operate with degraded connectivity and handle intermittent link loss gracefully.
+
+\textbf{Power constraints} limit mission duration. Batteries add weight, reducing payload capacity. More energy-dense batteries add cost. A balance must be struck between runtime and portability.
+
+\textbf{Situational awareness} requires more than raw sensor data. Operators viewing a camera feed may struggle to maintain orientation in unfamiliar environments. AI assistance can help by interpreting scenes and highlighting relevant details.
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=\textwidth]{figures/hardware/challenge_grid.png}
+    \fbox{\parbox{\textwidth}{\centering\vspace{3.5cm}FIGURE: Rescue Robotics Challenges\\Four-panel diagram showing terrain, comms, power, and awareness challenges\vspace{3.5cm}}}
+    \caption{The four primary challenges facing rescue robotics platforms.}
+    \label{fig:challenges}
+\end{figure}
+
+% --------------------------------------------------------
+\section{Project Objectives}
+\label{sec:objectives}
+
+This project aims to design and build a functional rescue rover prototype within academic budget constraints. The objectives are divided into primary goals and secondary goals.
+
+\subsection{Primary Objectives}
+
+\begin{enumerate}
+    \item \textbf{Remote video operation}: Stream live video from the rover to an operator station over WiFi. The operator should see what the rover sees with acceptable latency (under 200 milliseconds).
+    
+    \item \textbf{Reliable motor control}: Respond to operator commands with predictable behavior. Forward, backward, left turn, and right turn movements must function consistently.
+    
+    \item \textbf{Basic obstacle avoidance}: Detect obstacles directly ahead using ultrasonic sensing. Automatically prevent forward movement when an obstacle is too close.
+    
+    \item \textbf{Object detection}: Use computer vision to identify people and common objects in the video stream. Display detection results to the operator in real time.
+\end{enumerate}
+
+\subsection{Secondary Objectives}
+
+\begin{enumerate}
+    \item \textbf{Scene understanding}: Integrate a Vision Language Model to interpret what the camera sees and suggest navigation actions.
+    
+    \item \textbf{Telemetry monitoring}: Display battery voltage and connection status to the operator.
+    
+    \item \textbf{Mission logging}: Record operator actions and AI observations for post-mission review.
+\end{enumerate}
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.7\textwidth]{figures/software/objectives_diagram.png}
+    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}FIGURE: Objectives Hierarchy\\Shows primary and secondary objectives in structured layout\vspace{3cm}}}
+    \caption{Project objectives organized by priority.}
+    \label{fig:objectives}
+\end{figure}
+
+% --------------------------------------------------------
+\section{Scope and Constraints}
+\label{sec:scope}
+
+\subsection{What This Project Covers}
+
+This project encompasses the complete development cycle of an integrated robotic system. The work includes mechanical assembly from commercial chassis components, electrical integration of sensors and actuators, embedded firmware development for the ESP32-S3 microcontroller, Python application development for the host computer, and integration of pre-trained AI models for detection and scene understanding.
+
+The project produces a functional prototype suitable for demonstration in controlled environments. All software is original except for standard libraries and pre-trained models.
+
+\subsection{What This Project Does Not Cover}
+
+Certain aspects lie outside the scope of this project due to time and resource constraints.
+
+\textbf{Custom mechanical design}: The chassis uses a commercially available platform. No custom frames, bodies, or mechanisms were designed or fabricated.
+
+\textbf{Custom electronics}: No printed circuit boards were designed. All electronics use development boards and modules connected with jumper wires.
+
+\textbf{AI model training}: The computer vision model (YOLOv8) and vision language model (Qwen2.5-VL) use pre-trained weights. No custom training was performed.
+
+\textbf{Outdoor operation}: The prototype is designed for indoor environments on relatively flat surfaces. Outdoor terrain, weather protection, and GPS navigation are not addressed.
+
+\textbf{Multi-robot coordination}: The system operates as a single unit. Fleet management and cooperative behaviors are not implemented.
+
+\subsection{Design Constraints}
+
+\begin{table}[h!]
+    \centering
+    \caption{Project constraints}
+    \label{tab:constraints}
+    \begin{tabular}{lp{8cm}}
+        \toprule
+        \textbf{Category} & \textbf{Constraint} \\
+        \midrule
+        Budget        & Maximum \$100 USD for all components \\
+        Timeline      & 16 weeks from concept to demonstration \\
+        Tools         & Standard hand tools only (no CNC, laser cutter, or 3D printer required) \\
+        Software      & Open source or freely available tools only \\
+        Documentation & Complete reproducibility with public information \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% --------------------------------------------------------
+\section{Methodology}
+\label{sec:methodology}
+
+The project follows an iterative development methodology with frequent testing. Rather than completing all design before implementation, working prototypes were built early and refined based on testing results.
+
+\subsection{Development Phases}
+
+\textbf{Phase 1 (Weeks 1-3): Component Selection and Procurement}. Research available microcontrollers, sensors, and chassis options. Order components with lead time consideration.
+
+\textbf{Phase 2 (Weeks 4-6): Hardware Assembly}. Assemble the chassis. Install motors and tracks. Wire power distribution and motor control circuits.
+
+\textbf{Phase 3 (Weeks 7-10): Firmware Development}. Implement camera streaming. Implement motor control. Implement ESP-NOW communication. Implement safety mechanisms.
+
+\textbf{Phase 4 (Weeks 11-13): Host Application Development}. Build the operator dashboard. Integrate video reception. Integrate serial communication. Integrate AI models.
+
+\textbf{Phase 5 (Weeks 14-16): Integration and Testing}. System integration testing. Performance measurements. Bug fixes and optimization.
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=\textwidth]{figures/charts/timeline_gantt.png}
+    \fbox{\parbox{\textwidth}{\centering\vspace{4cm}FIGURE: Project Timeline Gantt Chart\\Shows overlapping phases across 16 week period\vspace{4cm}}}
+    \caption{Project timeline showing development phases.}
+    \label{fig:gantt}
+\end{figure}
+
+\subsection{Testing Strategy}
+
+Testing occurred at three levels corresponding to the integration hierarchy.
+
+\textbf{Unit testing} verified individual modules in isolation. Motor control was tested before integration with communication. Camera streaming was tested before integration with the host application.
+
+\textbf{Integration testing} verified interactions between modules. The complete wireless chain from joystick input to motor response was tested end to end.
+
+\textbf{System testing} verified the complete system in representative scenarios. The rover was driven through obstacle courses while monitoring all telemetry.
+
+% --------------------------------------------------------
+\section{Related Work}
+\label{sec:related-work}
+
+Several research efforts and commercial products address similar problem domains. This section reviews relevant prior work.
+
+\subsection{Commercial Rescue Robots}
+
+\textbf{PackBot} by Endeavor Robotics (now part of FLIR) represents the high end of commercial rescue platforms. Deployed after the September 11 attacks and in numerous military applications, PackBot features manipulator arms, sophisticated sensors, and ruggedized construction. Unit cost exceeds \$100,000.
+
+\textbf{Throwbot} by Recon Robotics is a smaller platform designed to be thrown into buildings. Its smaller size and lower capability bring cost down to approximately \$10,000, still beyond most academic budgets.
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{figures/hardware/commercial_robots.png}
+    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3.5cm}FIGURE: Commercial Rescue Robots\\Side-by-side images of PackBot and Throwbot\vspace{3.5cm}}}
+    \caption{Commercial rescue robots: PackBot (left) and Throwbot (right).}
+    \label{fig:commercial-robots}
+\end{figure}
+
+\subsection{Academic Research}
+
+Research platforms for rescue robotics often focus on specific capabilities rather than complete systems.
+
+\textbf{Quince} developed at Chiba Institute of Technology is a snake-like robot designed for confined space navigation. Its segmented body can articulate around obstacles.
+
+\textbf{Kenaf} from the same institute uses front flippers that assist in climbing rubble piles. The bipedal flipper mechanism allows transitions between tracked locomotion and climbing gaits.
+
+\subsection{Open Source Projects}
+
+The maker community has produced several low cost robotics platforms, though few target rescue applications specifically.
+
+\textbf{ROSbot} by Husarion combines an ESP32 with ROS (Robot Operating System) integration. It provides a more sophisticated software stack than this project but at higher cost.
+
+\textbf{ESP32-CAM projects} on various hobbyist sites demonstrate camera streaming with the original ESP32-CAM module. Most lack motor control and are intended as stationary security cameras.
+
+% --------------------------------------------------------
+\section{Contributions}
+\label{sec:contributions}
+
+This project makes several contributions to the intersection of embedded systems, computer vision, and rescue robotics.
+
+\begin{enumerate}
+    \item \textbf{Complete system integration}: Unlike many projects that demonstrate individual components, this work integrates all subsystems into a functioning prototype.
+    
+    \item \textbf{Hybrid intelligence architecture}: The layered approach combining reactive firmware safety, tactical object detection, and strategic scene understanding is carefully documented.
+    
+    \item \textbf{Budget optimization}: Component selection rationale and trade-off analysis help others build similar systems within tight budgets.
+    
+    \item \textbf{Reproducible documentation}: Complete wiring diagrams, pin mappings, and source code enable others to replicate the project.
+\end{enumerate}
+
+% --------------------------------------------------------
+\section{Report Organization}
+\label{sec:report-organization}
+
+This report is organized into seven chapters plus appendices.
+
+\textbf{Chapter 2: System Architecture} presents the overall design, communication protocols, and the hybrid intelligence model.
+
+\textbf{Chapter 3: Mechanical and Electrical Design} documents the hardware components, power distribution, and physical assembly.
+
+\textbf{Chapter 4: Embedded Firmware Design} covers the ESP32-S3 firmware including camera streaming, motor control, and safety mechanisms.
+
+\textbf{Chapter 5: AI and Software Design} describes the host application, computer vision integration, and vision language model usage.
+
+\textbf{Chapter 6: Testing and Results} presents experimental measurements including latency, accuracy, and reliability tests.
+
+\textbf{Chapter 7: Conclusion and Future Work} summarizes achievements and outlines potential improvements.
+
+\textbf{Appendices} contain detailed pinout tables, circuit diagrams, source code excerpts, and the user manual.
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    % \includegraphics[width=0.7\textwidth]{figures/charts/report_structure.png}
+    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}FIGURE: Report Structure Diagram\\Shows chapter flow and dependencies\vspace{3cm}}}
+    \caption{Report structure showing the relationship between chapters.}
+    \label{fig:report-structure}
+\end{figure}

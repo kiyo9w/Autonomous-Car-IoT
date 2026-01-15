@@ -1,0 +1,57 @@
+% settings/commands.tex - Custom Commands
+% ========================================
+
+% Mathematical Notations
+\newcommand{\vect}[1]{\mathbf{#1}}           % Vector notation
+\newcommand{\mat}[1]{\mathbf{#1}}            % Matrix notation
+\newcommand{\deriv}[2]{\frac{d#1}{d#2}}      % Derivative
+\newcommand{\pderiv}[2]{\frac{\partial #1}{\partial #2}} % Partial derivative
+
+% Units and Values
+\newcommand{\unit}[1]{\,\mathrm{#1}}         % Unit formatting
+\newcommand{\Hz}{\unit{Hz}}
+\newcommand{\kHz}{\unit{kHz}}
+\newcommand{\MHz}{\unit{MHz}}
+\newcommand{\ms}{\unit{ms}}
+\newcommand{\us}{\unit{\mu s}}
+\newcommand{\V}{\unit{V}}
+\newcommand{\mA}{\unit{mA}}
+\newcommand{\mAh}{\unit{mAh}}
+
+% Code and Technical Terms
+\newcommand{\code}[1]{\texttt{#1}}           % Inline code
+\newcommand{\func}[1]{\texttt{#1()}}         % Function name
+\newcommand{\class}[1]{\texttt{#1}}          % Class name
+\newcommand{\file}[1]{\texttt{#1}}           % File name
+\newcommand{\pin}[1]{\texttt{GPIO #1}}       % GPIO pin reference
+
+% Protocol Names
+\newcommand{\espnow}{ESP-NOW}
+\newcommand{\uart}{UART}
+\newcommand{\spi}{SPI}
+\newcommand{\iic}{I\textsuperscript{2}C}
+
+% Common Abbreviations
+\newcommand{\eg}{\textit{e.g.}}
+\newcommand{\ie}{\textit{i.e.}}
+\newcommand{\etc}{\textit{etc.}}
+\newcommand{\etal}{\textit{et al.}}
+
+% Project-specific
+\newcommand{\projectname}{Rescue Rover}
+\newcommand{\espcam}{ESP32-S3}
+\newcommand{\yolo}{YOLOv8}
+\newcommand{\vlm}{Vision Language Model}
+
+% Figure shortcuts
+\newcommand{\figref}[1]{Figure~\ref{fig:#1}}
+\newcommand{\tabref}[1]{Table~\ref{tab:#1}}
+\newcommand{\secref}[1]{Section~\ref{sec:#1}}
+\newcommand{\appref}[1]{Appendix~\ref{app:#1}}
+\newcommand{\eqnref}[1]{Equation~\ref{eq:#1}}
+\newcommand{\algref}[1]{Algorithm~\ref{alg:#1}}
+
+% Highlight boxes
+\newcommand{\important}[1]{\textbf{Important:} #1}
+\newcommand{\note}[1]{\textit{Note:} #1}
+\newcommand{\warning}[1]{\textbf{Warning:} #1}
