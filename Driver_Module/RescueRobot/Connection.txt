@@ -1,0 +1,85 @@
+#include <esp_now.h>
+#include <WiFi.h>
+
+// --- CẤU HÌNH ---
+// 🔴 ĐIỀN MAC CỦA CON REMOTE (CẮM MÁY TÍNH) VÀO ĐÂY
+uint8_t remoteMAC[] = {0x78, 0x1C, 0x3C, 0xE1, 0x0F, 0x0C};
+
+// Cấu trúc phải khớp hoàn toàn với Remote
+typedef struct command_struct {
+  int x;
+  int y;
+} command_struct;
+
+typedef struct feedback_struct {
+  float voltage;
+  int distance;
+} feedback_struct;
+
+command_struct recvCommand;
+feedback_struct sendFeedback;
+esp_now_peer_info_t peerInfo;
+unsigned long lastTime = 0;
+
+// --- 1. HÀM ĐIỀU KHIỂN MOTOR ---
+void controlMotor(int x, int y) {
+  // Code điều khiển motor của bạn đặt ở đây
+  // Ví dụ: Serial.printf("Motor running: %d, %d\n", x, y);
+}
+
+// --- 2. HÀM NHẬN LỆNH (Đã sửa cho bản mới) ---
+// Tham số đầu tiên phải là 'const esp_now_recv_info_t *'
+void OnDataRecv(const esp_now_recv_info_t * info, const uint8_t *incomingData, int len) {
+  memcpy(&recvCommand, incomingData, sizeof(recvCommand));
+  
+  // In ra để kiểm tra
+  Serial.print("Nhan lenh -> X: ");
+  Serial.println(recvCommand.x);
+  
+  controlMotor(recvCommand.x, recvCommand.y);
+}
+
+// --- 3. HÀM GỬI PHẢN HỒI (Đã sửa cho bản mới) ---
+// QUAN TRỌNG: Tham số đầu tiên phải là 'const wifi_tx_info_t *' thay vì 'const uint8_t *'
+void OnDataSent(const wifi_tx_info_t *info, esp_now_send_status_t status) {
+  // Bạn có thể lấy MAC người nhận từ info->peer_addr nếu cần
+  // Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Gui OK" : "Gui Loi");
+}
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.mode(WIFI_STA);
+
+  // Khởi tạo ESP-NOW
+  if (esp_now_init() != ESP_OK) {
+    Serial.println("Error initializing ESP-NOW");
+    return;
+  }
+
+  // Đăng ký Callback (Không cần ép kiểu nữa vì hàm đã viết đúng chuẩn)
+  esp_now_register_recv_cb(OnDataRecv);
+  esp_now_register_send_cb(OnDataSent);
+
+  // Đăng ký Remote là Peer để gửi phản hồi về
+  memcpy(peerInfo.peer_addr, remoteMAC, 6);
+  peerInfo.channel = 0;  
+  peerInfo.encrypt = false;
+  
+  if (esp_now_add_peer(&peerInfo) != ESP_OK){
+    Serial.println("Failed to add peer");
+  }
+}
+
+void loop() {
+  // Cứ mỗi 1 giây (1000ms), gửi thông báo về Remote một lần
+  if (millis() - lastTime > 1000) {
+    lastTime = millis();
+    
+    // 1. Thu thập dữ liệu (Giả lập)
+    sendFeedback.voltage = 12.5; // Giả vờ pin đang 12.5V
+    sendFeedback.distance = random(10, 200); // Giả vờ khoảng cách random
+
+    // 2. Gửi về Remote
+    esp_now_send(remoteMAC, (uint8_t *) &sendFeedback, sizeof(sendFeedback));
+  }
+}
