@@ -1,13 +1,12 @@
-# app.py
+#app.py 
 
 from nicegui import ui, app
 import threading
-import asyncio
 
 from camera_reassembler import FrameBuffer
 import llm_worker
 import evidence_api
-from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 # ------------------------
 # Backend state
@@ -17,21 +16,30 @@ frame_buffer = FrameBuffer()
 mission_log = []
 
 # ------------------------
-# Serve Figma UI
+# CORS (Vite dev server)
 # ------------------------
 
-app.add_static_files('/ui', 'frontend')
-app.add_static_files('/assets', 'frontend/assets')
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# ------------------------
+# Frontend bridge (iframe)
+# ------------------------
 
 @ui.page('/')
 def root():
     ui.html('''
         <iframe
-            src="/ui/index.html"
-            style="width:100vw;height:100vh;border:none;"
+            src="http://localhost:3000"
+            style="width:100vw;height:100vh;border:none;display:block;"
+            allow="autoplay; camera; microphone"
         ></iframe>
-    ''',
-    sanitize=False)
+    ''', sanitize=False)
 
 # ------------------------
 # API endpoints
