@@ -24,8 +24,8 @@
 // ===========================================
 
 // WiFi credentials
-const char *WIFI_SSID = "trung";
-const char *WIFI_PASS = "123567889";
+const char *WIFI_SSID = "Qua trung chien";
+const char *WIFI_PASS = "12345678";
 
 // Chế độ streaming: true = UDP (nhanh, production), false = HTTP (dễ debug)
 // HTTP mode: Access stream at http://<ESP32_IP>:81/stream in Chrome
@@ -251,8 +251,7 @@ void setup() {
 // ===========================================
 
 void loop() {
-  // 1. Unified Control Loop
-  //handleControlLoop();
+  handleControlLoop();
   // 3. Telemetry
   //handleConnection(BATTERY_VOLTAGE, currentDistance);
 }
