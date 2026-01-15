@@ -93,9 +93,11 @@ def get_telemetry():
 async def send_command(request: Request):
     data = await request.json()
     cmd = data.get('command')
+    print(f"🎮 /api/command received: {cmd}", flush=True)  # DEBUG
     
     if cmd:
         success = serial_manager.send_command(cmd)
+        print(f"🎮 Command result: {'✅' if success else '❌'}", flush=True)  # DEBUG
         
         log_entry = {
             'command': cmd,
