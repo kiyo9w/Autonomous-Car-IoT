@@ -18,8 +18,17 @@ import time
 # ------------------------
 
 # Initialize FrameBuffer (Video)
+# Argument parsing for Rover IP
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('--ip', default='172.20.10.2', help='Rover IP address') # Default to user provided IP
+args, _ = parser.parse_known_args()
+
 # Initialize FrameBuffer (Video)
-frame_buffer = FrameBuffer(mode='udp', port=9999) # 🚀 UDP Input from Rover
+# Using HTTP mode to support multi-client proxying via this backend
+stream_url = f"http://{args.ip}/stream"
+print(f"🚀 CONNECTING TO ROVER CAMERA AT: {stream_url}")
+frame_buffer = FrameBuffer(mode='http', http_url=stream_url)
 
 # Initialize SerialManager (Control)
 # Auto-detects port, but prefers /dev/cu.usbserial-0001 if available
@@ -109,6 +118,12 @@ async def fetch_evidence():
     await evidence_api.request_manifest()
     return {'ok': True}
 
+@app.get('/api/ai_status')
+def get_ai_status():
+    if 'ai_worker' in globals():
+        return ai_worker.get_status()
+    return {'enabled': False, 'running': False, 'message': 'AI Worker not initialized'}
+
 # ------------------------
 # Background workers
 # ------------------------
@@ -118,11 +133,19 @@ def start_workers():
     serial_manager.start()
 
     # 2. Start LLM Worker
-    threading.Thread(
-        target=llm_worker.loop,
-        args=(frame_buffer, mission_log, serial_manager), # Pass serial_manager for AI control
-        daemon=True
-    ).start()
+    # 2. Start AI Worker (Tactical + Strategic)
+    # Using the class-based worker that actually runs the AI logic
+    from ai.command_arbiter import CommandArbiter
+    
+    # Initialize Arbiter (decides priority between AI and User)
+    arbiter = CommandArbiter(serial_manager)
+    
+    # Initialize and Start AI Worker
+    global ai_worker
+    ai_worker = llm_worker.AIWorker(frame_buffer, mission_log, arbiter)
+    ai_worker.start()
+    
+    print("✅ AI Pipeline Initialized (Tactical + Strategic)")
 
 start_workers()
 

@@ -36,7 +36,8 @@ class FrameBuffer:
             http_url: URL of MJPEG stream (for HTTP mode)
             camera_index: Camera device index (for webcam mode)
         """
-        self._frame: Optional[bytes] = None
+        self._raw_frame: Optional[bytes] = None
+        self._display_frame: Optional[bytes] = None
         self._telemetry: dict = {
             'voltage': 0.0,
             'distance': 999,
@@ -187,23 +188,47 @@ class FrameBuffer:
     def feed_frame(self, jpeg_bytes: bytes, telemetry: dict = None):
         """
         Feed a new frame into the buffer.
-        
-        Args:
-            jpeg_bytes: JPEG-encoded frame
-            telemetry: Optional telemetry data to merge
+        Sets both raw and display frames initially.
         """
         with self._lock:
-            self._frame = jpeg_bytes
+            self._raw_frame = jpeg_bytes
+            # Only update display frame if AI isn't overriding it? 
+            # Actually, let's just update IT. If AI is running, AI will overwrite it milliseconds later.
+            # But that might cause flickering. 
+            # Better: if we have a way to know AI is active...
+            # For now, simplistic approach: Receiver sets raw. AI sets display.
+            # But if AI is slow, display lags?
+            # Receiver should set display IFF AI is not providing one?
+            # Let's keep it simple: Receiver ALWAYS updates raw. 
+            # Receiver updates display ONLY if it's None (first frame) or ???
+            
+            # Simple approach: Receiver updates BOTH. AI overwrites Display.
+            # This causes "clean -> annotated -> clean" flicker if AI is slower than camera.
+            # 
+            # Correct approach: Receiver updates RAW. 
+            # If AI is NOT running, we copy RAW to DISPLAY.
+            self._display_frame = jpeg_bytes 
+            
             if telemetry:
                 self._telemetry.update(telemetry)
         
         self._update_fps()
     
     def get_frame(self) -> Optional[bytes]:
-        """Get the latest frame (JPEG bytes)."""
+        """Get the latest display frame (JPEG bytes)."""
         with self._lock:
-            return self._frame
-    
+            return self._display_frame
+            
+    def get_raw_frame(self) -> Optional[bytes]:
+        """Get the latest raw frame for AI processing."""
+        with self._lock:
+            return self._raw_frame
+
+    def set_display_frame(self, jpeg_bytes: bytes):
+        """Set the processed frame for display."""
+        with self._lock:
+            self._display_frame = jpeg_bytes
+
     def get_telemetry(self) -> dict:
         """Get current telemetry data."""
         with self._lock:

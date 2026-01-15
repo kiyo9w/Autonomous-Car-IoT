@@ -24,13 +24,14 @@
 // ===========================================
 
 // WiFi credentials
-const char *WIFI_SSID = "Qua trung chien";
-const char *WIFI_PASS = "12345678";
+const char *WIFI_SSID = "trung";
+const char *WIFI_PASS = "123567889";
 
 // Chế độ streaming: true = UDP (nhanh, production), false = HTTP (dễ debug)
 // HTTP mode: Access stream at http://<ESP32_IP>:81/stream in Chrome
 // UDP mode: Requires Python receiver, lower latency for real-time control
-const bool USE_UDP_STREAM = true; // 🌐 UDP mode for low latency
+const bool USE_UDP_STREAM =
+    false; // 🌐 HTTP mode for stability and multi-client proxy
 
 // IP máy Mac nhận video UDP (chỉ cần khi USE_UDP_STREAM = true)
 // ⚠️ QUAN TRỌNG: IP này phải cùng subnet với ESP32!

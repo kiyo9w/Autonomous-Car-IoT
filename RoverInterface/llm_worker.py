@@ -1,4 +1,70 @@
-# llm_worker.py - AI Worker Thread
+    def _tactical_loop(self):
+        """Fast loop for object detection (30Hz target)"""
+        frame_count = 0
+        start_time = time.time()
+        
+        while self._running:
+            if not self._enabled:
+                time.sleep(0.1)
+                continue
+            
+            frame_bytes = self.frame_buffer.get_raw_frame() # Get RAW
+            if frame_bytes is None:
+                time.sleep(0.033)
+                continue
+            
+            # Decode for processing
+            import cv2
+            import numpy as np
+            nparr = np.frombuffer(frame_bytes, np.uint8)
+            img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            
+            if img is None:
+                continue
+                
+            if self.tactical and self.tactical.is_ready():
+                result = self.tactical.detect(img)
+                
+                # Draw boxes
+                for det in result.detections:
+                    h, w = img.shape[:2]
+                    x1, y1, x2, y2 = det.bbox
+                    # Scale back to pixels
+                    p1 = (int(x1 * w), int(y1 * h))
+                    p2 = (int(x2 * w), int(y2 * h))
+                    
+                    color = (0, 0, 255) if "person" in det.class_name else (0, 255, 0)
+                    cv2.rectangle(img, p1, p2, color, 2)
+                    cv2.putText(img, f"{det.class_name} {det.confidence:.2f}", 
+                              (p1[0], p1[1]-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+
+                # Safety logic...
+                if result.should_stop:
+                    cmd = RoverCommand.stop(
+                        priority=CommandPriority.TACTICAL,
+                        source="YOLO",
+                        reason=result.stop_reason or "Obstacle detected"
+                    )
+                    self.arbiter.submit(cmd)
+                    self._log(f"🛑 TACTICAL STOP: {result.stop_reason}")
+                else:
+                    self.arbiter.clear(CommandPriority.TACTICAL)
+
+                frame_count += 1
+                self.stats['tactical_detections'] = len(result.detections)
+
+            # Update FrameBuffer with ANNOTATED frame for display
+            _, jpeg = cv2.imencode('.jpg', img)
+            self.frame_buffer.set_display_frame(jpeg.tobytes())
+            
+            # Update FPS every second
+            elapsed = time.time() - start_time
+            if elapsed >= 1.0:
+                self.stats['tactical_fps'] = frame_count / elapsed
+                frame_count = 0
+                start_time = time.time()
+            
+            time.sleep(0.033)
 """
 Background worker that runs Tactical (YOLO) and Strategic (VLM) AI layers.
 Feeds decisions to the CommandArbiter for priority-based execution.
