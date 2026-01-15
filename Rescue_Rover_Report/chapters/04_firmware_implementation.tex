@@ -13,10 +13,9 @@ The firmware running on the ESP32-S3 forms the foundation of the Rescue Rover sy
 The ESP32-S3 firmware follows a modular architecture where each hardware subsystem is encapsulated in its own compilation unit. This separation allows independent development and testing of each component before integration. The project contains five primary modules, each with a specific responsibility in the system.
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.9\textwidth]{figures/software/firmware_architecture.png}
-    \fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}FIGURE: Firmware Module Architecture Diagram\\Shows relationship between RescueRobot.ino, CameraModule, MotorDriver, ConnectionModule\vspace{3cm}}}
+    \includegraphics[width=\textwidth]{figures/software/firmware_architecture.png}
     \caption{Firmware module architecture showing the main sketch and its dependencies. The main loop coordinates all subsystems while individual modules manage their respective hardware interfaces.}
     \label{fig:firmware-architecture}
 \end{figure}
@@ -32,10 +31,9 @@ The \texttt{MotorDriver} module controls the L298N H-bridge through GPIO pins. M
 The \texttt{ConnectionModule} manages ESP-NOW bidirectional communication with the gateway. It receives joystick commands, stores them for processing by the main loop, and transmits telemetry at 2Hz. The critical design decision here is that the receive callback does not directly actuate motors. Instead it stores the command and lets the main loop apply safety checks first. This prevents race conditions between sensor readings and motor commands.
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.85\textwidth]{figures/software/module_dependencies.png}
-    \fbox{\parbox{0.85\textwidth}{\centering\vspace{2.5cm}FIGURE: Module Dependency Graph\\Shows include relationships between all firmware files\vspace{2.5cm}}}
+    \includegraphics[width=\textwidth]{figures/software/module_dependencies.png}
     \caption{Compilation dependencies between firmware modules. The main sketch includes all headers while modules only include what they need.}
     \label{fig:module-dependencies}
 \end{figure}
@@ -64,11 +62,11 @@ Camera frame buffers consume the majority of PSRAM. Each QVGA frame requires 320
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/hardware/esp32s3_memory_map.png}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{2.5cm}FIGURE: ESP32-S3 Memory Map\\Visual representation of SRAM, PSRAM, and Flash allocation\vspace{2.5cm}}}
+    \includegraphics[width=0.7\textwidth]{figures/hardware/esp32s3_memory_map.png}
     \caption{Memory allocation for the Rescue Rover firmware showing how camera buffers dominate PSRAM usage.}
     \label{fig:memory-map}
 \end{figure}
+
 
 % --------------------------------------------------------
 \section{Camera Module Implementation}
@@ -80,12 +78,121 @@ The camera module presented the most significant technical challenges during dev
 
 The OV2640 connects to the ESP32-S3 through a DVP (Digital Video Port) interface. This parallel interface uses 8 data lines (D0-D7), synchronization signals (VSYNC, HREF, PCLK), and an I2C bus for register configuration.
 
-% FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=\textwidth]{figures/hardware/camera_wiring_diagram.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{4cm}FIGURE: OV2640 Camera Wiring Diagram\\Complete wiring between camera module ribbon cable and ESP32-S3 GPIO pins\vspace{4cm}}}
-    \caption{Physical wiring between the OV2640 camera module and ESP32-S3 development board. The ribbon cable connects to a breakout board which then connects to individual GPIO pins.}
+    % Define color BEFORE starting the tikzpicture environment
+    \definecolor{gold}{HTML}{FFD700}
+
+    \begin{tikzpicture}[
+        node distance=2cm,
+        font=\sffamily\footnotesize,
+        thick,
+        % Component Styles
+        board/.style={draw=black!80, fill=white, rounded corners=4pt, drop shadow},
+        esp32/.style={board, fill=blue!10, minimum width=4cm, minimum height=8cm},
+        breakout/.style={board, fill=green!10, minimum width=2.5cm, minimum height=7cm},
+        camera/.style={board, fill=black!80, minimum width=2.5cm, minimum height=2.5cm},
+        % Pin Styles
+        pinlabel/.style={font=\sffamily\scriptsize, align=right},
+        gpiolabel/.style={font=\sffamily\scriptsize, align=left},
+        % Usage of 'gold' is now valid because it was defined above
+        headerpin/.style={circle, fill=gold, inner sep=1.5pt, draw=black!50},
+        % Wire Styles
+        wire/.style={line width=1.2pt, rounded corners=5pt},
+        pwr/.style={wire, red},
+        gnd/.style={wire, black},
+        i2c/.style={wire, orange!80!black},
+        clock/.style={wire, green!60!black},
+        data/.style={wire, blue!70!black},
+        nc/.style={wire, gray, dashed}
+    ]
+
+    % --- 1. ESP32-S3 Board (Right Side) ---
+    \node[esp32] (esp) at (8,0) {};
+    \node[above=0.2cm, font=\bfseries] at (esp.north) {ESP32-S3 Dev Board};
+
+    % Define ESP32 Pin coordinates and labels
+    % Left side headers
+    \foreach \y/\lab in {3.5/3V3, 3.0/GND, 2.0/IO10, 1.5/IO13, 0.5/IO15, 0/IO17, -0.5/IO18, -1.0/IO16, -1.5/IO14, -2.0/IO12, -2.5/IO11} {
+        \node[headerpin] (esp_l_\lab) at ($(esp.west) + (0.2, \y)$) {};
+        \node[gpiolabel, right=0.1cm of esp_l_\lab] {\lab};
+    }
+    % Right side headers
+    \foreach \y/\lab in {2.5/IO40, 2.0/IO39, 1.0/IO38, 0.5/IO47, -3.0/IO48} {
+        \node[headerpin] (esp_r_\lab) at ($(esp.east) + (-0.2, \y)$) {};
+        \node[gpiolabel, left=0.1cm of esp_r_\lab] {\lab};
+    }
+
+    % --- 2. FPC Breakout Board (Middle) ---
+    \node[breakout] (brk) at (0,0) {};
+    \node[above=0.2cm, font=\bfseries] at (brk.north) {FPC Breakout};
+
+    % Define Breakout Pin coordinates and labels
+    \foreach \y/\lab/\type in {
+        3.5/3V3/pwr, 3.0/GND/gnd, 
+        2.5/SIOD/i2c, 2.0/SIOC/i2c,
+        1.5/XCLK/clock, 1.0/PCLK/clock, 0.5/VSYNC/clock, 0.0/HREF/clock,
+        -0.5/D0/data, -1.0/D1/data, -1.5/D2/data, -2.0/D3/data, 
+        -2.5/D4/data, -3.0/D5/data, -3.5/D6/data, -4.0/D7/data,
+        -4.5/PWDN/nc, -5.0/RESET/nc
+    } {
+        \node[headerpin] (brk_\lab) at ($(brk.east) + (-0.2, \y)$) {};
+        \node[pinlabel, left=0.1cm of brk_\lab] {\lab};
+    }
+
+    % --- 3. Camera Module (Left Side) ---
+    \node[camera, left=2cm of brk] (cam) {};
+    \node[above=0.2cm, font=\bfseries, align=center] at (cam.north) {OV2640\\Module};
+    % Lens representation
+    \draw[fill=black, draw=gray, thick] (cam.center) circle (0.8cm);
+    \draw[fill=blue!10!black, draw=black] (cam.center) circle (0.3cm);
+
+    % --- Ribbon Cable Connection ---
+    \draw[line width=10pt, gray!40, shorten >=-2pt, shorten <=-2pt] (cam.east) -- (brk.west);
+    \node[font=\tiny\sffamily, color=black!60, rotate=0, align=center, fill=white, opacity=0.8] at ($(cam.east)!0.5!(brk.west)$) {24-Pin FPC\\Ribbon Cable};
+
+
+    % --- 4. Wiring Connections ---
+
+    % Power
+    \draw[pwr] (brk_3V3) -- ++(1,0) |- (esp_l_3V3);
+    \draw[gnd] (brk_GND) -- ++(0.8,0) |- (esp_l_GND);
+
+    % I2C (Control)
+    \draw[i2c] (brk_SIOD) -- ++(1.5,0) |- (esp_r_IO40);
+    \draw[i2c] (brk_SIOC) -- ++(1.7,0) |- (esp_r_IO39);
+
+    % Clocks & Sync
+    \draw[clock] (brk_XCLK) -- ++(1.2,0) |- (esp_l_IO10);
+    \draw[clock] (brk_PCLK) -- ++(1.4,0) |- (esp_l_IO13);
+    \draw[clock] (brk_VSYNC) -- ++(1.9,0) |- (esp_r_IO38);
+    \draw[clock] (brk_HREF) -- ++(2.1,0) |- (esp_r_IO47);
+
+    % Data Bus (D0-D7 mapping to Y2-Y9)
+    \draw[data] (brk_D0) -- ++(0.5,0) |- (esp_l_IO15);
+    \draw[data] (brk_D1) -- ++(0.7,0) |- (esp_l_IO17);
+    \draw[data] (brk_D2) -- ++(0.9,0) |- (esp_l_IO18);
+    \draw[data] (brk_D3) -- ++(1.1,0) |- (esp_l_IO16);
+    \draw[data] (brk_D4) -- ++(1.3,0) |- (esp_l_IO14);
+    \draw[data] (brk_D5) -- ++(1.5,0) |- (esp_l_IO12);
+    \draw[data] (brk_D6) -- ++(1.7,0) |- (esp_l_IO11);
+    \draw[data] (brk_D7) -- ++(2.3,0) |- (esp_r_IO48);
+
+    % Unused (NC) indicating software control or unconnected
+    \draw[nc, ->] (brk_PWDN) -- ++(1,0) node[right, font=\tiny] {NC};
+    \draw[nc, ->] (brk_RESET) -- ++(1,0) node[right, font=\tiny] {NC (SW Control)};
+
+    % Legend
+    \matrix [draw, fill=white, below right=0.5cm and 0cm of brk.south west, anchor=north west, nodes={font=\scriptsize, align=left}] {
+        \draw[pwr, line width=2pt] (0,0) -- (0.5,0); & \node{Power (3.3V)}; \\
+        \draw[gnd, line width=2pt] (0,0) -- (0.5,0); & \node{Ground}; \\
+        \draw[i2c, line width=2pt] (0,0) -- (0.5,0); & \node{I2C Control}; \\
+        \draw[clock, line width=2pt] (0,0) -- (0.5,0); & \node{Clocks/Sync}; \\
+        \draw[data, line width=2pt] (0,0) -- (0.5,0); & \node{Data Bus}; \\
+    };
+
+    \end{tikzpicture}
+    \caption{Physical wiring diagram illustrating the connections between the OV2640 camera module (via FPC breakout) and the ESP32-S3 development board.}
     \label{fig:camera-wiring}
 \end{figure}
 
@@ -115,7 +222,7 @@ The pin mapping was derived from the Freenove ESP32-S3 WROOM CAM board schematic
 
 Camera initialization follows a strict sequence. Any deviation results in cryptic error codes or complete failure to capture frames. We reduced the XCLK frequency from 20MHz to 10MHz after encountering intermittent initialization failures. The lower clock speed sacrifices theoretical maximum framerate but dramatically improves reliability.
 
-\begin{algorithm}[h!]
+\begin{algorithm}[H]
     \caption{Camera Initialization Sequence}
     \label{alg:camera-init-full}
     \begin{algorithmic}[1]
@@ -142,12 +249,73 @@ Camera initialization follows a strict sequence. Any deviation results in crypti
     \end{algorithmic}
 \end{algorithm}
 
-% FIGURE PLACEHOLDER
-\begin{figure}[h!]
+% FIGURE: CAMERA INITIALIZATION FLOWCHART
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/software/camera_init_flowchart.png}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}FIGURE: Camera Initialization Flowchart\\Decision tree showing PSRAM check, config, init, and error handling paths\vspace{3cm}}}
-    \caption{Flowchart for camera initialization showing fail-safe checks and configuration steps.}
+    % Define styles for flowchart symbols
+    \tikzset{
+        font=\sffamily\footnotesize,
+        base/.style = {draw=black, thick, align=center, minimum height=0.8cm},
+        startstop/.style = {base, rounded corners, fill=red!10, minimum width=2.5cm},
+        process/.style = {base, rectangle, fill=blue!10, minimum width=3.5cm, text width=3cm},
+        decision/.style = {base, diamond, fill=yellow!10, aspect=2, inner sep=0pt},
+        io/.style = {base, trapezium, trapezium left angle=70, trapezium right angle=110, fill=green!10, minimum width=3cm},
+        arrow/.style = {thick, ->, >=Latex}
+    }
+
+    \begin{tikzpicture}[node distance=1.5cm and 1cm]
+        % --- Nodes ---
+        \node (start) [startstop] {Start\\initCamera()};
+        
+        \node (check_psram) [decision, below=of start] {PSRAM\\Found?};
+        
+        \node (log_warn) [io, right=of check_psram] {Log Warning:\\"Camera may fail"};
+
+        % Combined configuration steps into one process block for clarity
+        \node (config) [process, below=2cm of check_psram] {\textbf{Configure Structure:}\\Pins, XCLK=10MHz,\\QVGA, JPEG Q30,\\2x FB in PSRAM};
+        
+        \node (call_init) [process, below=of config] {Call\\\texttt{esp\_camera\_init()}};
+        
+        \node (check_success) [decision, below=of call_init] {Init\\Success?};
+        
+        % Failure Path (Right side)
+        \node (log_err) [io, right=2cm of check_success] {Log Error Code\\\& Halt};
+        \node (end_fail) [startstop, below=of log_err] {Return False};
+
+        % Success Path (Straight down)
+        \node (get_sensor) [process, below=1.5cm of check_success] {Get Sensor Handle};
+        \node (disable_test) [process, below=of get_sensor] {Disable Test Pattern};
+        \node (log_ok) [io, below=of disable_test] {Log Success\\\& Resolution};
+        \node (end_ok) [startstop, below=of log_ok] {Return True};
+
+
+        % --- Paths ---
+        \draw [arrow] (start) -- (check_psram);
+        
+        % PSRAM Check paths
+        \draw [arrow] (check_psram) -- node[above] {No} (log_warn);
+        % Create a merge point for after the warning
+        \coordinate (merge_psram) at ($(check_psram.south)!0.5!(config.north)$);
+        \draw [arrow] (check_psram) -- node[right] {Yes} (merge_psram) -- (config);
+        \draw [arrow] (log_warn) |- (merge_psram);
+        
+        % Main Flow
+        \draw [arrow] (config) -- (call_init);
+        \draw [arrow] (call_init) -- (check_success);
+        
+        % Init Success Check paths
+        \draw [arrow] (check_success) -- node[above] {No/Error} (log_err);
+        \draw [arrow] (log_err) -- (end_fail);
+        
+        \draw [arrow] (check_success) -- node[right] {Yes/OK} (get_sensor);
+        
+        % Final Success steps
+        \draw [arrow] (get_sensor) -- (disable_test);
+        \draw [arrow] (disable_test) -- (log_ok);
+        \draw [arrow] (log_ok) -- (end_ok);
+
+    \end{tikzpicture}
+    \caption{Flowchart for camera initialization showing fail-safe checks, critical configuration steps (including the reduced 10MHz XCLK), and error handling paths.}
     \label{fig:camera-init-flow}
 \end{figure}
 
@@ -200,8 +368,7 @@ static esp_err_t stream_handler(httpd_req_t *req) {
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/software/http_stream_sequence.png}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}FIGURE: HTTP MJPEG Sequence Diagram\\Shows request/response flow between browser and ESP32-S3\vspace{3cm}}}
+    \includegraphics[width=\textwidth]{figures/software/http_stream_sequence.png}
     \caption{Sequence diagram for HTTP MJPEG streaming showing the continuous frame transmission loop.}
     \label{fig:http-sequence}
 \end{figure}
@@ -232,12 +399,58 @@ void streamFrameUDP() {
 }
 \end{lstlisting}
 
-% FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.85\textwidth]{figures/charts/http_vs_udp_latency.png}
-    \fbox{\parbox{0.85\textwidth}{\centering\vspace{3cm}FIGURE: HTTP vs UDP Latency Comparison\\Bar chart showing measured latency for both protocols\vspace{3cm}}}
-    \caption{Measured latency comparison between HTTP MJPEG and UDP streaming modes. UDP consistently shows 80ms lower latency.}
+    % --- Local Color Definitions ---
+    \definecolor{httpRed}{HTML}{D9534F}
+    \definecolor{udpGreen}{HTML}{5CB85C}
+    \definecolor{gridGray}{HTML}{E5E5E5}
+
+    \begin{tikzpicture}[font=\sffamily\footnotesize, scale=1.0]
+        % --- Setup Coordinates (Scale: Y=1ms -> 0.025cm) ---
+        % HTTP: 200ms avg, range 180-220
+        % UDP: 120ms avg, range 100-140
+        
+        % Grid and Axis
+        \draw[draw=gridGray, thin] (0,0) grid[xstep=8cm, ystep=1.25] (7, 6.25); % Grid lines every 50ms
+        
+        % Y-Axis Labels
+        \foreach \y/\label in {0/0, 1.25/50, 2.5/100, 3.75/150, 5.0/200, 6.25/250} {
+            \node[anchor=east, text=gray] at (-0.1, \y) {\label};
+        }
+        \node[rotate=90, anchor=center] at (-1.0, 3.125) {End-to-End Latency (ms)};
+
+        % X-Axis Line
+        \draw[thick] (0,0) -- (7,0);
+
+        % --- BAR 1: HTTP MJPEG ---
+        % Position x=2, Height=200ms (5.0cm)
+        \fill[fill=httpRed] (1.25, 0) rectangle (2.75, 5.0);
+        \node[below] at (2, 0) {HTTP MJPEG};
+        \node[white, font=\bfseries] at (2, 4.5) {200ms};
+        
+        % Error Bar (180ms to 220ms -> 4.5cm to 5.5cm)
+        \draw[|-|, thick] (2, 4.5) -- (2, 5.5);
+        
+        % --- BAR 2: UDP Direct ---
+        % Position x=5, Height=120ms (3.0cm)
+        \fill[fill=udpGreen] (4.25, 0) rectangle (5.75, 3.0);
+        \node[below] at (5, 0) {UDP Direct};
+        \node[white, font=\bfseries] at (5, 2.5) {120ms};
+        
+        % Error Bar (100ms to 140ms -> 2.5cm to 3.5cm)
+        \draw[|-|, thick] (5, 2.5) -- (5, 3.5);
+
+        % --- ANNOTATIONS ---
+        % Reference line from HTTP top
+        \draw[dashed, gray] (2, 5.0) -- (5, 5.0);
+        
+        % Delta arrow (from 200ms down to 120ms at x=5)
+        \draw[<->, >=stealth, thick, black] (5, 4.9) -- (5, 3.6) 
+            node[midway, right, align=left, font=\scriptsize\bfseries, xshift=2pt] {$\Delta \approx 80$ms\\Reduction};
+
+    \end{tikzpicture}
+    \caption{Measured latency comparison. Error bars indicate the jitter range (min/max) observed during testing. UDP mode provides a consistent $\approx$40\% reduction in end-to-end latency compared to the HTTP MJPEG stream.}
     \label{fig:latency-comparison}
 \end{figure}
 

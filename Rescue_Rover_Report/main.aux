@@ -75,4 +75,492 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.2.3}Layer 3: Strategic Planning (Cloud A100)}{12}{subsection.2.2.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {2.3}Communication Protocols}{12}{section.2.3}\protected@file@percent }
 \newlabel{sec:comm-protocols}{{2.3}{12}{Communication Protocols}{section.2.3}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2.2}{\ignorespaces Communication protocols by link}}{12}{table.caption.17}\protected@file@percen
+\@writefile{lot}{\contentsline {table}{\numberline {2.2}{\ignorespaces Communication protocols by link}}{12}{table.caption.17}\protected@file@percent }
+\newlabel{tab:protocol-overview}{{2.2}{12}{Communication protocols by link}{table.caption.17}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Cloud Link (HTTP over ngrok)}{12}{subsection.2.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}Failure Modes and Recovery}{12}{section.2.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Data flow diagram comparing the high-frequency local control loop and the low-frequency cloud analysis loop.}}{13}{figure.caption.18}\protected@file@percent }
+\newlabel{fig:hybrid-flow}{{2.3}{13}{Data flow diagram comparing the high-frequency local control loop and the low-frequency cloud analysis loop}{figure.caption.18}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2.3}{\ignorespaces Hybrid Failure Matrix}}{13}{table.caption.19}\protected@file@percent }
+\newlabel{tab:hybrid-failure}{{2.3}{13}{Hybrid Failure Matrix}{table.caption.19}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Mechanical \& Electrical Design}{14}{chapter.3}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{chap:hardware-design}{{3}{14}{Mechanical \& Electrical Design}{chapter.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Design Philosophy}{14}{section.3.1}\protected@file@percent }
+\newlabel{sec:design-philosophy}{{3.1}{14}{Design Philosophy}{section.3.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces Fully assembled Rescue Rover showing the ESP32-S3 camera module, motor driver, battery, and chassis.}}{15}{figure.caption.20}\protected@file@percent }
+\newlabel{fig:rover-complete}{{3.1}{15}{Fully assembled Rescue Rover showing the ESP32-S3 camera module, motor driver, battery, and chassis}{figure.caption.20}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Chassis Design}{15}{section.3.2}\protected@file@percent }
+\newlabel{sec:chassis-design}{{3.2}{15}{Chassis Design}{section.3.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Platform Selection}{15}{subsection.3.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Chassis specifications (4WD Wheel Platform)}}{16}{table.caption.21}\protected@file@percent }
+\newlabel{tab:chassis-specs}{{3.1}{16}{Chassis specifications (4WD Wheel Platform)}{table.caption.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces Top-down dimensional schematic of the 4WD Rover chassis. The platform utilizes a double-layer acrylic frame with four independently driven DC geared motors.}}{16}{figure.caption.22}\protected@file@percent }
+\newlabel{fig:chassis-dimensions}{{3.2}{16}{Top-down dimensional schematic of the 4WD Rover chassis. The platform utilizes a double-layer acrylic frame with four independently driven DC geared motors}{figure.caption.22}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Wheel and Drive Assembly}{16}{subsection.3.2.2}\protected@file@percent }
+\newlabel{sec:drive-assembly}{{3.2.2}{16}{Wheel and Drive Assembly}{subsection.3.2.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces Drive assembly detail. The 1:48 ratio DC Gear Motor (left) couples directly to the 65mm wheel (right). The yellow plastic rim is press-fitted onto the motor output shaft.}}{17}{figure.caption.23}\protected@file@percent }
+\newlabel{fig:drive-detail}{{3.3}{17}{Drive assembly detail. The 1:48 ratio DC Gear Motor (left) couples directly to the 65mm wheel (right). The yellow plastic rim is press-fitted onto the motor output shaft}{figure.caption.23}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.3}Component Mounting}{17}{subsection.3.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces Schematic top-down view of the component layout. The ultrasonic sensor and camera are positioned at the front for unobstructed sensing. The heavier battery pack is placed at the rear to balance the center of gravity. Power and signal lines are shown logically.}}{18}{figure.caption.24}\protected@file@percent }
+\newlabel{fig:component-layout}{{3.4}{18}{Schematic top-down view of the component layout. The ultrasonic sensor and camera are positioned at the front for unobstructed sensing. The heavier battery pack is placed at the rear to balance the center of gravity. Power and signal lines are shown logically}{figure.caption.24}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Main Controller: ESP32-S3}{18}{section.3.3}\protected@file@percent }
+\newlabel{sec:esp32-controller}{{3.3}{18}{Main Controller: ESP32-S3}{section.3.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Chip Specifications}{18}{subsection.3.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces ESP32-S3 technical specifications}}{19}{table.caption.25}\protected@file@percent }
+\newlabel{tab:esp32-specs}{{3.2}{19}{ESP32-S3 technical specifications}{table.caption.25}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces ESP32-S3 WROOM development board used in the Rescue Rover.}}{19}{figure.caption.26}\protected@file@percent }
+\newlabel{fig:esp32-module}{{3.5}{19}{ESP32-S3 WROOM development board used in the Rescue Rover}{figure.caption.26}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Development Board Selection}{19}{subsection.3.3.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.3}{\ignorespaces ESP32-S3 development board comparison}}{20}{table.caption.27}\protected@file@percent }
+\newlabel{tab:board-comparison}{{3.3}{20}{ESP32-S3 development board comparison}{table.caption.27}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces Comparison of development boards. The Freenove S3 (left) was selected for its dedicated FPC camera connector and dual USB-C interfaces, features absent on standard development boards (right).}}{20}{figure.caption.28}\protected@file@percent }
+\newlabel{fig:board-comparison}{{3.6}{20}{Comparison of development boards. The Freenove S3 (left) was selected for its dedicated FPC camera connector and dual USB-C interfaces, features absent on standard development boards (right)}{figure.caption.28}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.3}PSRAM Importance}{20}{subsection.3.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Camera System}{21}{section.3.4}\protected@file@percent }
+\newlabel{sec:camera-hardware}{{3.4}{21}{Camera System}{section.3.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}OV2640 Sensor}{21}{subsection.3.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.4}{\ignorespaces OV2640 camera sensor specifications}}{21}{table.caption.29}\protected@file@percent }
+\newlabel{tab:ov2640-specs}{{3.4}{21}{OV2640 camera sensor specifications}{table.caption.29}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.7}{\ignorespaces OV2640 camera module showing the lens assembly and 24-pin FPC connector.}}{21}{figure.caption.30}\protected@file@percent }
+\newlabel{fig:ov2640-module}{{3.7}{21}{OV2640 camera module showing the lens assembly and 24-pin FPC connector}{figure.caption.30}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}Resolution Selection}{21}{subsection.3.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.5}{\ignorespaces Resolution bandwidth trade-offs (OV2640 JPEG)}}{22}{table.caption.31}\protected@file@percent }
+\newlabel{tab:resolution-tradeoffs}{{3.5}{22}{Resolution bandwidth trade-offs (OV2640 JPEG)}{table.caption.31}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.8}{\ignorespaces Relative frame size comparison. The selected QVGA resolution (green) offers 4x the pixel data of QQVGA while remaining significantly smaller than VGA, fitting within the bandwidth constraints of the ESP32.}}{22}{figure.caption.32}\protected@file@percent }
+\newlabel{fig:resolution-comparison}{{3.8}{22}{Relative frame size comparison. The selected QVGA resolution (green) offers 4x the pixel data of QQVGA while remaining significantly smaller than VGA, fitting within the bandwidth constraints of the ESP32}{figure.caption.32}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.3}Lens and Optical Configuration}{22}{subsection.3.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.9}{\ignorespaces Field of View (FOV) coverage diagram. The standard lens provides a $65^\circ $ viewing cone. Areas outside this cone (red) are blind spots requiring the rover to rotate for full situational awareness.}}{23}{figure.caption.33}\protected@file@percent }
+\newlabel{fig:camera-fov}{{3.9}{23}{Field of View (FOV) coverage diagram. The standard lens provides a $65^\circ $ viewing cone. Areas outside this cone (red) are blind spots requiring the rover to rotate for full situational awareness}{figure.caption.33}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.4}Camera Mounting}{23}{subsection.3.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.10}{\ignorespaces Side-profile schematic of the camera mounting. The $15^\circ $ downward tilt aligns the optical axis to cover the floor surface ahead of the rover, eliminating the "under-nose" blind spot.}}{23}{figure.caption.34}\protected@file@percent }
+\newlabel{fig:camera-mount}{{3.10}{23}{Side-profile schematic of the camera mounting. The $15^\circ $ downward tilt aligns the optical axis to cover the floor surface ahead of the rover, eliminating the "under-nose" blind spot}{figure.caption.34}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Motor Control System}{23}{section.3.5}\protected@file@percent }
+\newlabel{sec:motor-system}{{3.5}{23}{Motor Control System}{section.3.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}DC Gear Motors}{23}{subsection.3.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.6}{\ignorespaces Motor specifications}}{24}{table.caption.35}\protected@file@percent }
+\newlabel{tab:motor-specs}{{3.6}{24}{Motor specifications}{table.caption.35}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.11}{\ignorespaces DC gear motor showing the motor body, planetary gearbox, and output shaft.}}{24}{figure.caption.36}\protected@file@percent }
+\newlabel{fig:motor-photo}{{3.11}{24}{DC gear motor showing the motor body, planetary gearbox, and output shaft}{figure.caption.36}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}L298N Motor Driver}{24}{subsection.3.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.7}{\ignorespaces L298N specifications}}{24}{table.caption.37}\protected@file@percent }
+\newlabel{tab:l298n-specs}{{3.7}{24}{L298N specifications}{table.caption.37}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.3}L298N vs TB6612FNG}{24}{subsection.3.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.12}{\ignorespaces L298N motor driver module with the characteristic large heatsink and terminal blocks.}}{25}{figure.caption.38}\protected@file@percent }
+\newlabel{fig:l298n-module}{{3.12}{25}{L298N motor driver module with the characteristic large heatsink and terminal blocks}{figure.caption.38}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.8}{\ignorespaces Motor driver comparison}}{25}{table.caption.39}\protected@file@percent }
+\newlabel{tab:driver-comparison}{{3.8}{25}{Motor driver comparison}{table.caption.39}{}}
+\newlabel{fig:efficiency-graph}{{\caption@xref {fig:efficiency-graph}{ on input line 660}}{25}{L298N vs TB6612FNG}{figure.caption.40}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.6}Power Distribution}{25}{section.3.6}\protected@file@percent }
+\newlabel{sec:power-distribution}{{3.6}{25}{Power Distribution}{section.3.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.1}Battery Selection}{26}{subsection.3.6.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.9}{\ignorespaces Battery specifications}}{26}{table.caption.41}\protected@file@percent }
+\newlabel{tab:battery-specs}{{3.9}{26}{Battery specifications}{table.caption.41}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.13}{\ignorespaces 3S LiPo battery used to power the Rescue Rover.}}{26}{figure.caption.42}\protected@file@percent }
+\newlabel{fig:battery-photo}{{3.13}{26}{3S LiPo battery used to power the Rescue Rover}{figure.caption.42}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.2}Power Budget}{26}{subsection.3.6.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.10}{\ignorespaces System power budget}}{27}{table.caption.43}\protected@file@percent }
+\newlabel{tab:power-budget}{{3.10}{27}{System power budget}{table.caption.43}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.14}{\ignorespaces Power distribution schematic showing voltage rails and current flow to all components.}}{27}{figure.caption.44}\protected@file@percent }
+\newlabel{fig:power-schematic}{{3.14}{27}{Power distribution schematic showing voltage rails and current flow to all components}{figure.caption.44}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.6.3}Voltage Regulation}{27}{subsection.3.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.15}{\ignorespaces Voltage rail hierarchy showing the cascade of regulators from battery to components.}}{28}{figure.caption.45}\protected@file@percent }
+\newlabel{fig:voltage-rails}{{3.15}{28}{Voltage rail hierarchy showing the cascade of regulators from battery to components}{figure.caption.45}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.7}Ultrasonic Distance Sensor}{28}{section.3.7}\protected@file@percent }
+\newlabel{sec:ultrasonic-sensor}{{3.7}{28}{Ultrasonic Distance Sensor}{section.3.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7.1}HC-SR04 Specifications}{28}{subsection.3.7.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.11}{\ignorespaces Ultrasonic sensor specifications}}{28}{table.caption.46}\protected@file@percent }
+\newlabel{tab:hcsr04-specs}{{3.11}{28}{Ultrasonic sensor specifications}{table.caption.46}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.16}{\ignorespaces HC-SR04 ultrasonic distance sensor showing the transmitter and receiver transducers.}}{29}{figure.caption.47}\protected@file@percent }
+\newlabel{fig:hcsr04-photo}{{3.16}{29}{HC-SR04 ultrasonic distance sensor showing the transmitter and receiver transducers}{figure.caption.47}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7.2}Mounting Position}{29}{subsection.3.7.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.17}{\ignorespaces Top-down view of the ultrasonic sensor's beam pattern. The narrow $15^\circ $ detection cone is shown relative to the rover chassis, detecting obstacles directly ahead.}}{29}{figure.caption.48}\protected@file@percent }
+\newlabel{fig:ultrasonic-beam}{{3.17}{29}{Top-down view of the ultrasonic sensor's beam pattern. The narrow $15^\circ $ detection cone is shown relative to the rover chassis, detecting obstacles directly ahead}{figure.caption.48}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7.3}Level Shifting}{29}{subsection.3.7.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3.1}{\ignorespaces Voltage divider calculation}}{29}{lstlisting.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.18}{\ignorespaces Resistor voltage divider for level shifting the 5V echo signal to 3.3V.}}{30}{figure.caption.49}\protected@file@percent }
+\newlabel{fig:level-shifter}{{3.18}{30}{Resistor voltage divider for level shifting the 5V echo signal to 3.3V}{figure.caption.49}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.8}Wiring and Interconnections}{30}{section.3.8}\protected@file@percent }
+\newlabel{sec:wiring}{{3.8}{30}{Wiring and Interconnections}{section.3.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.8.1}Complete Wiring Diagram}{30}{subsection.3.8.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.19}{\ignorespaces Complete wiring diagram showing all connections between the ESP32-S3, L298N, motors, sensors, and power supply.}}{30}{figure.caption.50}\protected@file@percent }
+\newlabel{fig:complete-wiring}{{3.19}{30}{Complete wiring diagram showing all connections between the ESP32-S3, L298N, motors, sensors, and power supply}{figure.caption.50}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.8.2}Wire Color Convention}{31}{subsection.3.8.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.12}{\ignorespaces Wire color coding standard}}{31}{table.caption.51}\protected@file@percent }
+\newlabel{tab:wire-colors}{{3.12}{31}{Wire color coding standard}{table.caption.51}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.20}{\ignorespaces Actual wiring on the prototype showing careful routing and color coding.}}{31}{figure.caption.52}\protected@file@percent }
+\newlabel{fig:wiring-photo}{{3.20}{31}{Actual wiring on the prototype showing careful routing and color coding}{figure.caption.52}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.9}Assembly Process}{31}{section.3.9}\protected@file@percent }
+\newlabel{sec:assembly}{{3.9}{31}{Assembly Process}{section.3.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.9.1}Assembly Steps}{32}{subsection.3.9.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.21}{\ignorespaces Assembly sequence showing the progressive addition of components to the chassis.}}{32}{figure.caption.53}\protected@file@percent }
+\newlabel{fig:assembly-sequence}{{3.21}{32}{Assembly sequence showing the progressive addition of components to the chassis}{figure.caption.53}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.9.2}Testing Procedure}{33}{subsection.3.9.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3.13}{\ignorespaces Post-assembly test checklist}}{33}{table.caption.54}\protected@file@percent }
+\newlabel{tab:test-checklist}{{3.13}{33}{Post-assembly test checklist}{table.caption.54}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.22}{\ignorespaces Testing setup for post-assembly verification of subsystems.}}{33}{figure.caption.55}\protected@file@percent }
+\newlabel{fig:testing-setup}{{3.22}{33}{Testing setup for post-assembly verification of subsystems}{figure.caption.55}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Embedded Firmware Design}{34}{chapter.4}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{chap:firmware-implementation}{{4}{34}{Embedded Firmware Design}{chapter.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Firmware Architecture Overview}{34}{section.4.1}\protected@file@percent }
+\newlabel{sec:firmware-overview}{{4.1}{34}{Firmware Architecture Overview}{section.4.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Firmware module architecture showing the main sketch and its dependencies. The main loop coordinates all subsystems while individual modules manage their respective hardware interfaces.}}{35}{figure.caption.56}\protected@file@percent }
+\newlabel{fig:firmware-architecture}{{4.1}{35}{Firmware module architecture showing the main sketch and its dependencies. The main loop coordinates all subsystems while individual modules manage their respective hardware interfaces}{figure.caption.56}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.1}Module Responsibilities}{35}{subsection.4.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Compilation dependencies between firmware modules. The main sketch includes all headers while modules only include what they need.}}{36}{figure.caption.57}\protected@file@percent }
+\newlabel{fig:module-dependencies}{{4.2}{36}{Compilation dependencies between firmware modules. The main sketch includes all headers while modules only include what they need}{figure.caption.57}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1.2}Memory Layout}{36}{subsection.4.1.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces ESP32-S3 memory regions and their usage in the firmware}}{36}{table.caption.58}\protected@file@percent }
+\newlabel{tab:memory-regions}{{4.1}{36}{ESP32-S3 memory regions and their usage in the firmware}{table.caption.58}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Memory allocation for the Rescue Rover firmware showing how camera buffers dominate PSRAM usage.}}{37}{figure.caption.59}\protected@file@percent }
+\newlabel{fig:memory-map}{{4.3}{37}{Memory allocation for the Rescue Rover firmware showing how camera buffers dominate PSRAM usage}{figure.caption.59}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Camera Module Implementation}{37}{section.4.2}\protected@file@percent }
+\newlabel{sec:camera-module-impl}{{4.2}{37}{Camera Module Implementation}{section.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Hardware Configuration}{37}{subsection.4.2.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.1}{\ignorespaces Camera pin configuration from CameraPins.h}}{37}{lstlisting.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Physical wiring diagram illustrating the connections between the OV2640 camera module (via FPC breakout) and the ESP32-S3 development board.}}{38}{figure.caption.60}\protected@file@percent }
+\newlabel{fig:camera-wiring}{{4.4}{38}{Physical wiring diagram illustrating the connections between the OV2640 camera module (via FPC breakout) and the ESP32-S3 development board}{figure.caption.60}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Initialization Sequence}{38}{subsection.4.2.2}\protected@file@percent }
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Camera Initialization Sequence}}{39}{algorithm.1}\protected@file@percent }
+\newlabel{alg:camera-init-full}{{1}{39}{Camera Initialization Sequence}{algorithm.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Flowchart for camera initialization showing fail-safe checks, critical configuration steps (including the reduced 10MHz XCLK), and error handling paths.}}{40}{figure.caption.61}\protected@file@percent }
+\newlabel{fig:camera-init-flow}{{4.5}{40}{Flowchart for camera initialization showing fail-safe checks, critical configuration steps (including the reduced 10MHz XCLK), and error handling paths}{figure.caption.61}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Streaming Modes}{41}{subsection.4.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{HTTP MJPEG Streaming}{41}{subsection.4.2.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.2}{\ignorespaces HTTP MJPEG stream handler implementation}}{41}{lstlisting.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Sequence diagram for HTTP MJPEG streaming showing the continuous frame transmission loop.}}{42}{figure.caption.62}\protected@file@percent }
+\newlabel{fig:http-sequence}{{4.6}{42}{Sequence diagram for HTTP MJPEG streaming showing the continuous frame transmission loop}{figure.caption.62}{}}
+\@writefile{toc}{\contentsline {subsubsection}{UDP Streaming}{42}{figure.caption.62}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.3}{\ignorespaces UDP frame transmission function}}{43}{lstlisting.4.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Measured latency comparison. Error bars indicate the jitter range (min/max) observed during testing. UDP mode provides a consistent $\approx $40\% reduction in end-to-end latency compared to the HTTP MJPEG stream.}}{43}{figure.caption.63}\protected@file@percent }
+\newlabel{fig:latency-comparison}{{4.7}{43}{Measured latency comparison. Error bars indicate the jitter range (min/max) observed during testing. UDP mode provides a consistent $\approx $40\% reduction in end-to-end latency compared to the HTTP MJPEG stream}{figure.caption.63}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Comparison of streaming modes}}{44}{table.caption.64}\protected@file@percent }
+\newlabel{tab:streaming-comparison}{{4.2}{44}{Comparison of streaming modes}{table.caption.64}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Motor Control Implementation}{44}{section.4.3}\protected@file@percent }
+\newlabel{sec:motor-impl}{{4.3}{44}{Motor Control Implementation}{section.4.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Differential Drive Model}{44}{subsection.4.3.1}\protected@file@percent }
+\newlabel{eq:linear-vel}{{4.1}{44}{Differential Drive Model}{equation.4.1}{}}
+\newlabel{eq:angular-vel}{{4.2}{44}{Differential Drive Model}{equation.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}L298N Driver Interface}{44}{subsection.4.3.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.4}{\ignorespaces Motor driver initialization and movement functions}}{44}{lstlisting.4.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Differential drive kinematic model showing how independent wheel speeds create linear and angular motion.}}{45}{figure.caption.65}\protected@file@percent }
+\newlabel{fig:diff-drive}{{4.8}{45}{Differential drive kinematic model showing how independent wheel speeds create linear and angular motion}{figure.caption.65}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces L298N motor driver wiring diagram showing all connections between ESP32-S3, the driver board, and both DC motors.}}{46}{figure.caption.66}\protected@file@percent }
+\newlabel{fig:l298n-wiring}{{4.9}{46}{L298N motor driver wiring diagram showing all connections between ESP32-S3, the driver board, and both DC motors}{figure.caption.66}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Pin Assignment}{46}{subsection.4.3.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces Motor driver pin assignment}}{46}{table.caption.67}\protected@file@percent }
+\newlabel{tab:motor-pins}{{4.3}{46}{Motor driver pin assignment}{table.caption.67}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.4}Turning Mechanics}{46}{subsection.4.3.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces Comparison of point turn (current implementation) versus arc turn (future enhancement). Point turns rotate in place while arc turns follow a curved path.}}{47}{figure.caption.68}\protected@file@percent }
+\newlabel{fig:turn-mechanics}{{4.10}{47}{Comparison of point turn (current implementation) versus arc turn (future enhancement). Point turns rotate in place while arc turns follow a curved path}{figure.caption.68}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}ESP-NOW Communication Module}{47}{section.4.4}\protected@file@percent }
+\newlabel{sec:espnow-impl}{{4.4}{47}{ESP-NOW Communication Module}{section.4.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Protocol Overview}{47}{subsection.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}Packet Structures}{47}{subsection.4.4.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.5}{\ignorespaces ESP-NOW packet structure definitions}}{47}{lstlisting.4.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces ESP-NOW protocol positioning in the network stack. It operates below IP, directly on top of the 802.11 MAC layer.}}{48}{figure.caption.69}\protected@file@percent }
+\newlabel{fig:espnow-stack}{{4.11}{48}{ESP-NOW protocol positioning in the network stack. It operates below IP, directly on top of the 802.11 MAC layer}{figure.caption.69}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.12}{\ignorespaces Binary layout of ESP-NOW packet structures showing byte offsets for each field.}}{48}{figure.caption.70}\protected@file@percent }
+\newlabel{fig:packet-format}{{4.12}{48}{Binary layout of ESP-NOW packet structures showing byte offsets for each field}{figure.caption.70}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}Receive Callback Design}{49}{subsection.4.4.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.6}{\ignorespaces ESP-NOW receive callback with deferred actuation}}{49}{lstlisting.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.4}Telemetry Transmission}{49}{subsection.4.4.4}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.7}{\ignorespaces Telemetry transmission with rate limiting}}{49}{lstlisting.4.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.13}{\ignorespaces Data flow from ESP-NOW callback to motor actuation through the main loop safety checks.}}{50}{figure.caption.71}\protected@file@percent }
+\newlabel{fig:callback-flow}{{4.13}{50}{Data flow from ESP-NOW callback to motor actuation through the main loop safety checks}{figure.caption.71}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.5}Safety Mechanisms}{51}{section.4.5}\protected@file@percent }
+\newlabel{sec:safety-mechanisms}{{4.5}{51}{Safety Mechanisms}{section.4.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Heartbeat Failsafe}{51}{subsection.4.5.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.8}{\ignorespaces Heartbeat check in main control loop}}{51}{lstlisting.4.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}Ultrasonic Obstacle Detection}{51}{subsection.4.5.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.9}{\ignorespaces Non-blocking ultrasonic state machine}}{51}{lstlisting.4.9}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.14}{\ignorespaces State machine for heartbeat monitoring showing transitions between connected and stopped states.}}{52}{figure.caption.72}\protected@file@percent }
+\newlabel{fig:heartbeat-fsm}{{4.14}{52}{State machine for heartbeat monitoring showing transitions between connected and stopped states}{figure.caption.72}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.15}{\ignorespaces State machine diagram for non-blocking ultrasonic distance measurement.}}{53}{figure.caption.73}\protected@file@percent }
+\newlabel{fig:ultrasonic-fsm}{{4.15}{53}{State machine diagram for non-blocking ultrasonic distance measurement}{figure.caption.73}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.3}Unified Control Loop}{54}{subsection.4.5.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.10}{\ignorespaces Unified control loop with safety integration}}{54}{lstlisting.4.10}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.16}{\ignorespaces Flowchart of the unified control loop showing all safety checks and their precedence.}}{55}{figure.caption.74}\protected@file@percent }
+\newlabel{fig:control-loop-flow}{{4.16}{55}{Flowchart of the unified control loop showing all safety checks and their precedence}{figure.caption.74}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces Safety mechanism summary}}{55}{table.caption.75}\protected@file@percent }
+\newlabel{tab:safety-summary}{{4.4}{55}{Safety mechanism summary}{table.caption.75}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.6}Main Loop Structure}{55}{section.4.6}\protected@file@percent }
+\newlabel{sec:main-loop}{{4.6}{55}{Main Loop Structure}{section.4.6}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4.11}{\ignorespaces Main application loop}}{55}{lstlisting.4.11}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.17}{\ignorespaces Timing breakdown of a single main loop iteration showing relative time spent in each subsystem.}}{56}{figure.caption.76}\protected@file@percent }
+\newlabel{fig:loop-timing}{{4.17}{56}{Timing breakdown of a single main loop iteration showing relative time spent in each subsystem}{figure.caption.76}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.7}Compilation and Deployment}{56}{section.4.7}\protected@file@percent }
+\newlabel{sec:compilation}{{4.7}{56}{Compilation and Deployment}{section.4.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces Arduino IDE board configuration}}{56}{table.caption.77}\protected@file@percent }
+\newlabel{tab:arduino-config}{{4.5}{56}{Arduino IDE board configuration}{table.caption.77}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.18}{\ignorespaces Arduino IDE Tools menu configuration for ESP32-S3 with PSRAM enabled.}}{57}{figure.caption.78}\protected@file@percent }
+\newlabel{fig:arduino-settings}{{4.18}{57}{Arduino IDE Tools menu configuration for ESP32-S3 with PSRAM enabled}{figure.caption.78}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}AI \& Software Design}{58}{chapter.5}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{chap:ai-software-design}{{5}{58}{AI \& Software Design}{chapter.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Host Application Architecture}{58}{section.5.1}\protected@file@percent }
+\newlabel{sec:host-architecture}{{5.1}{58}{Host Application Architecture}{section.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}Tech Stack Changes for Hybrid Cloud}{58}{subsection.5.1.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Software components and roles}}{58}{table.caption.80}\protected@file@percent }
+\newlabel{tab:python-deps}{{5.1}{58}{Software components and roles}{table.caption.80}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces High level architecture showing the split between local processing and cloud delegation.}}{59}{figure.caption.79}\protected@file@percent }
+\newlabel{fig:host-architecture}{{5.1}{59}{High level architecture showing the split between local processing and cloud delegation}{figure.caption.79}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Computer Vision Layer (Local)}{59}{section.5.2}\protected@file@percent }
+\newlabel{sec:computer-vision}{{5.2}{59}{Computer Vision Layer (Local)}{section.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}YOLOv8 Integration}{59}{subsection.5.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Vision Language Model Integration (Cloud)}{59}{section.5.3}\protected@file@percent }
+\newlabel{sec:vlm-integration}{{5.3}{59}{Vision Language Model Integration (Cloud)}{section.5.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Cloud Architecture}{60}{subsection.5.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces Local vs Cloud VLM Comparison}}{60}{table.caption.81}\protected@file@percent }
+\newlabel{tab:vlm-comparison}{{5.2}{60}{Local vs Cloud VLM Comparison}{table.caption.81}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Cloud infrastructure layout for the Strategic Layer.}}{60}{figure.caption.82}\protected@file@percent }
+\newlabel{fig:cloud-architecture}{{5.2}{60}{Cloud infrastructure layout for the Strategic Layer}{figure.caption.82}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Client Implementation}{60}{subsection.5.3.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.1}{\ignorespaces Cloud Client Implementation}}{60}{lstlisting.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Prompt Engineering for Navigation}{61}{subsection.5.3.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.2}{\ignorespaces VLM JSON Output Schema}}{61}{lstlisting.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Command Arbitration}{61}{section.5.4}\protected@file@percent }
+\newlabel{sec:command-arbiter}{{5.4}{61}{Command Arbitration}{section.5.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Logic flow for the Command Arbiter ensuring safety protocols execute first.}}{62}{figure.caption.83}\protected@file@percent }
+\newlabel{fig:arbiter-logic}{{5.3}{62}{Logic flow for the Command Arbiter ensuring safety protocols execute first}{figure.caption.83}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Dashboard \& Telemetry}{62}{section.5.5}\protected@file@percent }
+\newlabel{sec:dashboard}{{5.5}{62}{Dashboard \& Telemetry}{section.5.5}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Testing \& Experimental Results}{63}{chapter.6}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{chap:testing-results}{{6}{63}{Testing \& Experimental Results}{chapter.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Testing Methodology}{63}{section.6.1}\protected@file@percent }
+\newlabel{sec:test-methodology}{{6.1}{63}{Testing Methodology}{section.6.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Test Environment}{63}{subsection.6.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Test Equipment}{63}{subsection.6.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.3}Test Categories}{63}{subsection.6.1.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Indoor test environment used for all experiments.}}{64}{figure.caption.84}\protected@file@percent }
+\newlabel{fig:test-environment}{{6.1}{64}{Indoor test environment used for all experiments}{figure.caption.84}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Test and measurement equipment}}{64}{table.caption.85}\protected@file@percent }
+\newlabel{tab:test-equipment}{{6.1}{64}{Test and measurement equipment}{table.caption.85}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Communication Performance}{64}{section.6.2}\protected@file@percent }
+\newlabel{sec:comm-performance}{{6.2}{64}{Communication Performance}{section.6.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}Command Latency Measurement}{65}{subsection.6.2.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces Command latency statistics (N=1000 samples)}}{65}{table.caption.86}\protected@file@percent }
+\newlabel{tab:command-latency}{{6.2}{65}{Command latency statistics (N=1000 samples)}{table.caption.86}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Distribution of command round trip latency across 1000 measurements.}}{65}{figure.caption.87}\protected@file@percent }
+\newlabel{fig:latency-distribution}{{6.2}{65}{Distribution of command round trip latency across 1000 measurements}{figure.caption.87}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Video Streaming Latency}{65}{subsection.6.2.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.3}{\ignorespaces Video latency by streaming mode}}{66}{table.caption.88}\protected@file@percent }
+\newlabel{tab:video-latency}{{6.3}{66}{Video latency by streaming mode}{table.caption.88}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparison of video latency between UDP and HTTP streaming modes.}}{66}{figure.caption.89}\protected@file@percent }
+\newlabel{fig:video-latency-comparison}{{6.3}{66}{Comparison of video latency between UDP and HTTP streaming modes}{figure.caption.89}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}Packet Loss}{66}{subsection.6.2.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.4}{\ignorespaces Packet loss rates at various distances}}{66}{table.caption.90}\protected@file@percent }
+\newlabel{tab:packet-loss}{{6.4}{66}{Packet loss rates at various distances}{table.caption.90}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Packet loss rate as a function of distance from the access point.}}{67}{figure.caption.91}\protected@file@percent }
+\newlabel{fig:packet-loss}{{6.4}{67}{Packet loss rate as a function of distance from the access point}{figure.caption.91}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Video Quality Assessment}{67}{section.6.3}\protected@file@percent }
+\newlabel{sec:video-quality}{{6.3}{67}{Video Quality Assessment}{section.6.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Frame Rate Measurement}{67}{subsection.6.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.5}{\ignorespaces Measured frame rates}}{67}{table.caption.92}\protected@file@percent }
+\newlabel{tab:frame-rates}{{6.5}{67}{Measured frame rates}{table.caption.92}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}JPEG Quality vs Size Trade-off}{67}{subsection.6.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces Frame rate stability over a 5 minute continuous operation test.}}{68}{figure.caption.93}\protected@file@percent }
+\newlabel{fig:fps-timeseries}{{6.5}{68}{Frame rate stability over a 5 minute continuous operation test}{figure.caption.93}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.6}{\ignorespaces JPEG quality settings comparison}}{68}{table.caption.94}\protected@file@percent }
+\newlabel{tab:jpeg-quality}{{6.6}{68}{JPEG quality settings comparison}{table.caption.94}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces Visual comparison of different JPEG quality settings.}}{68}{figure.caption.95}\protected@file@percent }
+\newlabel{fig:jpeg-comparison}{{6.6}{68}{Visual comparison of different JPEG quality settings}{figure.caption.95}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}Motor Control Performance}{69}{section.6.4}\protected@file@percent }
+\newlabel{sec:motor-performance}{{6.4}{69}{Motor Control Performance}{section.6.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.1}Command Response Time}{69}{subsection.6.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.7}{\ignorespaces Motor response time}}{69}{table.caption.96}\protected@file@percent }
+\newlabel{tab:motor-response}{{6.7}{69}{Motor response time}{table.caption.96}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.2}Movement Accuracy}{69}{subsection.6.4.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.8}{\ignorespaces Movement accuracy measurements}}{69}{table.caption.98}\protected@file@percent }
+\newlabel{tab:movement-accuracy}{{6.8}{69}{Movement accuracy measurements}{table.caption.98}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces Path deviation during straight line driving test.}}{70}{figure.caption.97}\protected@file@percent }
+\newlabel{fig:path-deviation}{{6.7}{70}{Path deviation during straight line driving test}{figure.caption.97}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.3}Turning Radius}{70}{subsection.6.4.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.9}{\ignorespaces Turning characteristics}}{70}{table.caption.99}\protected@file@percent }
+\newlabel{tab:turning}{{6.9}{70}{Turning characteristics}{table.caption.99}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.8}{\ignorespaces Path traced during a point turn, showing rotation approximately about center.}}{70}{figure.caption.100}\protected@file@percent }
+\newlabel{fig:turning-trace}{{6.8}{70}{Path traced during a point turn, showing rotation approximately about center}{figure.caption.100}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.5}Object Detection Performance}{71}{section.6.5}\protected@file@percent }
+\newlabel{sec:detection-performance}{{6.5}{71}{Object Detection Performance}{section.6.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.1}Test Dataset}{71}{subsection.6.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.10}{\ignorespaces Test dataset composition}}{71}{table.caption.101}\protected@file@percent }
+\newlabel{tab:dataset}{{6.10}{71}{Test dataset composition}{table.caption.101}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.2}Detection Accuracy}{71}{subsection.6.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.11}{\ignorespaces YOLOv8n detection metrics}}{71}{table.caption.102}\protected@file@percent }
+\newlabel{tab:detection-metrics}{{6.11}{71}{YOLOv8n detection metrics}{table.caption.102}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.3}Inference Speed}{71}{subsection.6.5.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.9}{\ignorespaces Precision-recall curves for each object class.}}{72}{figure.caption.103}\protected@file@percent }
+\newlabel{fig:pr-curves}{{6.9}{72}{Precision-recall curves for each object class}{figure.caption.103}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.12}{\ignorespaces YOLOv8n inference timing}}{72}{table.caption.104}\protected@file@percent }
+\newlabel{tab:inference-speed}{{6.12}{72}{YOLOv8n inference timing}{table.caption.104}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.10}{\ignorespaces Distribution of YOLOv8 inference times.}}{72}{figure.caption.105}\protected@file@percent }
+\newlabel{fig:inference-histogram}{{6.10}{72}{Distribution of YOLOv8 inference times}{figure.caption.105}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.6}Obstacle Avoidance Testing}{73}{section.6.6}\protected@file@percent }
+\newlabel{sec:obstacle-testing}{{6.6}{73}{Obstacle Avoidance Testing}{section.6.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6.1}Distance Accuracy}{73}{subsection.6.6.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.13}{\ignorespaces Ultrasonic sensor accuracy}}{73}{table.caption.106}\protected@file@percent }
+\newlabel{tab:ultrasonic-accuracy}{{6.13}{73}{Ultrasonic sensor accuracy}{table.caption.106}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.11}{\ignorespaces Ultrasonic sensor accuracy across measurement range.}}{73}{figure.caption.107}\protected@file@percent }
+\newlabel{fig:ultrasonic-accuracy}{{6.11}{73}{Ultrasonic sensor accuracy across measurement range}{figure.caption.107}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6.2}Collision Avoidance Success Rate}{73}{subsection.6.6.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.14}{\ignorespaces Collision avoidance results}}{74}{table.caption.108}\protected@file@percent }
+\newlabel{tab:collision-avoidance}{{6.14}{74}{Collision avoidance results}{table.caption.108}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.7}Power and Thermal Performance}{74}{section.6.7}\protected@file@percent }
+\newlabel{sec:power-thermal}{{6.7}{74}{Power and Thermal Performance}{section.6.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.7.1}Battery Life}{74}{subsection.6.7.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.15}{\ignorespaces Battery runtime results}}{74}{table.caption.109}\protected@file@percent }
+\newlabel{tab:battery-runtime}{{6.15}{74}{Battery runtime results}{table.caption.109}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.12}{\ignorespaces Battery voltage during continuous operation discharge test.}}{74}{figure.caption.110}\protected@file@percent }
+\newlabel{fig:discharge-curve}{{6.12}{74}{Battery voltage during continuous operation discharge test}{figure.caption.110}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.7.2}Thermal Performance}{75}{subsection.6.7.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.16}{\ignorespaces Steady state component temperatures}}{75}{table.caption.111}\protected@file@percent }
+\newlabel{tab:temperatures}{{6.16}{75}{Steady state component temperatures}{table.caption.111}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.13}{\ignorespaces Infrared thermal image showing component temperatures during operation.}}{75}{figure.caption.112}\protected@file@percent }
+\newlabel{fig:thermal-image}{{6.13}{75}{Infrared thermal image showing component temperatures during operation}{figure.caption.112}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.8}Cloud VLM Integration Challenges}{75}{section.6.8}\protected@file@percent }
+\newlabel{sec:cloud-vlm-challenges}{{6.8}{75}{Cloud VLM Integration Challenges}{section.6.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.8.1}vLLM Prompt Format Errors}{75}{subsection.6.8.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6.1}{\ignorespaces Correct Qwen2.5-VL prompt format for vLLM}}{76}{lstlisting.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.8.2}Colab Runtime Instability}{76}{subsection.6.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.8.3}Legacy Frontend Debugging}{76}{subsection.6.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.8.4}vLLM EngineCore Crash (Resolved)}{77}{subsection.6.8.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6.17}{\ignorespaces Summary of debugging issues}}{77}{table.caption.113}\protected@file@percent }
+\newlabel{tab:debug-issues}{{6.17}{77}{Summary of debugging issues}{table.caption.113}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.9}Summary of Results}{77}{section.6.9}\protected@file@percent }
+\newlabel{sec:results-summary}{{6.9}{77}{Summary of Results}{section.6.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.18}{\ignorespaces Summary of key performance metrics}}{78}{table.caption.114}\protected@file@percent }
+\newlabel{tab:results-summary}{{6.18}{78}{Summary of key performance metrics}{table.caption.114}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusion \& Future Work}{79}{chapter.7}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{chap:conclusion}{{7}{79}{Conclusion \& Future Work}{chapter.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}Summary of Achievements}{79}{section.7.1}\protected@file@percent }
+\newlabel{sec:achievements}{{7.1}{79}{Summary of Achievements}{section.7.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1.1}Primary Objective Outcomes}{79}{subsection.7.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1.2}Secondary Objective Outcomes}{80}{subsection.7.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1.3}Project Metrics}{80}{subsection.7.1.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7.1}{\ignorespaces Final project metrics}}{80}{table.caption.115}\protected@file@percent }
+\newlabel{tab:project-metrics}{{7.1}{80}{Final project metrics}{table.caption.115}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.1}{\ignorespaces The completed Rescue Rover prototype.}}{80}{figure.caption.116}\protected@file@percent }
+\newlabel{fig:final-prototype}{{7.1}{80}{The completed Rescue Rover prototype}{figure.caption.116}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}Technical Achievements}{80}{section.7.2}\protected@file@percent }
+\newlabel{sec:technical-achievements}{{7.2}{80}{Technical Achievements}{section.7.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.1}Split-Brain AI Architecture}{81}{subsection.7.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.2}Asynchronous Cloud Link}{81}{subsection.7.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.3}Lessons Learned}{81}{section.7.3}\protected@file@percent }
+\newlabel{sec:lessons-learned}{{7.3}{81}{Lessons Learned}{section.7.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3.1}Edge Compute Limits}{81}{subsection.7.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3.2}UDP vs HTTP Trade-offs}{81}{subsection.7.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3.3}Secure Tunneling}{81}{subsection.7.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.4}Limitations}{82}{section.7.4}\protected@file@percent }
+\newlabel{sec:limitations}{{7.4}{82}{Limitations}{section.7.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4.1}Internet Dependency}{82}{subsection.7.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4.2}Single Sensor Blind Spots}{82}{subsection.7.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.5}Future Work}{82}{section.7.5}\protected@file@percent }
+\newlabel{sec:future-work}{{7.5}{82}{Future Work}{section.7.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5.1}Short-term Improvements}{82}{subsection.7.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5.2}Long-term Vision}{82}{subsection.7.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.6}Closing Statement}{82}{section.7.6}\protected@file@percent }
+\newlabel{sec:closing}{{7.6}{82}{Closing Statement}{section.7.6}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Pinout Tables}{83}{appendix.A}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{app:pinout-tables}{{A}{83}{Pinout Tables}{appendix.A}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.1}ESP32-S3 Camera Pin Configuration}{83}{section.A.1}\protected@file@percent }
+\newlabel{sec:camera-pinout}{{A.1}{83}{ESP32-S3 Camera Pin Configuration}{section.A.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.1}{\ignorespaces OV2640 Camera to ESP32-S3 Pin Mapping}}{83}{table.caption.117}\protected@file@percent }
+\newlabel{tab:camera-pinout}{{A.1}{83}{OV2640 Camera to ESP32-S3 Pin Mapping}{table.caption.117}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.2}Motor Driver Pin Configuration}{83}{section.A.2}\protected@file@percent }
+\newlabel{sec:motor-pinout}{{A.2}{83}{Motor Driver Pin Configuration}{section.A.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.3}Sensor Pin Configuration}{83}{section.A.3}\protected@file@percent }
+\newlabel{sec:sensor-pinout}{{A.3}{83}{Sensor Pin Configuration}{section.A.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.4}Complete GPIO Summary}{83}{section.A.4}\protected@file@percent }
+\newlabel{sec:gpio-summary}{{A.4}{83}{Complete GPIO Summary}{section.A.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.2}{\ignorespaces L298N Motor Driver Pin Mapping}}{84}{table.caption.118}\protected@file@percent }
+\newlabel{tab:motor-pinout}{{A.2}{84}{L298N Motor Driver Pin Mapping}{table.caption.118}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.3}{\ignorespaces Ultrasonic Sensor (HC-SR04) Pin Mapping}}{84}{table.caption.119}\protected@file@percent }
+\newlabel{tab:ultrasonic-pinout}{{A.3}{84}{Ultrasonic Sensor (HC-SR04) Pin Mapping}{table.caption.119}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.4}{\ignorespaces Battery Voltage Monitor}}{84}{table.caption.120}\protected@file@percent }
+\newlabel{tab:battery-monitor-pinout}{{A.4}{84}{Battery Voltage Monitor}{table.caption.120}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.5}{\ignorespaces ESP32-S3 GPIO Allocation Summary}}{85}{table.caption.121}\protected@file@percent }
+\newlabel{tab:gpio-summary}{{A.5}{85}{ESP32-S3 GPIO Allocation Summary}{table.caption.121}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {B}Circuit Diagrams}{86}{appendix.B}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{app:circuit-diagrams}{{B}{86}{Circuit Diagrams}{appendix.B}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.1}System Wiring Overview}{86}{section.B.1}\protected@file@percent }
+\newlabel{sec:wiring-overview}{{B.1}{86}{System Wiring Overview}{section.B.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.2}Power Distribution Schematic}{86}{section.B.2}\protected@file@percent }
+\newlabel{sec:power-schematic}{{B.2}{86}{Power Distribution Schematic}{section.B.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2.1}Power Flow}{86}{subsection.B.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B.3}Motor Driver Connections}{87}{section.B.3}\protected@file@percent }
+\newlabel{sec:motor-connections}{{B.3}{87}{Motor Driver Connections}{section.B.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.3.1}L298N Wiring Notes}{87}{subsection.B.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B.4}Camera Module Connections}{87}{section.B.4}\protected@file@percent }
+\newlabel{sec:camera-connections}{{B.4}{87}{Camera Module Connections}{section.B.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.4.1}Camera Cable Pinout}{87}{subsection.B.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {B.1}{\ignorespaces OV2640 Module Connector Pinout}}{87}{table.caption.122}\protected@file@percent }
+\newlabel{tab:ov2640-connector}{{B.1}{87}{OV2640 Module Connector Pinout}{table.caption.122}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.5}Sensor Connections}{87}{section.B.5}\protected@file@percent }
+\newlabel{sec:sensor-connections}{{B.5}{87}{Sensor Connections}{section.B.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.5.1}Ultrasonic Sensor (HC-SR04)}{87}{subsection.B.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.5.2}Battery Voltage Monitor}{88}{subsection.B.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {C}Source Code Snippets}{89}{appendix.C}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{app:source-code}{{C}{89}{Source Code Snippets}{appendix.C}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {C.1}ESP32-S3 Firmware}{89}{section.C.1}\protected@file@percent }
+\newlabel{sec:firmware-code}{{C.1}{89}{ESP32-S3 Firmware}{section.C.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.1.1}Main Sketch (RescueRobot.ino)}{89}{subsection.C.1.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {C.1}{\ignorespaces Main firmware entry point}}{89}{lstlisting.C.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.1.2}Camera Initialization}{90}{subsection.C.1.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {C.2}{\ignorespaces Camera module initialization}}{90}{lstlisting.C.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {C.2}Python Gateway/Dashboard}{91}{section.C.2}\protected@file@percent }
+\newlabel{sec:python-code}{{C.2}{91}{Python Gateway/Dashboard}{section.C.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.2.1}Frame Buffer Class}{91}{subsection.C.2.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {C.3}{\ignorespaces Thread-safe frame buffer implementation}}{91}{lstlisting.C.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.2.2}YOLOv8 Processor}{92}{subsection.C.2.2}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {C.4}{\ignorespaces YOLOv8 detection processor}}{92}{lstlisting.C.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.2.3}NiceGUI Dashboard}{93}{subsection.C.2.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {C.5}{\ignorespaces Dashboard main application}}{93}{lstlisting.C.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {C.3}ESP-NOW Communication}{94}{section.C.3}\protected@file@percent }
+\newlabel{sec:espnow-code}{{C.3}{94}{ESP-NOW Communication}{section.C.3}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {C.6}{\ignorespaces ESP-NOW packet handling}}{94}{lstlisting.C.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {D}User Manual}{96}{appendix.D}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{app:user-manual}{{D}{96}{User Manual}{appendix.D}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {D.1}Quick Start Guide}{96}{section.D.1}\protected@file@percent }
+\newlabel{sec:quick-start}{{D.1}{96}{Quick Start Guide}{section.D.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.1.1}Hardware Setup}{96}{subsection.D.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.1.2}Software Setup}{96}{subsection.D.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {D.2}Dashboard Interface}{97}{section.D.2}\protected@file@percent }
+\newlabel{sec:dashboard-guide}{{D.2}{97}{Dashboard Interface}{section.D.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.2.1}Interface Components}{97}{subsection.D.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {D.3}Firmware Upload}{97}{section.D.3}\protected@file@percent }
+\newlabel{sec:firmware-upload}{{D.3}{97}{Firmware Upload}{section.D.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.3.1}Requirements}{97}{subsection.D.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.3.2}Arduino IDE Setup}{97}{subsection.D.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {D.4}Troubleshooting}{98}{section.D.4}\protected@file@percent }
+\newlabel{sec:troubleshooting}{{D.4}{98}{Troubleshooting}{section.D.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.4.1}Common Issues}{98}{subsection.D.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {D.1}{\ignorespaces Troubleshooting guide}}{98}{table.caption.123}\protected@file@percent }
+\newlabel{tab:troubleshooting}{{D.1}{98}{Troubleshooting guide}{table.caption.123}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {D.2}{\ignorespaces LED status meanings}}{99}{table.caption.124}\protected@file@percent }
+\newlabel{tab:led-status}{{D.2}{99}{LED status meanings}{table.caption.124}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.4.2}LED Status Indicators}{99}{subsection.D.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {D.5}Safety Guidelines}{99}{section.D.5}\protected@file@percent }
+\newlabel{sec:safety}{{D.5}{99}{Safety Guidelines}{section.D.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {D.6}Maintenance}{99}{section.D.6}\protected@file@percent }
+\newlabel{sec:maintenance}{{D.6}{99}{Maintenance}{section.D.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {D.6.1}Regular Maintenance Checklist}{99}{subsection.D.6.1}\protected@file@percent }
+\bibstyle{IEEEtran}
+\bibdata{bibliography}
+\@writefile{toc}{\contentsline {chapter}{References}{101}{appendix*.125}\protected@file@percent }
+\gdef \@abspage@last{121}
