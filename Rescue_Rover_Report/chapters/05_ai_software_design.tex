@@ -18,8 +18,7 @@ The RoverInterface application acts as the central coordinator. It manages three
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=\textwidth]{figures/software/host_architecture_hybrid.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{4cm}FIGURE: Host Application Architecture\\Block diagram showing FrameBuffer, Local YOLO Worker, Cloud Client, and Arbiter\vspace{4cm}}}
+    \includegraphics[width=\textwidth]{figures/software/host_architecture_hybrid.png}
     \caption{High level architecture showing the split between local processing and cloud delegation.}
     \label{fig:host-architecture}
 \end{figure}
@@ -91,8 +90,7 @@ We utilize a Google Colab instance provisioned with an NVIDIA A100 (40GB VRAM) o
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/software/cloud_architecture.png}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}FIGURE: Cloud Server Setup\\Diagram showing Colab notebook hosting vLLM and ngrok tunnel\vspace{3cm}}}
+    \includegraphics[width=0.8\textwidth]{figures/software/cloud_architecture.jpg}
     \caption{Cloud infrastructure layout for the Strategic Layer.}
     \label{fig:cloud-architecture}
 \end{figure}
@@ -147,8 +145,7 @@ With two AI brains (Local YOLO and Cloud VLM) plus a human operator, conflicting
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=\textwidth]{figures/software/arbiter_logic.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{3.5cm}FIGURE: Arbitration Logic Flow\\Flowchart showing Safety > Manual > AI priority logic\vspace{3.5cm}}}
+    \includegraphics[width=0.8\textwidth]{figures/software/arbiter_logic.png}
     \caption{Logic flow for the Command Arbiter ensuring safety protocols execute first.}
     \label{fig:arbiter-logic}
 \end{figure}

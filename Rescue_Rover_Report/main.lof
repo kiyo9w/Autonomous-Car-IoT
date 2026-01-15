@@ -38,38 +38,38 @@
 \contentsline {figure}{\numberline {4.4}{\ignorespaces Physical wiring diagram illustrating the connections between the OV2640 camera module (via FPC breakout) and the ESP32-S3 development board.}}{38}{figure.caption.60}%
 \contentsline {figure}{\numberline {4.5}{\ignorespaces Flowchart for camera initialization showing fail-safe checks, critical configuration steps (including the reduced 10MHz XCLK), and error handling paths.}}{40}{figure.caption.61}%
 \contentsline {figure}{\numberline {4.6}{\ignorespaces Sequence diagram for HTTP MJPEG streaming showing the continuous frame transmission loop.}}{42}{figure.caption.62}%
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Measured latency comparison. Error bars indicate the jitter range (min/max) observed during testing. UDP mode provides a consistent $\approx $40\% reduction in end-to-end latency compared to the HTTP MJPEG stream.}}{43}{figure.caption.63}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Measured latency comparison between HTTP MJPEG and UDP streaming modes. UDP consistently shows 80ms lower latency.}}{44}{figure.caption.63}%
 \contentsline {figure}{\numberline {4.8}{\ignorespaces Differential drive kinematic model showing how independent wheel speeds create linear and angular motion.}}{45}{figure.caption.65}%
 \contentsline {figure}{\numberline {4.9}{\ignorespaces L298N motor driver wiring diagram showing all connections between ESP32-S3, the driver board, and both DC motors.}}{46}{figure.caption.66}%
 \contentsline {figure}{\numberline {4.10}{\ignorespaces Comparison of point turn (current implementation) versus arc turn (future enhancement). Point turns rotate in place while arc turns follow a curved path.}}{47}{figure.caption.68}%
 \contentsline {figure}{\numberline {4.11}{\ignorespaces ESP-NOW protocol positioning in the network stack. It operates below IP, directly on top of the 802.11 MAC layer.}}{48}{figure.caption.69}%
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Binary layout of ESP-NOW packet structures showing byte offsets for each field.}}{48}{figure.caption.70}%
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Data flow from ESP-NOW callback to motor actuation through the main loop safety checks.}}{50}{figure.caption.71}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Binary layout of ESP-NOW packet structures showing byte offsets for each field.}}{49}{figure.caption.70}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Data flow diagram illustrating the deferred motor actuation design. The high-priority ESP-NOW callback quickly stores incoming data into shared memory. The lower-priority main loop reads the latest sensor data and the stored command, performing safety checks before any physical motor actuation occurs.}}{50}{figure.caption.71}%
 \contentsline {figure}{\numberline {4.14}{\ignorespaces State machine for heartbeat monitoring showing transitions between connected and stopped states.}}{52}{figure.caption.72}%
-\contentsline {figure}{\numberline {4.15}{\ignorespaces State machine diagram for non-blocking ultrasonic distance measurement.}}{53}{figure.caption.73}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces State machine diagram for non-blocking ultrasonic distance measurement.}}{54}{figure.caption.73}%
 \contentsline {figure}{\numberline {4.16}{\ignorespaces Flowchart of the unified control loop showing all safety checks and their precedence.}}{55}{figure.caption.74}%
-\contentsline {figure}{\numberline {4.17}{\ignorespaces Timing breakdown of a single main loop iteration showing relative time spent in each subsystem.}}{56}{figure.caption.76}%
-\contentsline {figure}{\numberline {4.18}{\ignorespaces Arduino IDE Tools menu configuration for ESP32-S3 with PSRAM enabled.}}{57}{figure.caption.78}%
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Timing breakdown of a single main loop iteration showing relative time spent in each subsystem.}}{57}{figure.caption.76}%
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Arduino IDE Tools menu configuration for ESP32-S3 with PSRAM enabled.}}{58}{figure.caption.78}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces High level architecture showing the split between local processing and cloud delegation.}}{59}{figure.caption.79}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Cloud infrastructure layout for the Strategic Layer.}}{60}{figure.caption.82}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Logic flow for the Command Arbiter ensuring safety protocols execute first.}}{62}{figure.caption.83}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces High level architecture showing the split between local processing and cloud delegation.}}{60}{figure.caption.79}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Cloud infrastructure layout for the Strategic Layer.}}{61}{figure.caption.82}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Logic flow for the Command Arbiter ensuring safety protocols execute first.}}{63}{figure.caption.83}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Indoor test environment used for all experiments.}}{64}{figure.caption.84}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Distribution of command round trip latency across 1000 measurements.}}{65}{figure.caption.87}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparison of video latency between UDP and HTTP streaming modes.}}{66}{figure.caption.89}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Packet loss rate as a function of distance from the access point.}}{67}{figure.caption.91}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Frame rate stability over a 5 minute continuous operation test.}}{68}{figure.caption.93}%
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Visual comparison of different JPEG quality settings.}}{68}{figure.caption.95}%
-\contentsline {figure}{\numberline {6.7}{\ignorespaces Path deviation during straight line driving test.}}{70}{figure.caption.97}%
-\contentsline {figure}{\numberline {6.8}{\ignorespaces Path traced during a point turn, showing rotation approximately about center.}}{70}{figure.caption.100}%
-\contentsline {figure}{\numberline {6.9}{\ignorespaces Precision-recall curves for each object class.}}{72}{figure.caption.103}%
-\contentsline {figure}{\numberline {6.10}{\ignorespaces Distribution of YOLOv8 inference times.}}{72}{figure.caption.105}%
-\contentsline {figure}{\numberline {6.11}{\ignorespaces Ultrasonic sensor accuracy across measurement range.}}{73}{figure.caption.107}%
-\contentsline {figure}{\numberline {6.12}{\ignorespaces Battery voltage during continuous operation discharge test.}}{74}{figure.caption.110}%
-\contentsline {figure}{\numberline {6.13}{\ignorespaces Infrared thermal image showing component temperatures during operation.}}{75}{figure.caption.112}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Indoor test environment used for all experiments.}}{66}{figure.caption.84}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Distribution of command round trip latency across 1000 measurements.}}{67}{figure.caption.87}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparison of video latency between UDP and HTTP streaming modes.}}{68}{figure.caption.89}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Packet loss rate as a function of distance from the access point.}}{69}{figure.caption.91}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Frame rate stability over a 5 minute continuous operation test.}}{70}{figure.caption.93}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Visual comparison of different JPEG quality settings.}}{71}{figure.caption.95}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Path deviation during straight line driving test.}}{72}{figure.caption.97}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Path traced during a point turn, showing rotation approximately about center.}}{72}{figure.caption.100}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Precision-recall curves for each object class.}}{74}{figure.caption.103}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Distribution of YOLOv8 inference times.}}{74}{figure.caption.105}%
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Ultrasonic sensor accuracy across measurement range.}}{75}{figure.caption.107}%
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Battery voltage during continuous operation discharge test.}}{76}{figure.caption.110}%
+\contentsline {figure}{\numberline {6.13}{\ignorespaces Infrared thermal image showing component temperatures during operation.}}{77}{figure.caption.112}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {7.1}{\ignorespaces The completed Rescue Rover prototype.}}{80}{figure.caption.116}%
+\contentsline {figure}{\numberline {7.1}{\ignorespaces The completed Rescue Rover prototype.}}{82}{figure.caption.116}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

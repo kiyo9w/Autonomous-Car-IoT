@@ -366,7 +366,7 @@ static esp_err_t stream_handler(httpd_req_t *req) {
 \end{lstlisting}
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/software/http_stream_sequence.png}
     \caption{Sequence diagram for HTTP MJPEG streaming showing the continuous frame transmission loop.}
@@ -399,58 +399,11 @@ void streamFrameUDP() {
 }
 \end{lstlisting}
 
+% FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % --- Local Color Definitions ---
-    \definecolor{httpRed}{HTML}{D9534F}
-    \definecolor{udpGreen}{HTML}{5CB85C}
-    \definecolor{gridGray}{HTML}{E5E5E5}
-
-    \begin{tikzpicture}[font=\sffamily\footnotesize, scale=1.0]
-        % --- Setup Coordinates (Scale: Y=1ms -> 0.025cm) ---
-        % HTTP: 200ms avg, range 180-220
-        % UDP: 120ms avg, range 100-140
-        
-        % Grid and Axis
-        \draw[draw=gridGray, thin] (0,0) grid[xstep=8cm, ystep=1.25] (7, 6.25); % Grid lines every 50ms
-        
-        % Y-Axis Labels
-        \foreach \y/\label in {0/0, 1.25/50, 2.5/100, 3.75/150, 5.0/200, 6.25/250} {
-            \node[anchor=east, text=gray] at (-0.1, \y) {\label};
-        }
-        \node[rotate=90, anchor=center] at (-1.0, 3.125) {End-to-End Latency (ms)};
-
-        % X-Axis Line
-        \draw[thick] (0,0) -- (7,0);
-
-        % --- BAR 1: HTTP MJPEG ---
-        % Position x=2, Height=200ms (5.0cm)
-        \fill[fill=httpRed] (1.25, 0) rectangle (2.75, 5.0);
-        \node[below] at (2, 0) {HTTP MJPEG};
-        \node[white, font=\bfseries] at (2, 4.5) {200ms};
-        
-        % Error Bar (180ms to 220ms -> 4.5cm to 5.5cm)
-        \draw[|-|, thick] (2, 4.5) -- (2, 5.5);
-        
-        % --- BAR 2: UDP Direct ---
-        % Position x=5, Height=120ms (3.0cm)
-        \fill[fill=udpGreen] (4.25, 0) rectangle (5.75, 3.0);
-        \node[below] at (5, 0) {UDP Direct};
-        \node[white, font=\bfseries] at (5, 2.5) {120ms};
-        
-        % Error Bar (100ms to 140ms -> 2.5cm to 3.5cm)
-        \draw[|-|, thick] (5, 2.5) -- (5, 3.5);
-
-        % --- ANNOTATIONS ---
-        % Reference line from HTTP top
-        \draw[dashed, gray] (2, 5.0) -- (5, 5.0);
-        
-        % Delta arrow (from 200ms down to 120ms at x=5)
-        \draw[<->, >=stealth, thick, black] (5, 4.9) -- (5, 3.6) 
-            node[midway, right, align=left, font=\scriptsize\bfseries, xshift=2pt] {$\Delta \approx 80$ms\\Reduction};
-
-    \end{tikzpicture}
-    \caption{Measured latency comparison. Error bars indicate the jitter range (min/max) observed during testing. UDP mode provides a consistent $\approx$40\% reduction in end-to-end latency compared to the HTTP MJPEG stream.}
+    \includegraphics[width=0.85\textwidth]{figures/charts/http_vs_udp_latency.png}
+    \caption{Measured latency comparison between HTTP MJPEG and UDP streaming modes. UDP consistently shows 80ms lower latency.}
     \label{fig:latency-comparison}
 \end{figure}
 
@@ -495,10 +448,9 @@ The rover uses a differential drive configuration with two independently control
 where $v_{robot}$ is the linear velocity of the robot center, $\omega_{robot}$ is the angular velocity, $v_R$ and $v_L$ are the right and left wheel velocities respectively, and $W$ is the wheelbase width.
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.6\textwidth]{figures/hardware/differential_drive_kinematics.png}
-    \fbox{\parbox{0.6\textwidth}{\centering\vspace{3cm}FIGURE: Differential Drive Kinematics\\Diagram showing wheel velocities, turning radius, and angular velocity\vspace{3cm}}}
+    \includegraphics[width=0.6\textwidth]{figures/hardware/differential_drive_kinematics.png}
     \caption{Differential drive kinematic model showing how independent wheel speeds create linear and angular motion.}
     \label{fig:diff-drive}
 \end{figure}
@@ -546,8 +498,7 @@ void stopMoving() {
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.9\textwidth]{figures/hardware/l298n_wiring.png}
-    \fbox{\parbox{0.9\textwidth}{\centering\vspace{3.5cm}FIGURE: L298N Motor Driver Wiring\\Complete schematic showing ESP32-S3 GPIO connections, motor terminals, and power input\vspace{3.5cm}}}
+    \includegraphics[width=0.9\textwidth]{figures/hardware/l298n_wiring.png}
     \caption{L298N motor driver wiring diagram showing all connections between ESP32-S3, the driver board, and both DC motors.}
     \label{fig:l298n-wiring}
 \end{figure}
@@ -579,8 +530,7 @@ Point turns are achieved by running motors in opposite directions. The left moto
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/hardware/turn_mechanics.png}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}FIGURE: Turning Mechanics Diagram\\Shows point turn vs arc turn wheel direction arrows\vspace{3cm}}}
+    \includegraphics[width=0.8\textwidth]{figures/hardware/turn_mechanics.jpg}
     \caption{Comparison of point turn (current implementation) versus arc turn (future enhancement). Point turns rotate in place while arc turns follow a curved path.}
     \label{fig:turn-mechanics}
 \end{figure}
@@ -596,10 +546,9 @@ The ConnectionModule handles all wireless communication between the rover and th
 ESP-NOW allows direct device to device communication using MAC addresses. Packets are limited to 250 bytes, but this is more than sufficient for joystick commands (8 bytes) and telemetry (8 bytes). The protocol does not guarantee delivery, but at close range with clear line of sight, packet loss is negligible.
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=\textwidth]{figures/software/espnow_protocol_stack.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{3cm}FIGURE: ESP-NOW Protocol Stack\\Shows position in networking layers compared to standard WiFi TCP/IP\vspace{3cm}}}
+    \includegraphics[width=\textwidth]{figures/software/espnow_protocol_stack.jpg}
     \caption{ESP-NOW protocol positioning in the network stack. It operates below IP, directly on top of the 802.11 MAC layer.}
     \label{fig:espnow-stack}
 \end{figure}
@@ -627,8 +576,7 @@ The \texttt{\_\_attribute\_\_((packed))} directive ensures no padding bytes are 
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/software/packet_format.png}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{2.5cm}FIGURE: Packet Format Diagram\\Shows byte layout of command and feedback structures\vspace{2.5cm}}}
+    \includegraphics[width=0.7\textwidth]{figures/software/packet_format.png}
     \caption{Binary layout of ESP-NOW packet structures showing byte offsets for each field.}
     \label{fig:packet-format}
 \end{figure}
@@ -664,12 +612,77 @@ static void onDataRecv(const esp_now_recv_info_t *info,
 }
 \end{lstlisting}
 
-% FIGURE PLACEHOLDER
+% FIGURE: CALLBACK VS LOOP DIAGRAM (COMPACT VERSION)
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=\textwidth]{figures/software/callback_vs_loop_diagram.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{3cm}FIGURE: Callback vs Main Loop Processing\\Sequence showing how commands flow from ESP-NOW to motor actuation\vspace{3cm}}}
-    \caption{Data flow from ESP-NOW callback to motor actuation through the main loop safety checks.}
+    % Load required libraries locally
+    \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, backgrounds}
+    
+    % Added 'scale=0.75, transform shape' to shrink everything
+    \begin{tikzpicture}[
+        scale=0.75, transform shape,
+        node distance=1.5cm and 0.8cm, % Reduced distance
+        auto,
+        >=Latex,
+        font=\sffamily\small,
+        % Compacted node styles
+        block/.style = {rectangle, draw=black, thick, fill=blue!10, text width=2.0cm, align=center, minimum height=1.0cm, font=\footnotesize},
+        decision/.style = {diamond, draw=black, thick, fill=yellow!10, text width=1.5cm, align=center, inner sep=0pt, aspect=1.5, font=\footnotesize},
+        data/.style = {cylinder, shape border rotate=90, draw=black, thick, fill=gray!20, text width=1.8cm, align=center, minimum height=1.2cm, aspect=0.25, font=\footnotesize},
+        sensor/.style = {trapezium, trapezium left angle=70, trapezium right angle=110, draw=black, thick, fill=green!10, text width=2.2cm, align=center, minimum height=0.8cm, font=\footnotesize},
+        actuator/.style = {rectangle, draw=red!80!black, thick, fill=red!10, text width=2.2cm, align=center, minimum height=1.0cm, rounded corners, font=\footnotesize},
+        line/.style = {draw, thick, ->},
+        dashedline/.style = {draw, thick, dashed, ->},
+        contextbox/.style = {draw=gray, dashed, thick, rounded corners, fill=gray!5, inner sep=8pt}
+    ]
+
+        % --- Left Column: Interrupt Context ---
+        \node [block, fill=red!5] (isr) {\textbf{ESP-NOW Callback}};
+        \node [above=0.6cm of isr, font=\bfseries\footnotesize] (packet) {Incoming Packet};
+        \draw [line, ultra thick] (packet) -- node[right, font=\scriptsize] {Trigger} (isr);
+
+        % --- Center: Shared Memory ---
+        % Reduced spacing from 3cm to 1.2cm
+        \node [data, right=2cm of isr] (sharedMem) {\textbf{Global Struct}\\recvCommand};
+
+        % --- Right Column: Main Loop Context ---
+        % Reduced spacing from 3cm to 1.2cm
+        \node [block, right=1.8cm of sharedMem] (loopStart) {\textbf{Main Loop}};
+        \node [sensor, below=0.8cm of loopStart] (readSensors) {Read Sensor};
+        \node [block, below=0.8cm of readSensors] (readGlobal) {Read Global};
+        \node [decision, below=0.8cm of readGlobal] (safetyCheck) {Safe?\\($>$25cm)};
+        
+        % Actuation paths
+        \node [actuator, below=1.0cm of safetyCheck] (actuate) {\textbf{Actuate}};
+        \node [actuator, right=0.5cm of safetyCheck, fill=orange!20] (blockCmd) {\textbf{BLOCK}};
+
+        % --- Context Boxes (Background layers) ---
+        \begin{pgfonlayer}{background}
+            \node [contextbox, fit=(packet) (isr), label={[anchor=north,red!70!black,font=\scriptsize]north:\textbf{INTERRUPT}}] (isrContext) {};
+            \node [contextbox, fit=(loopStart) (actuate) (blockCmd), label={[anchor=north,blue!70!black,font=\scriptsize]north:\textbf{MAIN LOOP}}] (loopContext) {};
+        \end{pgfonlayer}
+
+        % --- Connections ---
+        % ISR to Shared Memory
+        \draw [line, ultra thick, red!70!black] (isr) -- node[above, font=\scriptsize\bfseries] {memcpy} (sharedMem);
+
+        % Main Loop Flow
+        \draw [line] (loopStart) -- (readSensors);
+        \draw [line] (readSensors) -- (readGlobal);
+        \draw [line] (readGlobal) -- (safetyCheck);
+
+        % Shared Memory to Main Loop
+        \draw [dashedline, blue!70!black] (sharedMem) -- node[above, font=\scriptsize] {Fetch} (readGlobal);
+
+        % Safety Decisions
+        \draw [line, green!50!black, thick] (safetyCheck) -- node[right, font=\scriptsize] {Yes} (actuate);
+        \draw [line, red!70!black, thick] (safetyCheck) -- node[above, font=\scriptsize] {No} (blockCmd);
+
+        % Loopback
+        \draw [dashed, ->] (actuate.south) to[out=270,in=180] ++(-1.0,-0.6) to[out=0,in=270] ($(loopContext.south west)!0.5!(loopContext.south east)$);
+
+    \end{tikzpicture}
+    \caption{Data flow diagram illustrating the deferred motor actuation design. The high-priority ESP-NOW callback quickly stores incoming data into shared memory. The lower-priority main loop reads the latest sensor data and the stored command, performing safety checks before any physical motor actuation occurs.}
     \label{fig:callback-flow}
 \end{figure}
 
@@ -739,10 +752,9 @@ bool isConnectionAlive(unsigned long timeoutMs) {
 \end{lstlisting}
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.85\textwidth]{figures/software/heartbeat_state_machine.png}
-    \fbox{\parbox{0.85\textwidth}{\centering\vspace{3cm}FIGURE: Heartbeat State Machine\\Shows CONNECTED, WARNING, and STOPPED states with transitions\vspace{3cm}}}
+    \includegraphics[width=0.85\textwidth]{figures/software/heartbeat_state_machine.jpg}
     \caption{State machine for heartbeat monitoring showing transitions between connected and stopped states.}
     \label{fig:heartbeat-fsm}
 \end{figure}
@@ -809,10 +821,9 @@ bool updateUltrasonicDistance() {
 \end{lstlisting}
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=\textwidth]{figures/software/ultrasonic_state_machine.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{3.5cm}FIGURE: Ultrasonic State Machine\\Shows all states with timing conditions for transitions\vspace{3.5cm}}}
+    \includegraphics[width=\textwidth]{figures/software/ultrasonic_state_machine.jpg}
     \caption{State machine diagram for non-blocking ultrasonic distance measurement.}
     \label{fig:ultrasonic-fsm}
 \end{figure}
@@ -864,8 +875,7 @@ void handleControlLoop() {
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=\textwidth]{figures/software/control_loop_flowchart.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{4cm}FIGURE: Unified Control Loop Flowchart\\Complete decision tree showing heartbeat, distance, and command processing\vspace{4cm}}}
+    \includegraphics[width=\textwidth]{figures/software/control_loop_flowchart.jpg}
     \caption{Flowchart of the unified control loop showing all safety checks and their precedence.}
     \label{fig:control-loop-flow}
 \end{figure}
@@ -916,8 +926,7 @@ The 5ms delay at the end of each loop iteration ensures the watchdog timer is no
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/software/loop_timing_diagram.png}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}FIGURE: Main Loop Timing Diagram\\Shows time allocation for each subsystem per iteration\vspace{3cm}}}
+    \includegraphics[width=\textwidth]{figures/software/loop_timing_diagram.jpg}
     \caption{Timing breakdown of a single main loop iteration showing relative time spent in each subsystem.}
     \label{fig:loop-timing}
 \end{figure}
@@ -951,8 +960,7 @@ The "Huge APP" partition scheme allocates maximum space for application code, wh
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/software/arduino_board_settings.png}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}FIGURE: Arduino IDE Board Settings Screenshot\\Shows Tools menu with all required settings highlighted\vspace{3cm}}}
+    \includegraphics[width=\textwidth]{figures/software/arduino_board_settings.png}
     \caption{Arduino IDE Tools menu configuration for ESP32-S3 with PSRAM enabled.}
     \label{fig:arduino-settings}
 \end{figure}
