@@ -261,7 +261,7 @@ def analyze_image_stub(jpeg_bytes: bytes) -> dict:
     return {'command': 'IDLE', 'confidence': 0.0}
 
 
-def loop(frame_buffer, mission_log):
+def loop(frame_buffer, mission_log, serial_manager=None):
     """Legacy loop - kept for backwards compatibility but does nothing useful"""
     while True:
         time.sleep(10)  # Just keep thread alive

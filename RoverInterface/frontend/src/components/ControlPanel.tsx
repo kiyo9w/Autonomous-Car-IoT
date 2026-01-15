@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { 
-  ArrowUp, 
-  ArrowDown, 
-  ArrowLeft, 
-  ArrowRight, 
-  RotateCcw, 
+import {
+  ArrowUp,
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  RotateCcw,
   RotateCw,
   Zap,
   AlertTriangle,
@@ -21,19 +21,35 @@ interface ControlPanelProps {
   currentAiAction?: string | null;
 }
 
-export function ControlPanel({ 
-  onCommand, 
-  disabled, 
-  mode, 
+export function ControlPanel({
+  onCommand,
+  disabled,
+  mode,
   aiControlActive = false,
-  currentAiAction = null 
+  currentAiAction = null
 }: ControlPanelProps) {
   const [speed, setSpeed] = useState(50);
   const [activeCommand, setActiveCommand] = useState<string | null>(null);
 
-  const handleCommand = (command: string) => {
+  const handleCommand = async (command: string) => {
     if (disabled) return;
     setActiveCommand(command);
+
+    try {
+      // Send command to backend API
+      const response = await fetch('http://localhost:8080/api/command', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ command })
+      });
+
+      if (!response.ok) {
+        console.error('Command failed to send');
+      }
+    } catch (err) {
+      console.error('API Error:', err);
+    }
+
     onCommand(command);
     setTimeout(() => setActiveCommand(null), 200);
   };
@@ -42,35 +58,35 @@ export function ControlPanel({
     return aiControlActive && currentAiAction === command;
   };
 
+  // ESP32 Gateway Command Protocol:
+  // F = Forward, B = Backward, L = Left, R = Right, S = Stop
+  // Joystick: "X,Y\n" where X,Y are 0-4095 (center=2048)
+
   const buttonClass = (cmd: string) => {
     const isActive = activeCommand === cmd;
-    return `p-1.5 rounded-lg transition-all ${
-      disabled 
-        ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-        : isActive
-          ? 'bg-blue-600 text-white shadow-lg'
-          : aiControlActive
-            ? 'bg-purple-100 hover:bg-purple-200 text-purple-700 border border-purple-300'
-            : 'bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200'
-    }`;
+    return `p-1.5 rounded-lg transition-all ${disabled
+      ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+      : isActive
+        ? 'bg-blue-600 text-white shadow-lg'
+        : aiControlActive
+          ? 'bg-purple-100 hover:bg-purple-200 text-purple-700 border border-purple-300'
+          : 'bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200'
+      }`;
   };
 
   return (
-    <div className={`rounded-lg p-2 space-y-2 transition-all ${
-      mode === 'scout' 
-        ? aiControlActive 
-          ? 'bg-gradient-to-br from-purple-50 to-blue-50 border-2 border-purple-300 shadow-lg shadow-purple-500/20' 
-          : 'bg-white border border-gray-200 shadow-sm'
-        : 'bg-white/50 border-2 border-red-300'
-    }`}>
+    <div className={`rounded-lg p-2 space-y-2 transition-all ${mode === 'scout'
+      ? aiControlActive
+        ? 'bg-gradient-to-br from-purple-50 to-blue-50 border-2 border-purple-300 shadow-lg shadow-purple-500/20'
+        : 'bg-white border border-gray-200 shadow-sm'
+      : 'bg-white/50 border-2 border-red-300'
+      }`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-1.5">
-          <div className={`p-1 rounded-lg ${
-            aiControlActive ? 'bg-purple-100' : mode === 'scout' ? 'bg-blue-50' : 'bg-gray-100'
-          }`}>
-            <Zap className={`w-3.5 h-3.5 ${
-              aiControlActive ? 'text-purple-600' : mode === 'scout' ? 'text-blue-600' : 'text-gray-400'
-            }`} />
+          <div className={`p-1 rounded-lg ${aiControlActive ? 'bg-purple-100' : mode === 'scout' ? 'bg-blue-50' : 'bg-gray-100'
+            }`}>
+            <Zap className={`w-3.5 h-3.5 ${aiControlActive ? 'text-purple-600' : mode === 'scout' ? 'text-blue-600' : 'text-gray-400'
+              }`} />
           </div>
           <div>
             <h2 className="text-gray-900 text-xs">Control Panel</h2>
@@ -104,58 +120,64 @@ export function ControlPanel({
         <div className="grid grid-cols-3 gap-1">
           <div />
           <button
-            onClick={() => handleCommand('MOVE_FORWARD')}
-            className={buttonClass('MOVE_FORWARD')}
+            onClick={() => handleCommand('F')}
+            className={buttonClass('F')}
             disabled={disabled}
+            title="Forward (F)"
           >
             <ArrowUp className="w-4 h-4 mx-auto" />
           </button>
           <div />
-          
+
           <button
-            onClick={() => handleCommand('ROTATE_LEFT')}
-            className={buttonClass('ROTATE_LEFT')}
+            onClick={() => handleCommand('L')}
+            className={buttonClass('L')}
             disabled={disabled}
+            title="Turn Left (L)"
           >
             <RotateCcw className="w-4 h-4 mx-auto" />
           </button>
           <button
-            onClick={() => handleCommand('STOP')}
-            className={`p-2 rounded-lg transition-all text-xs ${
-              disabled 
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                : 'bg-red-500 hover:bg-red-600 text-white shadow-lg shadow-red-500/30'
-            }`}
+            onClick={() => handleCommand('S')}
+            className={`p-2 rounded-lg transition-all text-xs ${disabled
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : 'bg-red-500 hover:bg-red-600 text-white shadow-lg shadow-red-500/30'
+              }`}
             disabled={disabled}
+            title="Stop (S)"
           >
             STOP
           </button>
           <button
-            onClick={() => handleCommand('ROTATE_RIGHT')}
-            className={buttonClass('ROTATE_RIGHT')}
+            onClick={() => handleCommand('R')}
+            className={buttonClass('R')}
             disabled={disabled}
+            title="Turn Right (R)"
           >
             <RotateCw className="w-4 h-4 mx-auto" />
           </button>
-          
+
           <button
-            onClick={() => handleCommand('MOVE_LEFT')}
-            className={buttonClass('MOVE_LEFT')}
+            onClick={() => handleCommand('L')}
+            className={buttonClass('L')}
             disabled={disabled}
+            title="Move Left (L)"
           >
             <ArrowLeft className="w-4 h-4 mx-auto" />
           </button>
           <button
-            onClick={() => handleCommand('MOVE_BACKWARD')}
-            className={buttonClass('MOVE_BACKWARD')}
+            onClick={() => handleCommand('B')}
+            className={buttonClass('B')}
             disabled={disabled}
+            title="Backward (B)"
           >
             <ArrowDown className="w-4 h-4 mx-auto" />
           </button>
           <button
-            onClick={() => handleCommand('MOVE_RIGHT')}
-            className={buttonClass('MOVE_RIGHT')}
+            onClick={() => handleCommand('R')}
+            className={buttonClass('R')}
             disabled={disabled}
+            title="Move Right (R)"
           >
             <ArrowRight className="w-4 h-4 mx-auto" />
           </button>
@@ -178,33 +200,32 @@ export function ControlPanel({
             onCommand(`SET_SPEED_${e.target.value}`);
           }}
           disabled={disabled}
-          className={`w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500 ${
-            disabled ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
+          className={`w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500 ${disabled ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
         />
       </div>
 
       {/* Capture Control */}
       <button
         onClick={() => handleCommand('STOP_AND_CAPTURE')}
-        className={`w-full p-2 rounded-lg transition-all flex items-center justify-center gap-1.5 text-xs ${
-          disabled 
-            ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200' 
-            : 'bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/30'
-        }`}
+        className={`w-full p-2 rounded-lg transition-all flex items-center justify-center gap-1.5 text-xs ${disabled
+          ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
+          : 'bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/30'
+          }`}
         disabled={disabled}
       >
         <Camera className="w-3.5 h-3.5" />
         <span>Capture HD</span>
       </button>
 
-      {/* Emergency Stop */}
+      {/* Emergency Stop - Same as Stop but more prominent */}
       <button
-        onClick={() => handleCommand('EMERGENCY_STOP')}
+        onClick={() => handleCommand('S')}
         className="w-full p-2 bg-red-500 hover:bg-red-600 rounded-lg transition-all flex items-center justify-center gap-1.5 text-white shadow-lg shadow-red-500/30 text-xs"
+        title="Emergency Stop (S)"
       >
         <AlertTriangle className="w-3.5 h-3.5" />
-        <span>Emergency</span>
+        <span>Emergency Stop</span>
       </button>
     </div>
   );

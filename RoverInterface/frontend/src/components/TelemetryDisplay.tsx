@@ -1,12 +1,19 @@
 import { useState, useEffect } from 'react';
-import { 
-  Battery, 
-  Gauge, 
+import {
+  Battery,
+  Gauge,
   Compass,
   MapPin,
   Signal,
   AlertCircle
 } from 'lucide-react';
+
+interface TelemetryResponse {
+  voltage?: number;
+  distance?: number;
+  status?: string;
+  fps?: number;
+}
 
 interface TelemetryDisplayProps {
   mode: 'scout' | 'survivor';
@@ -26,22 +33,31 @@ export function TelemetryDisplay({ mode }: TelemetryDisplayProps) {
 
   const [cachedTelemetry, setCachedTelemetry] = useState(telemetry);
 
-  // Simulate telemetry updates (only in scout mode)
+  // Fetch actual telemetry from backend
   useEffect(() => {
     if (mode === 'scout') {
-      const interval = setInterval(() => {
-        setTelemetry(prev => {
-          const updated = {
-            ...prev,
-            battery: Math.max(0, prev.battery - Math.random() * 0.1),
-            speed: Math.max(0, Math.random() * 5),
-            heading: (prev.heading + (Math.random() - 0.5) * 10 + 360) % 360,
-            signal: 85 + Math.random() * 15,
-            distance: 20 + Math.random() * 80
-          };
-          setCachedTelemetry(updated); // Save for survivor mode
-          return updated;
-        });
+      const interval = setInterval(async () => {
+        try {
+          const res = await fetch('http://localhost:8080/api/telemetry');
+          if (res.ok) {
+            const data: TelemetryResponse = await res.json();
+            setTelemetry(prev => {
+              const updated = {
+                ...prev,
+                battery: data.voltage ? (data.voltage / 12.6) * 100 : prev.battery, // Normalize 12.6V max
+                distance: data.distance || prev.distance,
+                status: data.status || 'DISCONNECTED',
+                speed: data.fps ? data.fps / 10 : 0, // Hack: use FPS as speed metric for now
+                heading: prev.heading, // Heading not yet in telemetry
+                signal: data.status === 'CONNECTED' ? 100 : 0
+              };
+              setCachedTelemetry(updated);
+              return updated;
+            });
+          }
+        } catch (err) {
+          console.error('Telemetry fetch failed:', err);
+        }
       }, 1000);
       return () => clearInterval(interval);
     }
@@ -69,19 +85,17 @@ export function TelemetryDisplay({ mode }: TelemetryDisplayProps) {
   };
 
   return (
-    <div className={`rounded-lg p-2 ${
-      mode === 'scout' ? 'bg-white border border-gray-200 shadow-sm' : 'bg-white/50 border-2 border-orange-300'
-    }`}>
+    <div className={`rounded-lg p-2 ${mode === 'scout' ? 'bg-white border border-gray-200 shadow-sm' : 'bg-white/50 border-2 border-orange-300'
+      }`}>
       <div className="flex items-center justify-between mb-2">
         <div>
           <h2 className="text-gray-900 text-xs">Telemetry</h2>
           <p className="text-xs text-gray-500">Real-time</p>
         </div>
-        <div className={`px-1.5 py-0.5 rounded flex items-center gap-1 ${
-          isLive 
-            ? 'bg-green-50 text-green-600' 
-            : 'bg-orange-50 text-orange-600'
-        }`}>
+        <div className={`px-1.5 py-0.5 rounded flex items-center gap-1 ${isLive
+          ? 'bg-green-50 text-green-600'
+          : 'bg-orange-50 text-orange-600'
+          }`}>
           <div className={`w-1 h-1 rounded-full ${isLive ? 'bg-green-600 animate-pulse' : 'bg-orange-600'}`} />
           <span className="text-xs">{isLive ? 'LIVE' : 'CACHE'}</span>
         </div>
@@ -95,12 +109,11 @@ export function TelemetryDisplay({ mode }: TelemetryDisplayProps) {
           </div>
         </div>
       )}
-      
+
       <div className="grid grid-cols-2 gap-1.5">
         {/* Battery */}
-        <div className={`rounded p-1.5 border ${
-          isLive ? getBatteryBgColor(displayTelemetry.battery) : 'bg-gray-50'
-        } ${isLive ? 'border-gray-200' : 'border-gray-100'}`}>
+        <div className={`rounded p-1.5 border ${isLive ? getBatteryBgColor(displayTelemetry.battery) : 'bg-gray-50'
+          } ${isLive ? 'border-gray-200' : 'border-gray-100'}`}>
           <div className="flex items-center gap-1 mb-1">
             <Battery className={`w-3 h-3 ${isLive ? getBatteryColor(displayTelemetry.battery) : 'text-gray-400'}`} />
             <span className="text-xs text-gray-600">Battery</span>
@@ -109,12 +122,11 @@ export function TelemetryDisplay({ mode }: TelemetryDisplayProps) {
             {displayTelemetry.battery.toFixed(1)}%
           </div>
           <div className="h-1 bg-gray-200 rounded-full overflow-hidden">
-            <div 
-              className={`h-full transition-all ${
-                isLive 
-                  ? displayTelemetry.battery > 50 ? 'bg-green-500' : displayTelemetry.battery > 20 ? 'bg-yellow-500' : 'bg-red-500'
-                  : 'bg-gray-300'
-              }`}
+            <div
+              className={`h-full transition-all ${isLive
+                ? displayTelemetry.battery > 50 ? 'bg-green-500' : displayTelemetry.battery > 20 ? 'bg-yellow-500' : 'bg-red-500'
+                : 'bg-gray-300'
+                }`}
               style={{ width: `${displayTelemetry.battery}%` }}
             />
           </div>
@@ -150,8 +162,8 @@ export function TelemetryDisplay({ mode }: TelemetryDisplayProps) {
           </div>
           <div className={`text-sm ${isLive ? 'text-cyan-600' : 'text-gray-400'}`}>
             {displayTelemetry.heading.toFixed(0)}° {displayTelemetry.heading < 45 || displayTelemetry.heading > 315 ? 'N' :
-             displayTelemetry.heading < 135 ? 'E' :
-             displayTelemetry.heading < 225 ? 'S' : 'W'}
+              displayTelemetry.heading < 135 ? 'E' :
+                displayTelemetry.heading < 225 ? 'S' : 'W'}
           </div>
         </div>
       </div>
@@ -179,13 +191,11 @@ export function TelemetryDisplay({ mode }: TelemetryDisplayProps) {
       </div>
 
       {/* FSM State */}
-      <div className={`mt-1.5 rounded p-1.5 border ${
-        isLive ? 'bg-gray-50' : 'bg-orange-50'
-      } ${isLive ? 'border-gray-200' : 'border-orange-200'}`}>
+      <div className={`mt-1.5 rounded p-1.5 border ${isLive ? 'bg-gray-50' : 'bg-orange-50'
+        } ${isLive ? 'border-gray-200' : 'border-orange-200'}`}>
         <div className="text-xs text-gray-600 mb-0.5">FSM State</div>
-        <div className={`text-xs font-mono ${
-          mode === 'scout' ? 'text-green-600' : 'text-orange-600'
-        }`}>
+        <div className={`text-xs font-mono ${mode === 'scout' ? 'text-green-600' : 'text-orange-600'
+          }`}>
           {mode === 'scout' ? 'REMOTE_CONTROL' : 'AUTONOMOUS'}
         </div>
       </div>

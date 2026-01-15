@@ -7,7 +7,8 @@ interface CameraFeedProps {
 }
 
 export function CameraFeed({ isConnected, mode }: CameraFeedProps) {
-  const streamUrl = 'http://192.168.1.7/stream';
+  // Update this IP to match your ESP32's actual IP address printed in Serial Monitor
+  const streamUrl = 'http://localhost:8080/video_feed';
   const [lastFrameUrl, setLastFrameUrl] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
@@ -18,7 +19,7 @@ export function CameraFeed({ isConnected, mode }: CameraFeedProps) {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
       const img = imgRef.current;
-      
+
       if (ctx && img.complete && img.naturalWidth > 0) {
         canvas.width = img.naturalWidth;
         canvas.height = img.naturalHeight;
@@ -40,11 +41,10 @@ export function CameraFeed({ isConnected, mode }: CameraFeedProps) {
             <p className="text-xs text-gray-500">{mode === 'scout' ? 'MJPEG Stream' : 'Last Frame'}</p>
           </div>
         </div>
-        <div className={`px-2 py-0.5 rounded flex items-center gap-1 ${
-          isConnected 
-            ? 'bg-red-100 text-red-600' 
-            : 'bg-gray-100 text-gray-500'
-        }`}>
+        <div className={`px-2 py-0.5 rounded flex items-center gap-1 ${isConnected
+          ? 'bg-red-100 text-red-600'
+          : 'bg-gray-100 text-gray-500'
+          }`}>
           <div className={`w-1.5 h-1.5 rounded-full ${isConnected ? 'bg-red-600 animate-pulse' : 'bg-gray-500'}`} />
           <span className="text-xs">{isConnected ? 'LIVE' : 'OFFLINE'}</span>
         </div>
@@ -53,13 +53,12 @@ export function CameraFeed({ isConnected, mode }: CameraFeedProps) {
       {/* Hidden canvas for capturing last frame */}
       <canvas ref={canvasRef} className="hidden" />
 
-      <div className={`relative rounded-lg overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 flex-1 ${
-        mode === 'survivor' ? 'border-2 border-amber-400' : 'border border-gray-300'
-      }`}>
+      <div className={`relative rounded-lg overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 flex-1 ${mode === 'survivor' ? 'border-2 border-amber-400' : 'border border-gray-300'
+        }`}>
         {isConnected ? (
           <>
             {/* Live MJPEG Stream */}
-            <img 
+            <img
               ref={imgRef}
               src={streamUrl}
               alt="Rover camera feed"
@@ -72,7 +71,7 @@ export function CameraFeed({ isConnected, mode }: CameraFeedProps) {
                 if (fallback) fallback.style.display = 'flex';
               }}
             />
-            
+
             {/* Fallback message if stream fails */}
             <div className="hidden w-full h-full items-center justify-center text-gray-400">
               <div className="text-center">
@@ -87,7 +86,7 @@ export function CameraFeed({ isConnected, mode }: CameraFeedProps) {
               <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
               REC
             </div>
-            
+
             <div className="absolute top-2 right-2 bg-black/50 text-white px-2 py-0.5 rounded text-xs font-mono">
               {new Date().toLocaleTimeString()}
             </div>
@@ -105,18 +104,18 @@ export function CameraFeed({ isConnected, mode }: CameraFeedProps) {
             {/* Show last frame if available, otherwise show offline message */}
             {lastFrameUrl ? (
               <>
-                <img 
+                <img
                   src={lastFrameUrl}
                   alt="Last captured frame"
                   className="w-full h-full object-contain opacity-80"
                 />
-                
+
                 {/* Offline Overlay */}
                 <div className="absolute top-2 left-2 bg-gray-500 text-white px-2 py-0.5 rounded text-xs flex items-center gap-1">
                   <div className="w-1.5 h-1.5 bg-white rounded-full" />
                   LAST FRAME
                 </div>
-                
+
                 <div className="absolute bottom-2 left-2 right-2 bg-black/50 backdrop-blur-sm rounded px-2 py-1">
                   <div className="flex items-center justify-between text-white text-xs">
                     <span className="font-mono">OFFLINE • Last Captured</span>
