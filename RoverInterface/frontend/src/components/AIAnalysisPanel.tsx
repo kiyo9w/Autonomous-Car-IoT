@@ -7,51 +7,52 @@ interface AIAnalysisPanelProps {
   onCurrentActionChange: (action: string | null) => void;
 }
 
-export function AIAnalysisPanel({ 
-  onAiCommand, 
+export function AIAnalysisPanel({
+  onAiCommand,
   onAiControlChange,
-  onCurrentActionChange 
+  onCurrentActionChange
 }: AIAnalysisPanelProps) {
   const [thinking, setThinking] = useState('');
   const [isThinking, setIsThinking] = useState(false);
   const [analysis, setAnalysis] = useState({
     status: 'analyzing',
     message: 'Obstacle detected ahead',
-    suggestion: 'ROTATE_LEFT',
+    suggestion: 'L', // ESP32 command: L = Turn Left
     confidence: 0.87
   });
   const [autoMode, setAutoMode] = useState(false);
 
   // Simulate AI analysis updates and thinking stream
+  // ESP32 Gateway Protocol: F=Forward, B=Backward, L=Left, R=Right, S=Stop
   useEffect(() => {
     const scenarios = [
-      { 
-        message: 'Clear path ahead', 
-        suggestion: 'MOVE_FORWARD', 
+      {
+        message: 'Clear path ahead',
+        suggestion: 'F', // Forward
         confidence: 0.95,
         thinking: 'Analyzing camera feed... No obstacles detected in 2m range... Path confidence high... Recommending forward movement.'
       },
-      { 
-        message: 'Obstacle detected ahead', 
-        suggestion: 'ROTATE_LEFT', 
+      {
+        message: 'Obstacle detected ahead',
+        suggestion: 'L', // Turn Left
         confidence: 0.87,
         thinking: 'Object detection triggered... Obstacle at 0.8m distance... Left corridor appears clear... Calculating optimal rotation angle... Recommending left turn.'
       },
-      { 
-        message: 'Narrow passage detected', 
-        suggestion: 'SLOW_FORWARD', 
+      {
+        message: 'Narrow passage detected',
+        suggestion: 'F', // Forward (slow - handled by speed control)
         confidence: 0.72,
         thinking: 'Scanning environment... Passage width: 0.45m... Rover width: 0.35m... Clearance acceptable... Reducing speed for safety... Proceed with caution.'
       },
-      { 
-        message: 'Dead end detected', 
-        suggestion: 'ROTATE_180', 
+      {
+        message: 'Dead end detected',
+        suggestion: 'B', // Backward first, then turn
         confidence: 0.91,
-        thinking: 'Wall detection on three sides... No viable forward paths... Analyzing backtrack options... Optimal strategy: 180° rotation... Searching for alternative routes.'
+        thinking: 'Wall detection on three sides... No viable forward paths... Analyzing backtrack options... Optimal strategy: reverse and rotate... Searching for alternative routes.'
       },
-      { 
-        message: 'Potential target area', 
-        suggestion: 'STOP_AND_SCAN', 
+      {
+        message: 'Potential target area',
+        suggestion: 'S', // Stop for scanning
         confidence: 0.68,
         thinking: 'Visual anomaly detected... Heat signature analysis pending... Pattern matching suggests human presence... Initiating comprehensive scan protocol... Stopping for detailed analysis.'
       }
@@ -59,16 +60,16 @@ export function AIAnalysisPanel({
 
     const interval = setInterval(() => {
       const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
-      
+
       // Start thinking animation
       setIsThinking(true);
       setThinking('');
-      
+
       // Stream the thinking text
       let currentText = '';
       const words = scenario.thinking.split(' ');
       let wordIndex = 0;
-      
+
       const thinkingInterval = setInterval(() => {
         if (wordIndex < words.length) {
           currentText += (wordIndex > 0 ? ' ' : '') + words[wordIndex];
@@ -77,7 +78,7 @@ export function AIAnalysisPanel({
         } else {
           clearInterval(thinkingInterval);
           setIsThinking(false);
-          
+
           // Update analysis after thinking completes
           setAnalysis({
             status: 'complete',
@@ -120,21 +121,18 @@ export function AIAnalysisPanel({
         <div className="flex items-center gap-1.5">
           <button
             onClick={handleAutoModeToggle}
-            className={`flex items-center gap-1 px-2 py-0.5 rounded-lg transition-all text-xs ${
-              autoMode 
-                ? 'bg-green-500 text-white shadow-lg shadow-green-500/30' 
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-            }`}
+            className={`flex items-center gap-1 px-2 py-0.5 rounded-lg transition-all text-xs ${autoMode
+              ? 'bg-green-500 text-white shadow-lg shadow-green-500/30'
+              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
           >
             {autoMode ? <Play className="w-3 h-3" /> : <Pause className="w-3 h-3" />}
             <span className="text-xs">{autoMode ? 'AUTO' : 'MANUAL'}</span>
           </button>
-          <div className={`px-1.5 py-0.5 rounded flex items-center gap-1 ${
-            isThinking ? 'bg-blue-50 text-blue-600' : 'bg-green-50 text-green-600'
-          }`}>
-            <div className={`w-1 h-1 rounded-full ${
-              isThinking ? 'bg-blue-600 animate-pulse' : 'bg-green-600'
-            }`} />
+          <div className={`px-1.5 py-0.5 rounded flex items-center gap-1 ${isThinking ? 'bg-blue-50 text-blue-600' : 'bg-green-50 text-green-600'
+            }`}>
+            <div className={`w-1 h-1 rounded-full ${isThinking ? 'bg-blue-600 animate-pulse' : 'bg-green-600'
+              }`} />
             <span className="text-xs">{isThinking ? 'THINKING' : 'READY'}</span>
           </div>
         </div>
@@ -152,12 +150,12 @@ export function AIAnalysisPanel({
             </div>
           </div>
         </div>
-        
+
         {/* Confidence Bar */}
         <div className="flex items-center gap-1.5 mt-1">
           <span className="text-xs text-gray-500">Confidence:</span>
           <div className="flex-1 h-1 bg-white rounded-full overflow-hidden">
-            <div 
+            <div
               className="h-full bg-gradient-to-r from-purple-500 to-blue-500 transition-all duration-1000"
               style={{ width: `${analysis.confidence * 100}%` }}
             />
@@ -195,7 +193,7 @@ export function AIAnalysisPanel({
           </code>
           {!autoMode && (
             <div className="flex gap-1">
-              <button 
+              <button
                 onClick={() => onAiCommand(analysis.suggestion)}
                 className="px-2 py-0.5 bg-green-500 hover:bg-green-600 text-white rounded text-xs transition-colors"
               >
