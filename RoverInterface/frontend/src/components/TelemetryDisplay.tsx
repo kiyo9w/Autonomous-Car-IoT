@@ -21,14 +21,14 @@ interface TelemetryDisplayProps {
 
 export function TelemetryDisplay({ mode }: TelemetryDisplayProps) {
   const [telemetry, setTelemetry] = useState({
-    battery: 85,
+    battery: 0,
     speed: 0,
-    heading: 180,
-    signal: 92,
-    latitude: 37.7749,
-    longitude: -122.4194,
-    altitude: 152,
-    distance: 45
+    heading: 0,
+    signal: 0,
+    latitude: 0,
+    longitude: 0,
+    altitude: 0,
+    distance: 0
   });
 
   const [cachedTelemetry, setCachedTelemetry] = useState(telemetry);
@@ -44,11 +44,11 @@ export function TelemetryDisplay({ mode }: TelemetryDisplayProps) {
             setTelemetry(prev => {
               const updated = {
                 ...prev,
-                battery: data.voltage ? (data.voltage / 12.6) * 100 : prev.battery, // Normalize 12.6V max
-                distance: data.distance || prev.distance,
+                battery: data.voltage ? (data.voltage / 12.6) * 100 : 0,
+                distance: data.distance || 0,
                 status: data.status || 'DISCONNECTED',
-                speed: data.fps ? data.fps / 10 : 0, // Hack: use FPS as speed metric for now
-                heading: prev.heading, // Heading not yet in telemetry
+                speed: data.fps ? data.fps / 10 : 0, // Estimate from FPS
+                heading: 0, // No Compass
                 signal: data.status === 'CONNECTED' ? 100 : 0
               };
               setCachedTelemetry(updated);
@@ -154,17 +154,13 @@ export function TelemetryDisplay({ mode }: TelemetryDisplayProps) {
           </div>
         </div>
 
-        {/* Heading */}
-        <div className={`rounded p-1.5 border ${isLive ? 'bg-cyan-50' : 'bg-gray-50'} ${isLive ? 'border-gray-200' : 'border-gray-100'}`}>
+        {/* Heading - NOT AVAILABLE */}
+        <div className={`rounded p-1.5 border border-gray-100 bg-gray-50 opacity-50`}>
           <div className="flex items-center gap-1 mb-1">
-            <Compass className={`w-3 h-3 ${isLive ? 'text-cyan-600' : 'text-gray-400'}`} />
-            <span className="text-xs text-gray-600">Heading</span>
+            <Compass className="w-3 h-3 text-gray-400" />
+            <span className="text-xs text-gray-500">Heading</span>
           </div>
-          <div className={`text-sm ${isLive ? 'text-cyan-600' : 'text-gray-400'}`}>
-            {displayTelemetry.heading.toFixed(0)}° {displayTelemetry.heading < 45 || displayTelemetry.heading > 315 ? 'N' :
-              displayTelemetry.heading < 135 ? 'E' :
-                displayTelemetry.heading < 225 ? 'S' : 'W'}
-          </div>
+          <div className="text-xs text-gray-400 italic">No Sensor</div>
         </div>
       </div>
 

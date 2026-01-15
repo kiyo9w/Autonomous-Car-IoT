@@ -22,83 +22,11 @@ export function AIAnalysisPanel({
   });
   const [autoMode, setAutoMode] = useState(false);
 
-  // Simulate AI analysis updates and thinking stream
-  // ESP32 Gateway Protocol: F=Forward, B=Backward, L=Left, R=Right, S=Stop
+  // No simulation. Waiting for real AI implementation.
   useEffect(() => {
-    const scenarios = [
-      {
-        message: 'Clear path ahead',
-        suggestion: 'F', // Forward
-        confidence: 0.95,
-        thinking: 'Analyzing camera feed... No obstacles detected in 2m range... Path confidence high... Recommending forward movement.'
-      },
-      {
-        message: 'Obstacle detected ahead',
-        suggestion: 'L', // Turn Left
-        confidence: 0.87,
-        thinking: 'Object detection triggered... Obstacle at 0.8m distance... Left corridor appears clear... Calculating optimal rotation angle... Recommending left turn.'
-      },
-      {
-        message: 'Narrow passage detected',
-        suggestion: 'F', // Forward (slow - handled by speed control)
-        confidence: 0.72,
-        thinking: 'Scanning environment... Passage width: 0.45m... Rover width: 0.35m... Clearance acceptable... Reducing speed for safety... Proceed with caution.'
-      },
-      {
-        message: 'Dead end detected',
-        suggestion: 'B', // Backward first, then turn
-        confidence: 0.91,
-        thinking: 'Wall detection on three sides... No viable forward paths... Analyzing backtrack options... Optimal strategy: reverse and rotate... Searching for alternative routes.'
-      },
-      {
-        message: 'Potential target area',
-        suggestion: 'S', // Stop for scanning
-        confidence: 0.68,
-        thinking: 'Visual anomaly detected... Heat signature analysis pending... Pattern matching suggests human presence... Initiating comprehensive scan protocol... Stopping for detailed analysis.'
-      }
-    ];
-
-    const interval = setInterval(() => {
-      const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
-
-      // Start thinking animation
-      setIsThinking(true);
-      setThinking('');
-
-      // Stream the thinking text
-      let currentText = '';
-      const words = scenario.thinking.split(' ');
-      let wordIndex = 0;
-
-      const thinkingInterval = setInterval(() => {
-        if (wordIndex < words.length) {
-          currentText += (wordIndex > 0 ? ' ' : '') + words[wordIndex];
-          setThinking(currentText);
-          wordIndex++;
-        } else {
-          clearInterval(thinkingInterval);
-          setIsThinking(false);
-
-          // Update analysis after thinking completes
-          setAnalysis({
-            status: 'complete',
-            ...scenario
-          });
-
-          // Execute command if auto mode is on
-          if (autoMode) {
-            onCurrentActionChange(scenario.suggestion);
-            onAiCommand(scenario.suggestion);
-            setTimeout(() => onCurrentActionChange(null), 2000);
-          }
-        }
-      }, 100);
-
-      return () => clearInterval(thinkingInterval);
-    }, 8000);
-
-    return () => clearInterval(interval);
-  }, [autoMode, onAiCommand, onCurrentActionChange]);
+    // If we had a real AI stream, we would subscribe here.
+    // For now, idle.
+  }, []);
 
   const handleAutoModeToggle = () => {
     const newAutoMode = !autoMode;

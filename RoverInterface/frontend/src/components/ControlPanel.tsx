@@ -36,31 +36,32 @@ export function ControlPanel({
     setActiveCommand(command);
 
     try {
-      // Send command to backend API
-      const response = await fetch('http://localhost:8080/api/command', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ command })
-      });
-
-      if (!response.ok) {
-        console.error('Command failed to send');
+      // Use specific endpoint for capture
+      if (command === 'CAPTURE') {
+        const response = await fetch('http://localhost:8080/api/evidence', {
+          method: 'POST'
+        });
+        onCommand('CAPTURE_EVIDENCE');
+        if (!response.ok) console.error('Capture failed');
+      } else {
+        // Regular motion commands
+        const response = await fetch('http://localhost:8080/api/command', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ command })
+        });
+        if (!response.ok) console.error('Command failed to send');
+        onCommand(command);
       }
     } catch (err) {
       console.error('API Error:', err);
     }
-
-    onCommand(command);
     setTimeout(() => setActiveCommand(null), 200);
   };
 
   const isAiControllingCommand = (command: string) => {
     return aiControlActive && currentAiAction === command;
   };
-
-  // ESP32 Gateway Command Protocol:
-  // F = Forward, B = Backward, L = Left, R = Right, S = Stop
-  // Joystick: "X,Y\n" where X,Y are 0-4095 (center=2048)
 
   const buttonClass = (cmd: string) => {
     const isActive = activeCommand === cmd;
@@ -184,30 +185,9 @@ export function ControlPanel({
         </div>
       </div>
 
-      {/* Speed Control */}
-      <div className="space-y-1 bg-gray-50 rounded-lg p-2 border border-gray-100">
-        <div className="flex items-center justify-between">
-          <p className={`text-xs ${disabled ? 'text-gray-400' : 'text-gray-700'}`}>Speed</p>
-          <span className={`text-xs font-mono ${disabled ? 'text-gray-400' : 'text-blue-600'}`}>{speed}%</span>
-        </div>
-        <input
-          type="range"
-          min="0"
-          max="100"
-          value={speed}
-          onChange={(e) => {
-            setSpeed(Number(e.target.value));
-            onCommand(`SET_SPEED_${e.target.value}`);
-          }}
-          disabled={disabled}
-          className={`w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500 ${disabled ? 'opacity-50 cursor-not-allowed' : ''
-            }`}
-        />
-      </div>
-
       {/* Capture Control */}
       <button
-        onClick={() => handleCommand('STOP_AND_CAPTURE')}
+        onClick={() => handleCommand('CAPTURE')}
         className={`w-full p-2 rounded-lg transition-all flex items-center justify-center gap-1.5 text-xs ${disabled
           ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
           : 'bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/30'
@@ -215,13 +195,13 @@ export function ControlPanel({
         disabled={disabled}
       >
         <Camera className="w-3.5 h-3.5" />
-        <span>Capture HD</span>
+        <span>Capture Remote Evidence</span>
       </button>
 
-      {/* Emergency Stop - Same as Stop but more prominent */}
+      {/* Emergency Stop */}
       <button
         onClick={() => handleCommand('S')}
-        className="w-full p-2 bg-red-500 hover:bg-red-600 rounded-lg transition-all flex items-center justify-center gap-1.5 text-white shadow-lg shadow-red-500/30 text-xs"
+        className="w-full p-2 bg-red-500 hover:bg-red-600 rounded-lg transition-all flex items-center justify-center gap-1.5 text-white shadow-lg shadow-red-500/30 text-xs mt-2"
         title="Emergency Stop (S)"
       >
         <AlertTriangle className="w-3.5 h-3.5" />
