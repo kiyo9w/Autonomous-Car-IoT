@@ -8,7 +8,8 @@ interface CameraFeedProps {
 
 export function CameraFeed({ isConnected, mode }: CameraFeedProps) {
   // Update this IP to match your ESP32's actual IP address printed in Serial Monitor
-  const streamUrl = 'http://localhost:8080/video_feed';
+  // Dynamically determine backend host (assumes backend is on same host, port 8080)
+  const streamUrl = `http://${window.location.hostname}:8080/video_feed`;
   const [lastFrameUrl, setLastFrameUrl] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);

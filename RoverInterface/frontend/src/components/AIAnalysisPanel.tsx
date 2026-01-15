@@ -22,10 +22,48 @@ export function AIAnalysisPanel({
   });
   const [autoMode, setAutoMode] = useState(false);
 
-  // No simulation. Waiting for real AI implementation.
+  // Poll AI status from backend
   useEffect(() => {
-    // If we had a real AI stream, we would subscribe here.
-    // For now, idle.
+    let mounted = true;
+
+    const pollStatus = async () => {
+      try {
+        // Use port 8080 for backend API (where app.py runs)
+        const apiBase = `http://${window.location.hostname}:8080`;
+        const response = await fetch(`${apiBase}/api/ai_status`);
+        if (!mounted || !response.ok) return;
+
+        const data = await response.json();
+
+        // Debug: Log received data to browser console
+        console.log('AI Status received:', data);
+
+        // Always update if we have reasoning data
+        const reasoning = data.last_reasoning || data.stats?.last_reasoning || '';
+        const cmd = data.last_cmd || data.stats?.last_cmd || '';
+
+        if (reasoning) {
+          setThinking(reasoning);
+          setAnalysis(prev => ({
+            ...prev,
+            message: reasoning,
+            suggestion: cmd || prev.suggestion,
+            confidence: 0.9
+          }));
+        }
+
+        setIsThinking(data.running && !data.strategic_ready);
+      } catch (e) {
+        console.error("Failed to poll AI status", e);
+      }
+    };
+
+    const interval = setInterval(pollStatus, 1000);
+    pollStatus(); // Call immediately on mount
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
   }, []);
 
   const handleAutoModeToggle = () => {
@@ -73,8 +111,7 @@ export function AIAnalysisPanel({
           <div className="flex-1 min-w-0">
             <div className="text-xs text-gray-700 mb-0.5">AI Reasoning</div>
             <div className="text-xs text-gray-600 leading-relaxed max-h-[80px] overflow-y-auto">
-              {thinking || 'Awaiting next cycle...'}
-              {isThinking && <span className="inline-block w-0.5 h-2.5 bg-purple-600 ml-1 animate-pulse" />}
+              {thinking || 'Initializing VLM connection...'}
             </div>
           </div>
         </div>
@@ -92,14 +129,6 @@ export function AIAnalysisPanel({
             {(analysis.confidence * 100).toFixed(0)}%
           </span>
         </div>
-      </div>
-
-      {/* Analysis Result */}
-      <div className="bg-gray-50 rounded-lg p-2 mb-2 border border-gray-100">
-        <div className="text-xs text-gray-500 mb-0.5">Current Assessment</div>
-        <p className="text-xs text-gray-900">
-          {analysis.message}
-        </p>
       </div>
 
       {/* Suggested Action */}

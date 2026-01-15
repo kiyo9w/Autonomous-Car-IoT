@@ -185,29 +185,23 @@ class FrameBuffer:
             self._frame_count = 0
             self._last_fps_time = now
     
+    def set_active_ai(self, active: bool):
+        """Set whether AI is actively writing to the display frame."""
+        # Using a separate atomic flag might be safer, but lock is strictly used elsewhere.
+        # We don't need the lock for a boolean assignment in Python (atomic), but good practice.
+        self._ai_active = active
+
     def feed_frame(self, jpeg_bytes: bytes, telemetry: dict = None):
         """
         Feed a new frame into the buffer.
-        Sets both raw and display frames initially.
         """
         with self._lock:
             self._raw_frame = jpeg_bytes
-            # Only update display frame if AI isn't overriding it? 
-            # Actually, let's just update IT. If AI is running, AI will overwrite it milliseconds later.
-            # But that might cause flickering. 
-            # Better: if we have a way to know AI is active...
-            # For now, simplistic approach: Receiver sets raw. AI sets display.
-            # But if AI is slow, display lags?
-            # Receiver should set display IFF AI is not providing one?
-            # Let's keep it simple: Receiver ALWAYS updates raw. 
-            # Receiver updates display ONLY if it's None (first frame) or ???
             
-            # Simple approach: Receiver updates BOTH. AI overwrites Display.
-            # This causes "clean -> annotated -> clean" flicker if AI is slower than camera.
-            # 
-            # Correct approach: Receiver updates RAW. 
-            # If AI is NOT running, we copy RAW to DISPLAY.
-            self._display_frame = jpeg_bytes 
+            # Only update display frame if AI is NOT active.
+            # If AI is active, it is responsible for setting display frame.
+            if not getattr(self, '_ai_active', False):
+                self._display_frame = jpeg_bytes
             
             if telemetry:
                 self._telemetry.update(telemetry)
