@@ -249,17 +249,17 @@ void setup() {
 // ===========================================
 
 void loop() {
-  // 1. Unified Control Loop (sensor + safety + motor actuation)
-  handleControlLoop();
+  // // 1. Unified Control Loop (sensor + safety + motor actuation)
+  // handleControlLoop();
 
-  // 2. Stream video if using UDP mode
-  if (USE_UDP_STREAM) {
-    streamFrameUDP();
-  }
+  // // 2. Stream video if using UDP mode
+  // if (USE_UDP_STREAM) {
+  //   streamFrameUDP();
+  // }
 
-  // 3. Send telemetry to Gateway (voltage + distance)
-  handleConnection(BATTERY_VOLTAGE, currentDistance);
+  // // 3. Send telemetry to Gateway (voltage + distance)
+  // handleConnection(BATTERY_VOLTAGE, currentDistance);
 
-  // Small delay to prevent watchdog issues
-  delay(5);
+  // // Small delay to prevent watchdog issues
+  // delay(5);
 }
