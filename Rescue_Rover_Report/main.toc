@@ -7,22 +7,22 @@
 \contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
 \contentsline {section}{\numberline {1.1}Problem Statement}{1}{section.1.1}%
 \contentsline {subsection}{\numberline {1.1.1}Challenges in Rescue Robotics}{1}{subsection.1.1.1}%
-\contentsline {section}{\numberline {1.2}Project Objectives}{3}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Primary Objectives}{3}{subsection.1.2.1}%
+\contentsline {section}{\numberline {1.2}Project Objectives}{2}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Primary Objectives}{2}{subsection.1.2.1}%
 \contentsline {subsection}{\numberline {1.2.2}Secondary Objectives}{3}{subsection.1.2.2}%
 \contentsline {section}{\numberline {1.3}Scope and Constraints}{3}{section.1.3}%
 \contentsline {subsection}{\numberline {1.3.1}What This Project Covers}{3}{subsection.1.3.1}%
 \contentsline {subsection}{\numberline {1.3.2}What This Project Does Not Cover}{4}{subsection.1.3.2}%
 \contentsline {subsection}{\numberline {1.3.3}Design Constraints}{4}{subsection.1.3.3}%
 \contentsline {section}{\numberline {1.4}Methodology}{4}{section.1.4}%
-\contentsline {subsection}{\numberline {1.4.1}Development Phases}{5}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.1}Development Phases}{4}{subsection.1.4.1}%
 \contentsline {subsection}{\numberline {1.4.2}Testing Strategy}{5}{subsection.1.4.2}%
-\contentsline {section}{\numberline {1.5}Related Work}{6}{section.1.5}%
-\contentsline {subsection}{\numberline {1.5.1}Commercial Rescue Robots}{6}{subsection.1.5.1}%
+\contentsline {section}{\numberline {1.5}Related Work}{5}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Commercial Rescue Robots}{5}{subsection.1.5.1}%
 \contentsline {subsection}{\numberline {1.5.2}Academic Research}{6}{subsection.1.5.2}%
-\contentsline {subsection}{\numberline {1.5.3}Open Source Projects}{7}{subsection.1.5.3}%
-\contentsline {section}{\numberline {1.6}Contributions}{7}{section.1.6}%
-\contentsline {section}{\numberline {1.7}Report Organization}{8}{section.1.7}%
+\contentsline {subsection}{\numberline {1.5.3}Open Source Projects}{6}{subsection.1.5.3}%
+\contentsline {section}{\numberline {1.6}Contributions}{6}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Report Organization}{7}{section.1.7}%
 \contentsline {chapter}{\numberline {2}System Architecture}{9}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Architectural Overview}{9}{section.2.1}%
 \contentsline {subsection}{\numberline {2.1.1}Device Specifications Summary}{10}{subsection.2.1.1}%
@@ -75,7 +75,7 @@
 \contentsline {subsection}{\numberline {4.2.2}Initialization Sequence}{37}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}Streaming Modes}{37}{subsection.4.2.3}%
 \contentsline {subsubsection}{HTTP MJPEG Streaming}{37}{subsection.4.2.3}%
-\contentsline {subsubsection}{UDP Streaming}{39}{figure.caption.63}%
+\contentsline {subsubsection}{UDP Streaming}{39}{figure.caption.62}%
 \contentsline {section}{\numberline {4.3}Motor Control Implementation}{40}{section.4.3}%
 \contentsline {subsection}{\numberline {4.3.1}Differential Drive Model}{41}{subsection.4.3.1}%
 \contentsline {subsection}{\numberline {4.3.2}L298N Driver Interface}{41}{subsection.4.3.2}%
@@ -194,4 +194,4 @@
 \contentsline {section}{\numberline {D.5}Safety Guidelines}{95}{section.D.5}%
 \contentsline {section}{\numberline {D.6}Maintenance}{95}{section.D.6}%
 \contentsline {subsection}{\numberline {D.6.1}Regular Maintenance Checklist}{95}{subsection.D.6.1}%
-\contentsline {chapter}{References}{96}{Item.58}%
+\contentsline {chapter}{References}{97}{appendix*.125}%
