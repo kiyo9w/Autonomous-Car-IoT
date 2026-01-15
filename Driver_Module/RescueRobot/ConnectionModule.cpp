@@ -31,8 +31,8 @@ static unsigned long lastPacketTime = 0;
 
 // Joystick threshold constants
 static const int CENTER = 2048;
-static const int THRESHOLD_HIGH = CENTER + 1000; // > 3048 = active
-static const int THRESHOLD_LOW = CENTER - 1000;  // < 1048 = active
+static const int THRESHOLD_HIGH = CENTER + 200; // Giảm xuống 200 để nhạy hơn
+static const int THRESHOLD_LOW = CENTER - 200;
 
 /**
  * Execute motor command based on joystick values
@@ -44,38 +44,28 @@ static const int THRESHOLD_LOW = CENTER - 1000;  // < 1048 = active
  * @param y Giá trị Y: 0=Full Back, 2048=Center, 4095=Full Forward
  */
 void executeMotorCommand(int x, int y) {
-  // Debug output
-  Serial.printf("EXEC: X=%d Y=%d -> ", x, y);
+  int speed = 0;
 
-  // Y-axis dominant (forward/backward)
   if (y > THRESHOLD_HIGH) {
-    Serial.println("FORWARD");
-    goForward();
-  } else if (y < THRESHOLD_LOW) {
-    Serial.println("BACKWARD");
-    goBackward();
+    speed = map(y, THRESHOLD_HIGH, 4095, 1, 100);
+    goForward(speed);
+  } 
+  else if (y < THRESHOLD_LOW) {
+    speed = map(y, THRESHOLD_LOW, 0, 1, 100);
+    goBackward(speed);
   }
-  // X-axis for turning (when Y is neutral)
   else if (x < THRESHOLD_LOW) {
-    Serial.println("LEFT");
-    turnLeft();
-  } else if (x > THRESHOLD_HIGH) {
-    Serial.println("RIGHT");
-    turnRight();
+    speed = map(x, THRESHOLD_LOW, 0, 1, 100);
+    turnLeft(speed);
+  } 
+  else if (x > THRESHOLD_HIGH) {
+    speed = map(x, THRESHOLD_HIGH, 4095, 1, 100);
+    turnRight(speed);
   }
-  // Deadzone = stop
   else {
-    Serial.println("STOP");
     stopMoving();
   }
 }
-
-/**
- * ESP-NOW Receive Callback (ESP32 Core 3.x signature)
- *
- * 🔴 CHỈ LƯU LỆNH, KHÔNG ĐIỀU KHIỂN MOTOR!
- * Việc điều khiển motor để loop() xử lý sau khi check an toàn.
- */
 static void onDataRecv(const esp_now_recv_info_t *info,
                        const uint8_t *incomingData, int len) {
   if (len != sizeof(command_struct)) {

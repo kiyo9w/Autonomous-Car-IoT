@@ -36,7 +36,8 @@ class FrameBuffer:
             http_url: URL of MJPEG stream (for HTTP mode)
             camera_index: Camera device index (for webcam mode)
         """
-        self._frame: Optional[bytes] = None
+        self._raw_frame: Optional[bytes] = None
+        self._display_frame: Optional[bytes] = None
         self._telemetry: dict = {
             'voltage': 0.0,
             'distance': 999,
@@ -184,26 +185,44 @@ class FrameBuffer:
             self._frame_count = 0
             self._last_fps_time = now
     
+    def set_active_ai(self, active: bool):
+        """Set whether AI is actively writing to the display frame."""
+        # Using a separate atomic flag might be safer, but lock is strictly used elsewhere.
+        # We don't need the lock for a boolean assignment in Python (atomic), but good practice.
+        self._ai_active = active
+
     def feed_frame(self, jpeg_bytes: bytes, telemetry: dict = None):
         """
         Feed a new frame into the buffer.
-        
-        Args:
-            jpeg_bytes: JPEG-encoded frame
-            telemetry: Optional telemetry data to merge
         """
         with self._lock:
-            self._frame = jpeg_bytes
+            self._raw_frame = jpeg_bytes
+            
+            # Only update display frame if AI is NOT active.
+            # If AI is active, it is responsible for setting display frame.
+            if not getattr(self, '_ai_active', False):
+                self._display_frame = jpeg_bytes
+            
             if telemetry:
                 self._telemetry.update(telemetry)
         
         self._update_fps()
     
     def get_frame(self) -> Optional[bytes]:
-        """Get the latest frame (JPEG bytes)."""
+        """Get the latest display frame (JPEG bytes)."""
         with self._lock:
-            return self._frame
-    
+            return self._display_frame
+            
+    def get_raw_frame(self) -> Optional[bytes]:
+        """Get the latest raw frame for AI processing."""
+        with self._lock:
+            return self._raw_frame
+
+    def set_display_frame(self, jpeg_bytes: bytes):
+        """Set the processed frame for display."""
+        with self._lock:
+            self._display_frame = jpeg_bytes
+
     def get_telemetry(self) -> dict:
         """Get current telemetry data."""
         with self._lock:

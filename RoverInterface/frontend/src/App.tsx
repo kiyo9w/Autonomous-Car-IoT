@@ -33,82 +33,59 @@ export default function App() {
   const [aiControlActive, setAiControlActive] = useState(false);
   const [currentAiAction, setCurrentAiAction] = useState<string | null>(null);
 
-  // Simulate heartbeat and mode switching
+  // Poll real telemetry for connection status
   useEffect(() => {
-    const heartbeatInterval = setInterval(() => {
-      const shouldReceive = Math.random() > 0.05; // 95% success rate (was 0.15)
-      
-      if (shouldReceive) {
-        const wasDisconnected = mode === 'survivor';
-        setLastHeartbeat(Date.now());
-        
-        // Show recovery banner if reconnecting
-        if (wasDisconnected && evidenceFiles.length > 0) {
-          setShowRecovery(true);
-          setTimeout(() => setShowRecovery(false), 5000);
+    const pollInterval = setInterval(async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/telemetry');
+        const data = await response.json();
+
+        // Check if Serial (status) or Video (state) is connected
+        // 'status' comes from SerialManager, 'state' comes from FrameBuffer
+        const isOnline = data.status === 'CONNECTED' || data.state === 'CONNECTED';
+
+        if (isOnline) {
+          setMode('scout');
+          setLastHeartbeat(Date.now());
+
+          if (showRecovery) {
+            setTimeout(() => setShowRecovery(false), 5000);
+          }
+        } else {
+          // Only switch to survivor/offline if disconnected for > 2s
+          if (Date.now() - lastHeartbeat > 2000) {
+            setMode('survivor');
+            setShowRecovery(true);
+          }
+        }
+      } catch (e) {
+        console.error("Telemetry fetch failed", e);
+        if (Date.now() - lastHeartbeat > 2000) {
+          setMode('survivor');
         }
       }
-    }, 2000);
+    }, 1000);
 
-    const modeCheck = setInterval(() => {
-      const timeSinceHeartbeat = Date.now() - lastHeartbeat;
-      if (timeSinceHeartbeat > 2000) {
-        setMode('survivor');
-        // Simulate evidence collection in survivor mode
-        if (Math.random() > 0.9) {
-          setEvidenceFiles(prev => [...prev, `log_${String(prev.length + 1).padStart(2, '0')}.jpg`]);
-        }
-      } else {
-        setMode('scout');
-      }
-    }, 500);
-
-    return () => {
-      clearInterval(heartbeatInterval);
-      clearInterval(modeCheck);
-    };
-  }, [lastHeartbeat, mode, evidenceFiles.length]);
-
-  // Simulate random detection events in scout mode
-  useEffect(() => {
-    if (mode === 'scout') {
-      const detectionInterval = setInterval(() => {
-        if (Math.random() > 0.95) {
-          setDetectionEvent(true);
-          setTimeout(() => setDetectionEvent(false), 3000);
-        }
-      }, 5000);
-      return () => clearInterval(detectionInterval);
-    }
-  }, [mode]);
+    return () => clearInterval(pollInterval);
+  }, [lastHeartbeat, showRecovery]);
 
   const handleCommand = (commandType: string) => {
     if (mode === 'survivor') return; // Commands disabled in survivor mode
-    
+
     const newCommand: Command = {
       id: Math.random().toString(36).substr(2, 9),
       type: commandType,
       timestamp: new Date(),
-      status: 'pending',
+      status: 'success', // Assume success if sent
       source: 'user'
     };
-    
+
     setCommands(prev => [newCommand, ...prev]);
-    
-    setTimeout(() => {
-      setCommands(prev => 
-        prev.map(cmd => 
-          cmd.id === newCommand.id 
-            ? { ...cmd, status: Math.random() > 0.1 ? 'success' : 'failed' }
-            : cmd
-        )
-      );
-    }, 500);
   };
 
   const handleAiCommand = (commandType: string) => {
     if (mode === 'survivor') return;
-    
+
     const newCommand: Command = {
       id: Math.random().toString(36).substr(2, 9),
       type: commandType,
@@ -116,13 +93,13 @@ export default function App() {
       status: 'pending',
       source: 'ai'
     };
-    
+
     setCommands(prev => [newCommand, ...prev]);
-    
+
     setTimeout(() => {
-      setCommands(prev => 
-        prev.map(cmd => 
-          cmd.id === newCommand.id 
+      setCommands(prev =>
+        prev.map(cmd =>
+          cmd.id === newCommand.id
             ? { ...cmd, status: 'success' }
             : cmd
         )
@@ -133,9 +110,8 @@ export default function App() {
   const isConnected = mode === 'scout';
 
   return (
-    <div className={`h-screen w-screen overflow-hidden p-2 transition-colors ${
-      mode === 'scout' ? 'bg-gray-50' : 'bg-red-50'
-    }`}>
+    <div className={`h-screen w-screen overflow-hidden p-2 transition-colors ${mode === 'scout' ? 'bg-gray-50' : 'bg-red-50'
+      }`}>
       <div className="h-full max-w-[1800px] mx-auto flex flex-col gap-2">
         {/* Compact Header with Mode and Telemetry Badges */}
         <div className="flex items-center justify-between bg-white rounded-lg p-2 shadow-sm border border-gray-200 flex-shrink-0">
@@ -147,15 +123,14 @@ export default function App() {
               <h1 className="text-sm text-gray-900">Rescue Rover Control</h1>
             </div>
           </div>
-          
+
           {/* Compact Mode Badge and Telemetry */}
           <div className="flex items-center gap-2">
             <TelemetryBadges mode={mode} />
-            <div className={`px-3 py-1 rounded-lg flex items-center gap-2 border-2 ${
-              mode === 'scout' 
-                ? 'bg-green-50 border-green-300 text-green-700' 
-                : 'bg-red-50 border-red-300 text-red-700 animate-pulse'
-            }`}>
+            <div className={`px-3 py-1 rounded-lg flex items-center gap-2 border-2 ${mode === 'scout'
+              ? 'bg-green-50 border-green-300 text-green-700'
+              : 'bg-red-50 border-red-300 text-red-700 animate-pulse'
+              }`}>
               {mode === 'scout' ? (
                 <>
                   <Wifi className="w-4 h-4" />
@@ -179,9 +154,6 @@ export default function App() {
           </div>
         )}
 
-        {/* Detection Event Overlay */}
-        {detectionEvent && <DetectionEvent />}
-
         {/* Main Content Grid - Flexible height */}
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-2 flex-1 min-h-0">
           {/* Left Column - Camera (Large) */}
@@ -189,7 +161,7 @@ export default function App() {
             <div className="flex-1 min-h-0">
               <CameraFeed isConnected={isConnected} mode={mode} />
             </div>
-            
+
             {/* Minimal Command Log in Scout Mode (below camera) */}
             {mode === 'scout' && (
               <div className="flex-shrink-0 bg-blue-50 border border-blue-300 rounded-lg p-2">
@@ -203,11 +175,10 @@ export default function App() {
                   <div className="flex items-center gap-1 text-xs">
                     {commands.slice(0, 3).map((cmd) => (
                       <div key={cmd.id} className="flex items-center gap-1 bg-blue-100 px-2 py-0.5 rounded">
-                        <span className={`w-1.5 h-1.5 rounded-full ${
-                          cmd.status === 'success' ? 'bg-green-500' :
+                        <span className={`w-1.5 h-1.5 rounded-full ${cmd.status === 'success' ? 'bg-green-500' :
                           cmd.status === 'pending' ? 'bg-yellow-500 animate-pulse' :
-                          'bg-red-500'
-                        }`} />
+                            'bg-red-500'
+                          }`} />
                         <span className="text-blue-700">{cmd.type}</span>
                       </div>
                     ))}
@@ -215,7 +186,7 @@ export default function App() {
                 </div>
               </div>
             )}
-            
+
             {/* Minimal Evidence Panel in Survivor Mode (below camera) */}
             {mode === 'survivor' && evidenceFiles.length > 0 && (
               <div className="flex-shrink-0 bg-amber-50 border border-amber-300 rounded-lg p-2">
@@ -237,17 +208,17 @@ export default function App() {
 
           {/* Right Column - Controls and AI Analysis */}
           <div className="xl:col-span-1 flex flex-col gap-2 min-h-0">
-            <ControlPanel 
-              onCommand={handleCommand} 
-              disabled={!isConnected} 
+            <ControlPanel
+              onCommand={handleCommand}
+              disabled={!isConnected}
               mode={mode}
               aiControlActive={aiControlActive}
               currentAiAction={currentAiAction}
             />
             {mode === 'scout' && (
               <div className="flex-1 min-h-0 overflow-y-auto">
-                <AIAnalysisPanel 
-                  onAiCommand={handleAiCommand} 
+                <AIAnalysisPanel
+                  onAiCommand={handleAiCommand}
                   onAiControlChange={setAiControlActive}
                   onCurrentActionChange={setCurrentAiAction}
                 />

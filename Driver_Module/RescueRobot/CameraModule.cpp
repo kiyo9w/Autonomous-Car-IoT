@@ -187,21 +187,46 @@ void startCameraUDP(const char *ssid, const char *password,
  * Note: Large frames may be fragmented. For production use,
  * implement proper chunking protocol.
  */
+#define MAX_UDP_PAYLOAD 1024 
+
 void streamFrameUDP() {
   if (!cameraReady || !udpMode || udpTargetIP == nullptr)
     return;
 
   camera_fb_t *fb = esp_camera_fb_get();
   if (!fb) {
-    Serial.println("❌ UDP capture failed");
     return;
   }
 
-  // Simple approach: Send entire frame (works on local WiFi)
-  // For reliability, implement chunking with sequence numbers
-  udp.beginPacket(udpTargetIP, udpTargetPort);
-  udp.write(fb->buf, fb->len);
-  udp.endPacket();
+  uint8_t *data = fb->buf;
+  size_t totalLength = fb->len;
+  size_t offset = 0;
+
+  // --- SỬA LỖI QUAN TRỌNG: Gửi nhiều gói tin nhỏ thay vì 1 gói to ---
+  while (offset < totalLength) {
+    // 1. Tính toán kích thước mảnh cắt
+    size_t chunkSize = totalLength - offset;
+    if (chunkSize > MAX_UDP_PAYLOAD) {
+      chunkSize = MAX_UDP_PAYLOAD;
+    }
+
+    // 2. Bắt đầu MỘT gói tin mới
+    udp.beginPacket(udpTargetIP, udpTargetPort);
+    
+    // 3. Ghi dữ liệu của mảnh này
+    udp.write(data + offset, chunkSize);
+    
+    // 4. Kết thúc và ĐẨY gói tin đi ngay lập tức
+    udp.endPacket();
+
+    // 5. Cập nhật vị trí
+    offset += chunkSize;
+
+    // 🔴 QUAN TRỌNG: Cho CPU nghỉ 1ms để xử lý Wifi/ESP-NOW nền
+    // Nếu không có dòng này, chip sẽ bị "nghẹn" và báo lỗi Watchdog
+    delay(1); 
+  }
+  // ---------------------------------------------------------------
 
   esp_camera_fb_return(fb);
 }

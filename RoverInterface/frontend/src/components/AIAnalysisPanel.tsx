@@ -22,83 +22,49 @@ export function AIAnalysisPanel({
   });
   const [autoMode, setAutoMode] = useState(false);
 
-  // Simulate AI analysis updates and thinking stream
-  // ESP32 Gateway Protocol: F=Forward, B=Backward, L=Left, R=Right, S=Stop
+  // Poll AI status from backend
   useEffect(() => {
-    const scenarios = [
-      {
-        message: 'Clear path ahead',
-        suggestion: 'F', // Forward
-        confidence: 0.95,
-        thinking: 'Analyzing camera feed... No obstacles detected in 2m range... Path confidence high... Recommending forward movement.'
-      },
-      {
-        message: 'Obstacle detected ahead',
-        suggestion: 'L', // Turn Left
-        confidence: 0.87,
-        thinking: 'Object detection triggered... Obstacle at 0.8m distance... Left corridor appears clear... Calculating optimal rotation angle... Recommending left turn.'
-      },
-      {
-        message: 'Narrow passage detected',
-        suggestion: 'F', // Forward (slow - handled by speed control)
-        confidence: 0.72,
-        thinking: 'Scanning environment... Passage width: 0.45m... Rover width: 0.35m... Clearance acceptable... Reducing speed for safety... Proceed with caution.'
-      },
-      {
-        message: 'Dead end detected',
-        suggestion: 'B', // Backward first, then turn
-        confidence: 0.91,
-        thinking: 'Wall detection on three sides... No viable forward paths... Analyzing backtrack options... Optimal strategy: reverse and rotate... Searching for alternative routes.'
-      },
-      {
-        message: 'Potential target area',
-        suggestion: 'S', // Stop for scanning
-        confidence: 0.68,
-        thinking: 'Visual anomaly detected... Heat signature analysis pending... Pattern matching suggests human presence... Initiating comprehensive scan protocol... Stopping for detailed analysis.'
-      }
-    ];
+    let mounted = true;
 
-    const interval = setInterval(() => {
-      const scenario = scenarios[Math.floor(Math.random() * scenarios.length)];
+    const pollStatus = async () => {
+      try {
+        // Use port 8080 for backend API (where app.py runs)
+        const apiBase = `http://${window.location.hostname}:8080`;
+        const response = await fetch(`${apiBase}/api/ai_status`);
+        if (!mounted || !response.ok) return;
 
-      // Start thinking animation
-      setIsThinking(true);
-      setThinking('');
+        const data = await response.json();
 
-      // Stream the thinking text
-      let currentText = '';
-      const words = scenario.thinking.split(' ');
-      let wordIndex = 0;
+        // Debug: Log received data to browser console
+        console.log('AI Status received:', data);
 
-      const thinkingInterval = setInterval(() => {
-        if (wordIndex < words.length) {
-          currentText += (wordIndex > 0 ? ' ' : '') + words[wordIndex];
-          setThinking(currentText);
-          wordIndex++;
-        } else {
-          clearInterval(thinkingInterval);
-          setIsThinking(false);
+        // Always update if we have reasoning data
+        const reasoning = data.last_reasoning || data.stats?.last_reasoning || '';
+        const cmd = data.last_cmd || data.stats?.last_cmd || '';
 
-          // Update analysis after thinking completes
-          setAnalysis({
-            status: 'complete',
-            ...scenario
-          });
-
-          // Execute command if auto mode is on
-          if (autoMode) {
-            onCurrentActionChange(scenario.suggestion);
-            onAiCommand(scenario.suggestion);
-            setTimeout(() => onCurrentActionChange(null), 2000);
-          }
+        if (reasoning) {
+          setThinking(reasoning);
+          setAnalysis(prev => ({
+            ...prev,
+            message: reasoning,
+            suggestion: cmd || prev.suggestion,
+            confidence: 0.9
+          }));
         }
-      }, 100);
 
-      return () => clearInterval(thinkingInterval);
-    }, 8000);
+        setIsThinking(data.running && !data.strategic_ready);
+      } catch (e) {
+        console.error("Failed to poll AI status", e);
+      }
+    };
 
-    return () => clearInterval(interval);
-  }, [autoMode, onAiCommand, onCurrentActionChange]);
+    const interval = setInterval(pollStatus, 1000);
+    pollStatus(); // Call immediately on mount
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
+  }, []);
 
   const handleAutoModeToggle = () => {
     const newAutoMode = !autoMode;
@@ -145,8 +111,7 @@ export function AIAnalysisPanel({
           <div className="flex-1 min-w-0">
             <div className="text-xs text-gray-700 mb-0.5">AI Reasoning</div>
             <div className="text-xs text-gray-600 leading-relaxed max-h-[80px] overflow-y-auto">
-              {thinking || 'Awaiting next cycle...'}
-              {isThinking && <span className="inline-block w-0.5 h-2.5 bg-purple-600 ml-1 animate-pulse" />}
+              {thinking || 'Initializing VLM connection...'}
             </div>
           </div>
         </div>
@@ -164,14 +129,6 @@ export function AIAnalysisPanel({
             {(analysis.confidence * 100).toFixed(0)}%
           </span>
         </div>
-      </div>
-
-      {/* Analysis Result */}
-      <div className="bg-gray-50 rounded-lg p-2 mb-2 border border-gray-100">
-        <div className="text-xs text-gray-500 mb-0.5">Current Assessment</div>
-        <p className="text-xs text-gray-900">
-          {analysis.message}
-        </p>
       </div>
 
       {/* Suggested Action */}

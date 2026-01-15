@@ -1,4 +1,4 @@
-# llm_worker.py - AI Worker Thread
+
 """
 Background worker that runs Tactical (YOLO) and Strategic (VLM) AI layers.
 Feeds decisions to the CommandArbiter for priority-based execution.
@@ -98,36 +98,54 @@ class AIWorker:
                 time.sleep(0.1)
                 continue
             
-            frame = self.frame_buffer.get_frame()
-            if frame is None:
+            frame_bytes = self.frame_buffer.get_raw_frame() # Get RAW
+            if frame_bytes is None:
                 time.sleep(0.033)
                 continue
             
-            if self.tactical is None or not self.tactical.is_ready():
-                time.sleep(0.1)
+            # Decode for processing
+            import cv2
+            import numpy as np
+            nparr = np.frombuffer(frame_bytes, np.uint8)
+            img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+            
+            if img is None:
                 continue
-            
-            # Preprocess and detect
-            yolo_input = self.preprocessor.preprocess_for_yolo(frame)
-            if yolo_input is None:
-                continue
-            
-            result = self.tactical.detect(yolo_input)
-            frame_count += 1
-            self.stats['tactical_detections'] = len(result.detections)
-            
-            # Submit command based on detection
-            if result.should_stop:
-                cmd = RoverCommand.stop(
-                    priority=CommandPriority.TACTICAL,
-                    source="YOLO",
-                    reason=result.stop_reason or "Obstacle detected"
-                )
-                self.arbiter.submit(cmd)
-                self._log(f"🛑 TACTICAL STOP: {result.stop_reason}")
-            else:
-                # Clear tactical stop if no obstacle
-                self.arbiter.clear(CommandPriority.TACTICAL)
+                
+            if self.tactical and self.tactical.is_ready():
+                result = self.tactical.detect(img)
+                
+                # Draw boxes
+                for det in result.detections:
+                    h, w = img.shape[:2]
+                    x1, y1, x2, y2 = det.bbox
+                    # Scale back to pixels
+                    p1 = (int(x1 * w), int(y1 * h))
+                    p2 = (int(x2 * w), int(y2 * h))
+                    
+                    color = (0, 0, 255) if "person" in det.class_name else (0, 255, 0)
+                    cv2.rectangle(img, p1, p2, color, 2)
+                    cv2.putText(img, f"{det.class_name} {det.confidence:.2f}", 
+                              (p1[0], p1[1]-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+
+                # Safety logic...
+                if result.should_stop:
+                    cmd = RoverCommand.stop(
+                        priority=CommandPriority.TACTICAL,
+                        source="YOLO",
+                        reason=result.stop_reason or "Obstacle detected"
+                    )
+                    self.arbiter.submit(cmd)
+                    self._log(f"🛑 TACTICAL STOP: {result.stop_reason}")
+                else:
+                    self.arbiter.clear(CommandPriority.TACTICAL)
+
+                frame_count += 1
+                self.stats['tactical_detections'] = len(result.detections)
+
+            # Update FrameBuffer with ANNOTATED frame for display
+            _, jpeg = cv2.imencode('.jpg', img)
+            self.frame_buffer.set_display_frame(jpeg.tobytes())
             
             # Update FPS every second
             elapsed = time.time() - start_time
@@ -136,7 +154,7 @@ class AIWorker:
                 frame_count = 0
                 start_time = time.time()
             
-            time.sleep(0.033)  # ~30 FPS cap
+            time.sleep(0.033)
     
     def _strategic_loop(self):
         """Slow loop for VLM navigation (0.5Hz)"""
@@ -173,6 +191,8 @@ class AIWorker:
             
             # Log reasoning
             self._log(f"🧠 VLM: {result.steering.value} - {result.reasoning}")
+            self.stats['last_reasoning'] = result.reasoning
+            self.stats['last_cmd'] = result.steering.value
             
             # Submit command (lower priority than tactical)
             if result.hazard:
@@ -217,21 +237,25 @@ class AIWorker:
         self._tactical_thread.start()
         self._strategic_thread.start()
         
+        self.frame_buffer.set_active_ai(True)
         self._log("🚀 AI Worker started")
     
     def stop(self):
         """Stop AI worker threads"""
         self._running = False
+        self.frame_buffer.set_active_ai(False)
         self._log("🛑 AI Worker stopped")
     
     def enable(self):
         """Enable AI processing"""
         self._enabled = True
+        self.frame_buffer.set_active_ai(True)
         self._log("✅ AI enabled")
     
     def disable(self):
         """Disable AI processing (still running, but not processing)"""
         self._enabled = False
+        self.frame_buffer.set_active_ai(False) # Revert to raw feed
         self.arbiter.clear(CommandPriority.TACTICAL)
         self.arbiter.clear(CommandPriority.STRATEGIC)
         self._log("⏸️ AI disabled")
@@ -251,7 +275,10 @@ class AIWorker:
             'strategic_cooldown': round(
                 self.strategic.get_cooldown_remaining(), 1
             ) if self.strategic else 0,
-            'stats': self.stats
+            'stats': self.stats,
+            # Expose latest reasoning for UI
+            'last_reasoning': self.stats.get('last_reasoning', ''),
+            'last_cmd': self.stats.get('last_cmd', '')
         }
 
 

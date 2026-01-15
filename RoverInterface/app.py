@@ -3,6 +3,7 @@
 from nicegui import ui, app
 import threading
 import sys
+import time
 
 from camera_reassembler import FrameBuffer
 from serial_manager import SerialManager
@@ -11,18 +12,25 @@ import evidence_api
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Request
 from fastapi.responses import StreamingResponse
-import time
 
 # ------------------------
 # Backend state
 # ------------------------
 
 # Initialize FrameBuffer (Video)
+# Argument parsing for Rover IP
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('--ip', default='172.20.10.2', help='Rover IP address')
+args, _ = parser.parse_known_args()
+
 # Initialize FrameBuffer (Video)
-frame_buffer = FrameBuffer(mode='udp', port=9999) # 🚀 UDP Input from Rover
+# Using HTTP mode to support multi-client proxying via this backend
+stream_url = f"http://{args.ip}/stream"
+print(f"🚀 CONNECTING TO ROVER CAMERA AT: {stream_url}")
+frame_buffer = FrameBuffer(mode='http', http_url=stream_url)
 
 # Initialize SerialManager (Control)
-# Auto-detects port, but prefers /dev/cu.usbserial-0001 if available
 serial_manager = SerialManager(port='/dev/cu.usbserial-0001') 
 
 mission_log = []
@@ -33,7 +41,7 @@ mission_log = []
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],  # Allow all origins for development
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -78,22 +86,23 @@ def get_telemetry():
     return {
         **video_stats,
         **rover_stats,
-        'mode': 'remote' # active mode
+        'mode': 'remote'
     }
 
 @app.post('/api/command')
 async def send_command(request: Request):
     data = await request.json()
     cmd = data.get('command')
+    print(f"🎮 /api/command received: {cmd}", flush=True)  # DEBUG
     
     if cmd:
         success = serial_manager.send_command(cmd)
+        print(f"🎮 Command result: {'✅' if success else '❌'}", flush=True)  # DEBUG
         
-        # Log command
         log_entry = {
             'command': cmd,
             'status': 'sent' if success else 'failed',
-            'timestamp': str(threading.get_ident()) # placeholder time
+            'timestamp': str(threading.get_ident())
         }
         mission_log.append(log_entry)
         
@@ -109,6 +118,16 @@ async def fetch_evidence():
     await evidence_api.request_manifest()
     return {'ok': True}
 
+@app.get('/api/ai_status')
+def get_ai_status():
+    print("🔍 /api/ai_status called")
+    if 'ai_worker' in globals():
+        status = ai_worker.get_status()
+        print(f"📡 Returning: enabled={status.get('enabled')}, reasoning_len={len(status.get('last_reasoning', ''))}")
+        return status
+    print("⚠️ ai_worker not in globals")
+    return {'enabled': False, 'running': False, 'message': 'AI Worker not initialized'}
+
 # ------------------------
 # Background workers
 # ------------------------
@@ -117,12 +136,18 @@ def start_workers():
     # 1. Start Serial Connection
     serial_manager.start()
 
-    # 2. Start LLM Worker
-    threading.Thread(
-        target=llm_worker.loop,
-        args=(frame_buffer, mission_log, serial_manager), # Pass serial_manager for AI control
-        daemon=True
-    ).start()
+    # 2. Start AI Worker (Tactical + Strategic)
+    from ai.command_arbiter import CommandArbiter
+    
+    # Initialize Arbiter
+    arbiter = CommandArbiter(serial_manager.send_command)
+    
+    # Initialize and Start AI Worker
+    global ai_worker
+    ai_worker = llm_worker.AIWorker(frame_buffer, mission_log, arbiter)
+    ai_worker.start()
+    
+    print("✅ AI Pipeline Initialized (Tactical + Strategic)")
 
 start_workers()
 
@@ -131,5 +156,5 @@ start_workers()
 # ------------------------
 
 if __name__ in {"__main__", "__mp_main__"}:
-    # Update nicegui port if needed to avoid conflicts
-    ui.run(port=8080)
+    # CRITICAL: reload=False prevents dual-process issue
+    ui.run(port=8080, reload=False)
