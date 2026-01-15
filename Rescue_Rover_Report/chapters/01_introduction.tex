@@ -4,7 +4,7 @@
 \chapter{Introduction}
 \label{chap:introduction}
 
-Search and rescue operations in disaster environments present extreme challenges for human responders. Collapsed buildings, toxic gases, and unstable structures create conditions where sending people is dangerous or impossible. Small robotic platforms offer an alternative for initial reconnaissance and victim location. This thesis presents the design and implementation of a low cost autonomous rescue rover capable of remote operation and basic AI assisted navigation.
+Search and rescue operations in disaster environments present extreme challenges for human responders \cite{murphy2014disaster}. Collapsed buildings, toxic gases, and unstable structures create conditions where sending people is dangerous or impossible. Small robotic platforms offer an alternative for initial scouting and victim location \cite{liu2013roboticusar}. This thesis presents the design and implementation of a low cost autonomous rescue rover capable of remote operation and basic AI assisted navigation.
 
 % --------------------------------------------------------
 \section{Problem Statement}
@@ -12,7 +12,7 @@ Search and rescue operations in disaster environments present extreme challenges
 
 After earthquakes, building collapses, or industrial accidents, first responders must quickly assess the situation and locate survivors. Human access to damaged structures carries significant risk. Aftershocks can trigger secondary collapses. Dust and debris create respiratory hazards. Confined spaces limit visibility and mobility.
 
-Commercially available rescue robots exist, but their costs range from tens of thousands to hundreds of thousands of dollars. This price point places them beyond reach for most local emergency services, particularly in developing regions. A need exists for low cost platforms that can perform basic reconnaissance using readily available components.
+Commercially available rescue robots exist, but their costs range from tens of thousands to hundreds of thousands of dollars \cite{delmerico2019rescueoutlook}. This price point places them beyond reach for most local emergency services, particularly in developing regions. A need exists for low cost platforms that can perform basic assessment using readily available components \cite{wilk2022robotics}.
 
 \subsection{Challenges in Rescue Robotics}
 
@@ -20,7 +20,7 @@ Rescue environments present specific technical challenges that distinguish them 
 
 \textbf{Unpredictable terrain} includes rubble, debris, inclines, and gaps. Wheeled platforms frequently become stuck. Tracked designs offer improved traction but add mechanical complexity.
 
-\textbf{Limited communications} result from building materials blocking radio signals and network infrastructure being damaged. Systems must operate with degraded connectivity and handle intermittent link loss gracefully.
+\textbf{Limited communications} result from building materials blocking radio signals and network infrastructure being damaged \cite{surmann2024lessons}. Systems must operate with degraded connectivity and handle intermittent link loss gracefully.
 
 \textbf{Power constraints} limit mission duration. Batteries add weight, reducing payload capacity. More energy-dense batteries add cost. A balance must be struck between runtime and portability.
 
@@ -173,7 +173,7 @@ Several research efforts and commercial products address similar problem domains
 
 Research platforms for rescue robotics often focus on specific capabilities rather than complete systems.
 
-\textbf{Quince} developed at Chiba Institute of Technology is a snake-like robot designed for confined space navigation. Its segmented body can articulate around obstacles.
+\textbf{Quince} developed at Chiba Institute of Technology is a snake-like robot designed for confined space navigation \cite{nagatani2011quincefukushima}. Its segmented body can articulate around obstacles.
 
 \textbf{Kenaf} from the same institute uses front flippers that assist in climbing rubble piles. The bipedal flipper mechanism allows transitions between tracked locomotion and climbing gaits.
 
@@ -183,7 +183,7 @@ The maker community has produced several low cost robotics platforms, though few
 
 \textbf{ROSbot} by Husarion combines an ESP32 with ROS (Robot Operating System) integration. It provides a more sophisticated software stack than this project but at higher cost.
 
-\textbf{ESP32-CAM projects} on various hobbyist sites demonstrate camera streaming with the original ESP32-CAM module. Most lack motor control and are intended as stationary security cameras.
+\textbf{ESP32-CAM projects} on various hobbyist sites demonstrate camera streaming with the original ESP32-CAM module \cite{kumar2024web}. Most lack motor control and are intended as stationary security cameras.
 
 % --------------------------------------------------------
 \section{Contributions}

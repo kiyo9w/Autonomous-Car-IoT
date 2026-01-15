@@ -66,19 +66,17 @@ LiPo Battery (11.1V 3S)
 %     \label{fig:motor-wiring}
 % \end{figure}
 
-\subsection{L298N Wiring Notes}
+\subsection{Wiring Notes}
 
-\begin{infobox}[Important Wiring Notes]
 \begin{enumerate}
-    \item \textbf{Enable Jumpers:} Keep ENA and ENB jumpers installed for full-speed operation, or remove for PWM speed control.
+    \item \textbf{Enable Jumpers}: Keep ENA and ENB jumpers installed for full-speed operation. Remove them and connect PWM signals for variable speed control.
     
-    \item \textbf{Common Ground:} Ensure ESP32-S3 GND is connected to L298N GND.
+    \item \textbf{Common Ground}: The ESP32-S3 GND must be connected to L298N GND. Floating grounds cause erratic motor behavior.
     
-    \item \textbf{Motor Polarity:} If motor spins in wrong direction, swap the two motor leads.
+    \item \textbf{Motor Polarity}: If a motor spins in the wrong direction, swap its two leads on the L298N terminal block.
     
-    \item \textbf{Heat Sink:} L298N requires heatsink for currents above 1A.
+    \item \textbf{Heat Dissipation}: The L298N requires adequate airflow or a heatsink when operating above 1A continuous current.
 \end{enumerate}
-\end{infobox}
 
 % --------------------------------------------------------
 \section{Camera Module Connections}
@@ -141,9 +139,7 @@ ECHO  --[R1]---> GPIO 2
 R1 = 1k Ohm, R2 = 2k Ohm (Voltage divider 5V -> 3.3V for ECHO)
 \end{verbatim}
 
-\begin{warningbox}[5V to 3.3V Level Shifting]
-The HC-SR04 ECHO pin outputs 5V, which may damage ESP32-S3 GPIO pins. Use a voltage divider or level shifter.
-\end{warningbox}
+\textbf{Note}: The HC-SR04 ECHO pin outputs 5V logic, which exceeds the ESP32-S3 GPIO maximum of 3.3V. Use the voltage divider shown above (R1=1kΩ, R2=2kΩ) or a bidirectional level shifter to avoid damaging the microcontroller.
 
 \subsection{Battery Voltage Monitor}
 

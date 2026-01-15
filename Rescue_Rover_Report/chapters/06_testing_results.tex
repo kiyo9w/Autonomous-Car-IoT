@@ -10,17 +10,16 @@ This chapter presents the testing methodology and experimental results gathered 
 \section{Testing Methodology}
 \label{sec:test-methodology}
 
-Testing followed a structured approach that progressed from component isolation to full system integration. Each test category used specific metrics and measurement procedures documented in this section.
+Testing followed a structured approach that progressed from component isolation to full system integration \cite{nist_usar_standards}. Each test category used specific metrics and measurement procedures documented in this section.
 
 \subsection{Test Environment}
 
 All tests were conducted in an indoor laboratory environment measuring approximately 8 meters by 6 meters. The floor surface was smooth tile. Obstacles included chairs, tables, boxes, and standing humans. WiFi coverage used a standard 802.11n access point located in the same room.
 
-% FIGURE PLACEHOLDER
+% FIGURE: Test Environment
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/hardware/test_environment.jpg}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{4cm}FIGURE: Test Environment Photograph\\Shows the room layout with obstacle course marked\vspace{4cm}}}
+    \includegraphics[width=0.8\textwidth]{figures/hardware/test_environment.jpg}
     \caption{Indoor test environment used for all experiments.}
     \label{fig:test-environment}
 \end{figure}
@@ -61,7 +60,7 @@ Tests were organized into five categories corresponding to major system capabili
 \section{Communication Performance}
 \label{sec:comm-performance}
 
-Communication tests measured the end to end latency and reliability of both the control channel (ESP-NOW) and the video channel (UDP streaming).
+Communication tests measured the end to end latency and reliability of both the control channel (ESP-NOW) and the video channel (UDP streaming) \cite{becker2025espnowoutdoor,labib2021espnowiot}.
 
 \subsection{Command Latency Measurement}
 
@@ -144,16 +143,15 @@ Packet loss was measured by embedding sequence numbers in transmitted frames and
     \end{tabular}
 \end{table}
 
-% FIGURE PLACEHOLDER
+% FIGURE: Packet Loss
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/charts/packet_loss_vs_distance.png}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}FIGURE: Packet Loss vs Distance\\Line graph showing degradation with range\vspace{3cm}}}
+    \includegraphics[width=0.7\textwidth]{figures/charts/packet_loss_vs_distance.png}
     \caption{Packet loss rate as a function of distance from the access point.}
     \label{fig:packet-loss}
 \end{figure}
 
-Within the 15 meter range typical for indoor operation, packet loss remains negligible. Beyond 20 meters, loss becomes noticeable but the system continues to function acceptably.
+Within the 15 meter range typical for indoor operation, packet loss remains negligible \cite{tanenbaum2010networks,ieee802112020}. Beyond 20 meters, loss becomes noticeable but the system continues to function acceptably.
 
 % --------------------------------------------------------
 \section{Video Quality Assessment}
@@ -181,13 +179,12 @@ Frame rate was measured by counting frames received over 60 second intervals und
     \end{tabular}
 \end{table}
 
-Low light conditions reduce frame rate because the camera increases exposure time. Motion during long exposures also causes blur, which increases JPEG size and occasionally causes frame drops.
+Low light conditions reduce frame rate because the camera increases exposure time \cite{park2015udpvsTcpVideo}. Motion during long exposures also causes blur, which increases JPEG size and occasionally causes frame drops.
 
-% FIGURE PLACEHOLDER
+% FIGURE: FPS Over Time
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/charts/fps_over_time.png}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}FIGURE: FPS Over Time\\Time series showing frame rate during 5 minute test\vspace{3cm}}}
+    \includegraphics[width=0.8\textwidth]{figures/charts/fps_over_time.png}
     \caption{Frame rate stability over a 5 minute continuous operation test.}
     \label{fig:fps-timeseries}
 \end{figure}
@@ -213,11 +210,10 @@ The camera JPEG quality setting affects both image clarity and frame size. Small
     \end{tabular}
 \end{table}
 
-% FIGURE PLACEHOLDER
+% FIGURE: JPEG Quality Comparison
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=\textwidth]{figures/software/jpeg_comparison.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{4cm}FIGURE: JPEG Quality Comparison\\Grid of same scene at quality 10, 30, and 50\vspace{4cm}}}
+    \includegraphics[width=\textwidth]{figures/software/jpeg_comparison.png}
     \caption{Visual comparison of different JPEG quality settings.}
     \label{fig:jpeg-comparison}
 \end{figure}
@@ -255,11 +251,10 @@ The response time includes command transmission, firmware processing, and motor 
 
 Straight line accuracy was tested by commanding forward movement for fixed durations and measuring deviation from intended path.
 
-% FIGURE PLACEHOLDER
+% FIGURE: Path Deviation
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/hardware/track_deviation.png}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}FIGURE: Path Deviation Test\\Overhead view showing actual vs intended path\vspace{3cm}}}
+    \includegraphics[width=0.7\textwidth]{figures/hardware/track_deviation.png}
     \caption{Path deviation during straight line driving test.}
     \label{fig:path-deviation}
 \end{figure}
@@ -300,11 +295,10 @@ Point turn and arc turn radii were measured by tracing the path of a tracking ma
     \end{tabular}
 \end{table}
 
-% FIGURE PLACEHOLDER
+% FIGURE: Turning Trace
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.6\textwidth]{figures/hardware/turning_trace.png}
-    \fbox{\parbox{0.6\textwidth}{\centering\vspace{3cm}FIGURE: Turning Trace\\Overhead path trace during 360 degree rotation\vspace{3cm}}}
+    \includegraphics[width=0.6\textwidth]{figures/hardware/turning_trace.png}
     \caption{Path traced during a point turn, showing rotation approximately about center.}
     \label{fig:turning-trace}
 \end{figure}
@@ -313,7 +307,7 @@ Point turn and arc turn radii were measured by tracing the path of a tracking ma
 \section{Object Detection Performance}
 \label{sec:detection-performance}
 
-YOLOv8 detection accuracy was evaluated using a test dataset of manually labeled frames captured from the rover camera.
+YOLOv8 detection accuracy was evaluated using a test dataset of manually labeled frames captured from the rover camera \cite{yolov8_2025_victim,bachir2024yolov5sar}.
 
 \subsection{Test Dataset}
 
@@ -359,16 +353,15 @@ Accuracy was measured using precision, recall, and mean Average Precision (mAP) 
     \end{tabular}
 \end{table}
 
-% FIGURE PLACEHOLDER
+% FIGURE: Precision-Recall Curves
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/charts/precision_recall_curve.png}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3.5cm}FIGURE: Precision-Recall Curves\\Separate curves for each class\vspace{3.5cm}}}
+    \includegraphics[width=0.8\textwidth]{figures/charts/precision_recall_curve.png}
     \caption{Precision-recall curves for each object class.}
     \label{fig:pr-curves}
 \end{figure}
 
-Person detection achieves the highest accuracy (mAP 0.89) because COCO training data contains many person examples. Door detection is weakest (mAP 0.68) likely due to variation in door appearance and partial occlusion.
+Person detection achieves the highest accuracy (mAP 0.89) because COCO training data contains many person examples \cite{yolov3_2023_sar,hong2025study}. Door detection is weakest (mAP 0.68) likely due to variation in door appearance and partial occlusion.
 
 \subsection{Inference Speed}
 
@@ -390,13 +383,12 @@ Inference timing was measured on the Apple M1 MacBook Pro used as the host compu
     \end{tabular}
 \end{table}
 
-The 12ms mean inference time is fast enough to process every frame at 30 FPS with significant headroom. Running on CPU-only hardware would increase this to approximately 45ms, still acceptable for operation.
+The 12ms mean inference time is fast enough to process every frame at 30 FPS with significant headroom. Running on CPU-only hardware would increase this to approximately 45ms, still acceptable for operation \cite{thrun2005probabilistic}.
 
-% FIGURE PLACEHOLDER
+% FIGURE: Inference Time Distribution
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/charts/inference_time_histogram.png}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}FIGURE: Inference Time Distribution\\Histogram of timing measurements\vspace{3cm}}}
+    \includegraphics[width=0.7\textwidth]{figures/charts/inference_time_histogram.png}
     \caption{Distribution of YOLOv8 inference times.}
     \label{fig:inference-histogram}
 \end{figure}
@@ -405,7 +397,7 @@ The 12ms mean inference time is fast enough to process every frame at 30 FPS wit
 \section{Obstacle Avoidance Testing}
 \label{sec:obstacle-testing}
 
-The ultrasonic obstacle detection system was tested to verify it prevents collisions.
+The ultrasonic obstacle detection system was tested to verify it prevents collisions \cite{singh2023obstacle}.
 
 \subsection{Distance Accuracy}
 
@@ -428,11 +420,10 @@ Ultrasonic distance readings were compared against tape measure ground truth at 
     \end{tabular}
 \end{table}
 
-% FIGURE PLACEHOLDER
+% FIGURE: Ultrasonic Accuracy
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/charts/ultrasonic_accuracy.png}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}FIGURE: Ultrasonic Accuracy Plot\\Measured vs true distance with error bars\vspace{3cm}}}
+    \includegraphics[width=0.7\textwidth]{figures/charts/ultrasonic_accuracy.png}
     \caption{Ultrasonic sensor accuracy across measurement range.}
     \label{fig:ultrasonic-accuracy}
 \end{figure}
@@ -486,11 +477,10 @@ Runtime was measured from full charge (12.6V) to low voltage cutoff (9.9V) under
     \end{tabular}
 \end{table}
 
-% FIGURE PLACEHOLDER
+% FIGURE: Battery Discharge
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/charts/voltage_discharge.png}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3.5cm}FIGURE: Battery Discharge Curve\\Voltage over time during runtime test\vspace{3.5cm}}}
+    \includegraphics[width=0.8\textwidth]{figures/charts/voltage_discharge.png}
     \caption{Battery voltage during continuous operation discharge test.}
     \label{fig:discharge-curve}
 \end{figure}
@@ -517,11 +507,10 @@ Component temperatures were monitored using an infrared camera during extended o
     \end{tabular}
 \end{table}
 
-% FIGURE PLACEHOLDER
+% FIGURE: Thermal Image
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.6\textwidth]{figures/hardware/thermal_image.jpg}
-    \fbox{\parbox{0.6\textwidth}{\centering\vspace{3cm}FIGURE: Thermal Camera Image\\Shows heat distribution across rover components\vspace{3cm}}}
+    \includegraphics[width=0.6\textwidth]{figures/hardware/thermal_image.jpg}
     \caption{Infrared thermal image showing component temperatures during operation.}
     \label{fig:thermal-image}
 \end{figure}
@@ -589,7 +578,11 @@ The most severe issue encountered was a complete crash of the vLLM inference eng
 EngineDeadError: EngineCore encountered an issue
 \end{verbatim}
 
-\textbf{Root Cause:} The vLLM v1 engine (enabled by default in recent versions) exhibited instability when serving large multimodal models. Additionally, the default KV-cache settings consumed excessive VRAM, triggering out-of-memory conditions.
+\textbf{Root Cause:} The vLLM v1 engine (enabled by default in recent versions) exhibited instability when serving large multimodal models. Additionally, Qwen2.5-VL's default context length is 128k tokens. When vLLM allocates KV-cache for this context, it can exceed the available VRAM on even an A100 (40GB) or H100 (80GB) if not tuned.
+
+\begin{designbox}[The 128k Context Crash]
+When the Colab server first started, it crashed immediately with an out-of-memory error. The logs showed vLLM attempting to allocate cache for 131072 tokens. The fix was to set \texttt{max\_model\_len=8192}, which limits the KV-cache to a reasonable size for our short prompts. Since each rover query is under 200 tokens, we never hit this limit in practice.
+\end{designbox}
 
 \textbf{Solution Applied:}
 \begin{enumerate}
@@ -604,12 +597,45 @@ from vllm import LLM
 llm = LLM(
     model=MODEL_ID,
     gpu_memory_utilization=0.80,  # Reduced from 0.90
-    max_model_len=4096,           # Reduced from 8192
+    max_model_len=8192,           # Reduced from 128k default!
 )
     \end{lstlisting}
 \end{enumerate}
 
 \textbf{Result:} After applying these changes, the VLM responded correctly with valid JSON output. Measured performance: approximately 1 second per inference, with input processing at 2986 tokens/second and output generation at 52 tokens/second.
+
+\subsection{Serial Port Auto-Detection}
+
+During early development, the RoverInterface required manual configuration of the serial port (e.g., \texttt{/dev/cu.usbserial-0001} on macOS). Different computers often had different port names, leading to setup friction.
+
+\textbf{Solution:} The \texttt{SerialManager} class now auto-detects the Gateway by scanning all serial ports for common USB-to-serial chip identifiers:
+
+\begin{lstlisting}[language=Python, caption={Serial Port Auto-Detection}]
+def find_port(self):
+    ports = list(serial.tools.list_ports.comports())
+    for p in ports:
+        # Common names for ESP32/CH340 drivers
+        if any(x in p.device for x in ['usbserial', 'wchusb', 'CP210']):
+            print(f"Found Serial Device: {p.device}")
+            return p.device
+    return None
+\end{lstlisting}
+
+\textbf{Result:} Users can now run the application without editing config files. If the Gateway is connected, it is found automatically.
+
+\subsection{UDP Buffer Overflow \& Instability}
+
+As detailed in Section \ref{sec:video-latency}, UDP offered superior latency characteristics. However, prolonged stress testing revealed a critical stability flaw.
+
+\textbf{Symptom:} The firmware would crash unexpectedly after 2 to 5 minutes of operation. The serial monitor reported:
+\begin{verbatim}
+Guru Meditation Error: Core 1 panic'ed (LoadProhibited)
+Backtrace: 0x42002...
+\end{verbatim}
+
+\textbf{Root Cause:} The specific ESP32-S3 Arduino core version exhibited a memory leak in the UDP \texttt{write()} function when handling fragmented packets at high frequency.
+
+\textbf{Decision:} We transitioned to HTTP streaming. The native TCP flow control prevents the application from flooding the network stack, ensuring 100\% uptime during the demonstration. We accepted the latency trade-off to prioritize mission-critical reliability.
 
 \begin{table}[h!]
     \centering
@@ -619,6 +645,7 @@ llm = LLM(
         \toprule
         \textbf{Issue} & \textbf{Cause} & \textbf{Resolved} \\
         \midrule
+        UDP System Crash & Buffer overflow/Leak & Pivoted to HTTP \\
         VLM Server Error & Wrong prompt tokens & Yes \\
         EngineCore Crash & vLLM v1 + VRAM pressure & Yes \\
         Colab Shutdown & Runtime timeout & Workaround \\

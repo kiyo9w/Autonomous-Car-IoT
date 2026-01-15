@@ -4,7 +4,7 @@
 \chapter{Embedded Firmware Design}
 \label{chap:firmware-implementation}
 
-The firmware running on the ESP32-S3 forms the foundation of the Rescue Rover system. This chapter documents the design decisions, implementation details, and technical challenges encountered while developing the embedded software layer. The firmware handles camera streaming, motor control, wireless communication, and safety mechanisms, all running concurrently on the dual-core processor.
+The firmware running on the ESP32-S3 forms the foundation of the Rescue Rover system \cite{lee2017embedded}. This chapter documents the design decisions, implementation details, and technical challenges encountered while developing the embedded software layer. The firmware handles camera streaming, motor control, wireless communication, and safety mechanisms, all running concurrently on the dual-core processor.
 
 % --------------------------------------------------------
 \section{Firmware Architecture Overview}
@@ -26,7 +26,7 @@ The \texttt{RescueRobot.ino} file serves as the main entry point. It initializes
 
 The \texttt{CameraModule} handles all camera operations. This includes initialization of the OV2640 sensor, configuration of frame buffers in PSRAM, and streaming via either HTTP or UDP protocols. The module provides two streaming modes because we discovered during testing that HTTP introduces 80ms additional latency compared to UDP on the same network. Total implementation spans 222 lines across the header and source files.
 
-The \texttt{MotorDriver} module controls the L298N H-bridge through GPIO pins. Movement primitives include forward, backward, left turn, right turn, and emergency stop. The implementation uses simple digital writes rather than PWM because the current prototype focuses on directional control rather than speed modulation. This module is intentionally minimal at 56 lines.
+The \texttt{MotorDriver} module controls the L298N H-bridge through GPIO pins \cite{stmicro2000l298,mishra2018implementation}. Movement primitives include forward, backward, left turn, right turn, and emergency stop. The implementation uses \textbf{PWM (Pulse Width Modulation)} to enable variable speed control, with a speed parameter from 0\% to 100\% mapped to PWM duty cycles 0-255 \cite{siegwart2011robotics}. This module spans 92 lines.
 
 The \texttt{ConnectionModule} manages ESP-NOW bidirectional communication with the gateway. It receives joystick commands, stores them for processing by the main loop, and transmits telemetry at 2Hz. The critical design decision here is that the receive callback does not directly actuate motors. Instead it stores the command and lets the main loop apply safety checks first. This prevents race conditions between sensor readings and motor commands.
 
@@ -373,24 +373,27 @@ static esp_err_t stream_handler(httpd_req_t *req) {
     \label{fig:http-sequence}
 \end{figure}
 
-\subsubsection{UDP Streaming}
+\subsubsection{UDP Streaming (Experimental)}
 
-UDP mode sends frames directly without the HTTP overhead. The target IP address and port are configured at compile time. Each frame is transmitted as a single UDP packet, which works reliably on local networks where MTU is 1500 bytes and frames are under 15KB.
+UDP mode was initially designed to minimize latency by bypassing the HTTP overhead.
 
-\begin{lstlisting}[language=C++, caption={UDP frame transmission function}]
+\begin{designbox}[UDP Buffer Overflow]
+During integration testing, we observed that the ESP32-S3's network stack struggled to sustain high-bandwidth UDP transmission at 30FPS. The internal buffers frequently overflowed, causing a \textbf{Watchdog Timer Reset} that crashed the system.
+
+While UDP offered superior latency ($<$100ms), the instability was critical. We ultimately pivoted to TCP/HTTP for the final build. The TCP flow control mechanism prevents the application from overwhelming the network stack, ensuring system stability at the cost of slightly higher latency. Implementing a custom reliable UDP protocol was deemed out of scope for this iteration.
+\end{designbox}
+
+\begin{lstlisting}[language=C++, caption={UDP frame transmission function (Deprecated)}]
 void streamFrameUDP() {
     // Check prerequisites
     if (!cameraReady || !udpMode || udpTargetIP == nullptr)
         return;
     
     camera_fb_t *fb = esp_camera_fb_get();
-    if (!fb) {
-        Serial.println("UDP capture failed");
-        return;
-    }
+    if (!fb) return;
     
-    // Send entire frame as single packet
-    // Works on local WiFi where fragmentation is handled
+    // Chunking logic was attempted here but 
+    // stack overflows persisted.
     udp.beginPacket(udpTargetIP, udpTargetPort);
     udp.write(fb->buf, fb->len);
     udp.endPacket();
@@ -429,7 +432,7 @@ void streamFrameUDP() {
 \section{Motor Control Implementation}
 \label{sec:motor-impl}
 
-The motor control subsystem translates high level movement commands into GPIO signals for the L298N driver. The current implementation uses binary on/off control rather than PWM speed modulation. This choice simplifies the code and proved sufficient for indoor testing where precise speed control is less important than reliable direction changes.
+The motor control subsystem translates high level movement commands into GPIO signals for the L298N driver. The implementation uses \textbf{PWM speed modulation}, allowing both manual operators and AI modules to control the rover's velocity. A speed parameter (0-100\%) is mapped to a PWM duty cycle (0-255) using a linear conversion function.
 
 \subsection{Differential Drive Model}
 
@@ -457,11 +460,16 @@ where $v_{robot}$ is the linear velocity of the robot center, $\omega_{robot}$ i
 
 \subsection{L298N Driver Interface}
 
-The L298N accepts four digital inputs (IN1 through IN4) that control two H-bridge circuits. Each motor connects to one H-bridge. The truth table for motor direction is straightforward: setting one input HIGH and the other LOW drives the motor in one direction. Reversing which input is HIGH reverses the rotation.
+The L298N accepts four digital inputs (IN1 through IN4) that control two H-bridge circuits. Each motor connects to one H-bridge. For direction control, one pin is set HIGH while the other is LOW. For speed control, the HIGH signal is replaced with a PWM waveform using \texttt{analogWrite()}.
 
-\begin{lstlisting}[language=C++, caption={Motor driver initialization and movement functions}]
+\begin{lstlisting}[language=C++, caption={PWM-based motor driver with speed control}]
 #include "MotorDriver.h"
 #include "PinConfig.h"
+
+// Convert 0-100% speed to 0-255 PWM duty cycle
+int speedToPWM(int speed) {
+    return map(speed, 0, 100, 0, 255); 
+}
 
 void initMotors() {
     pinMode(PIN_LEFT_FWD, OUTPUT);
@@ -469,22 +477,21 @@ void initMotors() {
     pinMode(PIN_RIGHT_FWD, OUTPUT);
     pinMode(PIN_RIGHT_BWD, OUTPUT);
     
-    stopMoving();  // Ensure motors are off at startup
-    Serial.println("Motor Driver Ready (GPIO: 4,5,6,7)");
+    stopMoving();
+    Serial.println("Motor Driver Ready (PWM Control Enabled)");
 }
 
-void goForward() {
-    digitalWrite(PIN_LEFT_FWD, HIGH);
+void goForward(int speed) {
+    if (speed < 1 || speed > 100) return;
+    int pwm = speedToPWM(speed);
+    
+    // Left motor forward
+    analogWrite(PIN_LEFT_FWD, pwm);
     digitalWrite(PIN_LEFT_BWD, LOW);
-    digitalWrite(PIN_RIGHT_FWD, HIGH);
+    
+    // Right motor forward
+    analogWrite(PIN_RIGHT_FWD, pwm);
     digitalWrite(PIN_RIGHT_BWD, LOW);
-}
-
-void goBackward() {
-    digitalWrite(PIN_LEFT_FWD, LOW);
-    digitalWrite(PIN_LEFT_BWD, HIGH);
-    digitalWrite(PIN_RIGHT_FWD, LOW);
-    digitalWrite(PIN_RIGHT_BWD, HIGH);
 }
 
 void stopMoving() {
@@ -494,6 +501,16 @@ void stopMoving() {
     digitalWrite(PIN_RIGHT_BWD, LOW);
 }
 \end{lstlisting}
+
+\begin{designbox}[AI-Controlled Speed]
+The speed parameter (0-100\%) can be set by multiple sources:
+\begin{itemize}
+    \item \textbf{Manual operator}: Joystick Y-axis distance from center determines speed.
+    \item \textbf{Strategic AI}: The VLM can suggest "slow down" when navigating tight spaces.
+    \item \textbf{Tactical AI}: When a person is detected but not yet at emergency threshold, YOLO can reduce speed as a precaution.
+\end{itemize}
+The Command Arbiter's joystick coordinate system (0-4095) is mapped to this 0-100\% scale before being sent to the firmware.
+\end{designbox}
 
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
@@ -525,7 +542,7 @@ The motor pins were chosen to avoid conflicts with camera interface and JTAG deb
 
 \subsection{Turning Mechanics}
 
-Point turns are achieved by running motors in opposite directions. The left motor runs backward while the right motor runs forward for a left turn. This creates rotation around the robot's center point. Arc turns for smoother motion would require PWM speed control, which is planned for a future revision.
+Point turns are achieved by running motors in opposite directions. The left motor runs backward while the right motor runs forward for a left turn. This creates rotation around the robot's center point. The PWM speed control enables \textbf{arc turns} by running one motor faster than the other, creating curved paths for smoother navigation.
 
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
@@ -585,7 +602,7 @@ The \texttt{\_\_attribute\_\_((packed))} directive ensures no padding bytes are 
 
 The receive callback executes in an interrupt context when a packet arrives. Long operations in this callback would block the WiFi stack and cause instability. Our initial implementation called motor control functions directly from the callback, which created race conditions with the ultrasonic sensor readings in the main loop.
 
-\begin{designbox}[Critical Design Decision: Deferred Motor Actuation]
+\begin{designbox}[Deferred Motor Actuation]
 The receive callback stores commands but does not actuate motors. Motor actuation happens in the main loop after safety checks. This prevents race conditions where an obstacle appears between receiving a "forward" command and executing it. The main loop always has the latest sensor data when deciding whether to execute a command.
 \end{designbox}
 
@@ -895,6 +912,41 @@ void handleControlLoop() {
         \bottomrule
     \end{tabular}
 \end{table}
+
+\begin{designbox}[Escape Maneuver Override]
+During early testing, we encountered a frustrating scenario: the rover would detect an obstacle at 20cm and freeze completely. The operator could not back up or turn away because all motor commands were blocked by the safety system.
+
+The solution was to make the safety check directional. Forward motion is blocked when an obstacle is close, but \textbf{backward and turning commands are always allowed}. This ensures the rover never gets permanently stuck. The logic checks if the joystick Y-value is below 1500 (backward) or if X is at the extremes (<1000 or >3000, meaning a sharp turn). These "escape maneuvers" bypass the emergency stop and allow the operator to retreat safely.
+
+This is a classic example of safety systems needing to be designed with recovery scenarios in mind, not just failure prevention.
+\end{designbox}
+
+% --------------------------------------------------------
+\subsection{Development Log: Hardware Procurement Saga}
+\label{sec:hardware-procurement}
+
+Acquiring the ESP32-S3-CAM module proved to be a significant learning experience about sourcing components for IoT projects. The team went through three iterations of purchasing before obtaining a working unit.
+
+\textbf{Attempt 1: The Wrong Product.}
+The first module was ordered from a low-cost Chinese seller on Lazada. The listing advertised "ESP32-S3 with OV2640 Camera" at an attractive price. When the package arrived, we discovered the board was an older ESP32 variant without the S3 suffix, and crucially, it had no camera connector at all. The 24-pin FPC socket for the camera was simply absent from the PCB. After contacting the seller and providing photographic evidence, we processed a return.
+
+\textbf{Attempt 2: Dead on Arrival.}
+The second attempt was from a more reputable seller with verified reviews. The board arrived and appeared correct: ESP32-S3-WROOM-1 module, 8MB PSRAM, and a proper camera connector. Initial serial output was promising. However, when we ran the camera initialization code, it returned \texttt{ESP\_ERR\_NOT\_FOUND}. We suspected a wiring issue and spent hours debugging before realizing the OV2640 sensor flex cable was connected but the sensor itself had a physical crack across its surface, invisible without magnification. The camera was dead on arrival.
+
+\textbf{Attempt 3: No Pins, No Problem.}
+Armed with frustration, we ordered a replacement camera module (just the OV2640, not the entire board) from a third seller. This arrived intact and was verified to work on a test jig. However, when we tried to connect it to the ESP32-S3 board, we discovered the board's GPIO header was unpopulated. The gold pads were present, but no pins were soldered. The product listing had mentioned "with headers" but clearly, this batch was shipped without them.
+
+Rather than waiting for another return and shipment cycle, we contacted a local electronics repair shop near the university. For a small fee, they hand-soldered a 2x20 pin header onto the board. The quality was excellent, and the pins aligned perfectly.
+
+\begin{designbox}[IoT Component Sourcing]
+\begin{itemize}
+    \item Always verify seller reputation and read recent reviews mentioning the specific product variant you need.
+    \item "ESP32" is a family with many variants (ESP32, ESP32-S2, ESP32-S3, ESP32-C3). Confirm the exact chip before ordering.
+    \item Camera modules are fragile. Inspect the sensor surface under light immediately upon arrival.
+    \item Unpopulated headers are common on development boards. Either order from a listing that explicitly shows assembled headers, or budget for local soldering.
+    \item Having a local electronics repair contact can save weeks of waiting for returns and replacements.
+\end{itemize}
+\end{designbox}
 
 % --------------------------------------------------------
 \section{Main Loop Structure}

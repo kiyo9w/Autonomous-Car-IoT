@@ -26,13 +26,62 @@ These constraints led us to select development boards over custom PCBs, through-
     \label{fig:rover-complete}
 \end{figure}
 
+\subsection{Bill of Materials}
+
+Table~\ref{tab:bom} presents the complete bill of materials with actual procurement costs in Vietnamese Dong (VND). The total hardware budget came to approximately 850,000₫, equivalent to roughly \$35 USD at the time of purchase. All components were sourced from domestic e-commerce platforms.
+
+\begin{table}[H]
+    \centering
+    \caption{Bill of Materials with Procurement Costs}
+    \label{tab:bom}
+    \begin{tabular}{p{5cm}lrr}
+        \toprule
+        \textbf{Component} & \textbf{Quantity} & \textbf{Unit (₫)} & \textbf{Total (₫)} \\
+        \midrule
+        \multicolumn{4}{l}{\textit{Processing \& Control}} \\
+        ESP32-S3 Sense N16R8 (Camera)  & 1 & 163,800 & 163,800 \\
+        ESP32 DevKit (Gateway)         & 1 & 109,998 & 109,998 \\
+        \midrule
+        \multicolumn{4}{l}{\textit{Motor System}} \\
+        L298N Motor Driver             & 1 & 48,398  & 48,398 \\
+        BO Motors + Wheels (4WD Kit)   & 1 & 80,237  & 80,237 \\
+        \midrule
+        \multicolumn{4}{l}{\textit{Power}} \\
+        Samsung 20R 18650 Battery      & 2 & 37,025  & 74,050 \\
+        18650 Holder (2S Series)       & 1 & 36,058  & 36,058 \\
+        LM2596 Buck Converter (5V/3A)  & 1 & 16,748  & 16,748 \\
+        \midrule
+        \multicolumn{4}{l}{\textit{Sensors \& Peripherals}} \\
+        HC-SR04 Ultrasonic Sensor      & 1 & 38,449  & 38,449 \\
+        MicroSD Card 16GB              & 1 & 92,198  & 92,198 \\
+        \midrule
+        \multicolumn{4}{l}{\textit{Mechanical}} \\
+        4WD Chassis (Aluminum U-frame) & 1 & 93,450  & 93,450 \\
+        \midrule
+        \multicolumn{4}{l}{\textit{Wiring \& Consumables}} \\
+        Dupont Wires F-F 40P           & 1 & 14,866  & 14,866 \\
+        Capacitors 1000µF 16V          & 2 & 18,129  & 36,258 \\
+        Resistors (assorted)           & 1 & 10,000  & 10,000 \\
+        \midrule
+        \multicolumn{4}{l}{\textit{Repairs \& Spares}} \\
+        Replacement OV2640 Camera      & 1 & 80,000  & 80,000 \\
+        Local Soldering Service        & 1 & 50,000  & 50,000 \\
+        \midrule
+        \multicolumn{2}{r}{\textbf{TOTAL}} & & \textbf{$\approx$ 944,500₫} \\
+        \multicolumn{2}{r}{\textit{(Approx. USD)}} & & \textit{$\approx$ \$39} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The "Repairs \& Spares" category documents the hidden cost of hardware procurement challenges. As detailed in Chapter~\ref{chap:firmware}, we went through multiple failed ESP32-S3-CAM purchases—wrong product variants, dead-on-arrival camera modules, and boards without header pins—before obtaining working hardware. The replacement camera and soldering service represent the cost of resolving these issues.
+
 % --------------------------------------------------------
 % SECTION 3.2: CHASSIS DESIGN
 % --------------------------------------------------------
 \section{Chassis Design}
 \label{sec:chassis-design}
 
-The chassis provides the structural foundation for all electronic components. We selected a commercially available \textbf{4-wheel drive (4WD)} chassis platform rather than designing a custom frame. This decision saved significant development time while providing a proven mechanical platform for the rover.
+The chassis provides the structural foundation for all electronic components. We selected a commercially available \textbf{4-wheel drive (4WD)} chassis platform rather than designing a custom frame \cite{hoffman2019polarrover}. This decision saved significant development time while providing a proven mechanical platform for the rover.
 
 % SUBSECTION 3.2.1: PLATFORM SELECTION
 \subsection{Platform Selection}
@@ -239,7 +288,7 @@ Electronic components are secured to the acrylic chassis to ensure stability dur
 \section{Main Controller: ESP32-S3}
 \label{sec:esp32-controller}
 
-The ESP32-S3 serves as the central processing unit for the rover. This chip was selected for its combination of processing power, wireless capabilities, camera interface, and extensive Arduino ecosystem support.
+The ESP32-S3 serves as the central processing unit for the rover \cite{esp32s3trm}. This chip was selected for its combination of processing power, wireless capabilities, camera interface, and extensive Arduino ecosystem support \cite{oner2021developing}.
 
 \subsection{Chip Specifications}
 
@@ -392,7 +441,7 @@ The camera provides the rover's primary sensing capability. Visual data is used 
 
 \subsection{OV2640 Sensor}
 
-The OV2640 is a 2-megapixel CMOS image sensor commonly used in embedded vision applications. It connects to the ESP32-S3 through the DVP (Digital Video Port) parallel interface.
+The OV2640 is a 2-megapixel CMOS image sensor commonly used in embedded vision applications \cite{omnivision2006ov2640}. It connects to the ESP32-S3 through the DVP (Digital Video Port) parallel interface.
 
 \begin{table}[h!]
     \centering
@@ -430,9 +479,9 @@ The firmware configures the OV2640 sensor for **QVGA ($320 \times 240$)** resolu
     \centering
     \caption{Resolution bandwidth trade-offs (OV2640 JPEG)}
     \label{tab:resolution-tradeoffs}
-    \begin{tabular}{lcccc}
+    \begin{tabular}{p{3.5cm}ccp{3.0cm}p{3.0cm}}
         \toprule
-        \textbf{Resolution} & \textbf{Pixel Count} & \textbf{Avg Frame Size} & \textbf{UDP Efficiency} & \textbf{Status} \\
+        \textbf{Resolution} & \textbf{Pixel Count} & \textbf{Avg Size} & \textbf{UDP Efficiency} & \textbf{Status} \\
         \midrule
         QQVGA ($160\times120$) & 19,200    & 2-4 KB   & High (1 pkt) & Rejected (Low Detail) \\
         \textbf{QVGA ($320\times240$)}  & \textbf{76,800}    & \textbf{6-12 KB}  & \textbf{Medium (4-8 pkts)} & \textbf{Selected} \\

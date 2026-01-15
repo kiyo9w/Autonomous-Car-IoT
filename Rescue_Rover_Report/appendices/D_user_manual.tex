@@ -4,234 +4,199 @@
 \chapter{User Manual}
 \label{app:user-manual}
 
+This appendix provides practical guidance for operating the Rescue Rover system, from initial setup through routine maintenance.
+
 % --------------------------------------------------------
-\section{Quick Start Guide}
+\section{Quick Start}
 \label{sec:quick-start}
 
-\subsection{Hardware Setup}
+\textbf{Step 1: Power the Rover}
+\begin{itemize}
+    \item Connect a fully charged LiPo battery (11.1V 3S) to the L298N power terminals.
+    \item Verify the power LED on L298N illuminates.
+    \item The ESP32-S3 onboard LED should turn on within 2 seconds.
+\end{itemize}
 
-\begin{enumerate}
-    \item \textbf{Power the Rover:}
-    \begin{itemize}
-        \item Connect fully charged LiPo battery (11.1V 3S)
-        \item Verify power LED on L298N lights up
-        \item ESP32-S3 power LED should turn on
-    \end{itemize}
-    
-    \item \textbf{Verify Camera:}
-    \begin{itemize}
-        \item Camera module should be securely connected
-        \item No visible damage to ribbon cable
-    \end{itemize}
-    
-    \item \textbf{Position Motors:}
-    \begin{itemize}
-        \item Place rover on flat surface
-        \item Ensure wheels are not obstructed
-    \end{itemize}
-\end{enumerate}
+\textbf{Step 2: Verify Hardware}
+\begin{itemize}
+    \item Confirm the camera ribbon cable is securely seated in the FPC connector.
+    \item Place the rover on a flat surface with unobstructed wheels.
+    \item Ensure the ultrasonic sensor at the front is clean and unblocked.
+\end{itemize}
 
-\subsection{Software Setup}
+\textbf{Step 3: Start the Host Application}
 
-\begin{enumerate}
-    \item \textbf{Install Dependencies:}
-    \begin{lstlisting}[language=bash]
+\vspace{0.5em}
+\begin{lstlisting}[language=bash]
 cd RoverInterface
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-    \end{lstlisting}
-    
-    \item \textbf{Start Dashboard:}
-    \begin{lstlisting}[language=bash]
 python app.py
-    \end{lstlisting}
-    
-    \item \textbf{Access Interface:}
-    \begin{itemize}
-        \item Open browser to \url{http://localhost:8080}
-        \item Wait for video feed to appear
-    \end{itemize}
-\end{enumerate}
+\end{lstlisting}
+
+\textbf{Step 4: Connect to the Dashboard}
+\begin{itemize}
+    \item Open a browser to \url{http://localhost:8080}
+    \item Wait for the video feed to appear (may take 5--10 seconds on first connection).
+    \item Verify the ``Connection'' indicator shows green.
+\end{itemize}
 
 % --------------------------------------------------------
 \section{Dashboard Interface}
-\label{sec:dashboard-guide}
+\label{sec:dashboard-interface}
 
-% TODO: Add dashboard screenshot
-% \begin{figure}[h!]
-%     \centering
-%     \includegraphics[width=\textwidth]{figures/software/dashboard_annotated.png}
-%     \caption{Dashboard interface with labeled components}
-%     \label{fig:dashboard-annotated}
-% \end{figure}
+The operator dashboard is divided into four main areas:
 
-\subsection{Interface Components}
-
-\begin{description}
-    \item[Video Panel] Live camera feed from the rover. Frame rate and resolution displayed in corner.
+\begin{description}[style=nextline]
+    \item[Video Panel (Left)]
+    Live MJPEG stream from the rover camera. Displays frame rate overlay in the top corner. Click to toggle full-screen mode.
     
-    \item[Telemetry Display] Real-time status indicators:
+    \item[Telemetry Panel (Top Right)]
+    Real-time status indicators:
     \begin{itemize}
-        \item Battery voltage (green > 11V, yellow 10-11V, red < 10V)
-        \item Front distance reading in centimeters
-        \item Connection status indicator
+        \item \textbf{Battery}: Green ($>$11V), Yellow (10--11V), Red ($<$10V, land immediately)
+        \item \textbf{Distance}: Ultrasonic reading in centimeters
+        \item \textbf{Cloud Status}: Green (connected), Yellow (lagging), Red (offline)
     \end{itemize}
     
-    \item[Mission Log] Scrollable list of events and AI analysis results.
+    \item[Mission Log (Center Right)]
+    Scrollable event log showing AI decisions, hazard alerts, and system messages.
     
-    \item[Control Panel] Evidence fetch button and (future) joystick controls.
+    \item[Control Panel (Bottom Right)]
+    Manual control buttons and evidence capture trigger.
 \end{description}
 
 % --------------------------------------------------------
 \section{Firmware Upload}
 \label{sec:firmware-upload}
 
-\subsection{Requirements}
-
+\textbf{Requirements}
 \begin{itemize}
-    \item Arduino IDE 2.0+ or PlatformIO
-    \item ESP32 Board Support Package
-    \item USB-C cable with data connection
+    \item Arduino IDE 2.0+ (or PlatformIO)
+    \item ESP32 Board Support Package installed
+    \item USB-C data cable (not charge-only)
 \end{itemize}
 
-\subsection{Arduino IDE Setup}
+\textbf{Arduino IDE Configuration}
 
+Open \texttt{Tools} menu and set:
+\begin{itemize}
+    \item Board: \texttt{ESP32S3 Dev Module}
+    \item PSRAM: \texttt{OPI PSRAM}
+    \item Flash Mode: \texttt{QIO 80MHz}
+    \item Partition Scheme: \texttt{Huge APP (3MB No OTA/1MB SPIFFS)}
+    \item Upload Speed: \texttt{921600}
+\end{itemize}
+
+\textbf{Upload Procedure}
 \begin{enumerate}
-    \item \textbf{Install Board Support:}
-    \begin{itemize}
-        \item Open Arduino IDE Preferences
-        \item Add to Additional Boards Manager URLs: \\
-        \code{https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package\_esp32\_index.json}
-        \item Open Boards Manager, search ``esp32'', install
-    \end{itemize}
-    
-    \item \textbf{Configure Board:}
-    \begin{itemize}
-        \item Board: ``ESP32S3 Dev Module''
-        \item PSRAM: ``OPI PSRAM''
-        \item Flash Mode: ``QIO 80MHz''
-        \item Partition Scheme: ``Huge APP (3MB No OTA)''
-    \end{itemize}
-    
-    \item \textbf{Upload:}
-    \begin{itemize}
-        \item Connect ESP32-S3 via USB-C
-        \item Select correct COM port
-        \item Press Upload button
-        \item Hold BOOT button if upload fails, release when upload starts
-    \end{itemize}
+    \item Connect the ESP32-S3 to your computer via USB-C.
+    \item Select the correct COM port (look for ``CP2102'' or ``CH340'' in device name).
+    \item Click the Upload button.
+    \item If upload fails, hold the BOOT button on the board, click Upload again, then release BOOT when progress begins.
 \end{enumerate}
 
 % --------------------------------------------------------
 \section{Troubleshooting}
 \label{sec:troubleshooting}
 
-\subsection{Common Issues}
+\begin{longtable}{p{4cm}p{10cm}}
+    \toprule
+    \textbf{Symptom} & \textbf{Solution} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{Symptom} & \textbf{Solution} \\
+    \midrule
+    \endhead
+    
+    No video feed & 
+    Check camera ribbon cable is fully inserted. Verify PSRAM is enabled in Arduino IDE. Try reducing resolution to QQVGA in \texttt{CameraModule.cpp}. \\
+    
+    Motors not responding & 
+    Check L298N power connections. Verify enable jumpers (ENA/ENB) are installed. Test motors directly with 5V to confirm they work. \\
+    
+    WiFi not connecting & 
+    Verify SSID and password in \texttt{RescueRobot.ino}. Confirm router is 2.4GHz (ESP32 does not support 5GHz). \\
+    
+    Dashboard shows ``Disconnected'' & 
+    Verify rover and host are on the same network. Check that Gateway device is plugged in and receiving packets. \\
+    
+    Camera initialization fails & 
+    Reduce XCLK frequency to 8MHz in camera config. Verify all camera pins are correctly connected. Check PSRAM is functional. \\
+    
+    Intermittent control & 
+    Move closer to router. Reduce WiFi interference (microwaves, other 2.4GHz devices). Verify ESP-NOW peer MAC address matches. \\
+    
+    \bottomrule
+\end{longtable}
+
+\textbf{LED Status Indicators}
 
 \begin{table}[h!]
     \centering
-    \caption{Troubleshooting guide}
-    \label{tab:troubleshooting}
-    \begin{tabularx}{\textwidth}{lX}
-        \toprule
-        \textbf{Symptom} & \textbf{Solution} \\
-        \midrule
-        No video feed & 
-        Check camera ribbon cable connection. Verify PSRAM is enabled in Arduino IDE. Try reducing resolution to QQVGA. \\
-        
-        Motors not responding & 
-        Check L298N power connections. Verify enable jumpers are installed. Test motors directly with 5V to confirm they work. \\
-        
-        WiFi not connecting & 
-        Verify SSID and password in firmware. Check router is 2.4GHz (ESP32 doesn't support 5GHz). \\
-        
-        Dashboard shows ``Disconnected'' & 
-        Check rover is powered and connected to same network. Verify gateway is receiving packets. \\
-        
-        Camera initialization fails & 
-        Reduce XCLK to 8MHz. Check all camera pins are correctly connected. Verify PSRAM is working. \\
-        
-        Intermittent control & 
-        Move closer to router. Check for WiFi interference. Verify ESP-NOW peer MAC address is correct. \\
-        \bottomrule
-    \end{tabularx}
-\end{table}
-
-\subsection{LED Status Indicators}
-
-\begin{table}[h!]
-    \centering
-    \caption{LED status meanings}
-    \label{tab:led-status}
     \begin{tabular}{lll}
         \toprule
-        \textbf{LED} & \textbf{State} & \textbf{Meaning} \\
+        \textbf{LED} & \textbf{Pattern} & \textbf{Meaning} \\
         \midrule
-        Power LED (L298N) & Solid & Power connected \\
-        ESP32-S3 LED      & Solid & Booting / Idle \\
-        ESP32-S3 LED      & Blinking fast & Camera streaming \\
-        ESP32-S3 LED      & Blinking slow & WiFi connecting \\
-        ESP32-S3 LED      & Off & No power or boot failure \\
+        L298N Power LED    & Solid      & Power connected \\
+        ESP32-S3 LED       & Solid      & Booting or idle \\
+        ESP32-S3 LED       & Fast blink & Streaming video \\
+        ESP32-S3 LED       & Slow blink & Connecting to WiFi \\
+        ESP32-S3 LED       & Off        & No power or boot failure \\
         \bottomrule
     \end{tabular}
 \end{table}
 
 % --------------------------------------------------------
 \section{Safety Guidelines}
-\label{sec:safety}
+\label{sec:safety-guidelines}
 
-\begin{warningbox}[Safety Warnings]
-\begin{enumerate}
-    \item \textbf{LiPo Battery Safety:}
-    \begin{itemize}
-        \item Never leave charging battery unattended
-        \item Do not puncture, crush, or short-circuit battery
-        \item Dispose of damaged batteries properly
-        \item Store at 40-60\% charge for long-term storage
-    \end{itemize}
-    
-    \item \textbf{Motor Safety:}
-    \begin{itemize}
-        \item Keep fingers away from wheels during operation
-        \item Do not operate on unstable surfaces
-        \item Avoid running motors continuously at full power for extended periods
-    \end{itemize}
-    
-    \item \textbf{Electrical Safety:}
-    \begin{itemize}
-        \item Do not modify circuit while powered
-        \item Protect electronics from water and moisture
-        \item Ensure proper insulation on all connections
-    \end{itemize}
-\end{enumerate}
-\end{warningbox}
+\textbf{Battery Safety}
+\begin{itemize}
+    \item Never leave a charging LiPo battery unattended.
+    \item Do not puncture, crush, short-circuit, or expose to extreme heat.
+    \item Dispose of swollen or damaged batteries at proper recycling facilities.
+    \item For long-term storage, charge to 3.8V per cell (approximately 40--60\% capacity).
+\end{itemize}
+
+\textbf{Operational Safety}
+\begin{itemize}
+    \item Keep fingers and loose clothing away from moving wheels.
+    \item Do not operate on stairs, ledges, or unstable surfaces.
+    \item Avoid extended full-power operation to prevent motor overheating.
+    \item Always test in a controlled environment before field deployment.
+\end{itemize}
+
+\textbf{Electrical Safety}
+\begin{itemize}
+    \item Never modify wiring while the system is powered.
+    \item Protect electronics from water, dust, and static discharge.
+    \item Ensure all wire connections are insulated with heat shrink or electrical tape.
+\end{itemize}
 
 % --------------------------------------------------------
-\section{Maintenance}
+\section{Maintenance Schedule}
 \label{sec:maintenance}
 
-\subsection{Regular Maintenance Checklist}
+\textbf{After Each Mission}
+\begin{itemize}
+    \item Download mission logs from the dashboard.
+    \item Charge battery to storage voltage (3.8V/cell) if not operating within 24 hours.
+    \item Inspect chassis for physical damage.
+\end{itemize}
 
-\begin{enumerate}
-    \item \textbf{Weekly:}
-    \begin{itemize}
-        \item Clean camera lens with microfiber cloth
-        \item Check wheel tightness
-        \item Inspect wiring for loose connections
-    \end{itemize}
-    
-    \item \textbf{Monthly:}
-    \begin{itemize}
-        \item Clean chassis of dust and debris
-        \item Check battery health and capacity
-        \item Update firmware if new version available
-    \end{itemize}
-    
-    \item \textbf{After Each Mission:}
-    \begin{itemize}
-        \item Download and backup mission logs
-        \item Charge battery to storage level (3.8V/cell)
-        \item Inspect for physical damage
-    \end{itemize}
-\end{enumerate}
+\textbf{Weekly}
+\begin{itemize}
+    \item Clean camera lens with a microfiber cloth.
+    \item Check wheel attachment screws for tightness.
+    \item Inspect all wiring for loose connections or fraying.
+\end{itemize}
+
+\textbf{Monthly}
+\begin{itemize}
+    \item Clean chassis internals with compressed air.
+    \item Test battery capacity with a LiPo checker.
+    \item Check for firmware updates in the project repository.
+\end{itemize}
