@@ -52,5 +52,4 @@ void stopMoving() {
   digitalWrite(PIN_LEFT_BWD, LOW);
   digitalWrite(PIN_RIGHT_FWD, LOW);
   digitalWrite(PIN_RIGHT_BWD, LOW);
-  Serial.println("XXX STOP");
 }

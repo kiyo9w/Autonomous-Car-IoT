@@ -45,7 +45,6 @@ static const int THRESHOLD_LOW = CENTER - 1000;  // < 1048 = active
  */
 void executeMotorCommand(int x, int y) {
   // Debug output
-  Serial.printf("EXEC: X=%d Y=%d -> ", x, y);
 
   // Y-axis dominant (forward/backward)
   if (y > THRESHOLD_HIGH) {
@@ -65,7 +64,6 @@ void executeMotorCommand(int x, int y) {
   }
   // Deadzone = stop
   else {
-    Serial.println("STOP");
     stopMoving();
   }
 }

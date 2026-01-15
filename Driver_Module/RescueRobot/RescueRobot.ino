@@ -30,8 +30,7 @@ const char *WIFI_PASS = "123567889";
 // Chế độ streaming: true = UDP (nhanh, production), false = HTTP (dễ debug)
 // HTTP mode: Access stream at http://<ESP32_IP>:81/stream in Chrome
 // UDP mode: Requires Python receiver, lower latency for real-time control
-const bool USE_UDP_STREAM =
-    false; // 🌐 HTTP mode for stability and multi-client proxy
+const bool USE_UDP_STREAM = false; // 🌐 UDP mode for low latency
 
 // IP máy Mac nhận video UDP (chỉ cần khi USE_UDP_STREAM = true)
 // ⚠️ QUAN TRỌNG: IP này phải cùng subnet với ESP32!
@@ -244,9 +243,7 @@ void setup() {
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
 
-  Serial.println("\n========================================");
   Serial.println("   RESCUE ROVER - Ready!");
-  Serial.println("========================================\n");
 }
 
 // ===========================================
@@ -254,17 +251,8 @@ void setup() {
 // ===========================================
 
 void loop() {
-  // 1. Unified Control Loop (sensor + safety + motor actuation)
-  handleControlLoop();
-
-  // 2. Stream video if using UDP mode
-  if (USE_UDP_STREAM) {
-    streamFrameUDP();
-  }
-
-  // 3. Send telemetry to Gateway (voltage + distance)
-  handleConnection(BATTERY_VOLTAGE, currentDistance);
-
-  // Small delay to prevent watchdog issues
-  delay(5);
+  // 1. Unified Control Loop
+  //handleControlLoop();
+  // 3. Telemetry
+  //handleConnection(BATTERY_VOLTAGE, currentDistance);
 }
