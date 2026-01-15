@@ -9,4 +9,9 @@
 #define PIN_RIGHT_BWD 41  
 #define PIN_RIGHT_FWD 42
 
+
+#define PIN_ULTRASONIC_TRIG  2   
+
+// Echo: Chân nhận tín hiệu (Input) -> CẦN CẦU PHÂN ÁP về 3.3V
+#define PIN_ULTRASONIC_ECHO  3
 #endif
