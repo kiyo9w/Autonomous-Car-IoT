@@ -6,12 +6,14 @@
 uint8_t remoteMAC[] = {0x78, 0x1C, 0x3C, 0xE1, 0x0F, 0x0C};
 
 // Cấu trúc phải khớp hoàn toàn với Remote
-typedef struct command_struct {
+// QUAN TRỌNG: __attribute__((packed)) ngăn compiler thêm padding bytes
+// Nếu thiếu, dữ liệu sẽ bị lệch và lệnh điều khiển sẽ sai hoàn toàn!
+typedef struct __attribute__((packed)) command_struct {
   int x;
   int y;
 } command_struct;
 
-typedef struct feedback_struct {
+typedef struct __attribute__((packed)) feedback_struct {
   float voltage;
   int distance;
 } feedback_struct;
