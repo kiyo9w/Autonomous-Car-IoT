@@ -29,7 +29,7 @@ rescue-rover-dashboard/
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate
+venv\Scripts\activate
 ```
 
 2. Install requirements:
