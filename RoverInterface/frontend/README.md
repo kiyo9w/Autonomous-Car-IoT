@@ -1,7 +1,12 @@
 
   # Rescue Rover Interface
 
-  This is a code bundle for Rescue Rover Interface. The original project is available at https://www.figma.com/design/wB47r8BrCS1cvWemKxx6yq/Rescue-Rover-Interface.
+  This is a code bundle for Rescue Rover Interface.
+
+  # Install React type definitions:
+
+  `npm install --save-dev @types/react @types/react-dom`
+
 
   ## Running the code
 
