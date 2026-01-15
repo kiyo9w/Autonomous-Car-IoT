@@ -28,11 +28,15 @@ const char *WIFI_SSID = "Qua trung chien";
 const char *WIFI_PASS = "12345678";
 
 // Chế độ streaming: true = UDP (nhanh, production), false = HTTP (dễ debug)
-const bool USE_UDP_STREAM = true; // 🔴 Đổi thành UDP cho real-time!
+// HTTP mode: Access stream at http://<ESP32_IP>:81/stream in Chrome
+// UDP mode: Requires Python receiver, lower latency for real-time control
+const bool USE_UDP_STREAM = false; // 🌐 HTTP mode for browser access
 
 // IP máy Mac nhận video UDP (chỉ cần khi USE_UDP_STREAM = true)
+// ⚠️ QUAN TRỌNG: IP này phải cùng subnet với ESP32!
+// Nếu ESP32 có IP 172.20.10.x, Mac cũng phải là 172.20.10.x
 // Xem IP bằng: Option + Click WiFi icon trên Mac
-const char *MAC_IP = "192.168.1.100";
+const char *MAC_IP = "172.20.10.1"; // Thường là .1 cho hotspot host
 const int UDP_PORT = 9999;
 
 // Ultrasonic sensor pins
