@@ -6,9 +6,9 @@ void initMotors() {
   pinMode(PIN_LEFT_BWD, OUTPUT);
   pinMode(PIN_RIGHT_FWD, OUTPUT);
   pinMode(PIN_RIGHT_BWD, OUTPUT);
-  
+
   stopMoving(); // Đảm bảo xe dừng khi vừa khởi động
-  Serial.println("[SYSTEM] Motor Driver Initialized: IN1:4, IN2:5, IN3:12, IN4:13");
+  Serial.println("✅ Motor Driver Ready (GPIO: 4,5,6,7)");
 }
 
 void goForward() {
