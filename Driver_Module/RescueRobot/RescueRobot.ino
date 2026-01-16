@@ -171,31 +171,28 @@ void handleControlLoop() {
   // 3. Analyze intent: Is rover trying to move FORWARD?
   // Y > 2500 means forward (center is ~2048)
   bool tryingToMoveForward = (cmd.y > 2500);
+  bool isTurning = (cmd.x < 1000 || cmd.x > 3000); // Check for turn intent
 
-  // 4. Decision Matrix with Safety Override
-  if (currentDistance < EMERGENCY_STOP_DISTANCE && tryingToMoveForward) {
-    // 🛑 OBSTACLE DETECTED + TRYING TO GO FORWARD = BLOCK!
+  // 4. Decision Matrix
+  bool isBlocked =
+      (currentDistance < EMERGENCY_STOP_DISTANCE && tryingToMoveForward);
+
+  // If blocked, only allow motion if turning (escape)
+  if (isBlocked && !isTurning) {
+    // 🛑 OBSTACLE DETECTED + TRYING TO GO STRAIGHT FORWARD = BLOCK!
     if (!emergencyStopActive) {
       Serial.printf("🚨 OBSTACLE at %d cm - BLOCKING FORWARD!\n",
                     currentDistance);
-      stopMoving();
       emergencyStopActive = true;
     }
-
-    // But allow BACKWARD or TURNING to escape
-    // Y < 1500 means backward, X extremes mean turning
-    if (cmd.y < 1500 || cmd.x < 1000 || cmd.x > 3000) {
-      // User wants to retreat or turn - allow it!
-      Serial.println("📤 Escape maneuver allowed");
-      executeMotorCommand(cmd.x, cmd.y);
-      emergencyStopActive = false;
-    }
-    // Otherwise, stay stopped (forward blocked)
-
+    stopMoving();
   } else {
-    // ✅ SAFE - Execute the command normally
+    // ✅ SAFE - Execute the command normally (including escape turns)
+    if (emergencyStopActive && isBlocked && isTurning) {
+      Serial.println("📤 Escape maneuver allowed");
+    }
     emergencyStopActive = false;
-    executeMotorCommand(cmd.x, cmd.y);
+    executeMotorCommand(cmd.x, cmd.y, cmd.speed);
   }
 }
 
@@ -253,5 +250,5 @@ void setup() {
 void loop() {
   handleControlLoop();
   // 3. Telemetry
-  //handleConnection(BATTERY_VOLTAGE, currentDistance);
+  // handleConnection(BATTERY_VOLTAGE, currentDistance);
 }

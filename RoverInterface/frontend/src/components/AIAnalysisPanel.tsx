@@ -66,10 +66,37 @@ export function AIAnalysisPanel({
     };
   }, []);
 
-  const handleAutoModeToggle = () => {
-    const newAutoMode = !autoMode;
-    setAutoMode(newAutoMode);
-    onAiControlChange(newAutoMode);
+  const handleAutoModeToggle = async () => {
+    const newMode = !autoMode;
+    try {
+      await fetch(`http://${window.location.hostname}:8080/api/ai/mode`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ auto: newMode })
+      });
+      setAutoMode(newMode);
+      onAiControlChange(newMode);
+    } catch (e) {
+      console.error("Failed to toggle mode", e);
+    }
+  };
+
+  const handleApprove = async () => {
+    try {
+      await fetch(`http://${window.location.hostname}:8080/api/ai/approve`, { method: 'POST' });
+      // Optimistic update
+      setAnalysis(prev => ({ ...prev, message: 'Executing...' }));
+    } catch (e) {
+      console.error("Failed to approve", e);
+    }
+  };
+
+  const handleReject = async () => {
+    try {
+      await fetch(`http://${window.location.hostname}:8080/api/ai/reject`, { method: 'POST' });
+    } catch (e) {
+      console.error("Failed to reject", e);
+    }
   };
 
   return (
@@ -89,8 +116,9 @@ export function AIAnalysisPanel({
             onClick={handleAutoModeToggle}
             className={`flex items-center gap-1 px-2 py-0.5 rounded-lg transition-all text-xs ${autoMode
               ? 'bg-green-500 text-white shadow-lg shadow-green-500/30'
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              : 'bg-amber-100 text-amber-700 hover:bg-amber-200 border border-amber-200'
               }`}
+            title="Toggle Auto/Manual Decision Mode"
           >
             {autoMode ? <Play className="w-3 h-3" /> : <Pause className="w-3 h-3" />}
             <span className="text-xs">{autoMode ? 'AUTO' : 'MANUAL'}</span>
@@ -132,11 +160,13 @@ export function AIAnalysisPanel({
       </div>
 
       {/* Suggested Action */}
-      <div className="bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200 rounded-lg p-2">
+      <div className={`border rounded-lg p-2 transition-all ${autoMode ? 'bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-200' : 'bg-amber-50 border-amber-200'}`}>
         <div className="flex items-center justify-between mb-1">
           <div className="flex items-center gap-1">
-            <Zap className="w-3 h-3 text-blue-600" />
-            <span className="text-xs text-blue-700">Recommended</span>
+            <Zap className={`w-3 h-3 ${autoMode ? 'text-blue-600' : 'text-amber-600'}`} />
+            <span className={`text-xs ${autoMode ? 'text-blue-700' : 'text-amber-700 font-semibold'}`}>
+              {autoMode ? 'Executing' : 'Pending Approval'}
+            </span>
           </div>
           {autoMode && (
             <span className="text-xs text-green-600 bg-green-50 px-1.5 py-0.5 rounded">
@@ -146,18 +176,23 @@ export function AIAnalysisPanel({
         </div>
         <div className="flex items-center justify-between">
           <code className="text-xs text-blue-700 font-mono bg-white px-1.5 py-0.5 rounded border border-blue-100">
-            {analysis.suggestion}
+            {analysis.suggestion || 'IDLE'}
           </code>
           {!autoMode && (
             <div className="flex gap-1">
               <button
-                onClick={() => onAiCommand(analysis.suggestion)}
-                className="px-2 py-0.5 bg-green-500 hover:bg-green-600 text-white rounded text-xs transition-colors"
+                onClick={handleApprove}
+                disabled={!analysis.suggestion || analysis.suggestion === 'IDLE'}
+                className="px-2 py-0.5 bg-green-500 hover:bg-green-600 text-white rounded text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Execute
+                Approve
               </button>
-              <button className="px-2 py-0.5 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded text-xs transition-colors">
-                Skip
+              <button
+                onClick={handleReject}
+                disabled={!analysis.suggestion || analysis.suggestion === 'IDLE'}
+                className="px-2 py-0.5 bg-red-100 hover:bg-red-200 text-red-600 rounded text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Reject
               </button>
             </div>
           )}

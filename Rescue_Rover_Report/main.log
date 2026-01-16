@@ -1372,4 +1372,951 @@ Underfull \hbox (badness 1400) in paragraph at lines 41--42
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 <figures/software/hybrid_layers_cloud.png, id=1004, 246.6816pt x 246.6816pt>
-Fil
+File: figures/software/hybrid_layers_cloud.png Graphic file (type png)
+<use figures/software/hybrid_layers_cloud.png>
+Package pdftex.def Info: figures/software/hybrid_layers_cloud.png  used on inpu
+t line 55.
+(pdftex.def)             Requested size: 364.19667pt x 364.23236pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[9
+
+]
+
+LaTeX Warning: Text page 10 contains only floats.
+
+
+
+[10{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc} <./fig
+ures/software/system_overview_hybrid.png>]
+
+[11{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc} <./fig
+ures/software/hybrid_layers_cloud.png>]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
+06.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+<figures/software/hybrid_data_flow.png, id=1035, 246.6816pt x 246.6816pt>
+File: figures/software/hybrid_data_flow.png Graphic file (type png)
+<use figures/software/hybrid_data_flow.png>
+Package pdftex.def Info: figures/software/hybrid_data_flow.png  used on input l
+ine 111.
+(pdftex.def)             Requested size: 455.24411pt x 455.28856pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) (./chapters/03_hardware_design.tex
+
+[12]
+
+LaTeX Warning: Text page 13 contains only floats.
+
+
+
+[13 <./figures/software/hybrid_data_flow.png>]
+Chapter 3.
+<figures/hardware/rover_complete_photo.png, id=1051, 5733.42pt x 4300.065pt>
+File: figures/hardware/rover_complete_photo.png Graphic file (type png)
+<use figures/hardware/rover_complete_photo.png>
+Package pdftex.def Info: figures/hardware/rover_complete_photo.png  used on inp
+ut line 24.
+(pdftex.def)             Requested size: 455.24411pt x 341.38768pt.
+
+
+[14
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 42--42
+[]|\T1/lmr/m/n/12 ESP32-S3 Sense N16R8
+ []
+
+
+Underfull \hbox (badness 7186) in paragraph at lines 52--52
+[]|\T1/lmr/m/n/12 LM2596 Buck Con-verter
+ []
+
+
+
+[15 <./figures/hardware/rover_complete_photo.png>]
+
+LaTeX Warning: Reference `chap:firmware' on page 16 undefined on input line 76.
+
+
+
+
+[16]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 144.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 144.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 144.
+
+
+[17]
+
+[18{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}]
+
+[19]
+<figures/hardware/esp32s3_module_photo.jpeg, id=1096, 558.085pt x 503.8825pt>
+File: figures/hardware/esp32s3_module_photo.jpeg Graphic file (type jpg)
+<use figures/hardware/esp32s3_module_photo.jpeg>
+Package pdftex.def Info: figures/hardware/esp32s3_module_photo.jpeg  used on in
+put line 322.
+(pdftex.def)             Requested size: 318.66948pt x 287.72345pt.
+
+
+[20]
+
+[21 <./figures/hardware/esp32s3_module_photo.jpeg>]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/hardware/ov2640_module.jpeg, id=1112, 521.95pt x 426.59375pt>
+File: figures/hardware/ov2640_module.jpeg Graphic file (type jpg)
+<use figures/hardware/ov2640_module.jpeg>
+Package pdftex.def Info: figures/hardware/ov2640_module.jpeg  used on input lin
+e 470.
+(pdftex.def)             Requested size: 227.62206pt x 186.03545pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 484--484
+[]|\T1/lmr/bx/n/12 UDP Ef-fi-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 486--486
+[]|\T1/lmr/m/n/12 QQVGA
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 486--487
+[]|\T1/lmr/m/n/12 Rejected (Low
+ []
+
+
+Underfull \hbox (badness 5652) in paragraph at lines 487--487
+[]|\T1/lmr/bx/n/12 Medium (4-8
+ []
+
+
+Underfull \hbox (badness 7256) in paragraph at lines 488--489
+[]|\T1/lmr/m/n/12 Rejected (High
+ []
+
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 5
+06.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmss.fd
+File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 506.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[23 <./figures/hardware/ov2640_module.jpeg>]
+
+[24]
+
+[25]
+<figures/hardware/l298n_module.jpeg, id=1147, 557.08125pt x 486.81876pt>
+File: figures/hardware/l298n_module.jpeg Graphic file (type jpg)
+<use figures/hardware/l298n_module.jpeg>
+Package pdftex.def Info: figures/hardware/l298n_module.jpeg  used on input line
+ 675.
+(pdftex.def)             Requested size: 273.14923pt x 238.69926pt.
+
+Overfull \hbox (12.27158pt too wide) in paragraph at lines 682--683
+\T1/lmr/m/n/12 During com-po-nent se-lec-tion, we com-pared the L298N against t
+he more mod-ern TB6612FNG.
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/charts/driver_efficiency.png, id=1148, 2826.56pt x 1541.76pt>
+File: figures/charts/driver_efficiency.png Graphic file (type png)
+<use figures/charts/driver_efficiency.png>
+Package pdftex.def Info: figures/charts/driver_efficiency.png  used on input li
+ne 708.
+(pdftex.def)             Requested size: 364.19667pt x 198.6479pt.
+
+
+[26 <./figures/hardware/l298n_module.jpeg>]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/hardware/lipo_battery.jpeg, id=1156, 531.9875pt x 596.2275pt>
+File: figures/hardware/lipo_battery.jpeg Graphic file (type jpg)
+<use figures/hardware/lipo_battery.jpeg>
+Package pdftex.def Info: figures/hardware/lipo_battery.jpeg  used on input line
+ 745.
+(pdftex.def)             Requested size: 227.62206pt x 255.10825pt.
+
+
+[27 <./figures/charts/driver_efficiency.png>]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/hardware/power_distribution_diagram.png, id=1164, 735.74875pt x 470.75
+874pt>
+File: figures/hardware/power_distribution_diagram.png Graphic file (type png)
+<use figures/hardware/power_distribution_diagram.png>
+Package pdftex.def Info: figures/hardware/power_distribution_diagram.png  used 
+on input line 778.
+(pdftex.def)             Requested size: 455.24411pt x 291.29276pt.
+
+
+[28 <./figures/hardware/lipo_battery.jpeg>]
+<figures/hardware/voltage_rails.png, id=1171, 774.895pt x 237.88875pt>
+File: figures/hardware/voltage_rails.png Graphic file (type png)
+<use figures/hardware/voltage_rails.png>
+Package pdftex.def Info: figures/hardware/voltage_rails.png  used on input line
+ 790.
+(pdftex.def)             Requested size: 455.24411pt x 139.75783pt.
+
+
+[29 <./figures/hardware/power_distribution_diagram.png>]
+<figures/hardware/hcsr04_photo.jpeg, id=1179, 469.755pt x 349.305pt>
+File: figures/hardware/hcsr04_photo.jpeg Graphic file (type jpg)
+<use figures/hardware/hcsr04_photo.jpeg>
+Package pdftex.def Info: figures/hardware/hcsr04_photo.jpeg  used on input line
+ 825.
+(pdftex.def)             Requested size: 227.62206pt x 169.25815pt.
+
+
+[30 <./figures/hardware/voltage_rails.png>]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 878.
+
+
+[31 <./figures/hardware/hcsr04_photo.jpeg>]
+<figures/hardware/level_shifter_circuit.png, id=1196, 603.25375pt x 196.735pt>
+File: figures/hardware/level_shifter_circuit.png Graphic file (type png)
+<use figures/hardware/level_shifter_circuit.png>
+Package pdftex.def Info: figures/hardware/level_shifter_circuit.png  used on in
+put line 887.
+(pdftex.def)             Requested size: 273.14923pt x 89.07927pt.
+<figures/hardware/complete_wiring_diagram.jpg, id=1197, 765.86125pt x 523.9575p
+t>
+File: figures/hardware/complete_wiring_diagram.jpg Graphic file (type jpg)
+<use figures/hardware/complete_wiring_diagram.jpg>
+Package pdftex.def Info: figures/hardware/complete_wiring_diagram.jpg  used on 
+input line 903.
+(pdftex.def)             Requested size: 455.24411pt x 311.45078pt.
+
+
+[32 <./figures/hardware/level_shifter_circuit.png> <./figures/hardware/complete
+_wiring_diagram.jpg>]
+<figures/hardware/wiring_photo.jpg, id=1208, 1376.0208pt x 1032.0156pt>
+File: figures/hardware/wiring_photo.jpg Graphic file (type jpg)
+<use figures/hardware/wiring_photo.jpg>
+Package pdftex.def Info: figures/hardware/wiring_photo.jpg  used on input line 
+931.
+(pdftex.def)             Requested size: 455.24411pt x 341.4323pt.
+
+
+[33 <./figures/hardware/wiring_photo.jpg>]
+<figures/hardware/assembly_sequence.png, id=1215, 1806.75pt x 1349.04pt>
+File: figures/hardware/assembly_sequence.png Graphic file (type png)
+<use figures/hardware/assembly_sequence.png>
+Package pdftex.def Info: figures/hardware/assembly_sequence.png  used on input 
+line 960.
+(pdftex.def)             Requested size: 455.24411pt x 339.9146pt.
+
+
+[34 <./figures/hardware/assembly_sequence.png>]
+<figures/hardware/testing_setup.png, id=1233, 1806.75pt x 1349.04pt>
+File: figures/hardware/testing_setup.png Graphic file (type png)
+<use figures/hardware/testing_setup.png>
+Package pdftex.def Info: figures/hardware/testing_setup.png  used on input line
+ 990.
+(pdftex.def)             Requested size: 455.24411pt x 339.9146pt.
+)
+(./chapters/04_firmware_implementation.tex
+
+[35 <./figures/hardware/testing_setup.png>]
+Chapter 4.
+<figures/software/firmware_architecture.png, id=1242, 914.41624pt x 512.91624pt
+>
+File: figures/software/firmware_architecture.png Graphic file (type png)
+<use figures/software/firmware_architecture.png>
+Package pdftex.def Info: figures/software/firmware_architecture.png  used on in
+put line 18.
+(pdftex.def)             Requested size: 455.24411pt x 255.35396pt.
+
+
+[36
+
+]
+<figures/software/module_dependencies.png, id=1251, 698.61pt x 500.87125pt>
+File: figures/software/module_dependencies.png Graphic file (type png)
+<use figures/software/module_dependencies.png>
+Package pdftex.def Info: figures/software/module_dependencies.png  used on inpu
+t line 36.
+(pdftex.def)             Requested size: 455.24411pt x 326.3955pt.
+
+
+[37 <./figures/software/firmware_architecture.png>]
+Underfull \hbox (badness 3078) in paragraph at lines 53--54
+[]|\T1/lmr/m/n/12 Stack, heap, global vari-ables,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 54--55
+[]|\T1/lmr/m/n/12 Camera frame buffers (2 x
+ []
+
+<figures/hardware/esp32s3_memory_map.png, id=1261, 603.25375pt x 382.42876pt>
+File: figures/hardware/esp32s3_memory_map.png Graphic file (type png)
+<use figures/hardware/esp32s3_memory_map.png>
+Package pdftex.def Info: figures/hardware/esp32s3_memory_map.png  used on input
+ line 65.
+(pdftex.def)             Requested size: 318.66948pt x 202.0152pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[38 <./figures/software/module_dependencies.png>]
+Overfull \hbox (4.29153pt too wide) in paragraph at lines 194--195
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
+)
+
+[39 <./figures/hardware/esp32s3_memory_map.png>]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 226.
+
+
+[40]
+Overfull \hbox (3.89148pt too wide) in paragraph at lines 277--277
+ []\T1/lmtt/m/n/10 esp_camera_init() 
+ []
+
+
+
+[41]
+Overfull \vbox (36.51704pt too high) has occurred while \output is active []
+
+
+
+[42]
+
+[43]
+<figures/software/http_stream_sequence.png, id=1364, 565.11125pt x 563.10374pt>
+
+File: figures/software/http_stream_sequence.png Graphic file (type png)
+<use figures/software/http_stream_sequence.png>
+Package pdftex.def Info: figures/software/http_stream_sequence.png  used on inp
+ut line 371.
+(pdftex.def)             Requested size: 455.24411pt x 453.63696pt.
+
+
+[44 <./figures/software/http_stream_sequence.png>]
+<figures/charts/http_vs_udp_latency.png, id=1377, 468.75125pt x 542.025pt>
+File: figures/charts/http_vs_udp_latency.png Graphic file (type png)
+<use figures/charts/http_vs_udp_latency.png>
+Package pdftex.def Info: figures/charts/http_vs_udp_latency.png  used on input 
+line 408.
+(pdftex.def)             Requested size: 386.96027pt x 447.4408pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[45]
+
+[46 <./figures/charts/http_vs_udp_latency.png>]
+<figures/hardware/differential_drive_kinematics.png, id=1408, 302.12875pt x 276
+.03125pt>
+File: figures/hardware/differential_drive_kinematics.png Graphic file (type png
+)
+<use figures/hardware/differential_drive_kinematics.png>
+Package pdftex.def Info: figures/hardware/differential_drive_kinematics.png  us
+ed on input line 456.
+(pdftex.def)             Requested size: 273.14923pt x 249.5546pt.
+
+
+[47 <./figures/hardware/differential_drive_kinematics.png>]
+<figures/hardware/l298n_wiring.png, id=1430, 603.25375pt x 362.35374pt>
+File: figures/hardware/l298n_wiring.png Graphic file (type png)
+<use figures/hardware/l298n_wiring.png>
+Package pdftex.def Info: figures/hardware/l298n_wiring.png  used on input line 
+518.
+(pdftex.def)             Requested size: 409.71692pt x 246.09871pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[48]
+<figures/hardware/turn_mechanics.jpg, id=1461, 1027.84pt x 561.09625pt>
+File: figures/hardware/turn_mechanics.jpg Graphic file (type jpg)
+<use figures/hardware/turn_mechanics.jpg>
+Package pdftex.def Info: figures/hardware/turn_mechanics.jpg  used on input lin
+e 550.
+(pdftex.def)             Requested size: 364.19667pt x 198.81813pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[49 <./figures/hardware/l298n_wiring.png>]
+<figures/software/espnow_protocol_stack.jpg, id=1469, 1027.84pt x 561.09625pt>
+File: figures/software/espnow_protocol_stack.jpg Graphic file (type jpg)
+<use figures/software/espnow_protocol_stack.jpg>
+Package pdftex.def Info: figures/software/espnow_protocol_stack.jpg  used on in
+put line 568.
+(pdftex.def)             Requested size: 455.24411pt x 248.51839pt.
+
+
+[50 <./figures/hardware/turn_mechanics.jpg> <./figures/software/espnow_protocol
+_stack.jpg>]
+<figures/software/packet_format.png, id=1477, 481.8pt x 401.5pt>
+File: figures/software/packet_format.png Graphic file (type png)
+<use figures/software/packet_format.png>
+Package pdftex.def Info: figures/software/packet_format.png  used on input line
+ 596.
+(pdftex.def)             Requested size: 318.66948pt x 265.5667pt.
+
+
+[51 <./figures/software/packet_format.png>]
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryfit.code.tex
+File: tikzlibraryfit.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarybackgrounds.code.tex
+File: tikzlibrarybackgrounds.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@layerbox@background=\box96
+\pgf@layerboxsaved@background=\box97
+)
+Overfull \hbox (11.8676pt too wide) in paragraph at lines 663--663
+ []\T1/lmr/m/n/10 recvCommand 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[52]
+
+[53]
+<figures/software/heartbeat_state_machine.jpg, id=1551, 1027.84pt x 561.09625pt
+>
+File: figures/software/heartbeat_state_machine.jpg Graphic file (type jpg)
+<use figures/software/heartbeat_state_machine.jpg>
+Package pdftex.def Info: figures/software/heartbeat_state_machine.jpg  used on 
+input line 774.
+(pdftex.def)             Requested size: 386.96027pt x 211.24104pt.
+
+
+[54]
+
+[55 <./figures/software/heartbeat_state_machine.jpg>]
+<figures/software/ultrasonic_state_machine.jpg, id=1607, 1027.84pt x 561.09625p
+t>
+File: figures/software/ultrasonic_state_machine.jpg Graphic file (type jpg)
+<use figures/software/ultrasonic_state_machine.jpg>
+Package pdftex.def Info: figures/software/ultrasonic_state_machine.jpg  used on
+ input line 843.
+(pdftex.def)             Requested size: 455.24411pt x 248.51839pt.
+
+
+[56]
+
+[57 <./figures/software/ultrasonic_state_machine.jpg>]
+<figures/software/control_loop_flowchart.jpg, id=1673, 1027.84pt x 561.09625pt>
+
+File: figures/software/control_loop_flowchart.jpg Graphic file (type jpg)
+<use figures/software/control_loop_flowchart.jpg>
+Package pdftex.def Info: figures/software/control_loop_flowchart.jpg  used on i
+nput line 895.
+(pdftex.def)             Requested size: 455.24411pt x 248.51839pt.
+
+Overfull \hbox (11.84001pt too wide) in paragraph at lines 904--914
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[58 <./figures/software/control_loop_flowchart.jpg>]
+Overfull \hbox (2.63882pt too wide) in paragraph at lines 933--935
+\T1/lmr/m/n/12 ing. How-ever, when we ran the cam-era ini-tial-iza-tion code, i
+t re-turned \T1/lmtt/m/n/12 ESP_ERR_NOT_FOUND\T1/lmr/m/n/12 .
+ []
+
+
+
+[59]
+
+[60]
+<figures/software/loop_timing_diagram.jpg, id=1721, 1027.84pt x 561.09625pt>
+File: figures/software/loop_timing_diagram.jpg Graphic file (type jpg)
+<use figures/software/loop_timing_diagram.jpg>
+Package pdftex.def Info: figures/software/loop_timing_diagram.jpg  used on inpu
+t line 981.
+(pdftex.def)             Requested size: 455.24411pt x 248.51839pt.
+<figures/software/arduino_board_settings.png, id=1722, 1927.2pt x 1084.05pt>
+File: figures/software/arduino_board_settings.png Graphic file (type png)
+<use figures/software/arduino_board_settings.png>
+Package pdftex.def Info: figures/software/arduino_board_settings.png  used on i
+nput line 1015.
+(pdftex.def)             Requested size: 455.24411pt x 256.07509pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) (./chapters/05_ai_software_design.tex
+
+[61 <./figures/software/loop_timing_diagram.jpg>]
+
+[62 <./figures/software/arduino_board_settings.png>]
+Chapter 5.
+<figures/software/host_architecture_hybrid.png, id=1735, 994.71625pt x 583.1787
+6pt>
+File: figures/software/host_architecture_hybrid.png Graphic file (type png)
+<use figures/software/host_architecture_hybrid.png>
+Package pdftex.def Info: figures/software/host_architecture_hybrid.png  used on
+ input line 21.
+(pdftex.def)             Requested size: 455.24411pt x 266.904pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 38--39
+[]|\T1/lmr/m/n/12 Strategic scene un-der-stand-ing
+ []
+
+
+
+[63
+
+]
+
+[64 <./figures/software/host_architecture_hybrid.png>]
+<figures/software/cloud_architecture.jpg, id=1759, 1027.84pt x 561.09625pt>
+File: figures/software/cloud_architecture.jpg Graphic file (type jpg)
+<use figures/software/cloud_architecture.jpg>
+Package pdftex.def Info: figures/software/cloud_architecture.jpg  used on input
+ line 111.
+(pdftex.def)             Requested size: 364.19667pt x 198.81813pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[65] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+)
+
+[66 <./figures/software/cloud_architecture.jpg>]
+
+[67]
+<figures/software/arbiter_logic.png, id=1807, 432.61626pt x 693.59125pt>
+File: figures/software/arbiter_logic.png Graphic file (type png)
+<use figures/software/arbiter_logic.png>
+Package pdftex.def Info: figures/software/arbiter_logic.png  used on input line
+ 193.
+(pdftex.def)             Requested size: 364.19667pt x 583.92502pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) (./chapters/06_testing_results.tex
+
+[68]
+
+[69 <./figures/software/arbiter_logic.png>]
+Chapter 6.
+<figures/hardware/test_environment.jpg, id=1820, 801.99625pt x 519.9425pt>
+File: figures/hardware/test_environment.jpg Graphic file (type jpg)
+<use figures/hardware/test_environment.jpg>
+Package pdftex.def Info: figures/hardware/test_environment.jpg  used on input l
+ine 22.
+(pdftex.def)             Requested size: 364.19667pt x 236.11406pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[70
+
+]
+
+[71 <./figures/hardware/test_environment.jpg>]
+<figures/charts/latency_histogram.jpg, id=1841, 1027.84pt x 561.09625pt>
+File: figures/charts/latency_histogram.jpg Graphic file (type jpg)
+<use figures/charts/latency_histogram.jpg>
+Package pdftex.def Info: figures/charts/latency_histogram.jpg  used on input li
+ne 90.
+(pdftex.def)             Requested size: 455.24411pt x 248.51839pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/charts/udp_vs_http_latency.jpg, id=1842, 1027.84pt x 561.09625pt>
+File: figures/charts/udp_vs_http_latency.jpg Graphic file (type jpg)
+<use figures/charts/udp_vs_http_latency.jpg>
+Package pdftex.def Info: figures/charts/udp_vs_http_latency.jpg  used on input 
+line 118.
+(pdftex.def)             Requested size: 409.71692pt x 223.66397pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[72 <./figures/charts/latency_histogram.jpg>]
+<figures/charts/packet_loss_vs_distance.png, id=1849, 246.6816pt x 246.6816pt>
+File: figures/charts/packet_loss_vs_distance.png Graphic file (type png)
+<use figures/charts/packet_loss_vs_distance.png>
+Package pdftex.def Info: figures/charts/packet_loss_vs_distance.png  used on in
+put line 149.
+(pdftex.def)             Requested size: 318.66948pt x 318.69861pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[73 <./figures/charts/udp_vs_http_latency.jpg>]
+<figures/charts/fps_over_time.png, id=1862, 246.6816pt x 246.6816pt>
+File: figures/charts/fps_over_time.png Graphic file (type png)
+<use figures/charts/fps_over_time.png>
+Package pdftex.def Info: figures/charts/fps_over_time.png  used on input line 1
+87.
+(pdftex.def)             Requested size: 364.19667pt x 364.23236pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[74 <./figures/charts/packet_loss_vs_distance.png>]
+<figures/software/jpeg_comparison.png, id=1871, 985.6825pt x 633.36626pt>
+File: figures/software/jpeg_comparison.png Graphic file (type png)
+<use figures/software/jpeg_comparison.png>
+Package pdftex.def Info: figures/software/jpeg_comparison.png  used on input li
+ne 216.
+(pdftex.def)             Requested size: 455.24411pt x 292.53107pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[75 <./figures/charts/fps_over_time.png>]
+<figures/hardware/track_deviation.png, id=1878, 246.6816pt x 246.6816pt>
+File: figures/hardware/track_deviation.png Graphic file (type png)
+<use figures/hardware/track_deviation.png>
+Package pdftex.def Info: figures/hardware/track_deviation.png  used on input li
+ne 257.
+(pdftex.def)             Requested size: 318.66948pt x 318.69861pt.
+
+
+[76 <./figures/software/jpeg_comparison.png>]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/hardware/turning_trace.png, id=1885, 246.6816pt x 246.6816pt>
+File: figures/hardware/turning_trace.png Graphic file (type png)
+<use figures/hardware/turning_trace.png>
+Package pdftex.def Info: figures/hardware/turning_trace.png  used on input line
+ 301.
+(pdftex.def)             Requested size: 273.14923pt x 273.17615pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[77 <./figures/hardware/track_deviation.png>]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/charts/precision_recall_curve.png, id=1894, 246.6816pt x 246.6816pt>
+File: figures/charts/precision_recall_curve.png Graphic file (type png)
+<use figures/charts/precision_recall_curve.png>
+Package pdftex.def Info: figures/charts/precision_recall_curve.png  used on inp
+ut line 359.
+(pdftex.def)             Requested size: 364.19667pt x 364.23236pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[78 <./figures/hardware/turning_trace.png>]
+
+LaTeX Warning: Text page 79 contains only floats.
+
+
+
+[79 <./figures/charts/precision_recall_curve.png>]
+<figures/charts/inference_time_histogram.png, id=1914, 246.6816pt x 246.6816pt>
+
+File: figures/charts/inference_time_histogram.png Graphic file (type png)
+<use figures/charts/inference_time_histogram.png>
+Package pdftex.def Info: figures/charts/inference_time_histogram.png  used on i
+nput line 391.
+(pdftex.def)             Requested size: 318.66948pt x 318.69861pt.
+
+
+[80 <./figures/charts/inference_time_histogram.png>]
+<figures/charts/ultrasonic_accuracy.png, id=1926, 246.6816pt x 246.6816pt>
+File: figures/charts/ultrasonic_accuracy.png Graphic file (type png)
+<use figures/charts/ultrasonic_accuracy.png>
+Package pdftex.def Info: figures/charts/ultrasonic_accuracy.png  used on input 
+line 426.
+(pdftex.def)             Requested size: 318.66948pt x 318.69861pt.
+
+
+[81 <./figures/charts/ultrasonic_accuracy.png>]
+<figures/charts/voltage_discharge.png, id=1934, 246.6816pt x 246.6816pt>
+File: figures/charts/voltage_discharge.png Graphic file (type png)
+<use figures/charts/voltage_discharge.png>
+Package pdftex.def Info: figures/charts/voltage_discharge.png  used on input li
+ne 483.
+(pdftex.def)             Requested size: 364.19667pt x 364.23236pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/hardware/thermal_image.jpg, id=1935, 246.6816pt x 246.6816pt>
+File: figures/hardware/thermal_image.jpg Graphic file (type jpg)
+<use figures/hardware/thermal_image.jpg>
+Package pdftex.def Info: figures/hardware/thermal_image.jpg  used on input line
+ 513.
+(pdftex.def)             Requested size: 273.14923pt x 273.17615pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+
+[82]
+
+[83 <./figures/charts/voltage_discharge.png>]
+
+[84 <./figures/hardware/thermal_image.jpg>]
+
+[85]
+
+LaTeX Warning: Reference `sec:video-latency' on page 86 undefined on input line
+ 628.
+
+
+
+[86]) (./chapters/07_conclusion.tex
+
+[87]
+Chapter 7.
+
+
+[88
+
+]
+
+[89]
+
+[90]) (./appendices/A_pinout_tables.tex
+
+[91]
+Appendix A.
+
+Overfull \hbox (6.58476pt too wide) in paragraph at lines 49--65
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) (./appendices/B_circuit_diagrams.tex
+
+[92
+
+]
+
+[93]
+
+[94]
+Appendix B.
+
+
+[95
+
+]
+
+[96]
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
+156.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/ts1lmtt.fd
+File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+))
+(./appendices/C_source_code_snippets.tex
+
+[97]
+Appendix C.
+
+
+[98
+
+]
+
+[99]
+
+[100]
+
+[101]
+
+[102]
+
+[103]) (./appendices/D_user_manual.tex
+
+[104]
+Appendix D.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/09/23 1.10c listings language file
+)
+
+[105
+
+]
+
+[106]
+Underfull \hbox (badness 1052) in paragraph at lines 117--117
+[]|\T1/lmr/m/n/12 Motors not re-spond-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 123--123
+[]|\T1/lmr/m/n/12 Dashboard shows
+ []
+
+
+Underfull \hbox (badness 2150) in paragraph at lines 126--126
+[]|\T1/lmr/m/n/12 Camera ini-tial-iza-tion
+ []
+
+
+
+[107]
+
+[108]) (./main.bbl
+
+[109]
+
+[110
+
+]
+
+[111]
+
+[112])
+
+[113] (./main.aux)
+ ***********
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+ ***********
+
+
+LaTeX Warning: There were undefined references.
+
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 909301EBBBCB1B9B1AA532226AF88A61;27576.
+ ) 
+Here is how much of TeX's memory you used:
+ 42459 strings out of 473190
+ 854334 string characters out of 5715800
+ 1812383 words of memory out of 5000000
+ 63856 multiletter control sequences out of 15000+600000
+ 674848 words of font info for 109 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 89i,16n,102p,2376b,2191s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/lo
+cal/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texliv
+e/2025/texmf-dist/fonts/type1/public/lm/lmbx6.pfb></usr/local/texlive/2025/texm
+f-dist/fonts/type1/public/lm/lmbx8.pfb></usr/local/texlive/2025/texmf-dist/font
+s/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/p
+ublic/lm/lmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/l
+mmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi8.pfb><
+/usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/
+texlive/2025/texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/202
+5/texmf-dist/fonts/type1/public/lm/lmr17.pfb></usr/local/texlive/2025/texmf-dis
+t/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type
+1/public/lm/lmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/
+lmri12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss10.pfb
+></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss8.pfb></usr/loca
+l/texlive/2025/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texliv
+e/2025/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2025/texmf-dist/fon
+ts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/pu
+blic/lm/lmtt10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lm
+tt12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbol
+s/msbm10.pfb>
+Output written on main.pdf (124 pages, 49115406 bytes).
+PDF statistics:
+ 2782 PDF objects out of 2984 (max. 8388607)
+ 2485 compressed objects within 25 object streams
+ 1155 named destinations out of 1200 (max. 500000)
+ 1707 words of extra memory for PDF output out of 10000 (max. 10000000)
+

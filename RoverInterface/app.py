@@ -107,7 +107,18 @@ async def send_command(request: Request):
         mission_log.append(log_entry)
         
         return {'ok': success}
+        return {'ok': success}
     return {'ok': False, 'error': 'No command provided'}
+
+@app.post('/api/speed')
+async def set_speed(request: Request):
+    data = await request.json()
+    speed = data.get('speed')
+    
+    if speed is not null:
+        success = serial_manager.set_speed(speed)
+        return {'ok': success}
+    return {'ok': False, 'error': 'No speed provided'}
 
 @app.get('/api/mission_log')
 def get_mission_log():
@@ -126,7 +137,31 @@ def get_ai_status():
         print(f"📡 Returning: enabled={status.get('enabled')}, reasoning_len={len(status.get('last_reasoning', ''))}")
         return status
     print("⚠️ ai_worker not in globals")
+    print("⚠️ ai_worker not in globals")
     return {'enabled': False, 'running': False, 'message': 'AI Worker not initialized'}
+
+@app.post('/api/ai/mode')
+async def set_ai_mode(request: Request):
+    data = await request.json()
+    auto = data.get('auto', True)
+    if 'ai_worker' in globals():
+        ai_worker.arbiter.set_auto_mode(auto)
+        return {'ok': True, 'auto_mode': auto}
+    return {'ok': False, 'error': 'AI not ready'}
+
+@app.post('/api/ai/approve')
+async def approve_ai_command():
+    if 'ai_worker' in globals():
+        success = ai_worker.arbiter.approve_pending()
+        return {'ok': success}
+    return {'ok': False}
+
+@app.post('/api/ai/reject')
+async def reject_ai_command():
+    if 'ai_worker' in globals():
+        success = ai_worker.arbiter.reject_pending()
+        return {'ok': success}
+    return {'ok': False}
 
 # ------------------------
 # Background workers

@@ -19,6 +19,7 @@
 typedef struct __attribute__((packed)) command_struct {
   int x;
   int y;
+  uint8_t speed;
 } command_struct;
 
 typedef struct __attribute__((packed)) feedback_struct {
@@ -51,7 +52,7 @@ command_struct getLastCommand();
  * @param x Giá trị X (0-4095, center=2048)
  * @param y Giá trị Y (0-4095, center=2048)
  */
-void executeMotorCommand(int x, int y);
+void executeMotorCommand(int x, int y, int maxSpeed);
 
 /**
  * Lấy thời điểm nhận gói tin cuối cùng (millis)

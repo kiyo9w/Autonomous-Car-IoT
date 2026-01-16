@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import {
   ArrowUp,
   ArrowDown,
@@ -12,6 +12,7 @@ import {
   Lock,
   Brain
 } from 'lucide-react';
+import { Speedometer } from './Speedometer';
 
 interface ControlPanelProps {
   onCommand: (command: string) => void;
@@ -28,7 +29,7 @@ export function ControlPanel({
   aiControlActive = false,
   currentAiAction = null
 }: ControlPanelProps) {
-  const [speed, setSpeed] = useState(50);
+  const [speed, setSpeed] = useState(100);
   const [activeCommand, setActiveCommand] = useState<string | null>(null);
 
   const handleCommand = async (command: string) => {
@@ -58,6 +59,22 @@ export function ControlPanel({
     }
     setTimeout(() => setActiveCommand(null), 200);
   };
+
+  const handleSpeedChange = useCallback(async (newSpeed: number) => {
+    setSpeed(newSpeed);
+    if (disabled) return;
+
+    try {
+      const response = await fetch('http://localhost:8080/api/speed', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ speed: newSpeed })
+      });
+      if (!response.ok) console.error('Speed update failed');
+    } catch (err) {
+      console.error('API Speed Error:', err);
+    }
+  }, [disabled]);
 
   const isAiControllingCommand = (command: string) => {
     return aiControlActive && currentAiAction === command;
@@ -91,7 +108,7 @@ export function ControlPanel({
           </div>
           <div>
             <h2 className="text-gray-900 text-xs">Control Panel</h2>
-            <p className="text-xs text-gray-500">Movement</p>
+            <p className="text-xs text-gray-500">Movement & Speed</p>
           </div>
         </div>
         <div className="flex items-center gap-1">
@@ -113,6 +130,17 @@ export function ControlPanel({
       {disabled && (
         <div className="bg-red-50 border border-red-200 rounded p-1.5 text-xs text-red-700">
           Control unavailable
+        </div>
+      )}
+
+      {/* Speedometer Gauge */}
+      {!disabled && mode === 'scout' && (
+        <div className="py-2 flex justify-center bg-slate-900 rounded-xl my-2 shadow-inner border border-slate-800">
+          <Speedometer
+            value={speed}
+            onChange={handleSpeedChange}
+            disabled={disabled}
+          />
         </div>
       )}
 

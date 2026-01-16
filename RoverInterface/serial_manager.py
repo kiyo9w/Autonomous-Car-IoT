@@ -117,6 +117,20 @@ class SerialManager:
             print(f"❌ Send Failed: {e}")
             return False
 
+    def set_speed(self, speed):
+        """Send speed limit to Gateway (0-100)."""
+        if not self.serial_conn or not self.serial_conn.is_open:
+            return False
+        
+        try:
+            full_cmd = f"SPEED:{int(speed)}\n"
+            self.serial_conn.write(full_cmd.encode('utf-8'))
+            print(f"⚡ Set Speed: {speed}%")
+            return True
+        except Exception as e:
+            print(f"❌ Speed Set Failed: {e}")
+            return False
+
     def get_telemetry(self):
         """Return thread-safe telemetry copy."""
         with self.lock:

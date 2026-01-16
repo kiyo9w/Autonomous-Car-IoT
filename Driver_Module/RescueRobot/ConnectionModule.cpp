@@ -20,7 +20,8 @@
 static uint8_t gatewayMAC[] = {0x78, 0x1C, 0x3C, 0xE1, 0x0F, 0x0C};
 
 // State variables
-static command_struct recvCommand = {2048, 2048}; // Center = stop
+static command_struct recvCommand = {2048, 2048,
+                                     100}; // Center = stop, Speed = 100
 static feedback_struct sendFeedback;
 static esp_now_peer_info_t peerInfo;
 static unsigned long lastTelemetryTime = 0;
@@ -43,26 +44,30 @@ static const int THRESHOLD_LOW = CENTER - 200;
  * @param x Giá trị X: 0=Full Left, 2048=Center, 4095=Full Right
  * @param y Giá trị Y: 0=Full Back, 2048=Center, 4095=Full Forward
  */
-void executeMotorCommand(int x, int y) {
+void executeMotorCommand(int x, int y, int maxSpeed) {
   int speed = 0;
 
+  // Ensure maxSpeed is safe
+  maxSpeed = constrain(maxSpeed, 0, 100);
+
+  if (maxSpeed == 0) {
+    stopMoving();
+    return;
+  }
+
   if (y > THRESHOLD_HIGH) {
-    speed = map(y, THRESHOLD_HIGH, 4095, 1, 100);
+    speed = map(y, THRESHOLD_HIGH, 4095, 1, maxSpeed);
     goForward(speed);
-  } 
-  else if (y < THRESHOLD_LOW) {
-    speed = map(y, THRESHOLD_LOW, 0, 1, 100);
+  } else if (y < THRESHOLD_LOW) {
+    speed = map(y, THRESHOLD_LOW, 0, 1, maxSpeed);
     goBackward(speed);
-  }
-  else if (x < THRESHOLD_LOW) {
-    speed = map(x, THRESHOLD_LOW, 0, 1, 100);
+  } else if (x < THRESHOLD_LOW) {
+    speed = map(x, THRESHOLD_LOW, 0, 1, maxSpeed);
     turnLeft(speed);
-  } 
-  else if (x > THRESHOLD_HIGH) {
-    speed = map(x, THRESHOLD_HIGH, 4095, 1, 100);
+  } else if (x > THRESHOLD_HIGH) {
+    speed = map(x, THRESHOLD_HIGH, 4095, 1, maxSpeed);
     turnRight(speed);
-  }
-  else {
+  } else {
     stopMoving();
   }
 }

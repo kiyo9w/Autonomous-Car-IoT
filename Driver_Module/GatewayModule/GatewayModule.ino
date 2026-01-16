@@ -31,6 +31,7 @@ const char *WIFI_PASS = "12345678";
 typedef struct __attribute__((packed)) command_struct {
   int x;
   int y;
+  uint8_t speed;
 } command_struct;
 
 typedef struct __attribute__((packed)) feedback_struct {
@@ -41,6 +42,8 @@ typedef struct __attribute__((packed)) feedback_struct {
 command_struct myCommand;
 feedback_struct myFeedback;
 esp_now_peer_info_t peerInfo;
+
+int currentSpeed = 100; // Default speed 100%
 
 // ===========================================
 // CALLBACK FUNCTIONS
@@ -83,8 +86,16 @@ void parseAndSendCommand(String input) {
   if (input.length() == 0)
     return;
 
+  // Trường hợp 0: Lệnh cập nhật tốc độ (SPEED:50)
+  if (input.startsWith("SPEED:")) {
+    int val = input.substring(6).toInt();
+    currentSpeed = constrain(val, 0, 100);
+    Serial.printf("SPEED SET: %d%%\n", currentSpeed);
+    // Cập nhật struct và gửi ngay để Rover đồng bộ
+    myCommand.speed = currentSpeed;
+  }
   // Trường hợp 1: Lệnh đơn (F, B, L, R, S) - từ nút bấm
-  if (input.length() == 1) {
+  else if (input.length() == 1) {
     char cmd = input.charAt(0);
     switch (cmd) {
     case 'F':
@@ -110,6 +121,8 @@ void parseAndSendCommand(String input) {
     default:
       return; // Ignore unknown commands
     }
+    // Gán tốc độ hiện tại cho lệnh
+    myCommand.speed = currentSpeed;
   }
   // Trường hợp 2: Lệnh Joystick "X,Y" - từ analog joystick
   else if (input.indexOf(',') > 0) {
@@ -123,6 +136,7 @@ void parseAndSendCommand(String input) {
     // Validate range
     myCommand.x = constrain(myCommand.x, 0, 4095);
     myCommand.y = constrain(myCommand.y, 0, 4095);
+    myCommand.speed = currentSpeed;
   } else {
     return; // Invalid format
   }
@@ -132,7 +146,8 @@ void parseAndSendCommand(String input) {
       esp_now_send(roverMAC, (uint8_t *)&myCommand, sizeof(myCommand));
 
   if (result == ESP_OK) {
-    Serial.printf("TX: X=%d Y=%d\n", myCommand.x, myCommand.y);
+    Serial.printf("TX: X=%d Y=%d S=%d\n", myCommand.x, myCommand.y,
+                  myCommand.speed);
   } else {
     Serial.println("TX FAIL");
   }
@@ -201,6 +216,7 @@ void setup() {
   // 6. Khởi tạo lệnh dừng
   myCommand.x = 2048;
   myCommand.y = 2048;
+  myCommand.speed = 100;
 
   Serial.println("\n========================================");
   Serial.println("   GATEWAY READY!");

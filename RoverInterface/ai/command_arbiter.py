@@ -74,6 +74,8 @@ class CommandArbiter:
         self._command_callback = command_callback
         self._last_command: Optional[RoverCommand] = None
         self._enabled = True
+        self._auto_mode = True  # Default to auto-accepting AI decisions
+        self._pending_command: Optional[RoverCommand] = None
         
         # Command log for debugging/mission log
         self._command_log: Queue = Queue(maxsize=100)
@@ -90,10 +92,48 @@ class CommandArbiter:
             return
             
         with self._lock:
+            # AI Manual Mode Logic:
+            # If command is STRATEGIC (VLM) and we are NOT in auto mode,
+            # queue it as pending instead of executing immediately.
+            if command.priority == CommandPriority.STRATEGIC and not self._auto_mode:
+                self._pending_command = command
+                # Log it but don't execute yet
+                self._log_command(command) 
+                return
+
             self._commands[command.priority] = command
             self._log_command(command)
             self._evaluate_and_execute()
     
+    def set_auto_mode(self, enabled: bool):
+        """Set AI auto-execution mode"""
+        with self._lock:
+            self._auto_mode = enabled
+            # If switching to auto and we have a pending command, execute it?
+            # Or just clear it? Let's clear it to avoid surprises.
+            if enabled:
+                self._pending_command = None
+                
+    def approve_pending(self):
+        """Approve the pending strategic command"""
+        with self._lock:
+            if self._pending_command:
+                # Promote to active command
+                self._commands[CommandPriority.STRATEGIC] = self._pending_command
+                self._pending_command = None
+                self._evaluate_and_execute()
+                return True
+            return False
+
+    def reject_pending(self):
+        """Reject the pending strategic command"""
+        with self._lock:
+            self._pending_command = None
+            # Also clear any existing strategic command to stop previous action
+            self._commands[CommandPriority.STRATEGIC] = None
+            self._evaluate_and_execute()
+            return True
+
     def clear(self, priority: CommandPriority):
         """
         Clear command at a specific priority level.
@@ -110,6 +150,7 @@ class CommandArbiter:
         with self._lock:
             self._commands.clear()
             self._last_command = None
+            self._pending_command = None
     
     def _evaluate_and_execute(self):
         """Evaluate priorities and execute highest priority command"""
@@ -125,7 +166,34 @@ class CommandArbiter:
         if active_command and active_command != self._last_command:
             self._last_command = active_command
             if self._command_callback:
-                self._command_callback(active_command)
+                # Convert Command object to serial string/struct if needed
+                # But callback in app.py expects ... wait app.py passes serial_manager.send_command
+                # send_command expects string (F, B, L, R, S)
+                # We need to adapt RoverCommand to string if callback expects string.
+                # Let's check app.py: arbiter = CommandArbiter(serial_manager.send_command)
+                # serial_manager.send_command(cmd) takes string.
+                # CommandArbiter needs to map RoverCommand to 'F', 'L', etc.
+                # This seems missing in existing code or assumed.
+                # Looking at RoverCommand definition, it handles x,y coords. 
+                # Does serial_manager handle raw x,y?
+                # SerialManager.send_command handles F,B,L,R,S. 
+                # It does NOT seem to handle X,Y in `send_command`.
+                # Wait, GateWay parses "X,Y".
+                # We should check if serial_manager has a method for raw args.
+                # SerialManager.write just writes string.
+                
+                # Adapting here for safety:
+                cmd_str = "S"
+                if active_command.reason == "left": cmd_str = "L"
+                elif active_command.reason == "right": cmd_str = "R"
+                elif active_command.reason == "forward": cmd_str = "F"
+                elif active_command.reason == "backward": cmd_str = "B"
+                # If X,Y are custom, we need to format them.
+                # "X,Y" is the format Gateway expects for joystick.
+                if active_command.x != 2048 or active_command.y != 2048:
+                     cmd_str = f"{active_command.x},{active_command.y}"
+                
+                self._command_callback(cmd_str)
     
     def _log_command(self, command: RoverCommand):
         """Log command for mission tracking"""
@@ -174,6 +242,11 @@ class CommandArbiter:
         with self._lock:
             return {
                 'enabled': self._enabled,
+                'auto_mode': self._auto_mode,
+                'pending_command': {
+                     'reason': self._pending_command.reason,
+                     'source': self._pending_command.source
+                } if self._pending_command else None,
                 'current_command': {
                     'priority': self._last_command.priority.name if self._last_command else None,
                     'source': self._last_command.source if self._last_command else None,
