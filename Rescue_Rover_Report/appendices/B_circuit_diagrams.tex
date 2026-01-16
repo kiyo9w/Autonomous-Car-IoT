@@ -139,8 +139,7 @@ ECHO  --[R1]---> GPIO 2
 R1 = 1k Ohm, R2 = 2k Ohm (Voltage divider 5V -> 3.3V for ECHO)
 \end{verbatim}
 
-\textbf{Note}: The HC-SR04 ECHO pin outputs 5V logic, which exceeds the ESP32-S3 GPIO maximum of 3.3V. Use the voltage divider shown above (R1=1kΩ, R2=2kΩ) or a bidirectional level shifter to avoid damaging the microcontroller.
-
+\textbf{Note}: The HC-SR04 ECHO pin outputs 5V logic, which exceeds the ESP32-S3 GPIO maximum of 3.3V. Use the voltage divider shown above ($R_1 = 1k\Omega, R_2 = 2k\Omega$) or a bidirectional level shifter to avoid damaging the microcontroller.
 \subsection{Battery Voltage Monitor}
 
 \begin{verbatim}
