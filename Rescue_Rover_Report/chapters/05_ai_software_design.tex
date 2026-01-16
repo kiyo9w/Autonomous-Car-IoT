@@ -4,7 +4,7 @@
 \chapter{AI \& Software Design}
 \label{chap:ai-software-design}
 
-This chapter documents the software architecture of the host application and its integration with cloud-based AI services. The design uses a "Hybrid Cloud" approach: real-time tactical processing runs locally on the host computer, while complex strategic reasoning is offloaded to a cloud server equipped with high-performance GPUs.
+This chapter documents the software architecture of the host application and its integration with cloud based AI services. The design uses a "Hybrid Cloud" approach: real time tactical processing runs locally on the host computer, while complex strategic reasoning is offloaded to a cloud server equipped with high performance GPUs.
 
 % --------------------------------------------------------
 \section{Host Application Architecture}
@@ -64,8 +64,8 @@ The 40\% value means the person must be close enough (within approximately 1.5 m
 \textbf{Frame Preprocessing Pipeline.} Before feeding frames to the AI models, the \texttt{FramePreprocessor} class converts the raw JPEG bytes into the appropriate format for each layer using OpenCV \cite{opencv2023}:
 
 \begin{enumerate}
-    \item \textbf{YOLO}: Full-resolution RGB numpy array. No resizing is applied because the model handles variable input sizes.
-    \item \textbf{VLM}: Resized to 320x240 using \textbf{LANCZOS} resampling. This high-quality downscaling algorithm preserves edge details important for spatial reasoning.
+    \item \textbf{YOLO}: Full resolution RGB numpy array. No resizing is applied because the model handles variable input sizes.
+    \item \textbf{VLM}: Resized to 320x240 using \textbf{LANCZOS} resampling. This high quality downscaling algorithm preserves edge details important for spatial reasoning.
 \end{enumerate}
 
 The \texttt{duplicate\_frame} method creates both copies from a single JPEG decode, avoiding redundant processing.
@@ -79,8 +79,8 @@ Previous iterations of this project attempted to run a Vision Language Model (Mo
 The final design moves this workload to the cloud.
 
 \textbf{Cloud Architecture.} We utilize a Google Colab instance provisioned with an **NVIDIA H100** GPU (80GB VRAM). This server hosts:
-1.  \textbf{Qwen2.5-VL-7B-Instruct} \cite{bai2025qwen2vl}: A state-of-the-art VLM capable of spatial reasoning.
-2.  \textbf{vLLM Engine}: A high-throughput serving engine for LLMs.
+1.  \textbf{Qwen2.5-VL-7B-Instruct} \cite{bai2025qwen2vl}: A state of the art VLM capable of spatial reasoning.
+2.  \textbf{vLLM Engine}: A high throughput serving engine for LLMs.
 3.  \textbf{FastAPI + ngrok}: Exposes a public \texttt{https} endpoint for the rover to contact.
 
 \begin{table}[h!]
@@ -102,7 +102,7 @@ The final design moves this workload to the cloud.
 \begin{designbox}[The "Rescue Swarm" Potential]
 Hosting the strategic brain on a monstrous NVIDIA H100 (80GB VRAM) unlocks massive scalability. With the vLLM engine's continuous batching capabilities and our low query rate of 0.5Hz, a single GPU instance could theoretically drive a fleet of \textbf{50 to 100 simultaneous Rescue Rovers}.
 
-This architecture effectively creates a "swarm" of cheap ESP32 units sharing a single super-intelligent brain \cite{kumar2025swarm,saravanan2019iot}. In a large-scale disaster, one centralized server could coordinate a swarm of hundreds of explorers for a fraction of the cost of equipping each unit with onboard Jetson-class AI.
+This architecture effectively creates a "swarm" of cheap ESP32 units sharing a single super intelligent brain \cite{kumar2025swarm,saravanan2019iot}. In a large scale disaster, one centralized server could coordinate a swarm of hundreds of explorers for a fraction of the cost of equipping each unit with onboard Jetson class AI.
 \end{designbox}
 
 % FIGURE PLACEHOLDER
@@ -169,7 +169,7 @@ With two AI brains (Local YOLO and Cloud VLM) plus a human operator, conflicting
         \toprule
         \textbf{Priority} & \textbf{Source} & \textbf{Description} \\
         \midrule
-        100 & SAFETY & Firmware-level emergency stop (sonar, watchdog). Overrides everything. \\
+        100 & SAFETY & Firmware level emergency stop (sonar, watchdog). Overrides everything. \\
         30  & TACTICAL & YOLO person detection (bounding box $>$40\% frame). \\
         20  & STRATEGIC & VLM navigation suggestion from cloud. \\
         10  & MANUAL & Human joystick input. Active for 5 seconds after last input. \\
@@ -184,7 +184,7 @@ Instead of discrete commands like FORWARD, BACKWARD, LEFT, RIGHT, the arbiter us
     \item \texttt{x}: 0-4095, center = 2048 (left/right)
     \item \texttt{y}: 0-4095, center = 2048 (forward/backward)
 \end{itemize}
-This allows \textbf{graduated speed and turning}. A gentle left turn might be \texttt{x=1500, y=3000}, while a sharp pivot is \texttt{x=500, y=2048}. The result is smooth, analog-like control even though the underlying motor driver is digital. The AI models output steering commands ("left", "right") which are converted into joystick coordinates before being sent to the gateway.
+This allows \textbf{graduated speed and turning}. A gentle left turn might be \texttt{x=1500, y=3000}, while a sharp pivot is \texttt{x=500, y=2048}. The result is smooth, analog like control even though the underlying motor driver is digital. The AI models output steering commands ("left", "right") which are converted into joystick coordinates before being sent to the gateway.
 \end{designbox}
 
 % FIGURE PLACEHOLDER

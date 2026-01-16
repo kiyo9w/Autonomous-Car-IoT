@@ -15,7 +15,7 @@ This chapter describes the hardware components, electrical systems, and physical
 
 The hardware design follows three guiding principles. First, all components must be purchasable from common suppliers without lead times. Second, the system must be repairable using basic tools and without specialized equipment. Third, interfaces between modules must use standard connectors and protocols to allow future upgrades.
 
-These constraints led us to select development boards over custom PCBs, through-hole components over surface mount where possible, and dupont wire connections over soldered joints for early prototypes.
+These constraints led us to select development boards over custom PCBs, through hole components over surface mount where possible, and dupont wire connections over soldered joints for early prototypes.
 
 % FIGURE 3.1: ROVER PHOTO
 % Placed inside Section 3.1
@@ -28,7 +28,7 @@ These constraints led us to select development boards over custom PCBs, through-
 
 \subsection{Bill of Materials}
 
-Table~\ref{tab:bom} presents the complete bill of materials with actual procurement costs in Vietnamese Dong (VND). The total hardware budget came to approximately 850,000₫, equivalent to roughly \$35 USD at the time of purchase. All components were sourced from domestic e-commerce platforms.
+Table~\ref{tab:bom} presents the complete bill of materials with actual procurement costs in Vietnamese Dong (VND). The total hardware budget came to approximately 850,000₫, equivalent to roughly \$35 USD at the time of purchase. All components were sourced from domestic e commerce platforms.
 
 \begin{table}[H]
     \centering
@@ -56,10 +56,10 @@ Table~\ref{tab:bom} presents the complete bill of materials with actual procurem
         MicroSD Card 16GB              & 1 & 92,198  & 92,198 \\
         \midrule
         \multicolumn{4}{l}{\textit{Mechanical}} \\
-        4WD Chassis (Aluminum U-frame) & 1 & 93,450  & 93,450 \\
+        4WD Chassis (Aluminum U frame) & 1 & 93,450  & 93,450 \\
         \midrule
         \multicolumn{4}{l}{\textit{Wiring \& Consumables}} \\
-        Dupont Wires F-F 40P           & 1 & 14,866  & 14,866 \\
+        Dupont Wires F F 40P           & 1 & 14,866  & 14,866 \\
         Capacitors 1000µF 16V          & 2 & 18,129  & 36,258 \\
         Resistors (assorted)           & 1 & 10,000  & 10,000 \\
         \midrule
@@ -73,7 +73,7 @@ Table~\ref{tab:bom} presents the complete bill of materials with actual procurem
     \end{tabular}
 \end{table}
 
-The "Repairs \& Spares" category documents the hidden cost of hardware procurement challenges. As detailed in Chapter~\ref{chap:firmware}, we went through multiple failed ESP32-S3-CAM purchases—wrong product variants, dead-on-arrival camera modules, and boards without header pins—before obtaining working hardware. The replacement camera and soldering service represent the cost of resolving these issues.
+The "Repairs \& Spares" category documents the hidden cost of hardware procurement challenges. As detailed in Chapter~\ref{chap:firmware}, we went through multiple failed ESP32-S3-CAM purchases—wrong product variants, dead on arrival camera modules, and boards without header pins—before obtaining working hardware. The replacement camera and soldering service represent the cost of resolving these issues.
 
 % --------------------------------------------------------
 % SECTION 3.2: CHASSIS DESIGN
@@ -86,7 +86,7 @@ The chassis provides the structural foundation for all electronic components. We
 % SUBSECTION 3.2.1: PLATFORM SELECTION
 \subsection{Platform Selection}
 
-The selected chassis is a \textbf{dual-layer acrylic smart car platform}. Unlike the tracked tank-style alternatives initially considered, this wheeled design was chosen for its kinematic simplicity, higher top speed on flat surfaces, and easier maintenance. The acrylic construction allows for rapid modification and flexible component mounting.
+The selected chassis is a \textbf{dual layer acrylic smart car platform}. Unlike the tracked tank style alternatives initially considered, this wheeled design was chosen for its kinematic simplicity, higher top speed on flat surfaces, and easier maintenance. The acrylic construction allows for rapid modification and flexible component mounting.
 
 \begin{table}[h!]
     \centering
@@ -99,7 +99,7 @@ The selected chassis is a \textbf{dual-layer acrylic smart car platform}. Unlike
         Drive System & 4-Wheel Drive (Independent DC Motors) \\
         Dimensions (L x W) & 255mm x 150mm (Chassis Plate) \\
         Full Width & $\approx$ 210mm (with wheels) \\
-        Material & Laser-cut Acrylic \\
+        Material & Laser cut Acrylic \\
         Wheel Diameter & 65mm (Rubber tires) \\
         Motor Type & 1:48 Gear Ratio TT Motors \\
         \bottomrule
@@ -144,7 +144,7 @@ The selected chassis is a \textbf{dual-layer acrylic smart car platform}. Unlike
         \draw[dim] (-\chassisL/2 + 20, \chassisW/2 + 35) -- (-\chassisL/2 + 20 + \wheelL, \chassisW/2 + 35) node[midway, fill=white, font=\footnotesize] {$\varnothing$ 65 mm};
 
     \end{tikzpicture}
-    \caption{Top-down dimensional schematic of the 4WD Rover chassis. The platform utilizes a double-layer acrylic frame with four independently driven DC geared motors.}
+    \caption{Top down dimensional schematic of the 4WD Rover chassis. The platform utilizes a double layer acrylic frame with four independently driven DC geared motors.}
     \label{fig:chassis-dimensions}
 \end{figure}
 
@@ -152,7 +152,7 @@ The selected chassis is a \textbf{dual-layer acrylic smart car platform}. Unlike
 \subsection{Wheel and Drive Assembly}
 \label{sec:drive-assembly}
 
-Instead of the complex track tensioning system initially proposed, the rover utilizes a direct-drive configuration. Each of the four wheels is mounted directly to the output shaft of a DC gear motor. The system uses standard "TT" style motors with a 1:48 gear ratio. The wheels ($65\text{mm}$ diameter) feature a solid plastic rim with a rubber tire for traction. Torque is transferred via a double-flat mechanical interface that prevents the wheel from slipping on the motor shaft, eliminating the need for belts or tensioners.
+Instead of the complex track tensioning system initially proposed, the rover utilizes a direct drive configuration. Each of the four wheels is mounted directly to the output shaft of a DC gear motor. The system uses standard "TT" style motors with a 1:48 gear ratio. The wheels ($65\text{mm}$ diameter) feature a solid plastic rim with a rubber tire for traction. Torque is transferred via a double flat mechanical interface that prevents the wheel from slipping on the motor shaft, eliminating the need for belts or tensioners.
 
 % FIGURE 3.3: MOTOR DETAIL
 % Placed inside Subsection 3.2.2
@@ -196,15 +196,15 @@ Instead of the complex track tensioning system initially proposed, the rover uti
         % Annotations
         \draw[<-] (\motorL+8, \motorH/2 + 20) -- ++(-10, 20) node[anchor=south] {Wheel Hub};
         \draw[<-] (\motorL+25, \motorH/2 + 34) -- ++(10, 20) node[anchor=south] {Rubber Tire};
-        \draw[<-] (\motorL-2, \motorH/2 + 5) -- ++(-10, 15) node[anchor=south east, align=right] {Output Shaft\\(Dual-shaft)};
+        \draw[<-] (\motorL-2, \motorH/2 + 5) -- ++(-10, 15) node[anchor=south east, align=right] {Output Shaft\\(Dual shaft)};
 
     \end{tikzpicture}
-    \caption{Drive assembly detail. The 1:48 ratio DC Gear Motor (left) couples directly to the 65mm wheel (right). The yellow plastic rim is press-fitted onto the motor output shaft.}
+    \caption{Drive assembly detail. The 1:48 ratio DC Gear Motor (left) couples directly to the 65mm wheel (right). The yellow plastic rim is press fitted onto the motor output shaft.}
     \label{fig:drive-detail}
 \end{figure}
 
 \subsection{Component Mounting}
-Electronic components are secured to the acrylic chassis to ensure stability during operation. The main PCB modules, such as the ESP32-S3 and the L298N motor driver, are mounted using \textbf{nylon standoffs and M3 screws}. This provides electrical isolation from the chassis and allows for easy removal. The prototyping breadboard is secured using a strong double-sided adhesive pad. Components are arranged longitudinally to distribute weight evenly between the front and rear axles, placing the heavier battery pack at the rear to counterbalance the camera and sensor array at the front.
+Electronic components are secured to the acrylic chassis to ensure stability during operation. The main PCB modules, such as the ESP32-S3 and the L298N motor driver, are mounted using \textbf{nylon standoffs and M3 screws}. This provides electrical isolation from the chassis and allows for easy removal. The prototyping breadboard is secured using a strong double sided adhesive pad. Components are arranged longitudinally to distribute weight evenly between the front and rear axles, placing the heavier battery pack at the rear to counterbalance the camera and sensor array at the front.
 
 % FIGURE PLACEHOLDER
 \begin{figure}[H]
@@ -280,7 +280,7 @@ Electronic components are secured to the acrylic chassis to ensure stability dur
         \draw[wire, draw=black, thick] (driver.west) -- ++(-30,0) -- ++(0, -80) node[below, align=center] {To Rear\\Motors};
 
     \end{tikzpicture}
-    \caption{Schematic top-down view of the component layout. The ultrasonic sensor and camera are positioned at the front for unobstructed sensing. The heavier battery pack is placed at the rear to balance the center of gravity. Power and signal lines are shown logically.}
+    \caption{Schematic top down view of the component layout. The ultrasonic sensor and camera are positioned at the front for unobstructed sensing. The heavier battery pack is placed at the rear to balance the center of gravity. Power and signal lines are shown logically.}
     \label{fig:component-layout}
 \end{figure}
 
@@ -326,7 +326,7 @@ The ESP32-S3 is Espressif's third generation WiFi/Bluetooth microcontroller. It 
 
 \subsection{Development Board Selection}
 
-Several ESP32-S3 development boards were evaluated. The Freenove ESP32-S3 WROOM was selected for its integrated camera connector, adequate PSRAM, and reasonable price point. Other options considered included the official Espressif DevKitC and the AI-Thinker ESP32-S3 CAM.
+Several ESP32-S3 development boards were evaluated. The Freenove ESP32-S3 WROOM was selected for its integrated camera connector, adequate PSRAM, and reasonable price point. Other options considered included the official Espressif DevKitC and the AI Thinker ESP32-S3 CAM.
 
 \begin{table}[H]
     \centering
@@ -339,7 +339,7 @@ Several ESP32-S3 development boards were evaluated. The Freenove ESP32-S3 WROOM 
         PSRAM             & 8 MB  & 4 MB  & 8 MB \\
         Camera connector  & Yes   & Yes   & No \\
         Available GPIO    & 35+   & 10    & 45 \\
-        USB programming   & Built-in & External & Built-in \\
+        USB programming   & Built in & External & Built in \\
         Price             & \$12  & \$8   & \$15 \\
         Selected          & Yes   & No    & No \\
         \bottomrule
@@ -413,7 +413,7 @@ The ESP32-CAM was rejected despite its lower cost because of severe GPIO limitat
 
             % Single Micro-USB
             \draw[metal] (1.25, -0.1) rectangle (2.25, 0.4);
-            \node[text=white, font=\tiny] at (1.75, 0.6) {Micro-USB};
+            \node[text=white, font=\tiny] at (1.75, 0.6) {Micro USB};
 
             % Label
             \node[label, text=red!50] at (1.75, -1.0) {REJECTED:\\Standard DevKit};
@@ -423,7 +423,7 @@ The ESP32-CAM was rejected despite its lower cost because of severe GPIO limitat
         \draw[->, thick, green!70!black] (3.3, 4.0) -- (5.0, 4.0) node[midway, above, font=\tiny] {Critical Feature};
 
     \end{tikzpicture}
-    \caption{Comparison of development boards. The Freenove S3 (left) was selected for its dedicated FPC camera connector and dual USB-C interfaces, features absent on standard development boards (right).}
+    \caption{Comparison of development boards. The Freenove S3 (left) was selected for its dedicated FPC camera connector and dual USB C interfaces, features absent on standard development boards (right).}
     \label{fig:board-comparison}
 \end{figure}
 
@@ -473,11 +473,11 @@ The OV2640 is a 2-megapixel CMOS image sensor commonly used in embedded vision a
 \end{figure}
 
 \subsection{Resolution Selection}
-The firmware configures the OV2640 sensor for **QVGA ($320 \times 240$)** resolution. This specific setting was chosen as the optimal trade-off point. While the sensor supports up to UXGA ($1600 \times 1200$), resolutions above QVGA generate JPEG payloads that exceed the standard Ethernet MTU (1500 bytes), requiring complex UDP packet fragmentation and reassembly which increases latency.
+The firmware configures the OV2640 sensor for **QVGA ($320 \times 240$)** resolution. This specific setting was chosen as the optimal trade off point. While the sensor supports up to UXGA ($1600 \times 1200$), resolutions above QVGA generate JPEG payloads that exceed the standard Ethernet MTU (1500 bytes), requiring complex UDP packet fragmentation and reassembly which increases latency.
 
 \begin{table}[h!]
     \centering
-    \caption{Resolution bandwidth trade-offs (OV2640 JPEG)}
+    \caption{Resolution bandwidth trade offs (OV2640 JPEG)}
     \label{tab:resolution-tradeoffs}
     \begin{tabular}{p{3.5cm}ccp{3.0cm}p{3.0cm}}
         \toprule
@@ -504,7 +504,7 @@ The firmware configures the OV2640 sensor for **QVGA ($320 \times 240$)** resolu
         % VGA Frame (Reference Background)
         \draw[frame, fill=gray!10, dashed] (0,0) rectangle (640, 480);
         \node[anchor=north east] at (640, 480) {VGA ($640 \times 480$)};
-        \node at (320, 400) [text=gray] {Too large for low-latency UDP};
+        \node at (320, 400) [text=gray] {Too large for low latency UDP};
 
         % QVGA Frame (Selected)
         \draw[frame, fill=green!10, draw=green!50!black, very thick] (0,0) rectangle (320, 240);
@@ -605,7 +605,7 @@ The camera module is secured to the front chassis using a custom 3D-printed brac
         \node[blue, right] at (12, 0.5) {Ground intersect};
 
     \end{tikzpicture}
-    \caption{Side-profile schematic of the camera mounting. The $15^\circ$ downward tilt aligns the optical axis to cover the floor surface ahead of the rover, eliminating the "under-nose" blind spot.}
+    \caption{Side profile schematic of the camera mounting. The $15^\circ$ downward tilt aligns the optical axis to cover the floor surface ahead of the rover, eliminating the "under nose" blind spot.}
     \label{fig:camera-mount}
 \end{figure}
 
@@ -613,7 +613,7 @@ The camera module is secured to the front chassis using a custom 3D-printed brac
 \section{Motor Control System}
 \label{sec:motor-system}
 
-The motor system provides locomotive power through two DC gear motors, one for each track. The L298N dual H-bridge driver controls motor direction and speed based on commands from the ESP32-S3.
+The motor system provides locomotive power through two DC gear motors, one for each track. The L298N dual H bridge driver controls motor direction and speed based on commands from the ESP32-S3.
 
 \subsection{DC Gear Motors}
 
@@ -628,12 +628,12 @@ The motors are brushed DC type with integrated planetary gearboxes. The gearbox 
         \textbf{Parameter} & \textbf{Value} \\
         \midrule
         Nominal voltage    & 6-12V DC \\
-        No-load speed      & 150 RPM at 12V \\
-        Stall torque       & 3 kg-cm \\
+        No load speed      & 150 RPM at 12V \\
+        Stall torque       & 3 kg cm \\
         Stall current      & 1.5 A \\
         Operating current  & 200-500 mA \\
         Gear ratio         & 1:48 \\
-        Shaft diameter     & 6 mm (D-cut) \\
+        Shaft diameter     & 6 mm (D cut) \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -648,7 +648,7 @@ The motors are brushed DC type with integrated planetary gearboxes. The gearbox 
 
 \subsection{L298N Motor Driver}
 
-The L298N is a dual full-bridge driver IC. Each bridge can deliver up to 2A continuous current, sufficient for our motors which draw 500mA under load. The module includes an onboard 5V regulator that powers the ESP32-S3.
+The L298N is a dual full bridge driver IC. Each bridge can deliver up to 2A continuous current, sufficient for our motors which draw 500mA under load. The module includes an onboard 5V regulator that powers the ESP32-S3.
 
 \begin{table}[h!]
     \centering
@@ -693,7 +693,7 @@ During component selection, we compared the L298N against the more modern TB6612
         Efficiency      & 70\%  & 90\% \\
         Voltage drop    & 1.8V  & 0.3V \\
         Heat generation & High  & Low \\
-        5V regulator    & Built-in & None \\
+        5V regulator    & Built in & None \\
         Cost            & \$3   & \$5 \\
         Selected        & Yes   & No \\
         \bottomrule
@@ -867,7 +867,7 @@ The sensor is mounted at the front of the chassis, below the camera. This positi
             \draw[->, thick, very thick] (5, 5) -- (5, 15) node[midway, right] {Direction of Travel};
         \end{scope}
     \end{tikzpicture}
-    \caption{Top-down view of the ultrasonic sensor's beam pattern. The narrow $15^\circ$ detection cone is shown relative to the rover chassis, detecting obstacles directly ahead.}
+    \caption{Top down view of the ultrasonic sensor's beam pattern. The narrow $15^\circ$ detection cone is shown relative to the rover chassis, detecting obstacles directly ahead.}
     \label{fig:ultrasonic-beam}
 \end{figure}
 
@@ -968,7 +968,7 @@ After assembly, each subsystem is tested individually before full integration te
 
 \begin{table}[h!]
     \centering
-    \caption{Post-assembly test checklist}
+    \caption{Post assembly test checklist}
     \label{tab:test-checklist}
     \begin{tabular}{lp{8cm}}
         \toprule
@@ -979,7 +979,7 @@ After assembly, each subsystem is tested individually before full integration te
         Camera    & Verify video feed appears in browser \\
         Ultrasonic & Move hand toward sensor, verify distance changes \\
         WiFi      & Confirm connection to access point \\
-        ESP-NOW   & Verify command reception from gateway \\
+        ESP NOW   & Verify command reception from gateway \\
         \bottomrule
     \end{tabular}
 \end{table}
@@ -988,6 +988,6 @@ After assembly, each subsystem is tested individually before full integration te
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/hardware/testing_setup.png}
-    \caption{Testing setup for post-assembly verification of subsystems.}
+    \caption{Testing setup for post assembly verification of subsystems.}
     \label{fig:testing-setup}
 \end{figure}

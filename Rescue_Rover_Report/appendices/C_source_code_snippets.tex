@@ -100,7 +100,7 @@ bool initCamera() {
 
 \subsection{Frame Buffer Class}
 
-\begin{lstlisting}[language=Python, caption={Thread-safe frame buffer implementation}]
+\begin{lstlisting}[language=Python, caption={Thread safe frame buffer implementation}]
 import threading
 from dataclasses import dataclass
 from typing import Optional
@@ -209,22 +209,22 @@ def api_mission_log():
     return {"entries": mission_log[-100:]}
 
 def create_ui():
-    with ui.row().classes('w-full'):
+    with ui.row().classes('w full'):
         # Video panel
         with ui.column().classes('w-1/2'):
-            ui.label('Live Feed').classes('text-xl font-bold')
-            video = ui.image().classes('w-full')
+            ui.label('Live Feed').classes('text xl font bold')
+            video = ui.image().classes('w full')
             
         # Telemetry panel
         with ui.column().classes('w-1/2'):
-            ui.label('Telemetry').classes('text-xl font-bold')
+            ui.label('Telemetry').classes('text xl font bold')
             voltage_label = ui.label('Voltage: --')
             distance_label = ui.label('Distance: --')
             status_label = ui.label('Status: Disconnected')
     
     # Mission log
-    ui.label('Mission Log').classes('text-xl font-bold mt-4')
-    log_area = ui.log(max_lines=50).classes('w-full h-64')
+    ui.label('Mission Log').classes('text xl font bold mt-4')
+    log_area = ui.log(max_lines=50).classes('w full h-64')
     
     # Update loop
     async def update():
@@ -243,10 +243,10 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 % --------------------------------------------------------
-\section{ESP-NOW Communication}
+\section{ESP NOW Communication}
 \label{sec:espnow-code}
 
-\begin{lstlisting}[language=C++, caption={ESP-NOW packet handling}]
+\begin{lstlisting}[language=C++, caption={ESP NOW packet handling}]
 #include <esp_now.h>
 #include <WiFi.h>
 
@@ -285,7 +285,7 @@ void initESPNOW() {
     WiFi.mode(WIFI_STA);
     
     if (esp_now_init() != ESP_OK) {
-        Serial.println("ESP-NOW init failed");
+        Serial.println("ESP NOW init failed");
         return;
     }
     

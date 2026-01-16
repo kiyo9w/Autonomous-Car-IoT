@@ -50,10 +50,10 @@ The operator dashboard is divided into four main areas:
 
 \begin{description}[style=nextline]
     \item[Video Panel (Left)]
-    Live MJPEG stream from the rover camera. Displays frame rate overlay in the top corner. Click to toggle full-screen mode.
+    Live MJPEG stream from the rover camera. Displays frame rate overlay in the top corner. Click to toggle full screen mode.
     
     \item[Telemetry Panel (Top Right)]
-    Real-time status indicators:
+    Real time status indicators:
     \begin{itemize}
         \item \textbf{Battery}: Green ($>$11V), Yellow (10--11V), Red ($<$10V, land immediately)
         \item \textbf{Distance}: Ultrasonic reading in centimeters
@@ -75,7 +75,7 @@ The operator dashboard is divided into four main areas:
 \begin{itemize}
     \item Arduino IDE 2.0+ (or PlatformIO)
     \item ESP32 Board Support Package installed
-    \item USB-C data cable (not charge-only)
+    \item USB C data cable (not charge only)
 \end{itemize}
 
 \textbf{Arduino IDE Configuration}
@@ -91,7 +91,7 @@ Open \texttt{Tools} menu and set:
 
 \textbf{Upload Procedure}
 \begin{enumerate}
-    \item Connect the ESP32-S3 to your computer via USB-C.
+    \item Connect the ESP32-S3 to your computer via USB C.
     \item Select the correct COM port (look for ``CP2102'' or ``CH340'' in device name).
     \item Click the Upload button.
     \item If upload fails, hold the BOOT button on the board, click Upload again, then release BOOT when progress begins.
@@ -127,7 +127,7 @@ Open \texttt{Tools} menu and set:
     Reduce XCLK frequency to 8MHz in camera config. Verify all camera pins are correctly connected. Check PSRAM is functional. \\
     
     Intermittent control & 
-    Move closer to router. Reduce WiFi interference (microwaves, other 2.4GHz devices). Verify ESP-NOW peer MAC address matches. \\
+    Move closer to router. Reduce WiFi interference (microwaves, other 2.4GHz devices). Verify ESP NOW peer MAC address matches. \\
     
     \bottomrule
 \end{longtable}
@@ -156,16 +156,16 @@ Open \texttt{Tools} menu and set:
 \textbf{Battery Safety}
 \begin{itemize}
     \item Never leave a charging LiPo battery unattended.
-    \item Do not puncture, crush, short-circuit, or expose to extreme heat.
+    \item Do not puncture, crush, short circuit, or expose to extreme heat.
     \item Dispose of swollen or damaged batteries at proper recycling facilities.
-    \item For long-term storage, charge to 3.8V per cell (approximately 40--60\% capacity).
+    \item For long term storage, charge to 3.8V per cell (approximately 40--60\% capacity).
 \end{itemize}
 
 \textbf{Operational Safety}
 \begin{itemize}
     \item Keep fingers and loose clothing away from moving wheels.
     \item Do not operate on stairs, ledges, or unstable surfaces.
-    \item Avoid extended full-power operation to prevent motor overheating.
+    \item Avoid extended full power operation to prevent motor overheating.
     \item Always test in a controlled environment before field deployment.
 \end{itemize}
 

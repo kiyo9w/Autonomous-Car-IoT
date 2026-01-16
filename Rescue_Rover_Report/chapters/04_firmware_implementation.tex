@@ -4,7 +4,7 @@
 \chapter{Embedded Firmware Design}
 \label{chap:firmware-implementation}
 
-The firmware running on the ESP32-S3 forms the foundation of the Rescue Rover system \cite{lee2017embedded}. This chapter documents the design decisions, implementation details, and technical challenges encountered while developing the embedded software layer. The firmware handles camera streaming, motor control, wireless communication, and safety mechanisms, all running concurrently on the dual-core processor.
+The firmware running on the ESP32-S3 forms the foundation of the Rescue Rover system \cite{lee2017embedded}. This chapter documents the design decisions, implementation details, and technical challenges encountered while developing the embedded software layer. The firmware handles camera streaming, motor control, wireless communication, and safety mechanisms, all running concurrently on the dual core processor.
 
 % --------------------------------------------------------
 \section{Firmware Architecture Overview}
@@ -26,9 +26,9 @@ The \texttt{RescueRobot.ino} file serves as the main entry point. It initializes
 
 The \texttt{CameraModule} handles all camera operations. This includes initialization of the OV2640 sensor, configuration of frame buffers in PSRAM, and streaming via either HTTP or UDP protocols. The module provides two streaming modes because we discovered during testing that HTTP introduces 80ms additional latency compared to UDP on the same network. Total implementation spans 222 lines across the header and source files.
 
-The \texttt{MotorDriver} module controls the L298N H-bridge through GPIO pins \cite{stmicro2000l298,mishra2018implementation}. Movement primitives include forward, backward, left turn, right turn, and emergency stop. The implementation uses \textbf{PWM (Pulse Width Modulation)} to enable variable speed control, with a speed parameter from 0\% to 100\% mapped to PWM duty cycles 0-255 \cite{siegwart2011robotics}. This module spans 92 lines.
+The \texttt{MotorDriver} module controls the L298N H bridge through GPIO pins \cite{stmicro2000l298,mishra2018implementation}. Movement primitives include forward, backward, left turn, right turn, and emergency stop. The implementation uses \textbf{PWM (Pulse Width Modulation)} to enable variable speed control, with a speed parameter from 0\% to 100\% mapped to PWM duty cycles 0-255 \cite{siegwart2011robotics}. This module spans 92 lines.
 
-The \texttt{ConnectionModule} manages ESP-NOW bidirectional communication with the gateway. It receives joystick commands, stores them for processing by the main loop, and transmits telemetry at 2Hz. The critical design decision here is that the receive callback does not directly actuate motors. Instead it stores the command and lets the main loop apply safety checks first. This prevents race conditions between sensor readings and motor commands.
+The \texttt{ConnectionModule} manages ESP NOW bidirectional communication with the gateway. It receives joystick commands, stores them for processing by the main loop, and transmits telemetry at 2Hz. The critical design decision here is that the receive callback does not directly actuate motors. Instead it stores the command and lets the main loop apply safety checks first. This prevents race conditions between sensor readings and motor commands.
 
 % FIGURE PLACEHOLDER
 \begin{figure}[H]
@@ -315,7 +315,7 @@ Camera initialization follows a strict sequence. Any deviation results in crypti
         \draw [arrow] (log_ok) -- (end_ok);
 
     \end{tikzpicture}
-    \caption{Flowchart for camera initialization showing fail-safe checks, critical configuration steps (including the reduced 10MHz XCLK), and error handling paths.}
+    \caption{Flowchart for camera initialization showing fail safe checks, critical configuration steps (including the reduced 10MHz XCLK), and error handling paths.}
     \label{fig:camera-init-flow}
 \end{figure}
 
@@ -337,7 +337,7 @@ static esp_err_t stream_handler(httpd_req_t *req) {
     
     // Set content type for MJPEG stream
     res = httpd_resp_set_type(req, 
-        "multipart/x-mixed-replace;boundary=frame");
+        "multipart/x mixed replace;boundary=frame");
     if (res != ESP_OK) return res;
     
     while (true) {
@@ -349,8 +349,8 @@ static esp_err_t stream_handler(httpd_req_t *req) {
             // Build multipart header
             size_t hlen = snprintf(part_buf, 64,
                 "\r\n--frame\r\n"
-                "Content-Type: image/jpeg\r\n"
-                "Content-Length: %u\r\n\r\n", fb->len);
+                "Content Type: image/jpeg\r\n"
+                "Content Length: %u\r\n\r\n", fb->len);
             
             res = httpd_resp_send_chunk(req, part_buf, hlen);
             if (res == ESP_OK) {
@@ -378,7 +378,7 @@ static esp_err_t stream_handler(httpd_req_t *req) {
 UDP mode was initially designed to minimize latency by bypassing the HTTP overhead.
 
 \begin{designbox}[UDP Buffer Overflow]
-During integration testing, we observed that the ESP32-S3's network stack struggled to sustain high-bandwidth UDP transmission at 30FPS. The internal buffers frequently overflowed, causing a \textbf{Watchdog Timer Reset} that crashed the system.
+During integration testing, we observed that the ESP32-S3's network stack struggled to sustain high bandwidth UDP transmission at 30FPS. The internal buffers frequently overflowed, causing a \textbf{Watchdog Timer Reset} that crashed the system.
 
 While UDP offered superior latency ($<$100ms), the instability was critical. We ultimately pivoted to TCP/HTTP for the final build. The TCP flow control mechanism prevents the application from overwhelming the network stack, ensuring system stability at the cost of slightly higher latency. Implementing a custom reliable UDP protocol was deemed out of scope for this iteration.
 \end{designbox}
@@ -460,9 +460,9 @@ where $v_{robot}$ is the linear velocity of the robot center, $\omega_{robot}$ i
 
 \subsection{L298N Driver Interface}
 
-The L298N accepts four digital inputs (IN1 through IN4) that control two H-bridge circuits. Each motor connects to one H-bridge. For direction control, one pin is set HIGH while the other is LOW. For speed control, the HIGH signal is replaced with a PWM waveform using \texttt{analogWrite()}.
+The L298N accepts four digital inputs (IN1 through IN4) that control two H bridge circuits. Each motor connects to one H bridge. For direction control, one pin is set HIGH while the other is LOW. For speed control, the HIGH signal is replaced with a PWM waveform using \texttt{analogWrite()}.
 
-\begin{lstlisting}[language=C++, caption={PWM-based motor driver with speed control}]
+\begin{lstlisting}[language=C++, caption={PWM based motor driver with speed control}]
 #include "MotorDriver.h"
 #include "PinConfig.h"
 
@@ -502,10 +502,10 @@ void stopMoving() {
 }
 \end{lstlisting}
 
-\begin{designbox}[AI-Controlled Speed]
+\begin{designbox}[AI Controlled Speed]
 The speed parameter (0-100\%) can be set by multiple sources:
 \begin{itemize}
-    \item \textbf{Manual operator}: Joystick Y-axis distance from center determines speed.
+    \item \textbf{Manual operator}: Joystick Y axis distance from center determines speed.
     \item \textbf{Strategic AI}: The VLM can suggest "slow down" when navigating tight spaces.
     \item \textbf{Tactical AI}: When a person is detected but not yet at emergency threshold, YOLO can reduce speed as a precaution.
 \end{itemize}
@@ -553,20 +553,20 @@ Point turns are achieved by running motors in opposite directions. The left moto
 \end{figure}
 
 % --------------------------------------------------------
-\section{ESP-NOW Communication Module}
+\section{ESP NOW Communication Module}
 \label{sec:espnow-impl}
 
-The ConnectionModule handles all wireless communication between the rover and the gateway device. ESP-NOW was selected over TCP/IP for control commands because it offers significantly lower latency. The protocol operates at the MAC layer, bypassing much of the WiFi stack overhead.
+The ConnectionModule handles all wireless communication between the rover and the gateway device. ESP NOW was selected over TCP/IP for control commands because it offers significantly lower latency. The protocol operates at the MAC layer, bypassing much of the WiFi stack overhead.
 
 \subsection{Protocol Overview}
 
-ESP-NOW allows direct device to device communication using MAC addresses. Packets are limited to 250 bytes, but this is more than sufficient for joystick commands (8 bytes) and telemetry (8 bytes). The protocol does not guarantee delivery, but at close range with clear line of sight, packet loss is negligible.
+ESP NOW allows direct device to device communication using MAC addresses. Packets are limited to 250 bytes, but this is more than sufficient for joystick commands (8 bytes) and telemetry (8 bytes). The protocol does not guarantee delivery, but at close range with clear line of sight, packet loss is negligible.
 
 % FIGURE PLACEHOLDER
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/software/espnow_protocol_stack.jpg}
-    \caption{ESP-NOW protocol positioning in the network stack. It operates below IP, directly on top of the 802.11 MAC layer.}
+    \caption{ESP NOW protocol positioning in the network stack. It operates below IP, directly on top of the 802.11 MAC layer.}
     \label{fig:espnow-stack}
 \end{figure}
 
@@ -574,7 +574,7 @@ ESP-NOW allows direct device to device communication using MAC addresses. Packet
 
 Two packet types define the communication protocol. The command structure carries joystick X and Y values from the gateway to the rover. The feedback structure carries voltage and distance readings from the rover back to the gateway.
 
-\begin{lstlisting}[language=C++, caption={ESP-NOW packet structure definitions}]
+\begin{lstlisting}[language=C++, caption={ESP NOW packet structure definitions}]
 // Command packet: Gateway -> Rover
 typedef struct __attribute__((packed)) command_struct {
     int x;  // Joystick X (0-4095, center=2048)
@@ -594,7 +594,7 @@ The \texttt{\_\_attribute\_\_((packed))} directive ensures no padding bytes are 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.7\textwidth]{figures/software/packet_format.png}
-    \caption{Binary layout of ESP-NOW packet structures showing byte offsets for each field.}
+    \caption{Binary layout of ESP NOW packet structures showing byte offsets for each field.}
     \label{fig:packet-format}
 \end{figure}
 
@@ -606,7 +606,7 @@ The receive callback executes in an interrupt context when a packet arrives. Lon
 The receive callback stores commands but does not actuate motors. Motor actuation happens in the main loop after safety checks. This prevents race conditions where an obstacle appears between receiving a "forward" command and executing it. The main loop always has the latest sensor data when deciding whether to execute a command.
 \end{designbox}
 
-\begin{lstlisting}[language=C++, caption={ESP-NOW receive callback with deferred actuation}]
+\begin{lstlisting}[language=C++, caption={ESP NOW receive callback with deferred actuation}]
 // State variables
 static command_struct recvCommand = {2048, 2048};  // Center = stop
 static unsigned long lastPacketTime = 0;
@@ -654,7 +654,7 @@ static void onDataRecv(const esp_now_recv_info_t *info,
     ]
 
         % --- Left Column: Interrupt Context ---
-        \node [block, fill=red!5] (isr) {\textbf{ESP-NOW Callback}};
+        \node [block, fill=red!5] (isr) {\textbf{ESP NOW Callback}};
         \node [above=0.6cm of isr, font=\bfseries\footnotesize] (packet) {Incoming Packet};
         \draw [line, ultra thick] (packet) -- node[right, font=\scriptsize] {Trigger} (isr);
 
@@ -699,7 +699,7 @@ static void onDataRecv(const esp_now_recv_info_t *info,
         \draw [dashed, ->] (actuate.south) to[out=270,in=180] ++(-1.0,-0.6) to[out=0,in=270] ($(loopContext.south west)!0.5!(loopContext.south east)$);
 
     \end{tikzpicture}
-    \caption{Data flow diagram illustrating the deferred motor actuation design. The high-priority ESP-NOW callback quickly stores incoming data into shared memory. The lower-priority main loop reads the latest sensor data and the stored command, performing safety checks before any physical motor actuation occurs.}
+    \caption{Data flow diagram illustrating the deferred motor actuation design. The high priority ESP NOW callback quickly stores incoming data into shared memory. The lower priority main loop reads the latest sensor data and the stored command, performing safety checks before any physical motor actuation occurs.}
     \label{fig:callback-flow}
 \end{figure}
 
@@ -780,7 +780,7 @@ bool isConnectionAlive(unsigned long timeoutMs) {
 
 The ultrasonic sensor provides distance measurements to the nearest obstacle in the forward direction. The firmware uses this to override forward commands when an obstacle is too close. The implementation uses a state machine rather than the blocking \texttt{pulseIn()} function to avoid freezing the main loop.
 
-\begin{lstlisting}[language=C++, caption={Non-blocking ultrasonic state machine}]
+\begin{lstlisting}[language=C++, caption={Non blocking ultrasonic state machine}]
 enum UltrasonicState {
     US_IDLE,
     US_TRIGGER_HIGH,
@@ -841,7 +841,7 @@ bool updateUltrasonicDistance() {
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{figures/software/ultrasonic_state_machine.jpg}
-    \caption{State machine diagram for non-blocking ultrasonic distance measurement.}
+    \caption{State machine diagram for non blocking ultrasonic distance measurement.}
     \label{fig:ultrasonic-fsm}
 \end{figure}
 
@@ -855,7 +855,7 @@ const int EMERGENCY_STOP_DISTANCE = 25;  // cm
 void handleControlLoop() {
     // 0. Check heartbeat (covered above)
     
-    // 1. Update distance sensor (non-blocking)
+    // 1. Update distance sensor (non blocking)
     updateUltrasonicDistance();
     
     // 2. Get latest joystick command
@@ -916,7 +916,7 @@ void handleControlLoop() {
 \begin{designbox}[Escape Maneuver Override]
 During early testing, we encountered a frustrating scenario: the rover would detect an obstacle at 20cm and freeze completely. The operator could not back up or turn away because all motor commands were blocked by the safety system.
 
-The solution was to make the safety check directional. Forward motion is blocked when an obstacle is close, but \textbf{backward and turning commands are always allowed}. This ensures the rover never gets permanently stuck. The logic checks if the joystick Y-value is below 1500 (backward) or if X is at the extremes (<1000 or >3000, meaning a sharp turn). These "escape maneuvers" bypass the emergency stop and allow the operator to retreat safely.
+The solution was to make the safety check directional. Forward motion is blocked when an obstacle is close, but \textbf{backward and turning commands are always allowed}. This ensures the rover never gets permanently stuck. The logic checks if the joystick Y value is below 1500 (backward) or if X is at the extremes (<1000 or >3000, meaning a sharp turn). These "escape maneuvers" bypass the emergency stop and allow the operator to retreat safely.
 
 This is a classic example of safety systems needing to be designed with recovery scenarios in mind, not just failure prevention.
 \end{designbox}
@@ -928,7 +928,7 @@ This is a classic example of safety systems needing to be designed with recovery
 Acquiring the ESP32-S3-CAM module proved to be a significant learning experience about sourcing components for IoT projects. The team went through three iterations of purchasing before obtaining a working unit.
 
 \textbf{Attempt 1: The Wrong Product.}
-The first module was ordered from a low-cost Chinese seller on Lazada. The listing advertised "ESP32-S3 with OV2640 Camera" at an attractive price. When the package arrived, we discovered the board was an older ESP32 variant without the S3 suffix, and crucially, it had no camera connector at all. The 24-pin FPC socket for the camera was simply absent from the PCB. After contacting the seller and providing photographic evidence, we processed a return.
+The first module was ordered from a low cost Chinese seller on Lazada. The listing advertised "ESP32-S3 with OV2640 Camera" at an attractive price. When the package arrived, we discovered the board was an older ESP32 variant without the S3 suffix, and crucially, it had no camera connector at all. The 24-pin FPC socket for the camera was simply absent from the PCB. After contacting the seller and providing photographic evidence, we processed a return.
 
 \textbf{Attempt 2: Dead on Arrival.}
 The second attempt was from a more reputable seller with verified reviews. The board arrived and appeared correct: ESP32-S3-WROOM-1 module, 8MB PSRAM, and a proper camera connector. Initial serial output was promising. However, when we ran the camera initialization code, it returned \texttt{ESP\_ERR\_NOT\_FOUND}. We suspected a wiring issue and spent hours debugging before realizing the OV2640 sensor flex cable was connected but the sensor itself had a physical crack across its surface, invisible without magnification. The camera was dead on arrival.
@@ -936,7 +936,7 @@ The second attempt was from a more reputable seller with verified reviews. The b
 \textbf{Attempt 3: No Pins, No Problem.}
 Armed with frustration, we ordered a replacement camera module (just the OV2640, not the entire board) from a third seller. This arrived intact and was verified to work on a test jig. However, when we tried to connect it to the ESP32-S3 board, we discovered the board's GPIO header was unpopulated. The gold pads were present, but no pins were soldered. The product listing had mentioned "with headers" but clearly, this batch was shipped without them.
 
-Rather than waiting for another return and shipment cycle, we contacted a local electronics repair shop near the university. For a small fee, they hand-soldered a 2x20 pin header onto the board. The quality was excellent, and the pins aligned perfectly.
+Rather than waiting for another return and shipment cycle, we contacted a local electronics repair shop near the university. For a small fee, they hand soldered a 2x20 pin header onto the board. The quality was excellent, and the pins aligned perfectly.
 
 \begin{designbox}[IoT Component Sourcing]
 \begin{itemize}

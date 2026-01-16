@@ -60,11 +60,11 @@ Tests were organized into five categories corresponding to major system capabili
 \section{Communication Performance}
 \label{sec:comm-performance}
 
-Communication tests measured the end to end latency and reliability of both the control channel (ESP-NOW) and the video channel (UDP streaming) \cite{becker2025espnowoutdoor,labib2021espnowiot}.
+Communication tests measured the end to end latency and reliability of both the control channel (ESP NOW) and the video channel (UDP streaming) \cite{becker2025espnowoutdoor,labib2021espnowiot}.
 
 \subsection{Command Latency Measurement}
 
-Command latency was measured by instrumenting both ends of the communication path. The host recorded the timestamp when a command was sent. The rover firmware logged receipt time and echoed it back in telemetry. The round trip time was divided by two to estimate one-way latency.
+Command latency was measured by instrumenting both ends of the communication path. The host recorded the timestamp when a command was sent. The rover firmware logged receipt time and echoed it back in telemetry. The round trip time was divided by two to estimate one way latency.
 
 \begin{table}[h!]
     \centering
@@ -132,7 +132,7 @@ Packet loss was measured by embedding sequence numbers in transmitted frames and
     \label{tab:packet-loss}
     \begin{tabular}{lcc}
         \toprule
-        \textbf{Distance} & \textbf{ESP-NOW Loss} & \textbf{UDP Loss} \\
+        \textbf{Distance} & \textbf{ESP NOW Loss} & \textbf{UDP Loss} \\
         \midrule
         5 meters   & 0.0\%  & 0.0\% \\
         10 meters  & 0.1\%  & 0.2\% \\
@@ -189,7 +189,7 @@ Low light conditions reduce frame rate because the camera increases exposure tim
     \label{fig:fps-timeseries}
 \end{figure}
 
-\subsection{JPEG Quality vs Size Trade-off}
+\subsection{JPEG Quality vs Size Trade off}
 
 The camera JPEG quality setting affects both image clarity and frame size. Smaller frames transmit faster but show compression artifacts.
 
@@ -357,7 +357,7 @@ Accuracy was measured using precision, recall, and mean Average Precision (mAP) 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.8\textwidth]{figures/charts/precision_recall_curve.png}
-    \caption{Precision-recall curves for each object class.}
+    \caption{Precision recall curves for each object class.}
     \label{fig:pr-curves}
 \end{figure}
 
@@ -383,7 +383,7 @@ Inference timing was measured on the Apple M1 MacBook Pro used as the host compu
     \end{tabular}
 \end{table}
 
-The 12ms mean inference time is fast enough to process every frame at 30 FPS with significant headroom. Running on CPU-only hardware would increase this to approximately 45ms, still acceptable for operation \cite{thrun2005probabilistic}.
+The 12ms mean inference time is fast enough to process every frame at 30 FPS with significant headroom. Running on CPU only hardware would increase this to approximately 45ms, still acceptable for operation \cite{thrun2005probabilistic}.
 
 % FIGURE: Inference Time Distribution
 \begin{figure}[h!]
@@ -521,7 +521,7 @@ The L298N runs hottest due to its bipolar transistor inefficiency. At 65°C the 
 \section{Cloud VLM Integration Challenges}
 \label{sec:cloud-vlm-challenges}
 
-The integration of the cloud-based Vision Language Model (Qwen2.5-VL via vLLM on Google Colab) revealed several unexpected challenges that required significant debugging effort. This section documents these failures as a reference for future work.
+The integration of the cloud based Vision Language Model (Qwen2.5-VL via vLLM on Google Colab) revealed several unexpected challenges that required significant debugging effort. This section documents these failures as a reference for future work.
 
 \subsection{vLLM Prompt Format Errors}
 
@@ -552,13 +552,13 @@ INFO: Shutting down
 INFO: Finished server process [1198]
 \end{verbatim}
 
-\textbf{Root Cause:} Colab runtimes have idle timeouts and GPU memory limits. Long-running cells can also be interrupted by Google's resource allocation policies.
+\textbf{Root Cause:} Colab runtimes have idle timeouts and GPU memory limits. Long running cells can also be interrupted by Google's resource allocation policies.
 
-\textbf{Mitigation:} No permanent fix is possible on the free tier. The workaround is to re-run the server cell when it stops. For production, a dedicated GPU instance (e.g., AWS EC2, RunPod) is recommended.
+\textbf{Mitigation:} No permanent fix is possible on the free tier. The workaround is to re run the server cell when it stops. For production, a dedicated GPU instance (e.g., AWS EC2, RunPod) is recommended.
 
 \subsection{Legacy Frontend Debugging}
 
-The pre-compiled React frontend displayed placeholder data instead of live telemetry.
+The pre compiled React frontend displayed placeholder data instead of live telemetry.
 
 \textbf{Investigation:} The minified JavaScript bundle made it impossible to inspect API call logic directly. Grep search revealed \texttt{http://} references but no clear endpoint paths.
 
@@ -578,10 +578,10 @@ The most severe issue encountered was a complete crash of the vLLM inference eng
 EngineDeadError: EngineCore encountered an issue
 \end{verbatim}
 
-\textbf{Root Cause:} The vLLM v1 engine (enabled by default in recent versions) exhibited instability when serving large multimodal models. Additionally, Qwen2.5-VL's default context length is 128k tokens. When vLLM allocates KV-cache for this context, it can exceed the available VRAM on even an A100 (40GB) or H100 (80GB) if not tuned.
+\textbf{Root Cause:} The vLLM v1 engine (enabled by default in recent versions) exhibited instability when serving large multimodal models. Additionally, Qwen2.5-VL's default context length is 128k tokens. When vLLM allocates KV cache for this context, it can exceed the available VRAM on even an A100 (40GB) or H100 (80GB) if not tuned.
 
 \begin{designbox}[The 128k Context Crash]
-When the Colab server first started, it crashed immediately with an out-of-memory error. The logs showed vLLM attempting to allocate cache for 131072 tokens. The fix was to set \texttt{max\_model\_len=8192}, which limits the KV-cache to a reasonable size for our short prompts. Since each rover query is under 200 tokens, we never hit this limit in practice.
+When the Colab server first started, it crashed immediately with an out of memory error. The logs showed vLLM attempting to allocate cache for 131072 tokens. The fix was to set \texttt{max\_model\_len=8192}, which limits the KV cache to a reasonable size for our short prompts. Since each rover query is under 200 tokens, we never hit this limit in practice.
 \end{designbox}
 
 \textbf{Solution Applied:}
@@ -592,7 +592,7 @@ import os
 os.environ["VLLM_USE_V1"] = "0"
 from vllm import LLM
     \end{lstlisting}
-    \item \textbf{Reduce KV-cache pressure:}
+    \item \textbf{Reduce KV cache pressure:}
     \begin{lstlisting}[language=Python]
 llm = LLM(
     model=MODEL_ID,
@@ -604,13 +604,13 @@ llm = LLM(
 
 \textbf{Result:} After applying these changes, the VLM responded correctly with valid JSON output. Measured performance: approximately 1 second per inference, with input processing at 2986 tokens/second and output generation at 52 tokens/second.
 
-\subsection{Serial Port Auto-Detection}
+\subsection{Serial Port Auto Detection}
 
 During early development, the RoverInterface required manual configuration of the serial port (e.g., \texttt{/dev/cu.usbserial-0001} on macOS). Different computers often had different port names, leading to setup friction.
 
-\textbf{Solution:} The \texttt{SerialManager} class now auto-detects the Gateway by scanning all serial ports for common USB-to-serial chip identifiers:
+\textbf{Solution:} The \texttt{SerialManager} class now auto detects the Gateway by scanning all serial ports for common USB to serial chip identifiers:
 
-\begin{lstlisting}[language=Python, caption={Serial Port Auto-Detection}]
+\begin{lstlisting}[language=Python, caption={Serial Port Auto Detection}]
 def find_port(self):
     ports = list(serial.tools.list_ports.comports())
     for p in ports:
@@ -635,7 +635,7 @@ Backtrace: 0x42002...
 
 \textbf{Root Cause:} The specific ESP32-S3 Arduino core version exhibited a memory leak in the UDP \texttt{write()} function when handling fragmented packets at high frequency.
 
-\textbf{Decision:} We transitioned to HTTP streaming. The native TCP flow control prevents the application from flooding the network stack, ensuring 100\% uptime during the demonstration. We accepted the latency trade-off to prioritize mission-critical reliability.
+\textbf{Decision:} We transitioned to HTTP streaming. The native TCP flow control prevents the application from flooding the network stack, ensuring 100\% uptime during the demonstration. We accepted the latency trade off to prioritize mission critical reliability.
 
 \begin{table}[h!]
     \centering

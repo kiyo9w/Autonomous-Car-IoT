@@ -22,7 +22,7 @@ Rescue environments present specific technical challenges that distinguish them 
 
 \textbf{Limited communications} result from building materials blocking radio signals and network infrastructure being damaged \cite{surmann2024lessons}. Systems must operate with degraded connectivity and handle intermittent link loss gracefully.
 
-\textbf{Power constraints} limit mission duration. Batteries add weight, reducing payload capacity. More energy-dense batteries add cost. A balance must be struck between runtime and portability.
+\textbf{Power constraints} limit mission duration. Batteries add weight, reducing payload capacity. More energy dense batteries add cost. A balance must be struck between runtime and portability.
 
 \textbf{Situational awareness} requires more than raw sensor data. Operators viewing a camera feed may struggle to maintain orientation in unfamiliar environments. AI assistance can help by interpreting scenes and highlighting relevant details.
 
@@ -59,7 +59,7 @@ This project aims to design and build a functional rescue rover prototype within
     
     \item \textbf{Telemetry monitoring}: Display battery voltage and connection status to the operator.
     
-    \item \textbf{Mission logging}: Record operator actions and AI observations for post-mission review.
+    \item \textbf{Mission logging}: Record operator actions and AI observations for post mission review.
 \end{enumerate}
 
 % FIGURE PLACEHOLDER
@@ -76,9 +76,9 @@ This project aims to design and build a functional rescue rover prototype within
 
 \subsection{What This Project Covers}
 
-This project encompasses the complete development cycle of an integrated robotic system. The work includes mechanical assembly from commercial chassis components, electrical integration of sensors and actuators, embedded firmware development for the ESP32-S3 microcontroller, Python application development for the host computer, and integration of pre-trained AI models for detection and scene understanding.
+This project encompasses the complete development cycle of an integrated robotic system. The work includes mechanical assembly from commercial chassis components, electrical integration of sensors and actuators, embedded firmware development for the ESP32-S3 microcontroller, Python application development for the host computer, and integration of pre trained AI models for detection and scene understanding.
 
-The project produces a functional prototype suitable for demonstration in controlled environments. All software is original except for standard libraries and pre-trained models.
+The project produces a functional prototype suitable for demonstration in controlled environments. All software is original except for standard libraries and pre trained models.
 
 \subsection{What This Project Does Not Cover}
 
@@ -88,11 +88,11 @@ Certain aspects lie outside the scope of this project due to time and resource c
 
 \textbf{Custom electronics}: No printed circuit boards were designed. All electronics use development boards and modules connected with jumper wires.
 
-\textbf{AI model training}: The computer vision model (YOLOv8) and vision language model (Qwen2.5-VL) use pre-trained weights. No custom training was performed.
+\textbf{AI model training}: The computer vision model (YOLOv8) and vision language model (Qwen2.5-VL) use pre trained weights. No custom training was performed.
 
 \textbf{Outdoor operation}: The prototype is designed for indoor environments on relatively flat surfaces. Outdoor terrain, weather protection, and GPS navigation are not addressed.
 
-\textbf{Multi-robot coordination}: The system operates as a single unit. Fleet management and cooperative behaviors are not implemented.
+\textbf{Multi robot coordination}: The system operates as a single unit. Fleet management and cooperative behaviors are not implemented.
 
 \subsection{Design Constraints}
 
@@ -125,7 +125,7 @@ The project follows an iterative development methodology with frequent testing. 
 
 \textbf{Phase 2 (Weeks 4-6): Hardware Assembly}. Assemble the chassis. Install motors and tracks. Wire power distribution and motor control circuits.
 
-\textbf{Phase 3 (Weeks 7-10): Firmware Development}. Implement camera streaming. Implement motor control. Implement ESP-NOW communication. Implement safety mechanisms.
+\textbf{Phase 3 (Weeks 7-10): Firmware Development}. Implement camera streaming. Implement motor control. Implement ESP NOW communication. Implement safety mechanisms.
 
 \textbf{Phase 4 (Weeks 11-13): Host Application Development}. Build the operator dashboard. Integrate video reception. Integrate serial communication. Integrate AI models.
 
@@ -173,7 +173,7 @@ Several research efforts and commercial products address similar problem domains
 
 Research platforms for rescue robotics often focus on specific capabilities rather than complete systems.
 
-\textbf{Quince} developed at Chiba Institute of Technology is a snake-like robot designed for confined space navigation \cite{nagatani2011quincefukushima}. Its segmented body can articulate around obstacles.
+\textbf{Quince} developed at Chiba Institute of Technology is a snake like robot designed for confined space navigation \cite{nagatani2011quincefukushima}. Its segmented body can articulate around obstacles.
 
 \textbf{Kenaf} from the same institute uses front flippers that assist in climbing rubble piles. The bipedal flipper mechanism allows transitions between tracked locomotion and climbing gaits.
 
@@ -196,7 +196,7 @@ This project makes several contributions to the intersection of embedded systems
     
     \item \textbf{Hybrid intelligence architecture}: The layered approach combining reactive firmware safety, tactical object detection, and strategic scene understanding is carefully documented.
     
-    \item \textbf{Budget optimization}: Component selection rationale and trade-off analysis help others build similar systems within tight budgets.
+    \item \textbf{Budget optimization}: Component selection rationale and trade off analysis help others build similar systems within tight budgets.
     
     \item \textbf{Reproducible documentation}: Complete wiring diagrams, pin mappings, and source code enable others to replicate the project.
 \end{enumerate}
