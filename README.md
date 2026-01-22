@@ -15,9 +15,9 @@
 
 | Name | Student ID | Role |
 |------|------------|------|
-| **Ngo Thanh Trung** | 1677469 | Team Leader / Firmware |
-| **Pham Thai Duong** | 1677593 | AI Engineer / Cloud Computing |
-| **Nguyen Duy Duc** | 1624838 | Hardware Design / Mechanics |
+| **Ngo Thanh Trung** | 1677469 | Team Leader / AI Engineer|
+| **Pham Thai Duong** | 1677593 | Hardware Design / Firmware|
+| **Nguyen Duy Duc** | 1624838 | Connection Design |
 | **Le Quang Huy** | 1677645 | Frontend / Dashboard Integration |
 
 ---
