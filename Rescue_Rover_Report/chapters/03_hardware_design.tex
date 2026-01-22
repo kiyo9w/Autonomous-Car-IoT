@@ -7,6 +7,9 @@
 This chapter describes the hardware components, electrical systems, and physical assembly of the Rescue Rover. The design prioritizes modularity, repairability, and use of readily available components. Each subsystem is documented with specifications, selection rationale, and integration considerations.
 
 % --------------------------------------------------------
+% --------------------------------------------------------
+% SECTION 3.1: DESIGN PHILOSOPHY
+% --------------------------------------------------------
 \section{Design Philosophy}
 \label{sec:design-philosophy}
 
@@ -14,76 +17,270 @@ The hardware design follows three guiding principles. First, all components must
 
 These constraints led us to select development boards over custom PCBs, through-hole components over surface mount where possible, and dupont wire connections over soldered joints for early prototypes.
 
-% FIGURE PLACEHOLDER
-\begin{figure}[h!]
+% FIGURE 3.1: ROVER PHOTO
+% Placed inside Section 3.1
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=\textwidth]{figures/hardware/rover_complete_photo.jpg}
-    \fbox{\parbox{\textwidth}{\centering\vspace{5cm}FIGURE: Complete Rover Photograph\\Top-down view showing all components mounted on chassis\vspace{5cm}}}
+    \includegraphics[width=\textwidth]{figures/hardware/rover_complete_photo.png}
     \caption{Fully assembled Rescue Rover showing the ESP32-S3 camera module, motor driver, battery, and chassis.}
     \label{fig:rover-complete}
 \end{figure}
 
+\subsection{Bill of Materials}
+
+Table~\ref{tab:bom} presents the complete bill of materials with actual procurement costs in Vietnamese Dong (VND). The total hardware budget came to approximately 850,000₫, equivalent to roughly \$35 USD at the time of purchase. All components were sourced from domestic e-commerce platforms.
+
+\begin{table}[H]
+    \centering
+    \caption{Bill of Materials with Procurement Costs}
+    \label{tab:bom}
+    \begin{tabular}{p{5cm}lrr}
+        \toprule
+        \textbf{Component} & \textbf{Quantity} & \textbf{Unit (₫)} & \textbf{Total (₫)} \\
+        \midrule
+        \multicolumn{4}{l}{\textit{Processing \& Control}} \\
+        ESP32-S3 Sense N16R8 (Camera)  & 1 & 163,800 & 163,800 \\
+        ESP32 DevKit (Gateway)         & 1 & 109,998 & 109,998 \\
+        \midrule
+        \multicolumn{4}{l}{\textit{Motor System}} \\
+        L298N Motor Driver             & 1 & 48,398  & 48,398 \\
+        BO Motors + Wheels (4WD Kit)   & 1 & 80,237  & 80,237 \\
+        \midrule
+        \multicolumn{4}{l}{\textit{Power}} \\
+        Samsung 20R 18650 Battery      & 2 & 37,025  & 74,050 \\
+        18650 Holder (2S Series)       & 1 & 36,058  & 36,058 \\
+        LM2596 Buck Converter (5V/3A)  & 1 & 16,748  & 16,748 \\
+        \midrule
+        \multicolumn{4}{l}{\textit{Sensors \& Peripherals}} \\
+        HC-SR04 Ultrasonic Sensor      & 1 & 38,449  & 38,449 \\
+        MicroSD Card 16GB              & 1 & 92,198  & 92,198 \\
+        \midrule
+        \multicolumn{4}{l}{\textit{Mechanical}} \\
+        4WD Chassis (Aluminum U-frame) & 1 & 93,450  & 93,450 \\
+        \midrule
+        \multicolumn{4}{l}{\textit{Wiring \& Consumables}} \\
+        Dupont Wires F-F 40P           & 1 & 14,866  & 14,866 \\
+        Capacitors 1000µF 16V          & 2 & 18,129  & 36,258 \\
+        Resistors (assorted)           & 1 & 10,000  & 10,000 \\
+        \midrule
+        \multicolumn{4}{l}{\textit{Repairs \& Spares}} \\
+        Replacement OV2640 Camera      & 1 & 80,000  & 80,000 \\
+        Local Soldering Service        & 1 & 50,000  & 50,000 \\
+        \midrule
+        \multicolumn{2}{r}{\textbf{TOTAL}} & & \textbf{$\approx$ 944,500₫} \\
+        \multicolumn{2}{r}{\textit{(Approx. USD)}} & & \textit{$\approx$ \$39} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The "Repairs \& Spares" category documents the hidden cost of hardware procurement challenges. As detailed in Chapter~\ref{chap:firmware}, we went through multiple failed ESP32-S3-CAM purchases—wrong product variants, dead-on-arrival camera modules, and boards without header pins—before obtaining working hardware. The replacement camera and soldering service represent the cost of resolving these issues.
+
+% --------------------------------------------------------
+% SECTION 3.2: CHASSIS DESIGN
 % --------------------------------------------------------
 \section{Chassis Design}
 \label{sec:chassis-design}
 
-The chassis provides the structural foundation for all electronic components. We selected a commercially available tracked chassis platform rather than designing a custom frame. This decision saved significant development time while providing a proven mechanical platform.
+The chassis provides the structural foundation for all electronic components. We selected a commercially available \textbf{4-wheel drive (4WD)} chassis platform rather than designing a custom frame \cite{hoffman2019polarrover}. This decision saved significant development time while providing a proven mechanical platform for the rover.
 
+% SUBSECTION 3.2.1: PLATFORM SELECTION
 \subsection{Platform Selection}
 
-The selected chassis is a two-tracked tank-style platform with aluminum frame and plastic track segments. The tracked design was chosen over wheeled alternatives because tracks provide better traction on debris and can navigate over small obstacles that would stop wheels.
+The selected chassis is a \textbf{dual-layer acrylic smart car platform}. Unlike the tracked tank-style alternatives initially considered, this wheeled design was chosen for its kinematic simplicity, higher top speed on flat surfaces, and easier maintenance. The acrylic construction allows for rapid modification and flexible component mounting.
 
 \begin{table}[h!]
     \centering
-    \caption{Chassis specifications}
+    \caption{Chassis specifications (4WD Wheel Platform)}
     \label{tab:chassis-specs}
     \begin{tabular}{ll}
         \toprule
         \textbf{Parameter} & \textbf{Value} \\
         \midrule
-        Dimensions (L x W x H) & 150mm x 120mm x 45mm \\
-        Weight (chassis only)  & 280g \\
-        Material               & Aluminum frame, ABS tracks \\
-        Track width            & 25mm \\
-        Ground clearance       & 15mm \\
-        Maximum load capacity  & 1.5 kg \\
-        Motor mount            & Integrated DC motor brackets \\
+        Drive System & 4-Wheel Drive (Independent DC Motors) \\
+        Dimensions (L x W) & 255mm x 150mm (Chassis Plate) \\
+        Full Width & $\approx$ 210mm (with wheels) \\
+        Material & Laser-cut Acrylic \\
+        Wheel Diameter & 65mm (Rubber tires) \\
+        Motor Type & 1:48 Gear Ratio TT Motors \\
         \bottomrule
     \end{tabular}
 \end{table}
 
-% FIGURE PLACEHOLDER
-\begin{figure}[h!]
+% FIGURE 3.2: CHASSIS DIMENSIONS
+% Placed inside Subsection 3.2.1
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/hardware/chassis_dimensions.png}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3.5cm}FIGURE: Chassis Dimensions Drawing\\Technical drawing with all measurements labeled\vspace{3.5cm}}}
-    \caption{Chassis dimensional drawing showing mounting hole positions and overall dimensions.}
+    \begin{tikzpicture}[scale=0.04] 
+        % Definitions
+        \def\chassisL{255} 
+        \def\chassisW{150} 
+        \def\wheelL{65}    
+        \def\wheelW{26}    
+
+        % Styles
+        \tikzstyle{dim} = [draw, <->, >=latex, thin, black]
+        \tikzstyle{line} = [draw, thick, black]
+        \tikzstyle{part} = [fill=gray!10, draw=black, thick]
+        \tikzstyle{wheel} = [fill=yellow!80!orange, draw=black, thick, rounded corners=2pt]
+
+        % Chassis
+        \draw[part, rounded corners=5pt] (-\chassisL/2, -\chassisW/2) rectangle (\chassisL/2, \chassisW/2);
+        \foreach \x in {-80, -40, 0, 40, 80} {
+            \draw[fill=white] (\x, -10) rectangle (\x+10, 10);
+        }
+
+        % Wheels
+        \draw[wheel] (-\chassisL/2 + 20, \chassisW/2 + 2) rectangle ++(\wheelL, \wheelW);
+        \draw[wheel] (-\chassisL/2 + 20, -\chassisW/2 - 2 - \wheelW) rectangle ++(\wheelL, \wheelW);
+        \draw[wheel] (\chassisL/2 - 20 - \wheelL, \chassisW/2 + 2) rectangle ++(\wheelL, \wheelW);
+        \draw[wheel] (\chassisL/2 - 20 - \wheelL, -\chassisW/2 - 2 - \wheelW) rectangle ++(\wheelL, \wheelW);
+
+        % Dimensions
+        \draw[dim] (-\chassisL/2, -\chassisW/2 - 45) -- (\chassisL/2, -\chassisW/2 - 45) node[midway, fill=white] {255 mm};
+        \draw[line, thin, gray] (-\chassisL/2, -\chassisW/2) -- (-\chassisL/2, -\chassisW/2 - 50);
+        \draw[line, thin, gray] (\chassisL/2, -\chassisW/2) -- (\chassisL/2, -\chassisW/2 - 50);
+        \draw[dim] (\chassisL/2 + 20, -\chassisW/2 - \wheelW - 2) -- (\chassisL/2 + 20, \chassisW/2 + \wheelW + 2) node[midway, fill=white, rotate=90] {$\approx$ 210 mm};
+        \draw[dim] (-\chassisL/2 - 20, -\chassisW/2) -- (-\chassisL/2 - 20, \chassisW/2) node[midway, fill=white, rotate=90] {150 mm};
+        \draw[dim] (-\chassisL/2 + 20, \chassisW/2 + 35) -- (-\chassisL/2 + 20 + \wheelL, \chassisW/2 + 35) node[midway, fill=white, font=\footnotesize] {$\varnothing$ 65 mm};
+
+    \end{tikzpicture}
+    \caption{Top-down dimensional schematic of the 4WD Rover chassis. The platform utilizes a double-layer acrylic frame with four independently driven DC geared motors.}
     \label{fig:chassis-dimensions}
 \end{figure}
 
-\subsection{Track Configuration}
+% SUBSECTION 3.2.2: WHEEL AND DRIVE ASSEMBLY
+\subsection{Wheel and Drive Assembly}
+\label{sec:drive-assembly}
 
-The tracks use a timing belt design with tensioning idlers at each end. Tension is adjustable through slotted mounting holes. Proper tension is critical for reliable operation. Too loose and the track slips under load. Too tight and motor current increases significantly.
+Instead of the complex track tensioning system initially proposed, the rover utilizes a direct-drive configuration. Each of the four wheels is mounted directly to the output shaft of a DC gear motor. The system uses standard "TT" style motors with a 1:48 gear ratio. The wheels ($65\text{mm}$ diameter) feature a solid plastic rim with a rubber tire for traction. Torque is transferred via a double-flat mechanical interface that prevents the wheel from slipping on the motor shaft, eliminating the need for belts or tensioners.
 
-% FIGURE PLACEHOLDER
-\begin{figure}[h!]
+% FIGURE 3.3: MOTOR DETAIL
+% Placed inside Subsection 3.2.2
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/hardware/track_detail.jpg}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}FIGURE: Track Detail Photograph\\Close-up showing track teeth, drive sprocket, and tensioner\vspace{3cm}}}
-    \caption{Track assembly detail showing the drive sprocket, track segments, and tension adjustment mechanism.}
-    \label{fig:track-detail}
+    \begin{tikzpicture}[scale=0.05, >=latex]
+
+        % Styles
+        \tikzstyle{motor} = [draw=black, thick, fill=yellow!90!orange, rounded corners=2pt]
+        \tikzstyle{tire} = [draw=black, fill=black!80, thick]
+        \tikzstyle{rim} = [draw=black, fill=yellow!90!orange, thick]
+        \tikzstyle{shaft} = [draw=black, fill=white]
+        \tikzstyle{label} = [midway, fill=white, font=\footnotesize]
+        \tikzstyle{dim} = [draw, <->, thin, black]
+
+        % Definitions
+        \def\motorL{70}
+        \def\motorH{22}
+        \def\wheelDia{65}
+        \def\wheelW{26}
+
+        % Drawing
+        \draw[motor] (0, 0) -- (0, \motorH) -- (\motorL-10, \motorH) -- (\motorL, \motorH/2) -- (\motorL-10, 0) -- cycle;
+        \draw[motor] (-5, 5) rectangle (0, \motorH-5);
+        \node at (\motorL/2, \motorH/2) [font=\bfseries\tiny, align=center] {DC Gear Motor\\(1:48 Ratio)};
+
+        \draw[shaft] (\motorL-15, \motorH/2 - 2) rectangle (\motorL+5, \motorH/2 + 2);
+
+        \begin{scope}[shift={(\motorL+8, \motorH/2)}]
+            \draw[tire] (0, \wheelDia/2) rectangle (\wheelW, \wheelDia/2 + 3); 
+            \draw[tire] (0, -\wheelDia/2) rectangle (\wheelW, -\wheelDia/2 - 3); 
+            \draw[rim] (0, -\wheelDia/2) rectangle (\wheelW/3, \wheelDia/2); 
+            \draw[rim] (\wheelW/3, -25) rectangle (\wheelW, 25); 
+            \draw[fill=white] (0, -2) rectangle (\wheelW/3 + 2, 2);
+        \end{scope}
+
+        % Dimensions
+        \draw[dim] (\motorL+45, \motorH/2 - \wheelDia/2 - 3) -- (\motorL+45, \motorH/2 + \wheelDia/2 + 3) node[label, rotate=90] {$\varnothing 65$ mm};
+        \draw[dim] (0, -10) -- (\motorL, -10) node[label] {Length $\approx$ 70 mm};
+
+        % Annotations
+        \draw[<-] (\motorL+8, \motorH/2 + 20) -- ++(-10, 20) node[anchor=south] {Wheel Hub};
+        \draw[<-] (\motorL+25, \motorH/2 + 34) -- ++(10, 20) node[anchor=south] {Rubber Tire};
+        \draw[<-] (\motorL-2, \motorH/2 + 5) -- ++(-10, 15) node[anchor=south east, align=right] {Output Shaft\\(Dual-shaft)};
+
+    \end{tikzpicture}
+    \caption{Drive assembly detail. The 1:48 ratio DC Gear Motor (left) couples directly to the 65mm wheel (right). The yellow plastic rim is press-fitted onto the motor output shaft.}
+    \label{fig:drive-detail}
 \end{figure}
 
 \subsection{Component Mounting}
-
-Electronic components are mounted to the chassis using nylon standoffs and M3 screws. This approach allows easy removal for debugging and replacement. Components are arranged to balance weight distribution between the front and rear axles.
+Electronic components are secured to the acrylic chassis to ensure stability during operation. The main PCB modules, such as the ESP32-S3 and the L298N motor driver, are mounted using \textbf{nylon standoffs and M3 screws}. This provides electrical isolation from the chassis and allows for easy removal. The prototyping breadboard is secured using a strong double-sided adhesive pad. Components are arranged longitudinally to distribute weight evenly between the front and rear axles, placing the heavier battery pack at the rear to counterbalance the camera and sensor array at the front.
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=\textwidth]{figures/hardware/component_layout.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{4cm}FIGURE: Component Layout Diagram\\Top-down view showing positions of ESP32-S3, L298N, battery, ultrasonic sensor\vspace{4cm}}}
-    \caption{Component layout showing the physical arrangement of electronics on the chassis.}
+    % FIX: Set x and y vectors to 1mm so "255" = 25.5cm, not 2.55 meters.
+    % FIX: Scale 0.6 fits it nicely on a standard page width.
+    \begin{tikzpicture}[x=1mm, y=1mm, scale=0.5, >=latex, font=\footnotesize]
+
+        % --- STYLES ---
+        % FIX: Added 'align=center' to all nodes to allow line breaks (\\)
+        \tikzstyle{chassis} = [draw=gray, thick, fill=gray!5, rounded corners=5pt]
+        \tikzstyle{pcb_esp} = [draw=black, fill=green!20!white, thick, align=center]
+        \tikzstyle{pcb_driver} = [draw=black, fill=red!20!white, thick, align=center]
+        \tikzstyle{breadboard} = [draw=black, fill=white, thick, align=center] % Removed pattern to prevent errors
+        \tikzstyle{sensor} = [draw=black, fill=blue!20!white, thick, align=center]
+        \tikzstyle{battery} = [draw=black, fill=orange!20!white, thick, align=center]
+        \tikzstyle{wire} = [draw=blue!70!black, thick, ->]
+        \tikzstyle{label_node} = [fill=white, draw=black, thin, inner sep=2pt, align=center]
+
+        % --- DEFINITIONS ---
+        \def\cL{255} % Chassis Length (now interpreted as mm)
+        \def\cW{150} % Chassis Width (now interpreted as mm)
+
+        % --- CHASSIS BASE ---
+        \draw[chassis] (-\cW/2, -\cL/2) rectangle (\cW/2, \cL/2);
+        \node at (0, \cL/2 + 10) {\textbf{FRONT}};
+        \node at (0, -\cL/2 - 10) {\textbf{REAR}};
+
+        % --- COMPONENTS ---
+
+        % 1. Ultrasonic Sensor (Front)
+        \node[sensor, minimum width=45, minimum height=20, anchor=north] (us) at (0, \cL/2 - 5) {HC-SR04};
+        % Add "eyes"
+        \draw[fill=gray!50] (-12, \cL/2 - 15) circle (6);
+        \draw[fill=gray!50] (12, \cL/2 - 15) circle (6);
+
+        % 2. ESP32-S3 Camera Module (Behind sensor)
+        \node[pcb_esp, minimum width=50, minimum height=35, anchor=north] (esp) at (0, \cL/2 - 35) {ESP32-S3\\(Camera)};
+        % Add lens indication
+        \draw[fill=black] (0, \cL/2 - 42) circle (4);
+
+        % 3. Breadboard (Middle)
+        \node[breadboard, minimum width=85, minimum height=55] (bb) at (0, 10) {Mini Breadboard\\(Signal Dist.)};
+
+        % 4. L298N Motor Driver (Behind breadboard)
+        \node[pcb_driver, minimum width=45, minimum height=45, anchor=north] (driver) at (0, -25) {L298N\\Driver};
+        % Add heatsink graphic
+        \foreach \x in {-15, -5, 5, 15} \draw[gray, thick] (\x, -35) -- (\x, -55);
+
+        % 5. Battery Pack (Rear)
+        \node[battery, minimum width=75, minimum height=40, anchor=south] (batt) at (0, -\cL/2 + 10) {Battery Pack\\(2x 18650)};
+        % Add terminals
+        \node at (-30, -\cL/2 + 30) {\textbf{+}};
+        \node at (30, -\cL/2 + 30) {\textbf{-}};
+
+        % --- LOGICAL CONNECTIONS (Schematic Wires) ---
+        % Sensor to ESP
+        \draw[wire] (us.south) -- (esp.north);
+        % ESP to Breadboard
+        \draw[wire] (esp.south) -- (bb.north);
+        % Breadboard to Driver (Control signals)
+        \draw[wire] (bb.south) -- (driver.north);
+        
+        % Battery to Driver (Power)
+        % Note: Adjusted 'out' angle slightly to be smoother
+        \draw[wire, draw=red!80!black] (batt.north west) to[out=110, in=180] (driver.west);
+        
+        % Battery to ESP (Power via regulator/breadboard)
+        \draw[wire, draw=red!80!black] (batt.north east) to[out=70, in=0] (bb.east);
+
+        % Motor outputs (schematic)
+        \draw[wire, draw=black, thick] (driver.east) -- ++(30,0) -- ++(0, 80) node[above, align=center] {To Front\\Motors};
+        \draw[wire, draw=black, thick] (driver.west) -- ++(-30,0) -- ++(0, -80) node[below, align=center] {To Rear\\Motors};
+
+    \end{tikzpicture}
+    \caption{Schematic top-down view of the component layout. The ultrasonic sensor and camera are positioned at the front for unobstructed sensing. The heavier battery pack is placed at the rear to balance the center of gravity. Power and signal lines are shown logically.}
     \label{fig:component-layout}
 \end{figure}
 
@@ -91,13 +288,13 @@ Electronic components are mounted to the chassis using nylon standoffs and M3 sc
 \section{Main Controller: ESP32-S3}
 \label{sec:esp32-controller}
 
-The ESP32-S3 serves as the central processing unit for the rover. This chip was selected for its combination of processing power, wireless capabilities, camera interface, and extensive Arduino ecosystem support.
+The ESP32-S3 serves as the central processing unit for the rover \cite{esp32s3trm}. This chip was selected for its combination of processing power, wireless capabilities, camera interface, and extensive Arduino ecosystem support \cite{oner2021developing}.
 
 \subsection{Chip Specifications}
 
 The ESP32-S3 is Espressif's third generation WiFi/Bluetooth microcontroller. It features dual Xtensa LX7 cores running at up to 240 MHz, significantly more powerful than the original ESP32.
 
-\begin{table}[h!]
+\begin{table}[H]
     \centering
     \caption{ESP32-S3 technical specifications}
     \label{tab:esp32-specs}
@@ -120,10 +317,9 @@ The ESP32-S3 is Espressif's third generation WiFi/Bluetooth microcontroller. It 
 \end{table}
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/hardware/esp32s3_module_photo.jpg}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}FIGURE: ESP32-S3 Module Photograph\\Shows the development board with camera connector and USB-C port\vspace{3cm}}}
+    \includegraphics[width=0.7\textwidth]{figures/hardware/esp32s3_module_photo.jpeg}
     \caption{ESP32-S3 WROOM development board used in the Rescue Rover.}
     \label{fig:esp32-module}
 \end{figure}
@@ -132,7 +328,7 @@ The ESP32-S3 is Espressif's third generation WiFi/Bluetooth microcontroller. It 
 
 Several ESP32-S3 development boards were evaluated. The Freenove ESP32-S3 WROOM was selected for its integrated camera connector, adequate PSRAM, and reasonable price point. Other options considered included the official Espressif DevKitC and the AI-Thinker ESP32-S3 CAM.
 
-\begin{table}[h!]
+\begin{table}[H]
     \centering
     \caption{ESP32-S3 development board comparison}
     \label{tab:board-comparison}
@@ -153,11 +349,81 @@ Several ESP32-S3 development boards were evaluated. The Freenove ESP32-S3 WROOM 
 The ESP32-CAM was rejected despite its lower cost because of severe GPIO limitations. Many pins are shared between the camera, SD card, and flash, leaving insufficient pins for motor control and sensors.
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+% FIGURE: BOARD COMPARISON
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=\textwidth]{figures/hardware/board_comparison.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{3.5cm}FIGURE: Development Board Comparison\\Side-by-side photos of evaluated boards with GPIO counts labeled\vspace{3.5cm}}}
-    \caption{Comparison of evaluated development boards showing physical differences and GPIO availability.}
+    \begin{tikzpicture}[scale=0.8, transform shape, font=\sffamily\footnotesize]
+
+        % Styles
+        \tikzstyle{pcb} = [draw=black!80, fill=black!90, rounded corners=3pt]
+        \tikzstyle{metal} = [draw=gray!50, fill=gray!30]
+        \tikzstyle{conn} = [draw=white, fill=white!90!gray]
+        \tikzstyle{usbc} = [draw=gray!40, fill=black, rounded corners=2pt]
+        \tikzstyle{label} = [text=white, font=\bfseries\tiny, align=center]
+        
+        % --- LEFT: FREENOVE S3 (SELECTED) ---
+        \begin{scope}[shift={(0,0)}]
+            % PCB Outline
+            \draw[pcb] (0,0) rectangle (4.0, 7.5);
+            
+            % ESP32-S3 Module
+            \draw[metal] (0.5, 4.5) rectangle (3.5, 7.0);
+            \node[text=black, font=\bfseries\scriptsize, align=center] at (2.0, 5.75) {ESP32-S3\\WROOM};
+
+            % FPC Camera Connector (The distinctive white bar)
+            \draw[conn] (0.8, 3.8) rectangle (3.2, 4.2);
+            \draw[black, fill=black] (0.9, 3.8) rectangle (3.1, 3.9); % Latch
+            \node[text=white, font=\tiny] at (2.0, 4.4) {FPC Camera Port};
+
+            % Dual USB-C Ports (Bottom)
+            \draw[usbc] (0.6, -0.2) rectangle (1.6, 0.4); % UART
+            \draw[metal] (0.7, -0.2) rectangle (1.5, 0.3); % Metal casing
+            \node[text=white, font=\tiny, align=center] at (1.1, 0.6) {USB\\UART};
+
+            \draw[usbc] (2.4, -0.2) rectangle (3.4, 0.4); % OTG
+            \draw[metal] (2.5, -0.2) rectangle (3.3, 0.3); % Metal casing
+            \node[text=white, font=\tiny, align=center] at (2.9, 0.6) {USB\\Native};
+
+            % Header Pins
+            \foreach \y in {1.2, 1.5, ..., 6.5} {
+                \draw[fill=yellow!80!black] (0.2, \y) circle (0.08);
+                \draw[fill=yellow!80!black] (3.8, \y) circle (0.08);
+            }
+
+            % Buttons (Boot/Rst)
+            \draw[fill=white] (1.8, 1.5) circle (0.15); \node[text=white, font=\tiny] at (1.8, 1.8) {BT};
+            \draw[fill=white] (2.2, 1.5) circle (0.15); \node[text=white, font=\tiny] at (2.2, 1.8) {RST};
+
+            % Label
+            \node[label, text=green!50] at (2.0, -1.0) {SELECTED:\\Freenove S3};
+        \end{scope}
+
+        % --- RIGHT: STANDARD DEVKIT (REJECTED) ---
+        \begin{scope}[shift={(6,0)}]
+            % PCB Outline
+            \draw[pcb, fill=black!60] (0,0) rectangle (3.5, 7.0);
+            
+            % Module
+            \draw[metal] (0.5, 4.0) rectangle (3.0, 6.5);
+            \node[text=black, font=\bfseries\tiny] at (1.75, 5.25) {Generic ESP32};
+
+            % NO Camera Port (Crossed out area)
+            \draw[red, dashed, thick] (0.5, 3.0) rectangle (3.0, 3.5);
+            \node[text=red!30, font=\tiny, align=center] at (1.75, 3.25) {No Camera\\Interface};
+
+            % Single Micro-USB
+            \draw[metal] (1.25, -0.1) rectangle (2.25, 0.4);
+            \node[text=white, font=\tiny] at (1.75, 0.6) {Micro-USB};
+
+            % Label
+            \node[label, text=red!50] at (1.75, -1.0) {REJECTED:\\Standard DevKit};
+        \end{scope}
+
+        % --- COMPARISON ARROWS ---
+        \draw[->, thick, green!70!black] (3.3, 4.0) -- (5.0, 4.0) node[midway, above, font=\tiny] {Critical Feature};
+
+    \end{tikzpicture}
+    \caption{Comparison of development boards. The Freenove S3 (left) was selected for its dedicated FPC camera connector and dual USB-C interfaces, features absent on standard development boards (right).}
     \label{fig:board-comparison}
 \end{figure}
 
@@ -175,7 +441,7 @@ The camera provides the rover's primary sensing capability. Visual data is used 
 
 \subsection{OV2640 Sensor}
 
-The OV2640 is a 2-megapixel CMOS image sensor commonly used in embedded vision applications. It connects to the ESP32-S3 through the DVP (Digital Video Port) parallel interface.
+The OV2640 is a 2-megapixel CMOS image sensor commonly used in embedded vision applications \cite{omnivision2006ov2640}. It connects to the ESP32-S3 through the DVP (Digital Video Port) parallel interface.
 
 \begin{table}[h!]
     \centering
@@ -201,64 +467,145 @@ The OV2640 is a 2-megapixel CMOS image sensor commonly used in embedded vision a
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.5\textwidth]{figures/hardware/ov2640_module.jpg}
-    \fbox{\parbox{0.5\textwidth}{\centering\vspace{2.5cm}FIGURE: OV2640 Camera Module\\Shows the module with lens and ribbon cable\vspace{2.5cm}}}
+    \includegraphics[width=0.5\textwidth]{figures/hardware/ov2640_module.jpeg}
     \caption{OV2640 camera module showing the lens assembly and 24-pin FPC connector.}
     \label{fig:ov2640-module}
 \end{figure}
 
 \subsection{Resolution Selection}
-
-The firmware configures the camera for QVGA (320 x 240) resolution rather than higher settings. This choice balances image quality against bandwidth and processing requirements. Higher resolutions would exceed UDP packet size limits and require frame fragmentation.
+The firmware configures the OV2640 sensor for **QVGA ($320 \times 240$)** resolution. This specific setting was chosen as the optimal trade-off point. While the sensor supports up to UXGA ($1600 \times 1200$), resolutions above QVGA generate JPEG payloads that exceed the standard Ethernet MTU (1500 bytes), requiring complex UDP packet fragmentation and reassembly which increases latency.
 
 \begin{table}[h!]
     \centering
-    \caption{Resolution trade-offs}
+    \caption{Resolution bandwidth trade-offs (OV2640 JPEG)}
     \label{tab:resolution-tradeoffs}
-    \begin{tabular}{lcccc}
+    \begin{tabular}{p{3.5cm}ccp{3.0cm}p{3.0cm}}
         \toprule
-        \textbf{Resolution} & \textbf{Pixels} & \textbf{JPEG Size} & \textbf{UDP OK} & \textbf{Selected} \\
+        \textbf{Resolution} & \textbf{Pixel Count} & \textbf{Avg Size} & \textbf{UDP Efficiency} & \textbf{Status} \\
         \midrule
-        QQVGA (160x120) & 19,200    & 2-5 KB   & Yes & No (too small) \\
-        QVGA (320x240)  & 76,800    & 5-15 KB  & Yes & Yes \\
-        VGA (640x480)   & 307,200   & 20-50 KB & No  & No \\
-        SVGA (800x600)  & 480,000   & 40-80 KB & No  & No \\
+        QQVGA ($160\times120$) & 19,200    & 2-4 KB   & High (1 pkt) & Rejected (Low Detail) \\
+        \textbf{QVGA ($320\times240$)}  & \textbf{76,800}    & \textbf{6-12 KB}  & \textbf{Medium (4-8 pkts)} & \textbf{Selected} \\
+        VGA ($640\times480$)   & 307,200   & 25-40 KB & Low (20+ pkts)  & Rejected (High Latency) \\
+        SVGA ($800\times600$)  & 480,000   & 50-80 KB & Very Low  & Rejected \\
         \bottomrule
     \end{tabular}
 \end{table}
 
-% FIGURE PLACEHOLDER
+% FIGURE: RESOLUTION COMPARISON
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=\textwidth]{figures/hardware/resolution_comparison.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{3.5cm}FIGURE: Resolution Comparison\\Sample frames at each resolution showing detail levels\vspace{3.5cm}}}
-    \caption{Visual comparison of different camera resolutions showing the quality versus size trade-off.}
+    % FIX: Set x and y to 0.2mm. 640 * 0.2mm = 128mm (12.8cm), which fits on the page.
+    \begin{tikzpicture}[x=0.2mm, y=0.2mm, font=\sffamily\small]
+        
+        % Styles
+        \tikzstyle{frame} = [draw=black, thick, fill=blue!5]
+        \tikzstyle{label} = [fill=white, inner sep=2pt, draw=black!50]
+
+        % VGA Frame (Reference Background)
+        \draw[frame, fill=gray!10, dashed] (0,0) rectangle (640, 480);
+        \node[anchor=north east] at (640, 480) {VGA ($640 \times 480$)};
+        \node at (320, 400) [text=gray] {Too large for low-latency UDP};
+
+        % QVGA Frame (Selected)
+        \draw[frame, fill=green!10, draw=green!50!black, very thick] (0,0) rectangle (320, 240);
+        \node[anchor=north east, text=green!50!black, font=\bfseries] at (320, 240) {QVGA ($320 \times 240$)};
+        \node[align=center, text=green!50!black] at (160, 120) {\textbf{SELECTED}\\Balanced Detail/Size};
+
+        % QQVGA Frame (Too Small)
+        \draw[frame, fill=red!10, draw=red!50!black] (0,0) rectangle (160, 120);
+        \node[anchor=north east, text=red!50!black] at (160, 120) {QQVGA};
+        \node[text=red!50!black, font=\tiny] at (80, 60) {Too Small};
+
+    \end{tikzpicture}
+    \caption{Relative frame size comparison. The selected QVGA resolution (green) offers 4x the pixel data of QQVGA while remaining significantly smaller than VGA, fitting within the bandwidth constraints of the ESP32.}
     \label{fig:resolution-comparison}
 \end{figure}
 
-\subsection{Lens and Field of View}
+\subsection{Lens and Optical Configuration}
+The system utilizes the standard lens provided with the OV2640 module. This lens features a **$65^\circ$ horizontal field of view (FOV)**. While narrower than fisheye alternatives ($120^\circ+$), this standard lens provides rectilinear images with minimal distortion, simplifying the object detection algorithms. The blind spot immediately in front of the bumper is compensated for by the downward tilt of the mounting bracket.
 
-The camera module uses a wide-angle lens with approximately 120 degree horizontal field of view. Wide angle coverage is important for obstacle detection at close range. A narrow lens would create blind spots immediately in front of the rover.
-
-% FIGURE PLACEHOLDER
+% FIGURE: FOV DIAGRAM
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/hardware/camera_fov.png}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}FIGURE: Camera Field of View Diagram\\Top-down view showing FOV cone relative to rover body\vspace{3cm}}}
-    \caption{Camera field of view coverage showing the visibility area in front of the rover.}
+    \begin{tikzpicture}[scale=0.15, >=latex, font=\sffamily\footnotesize]
+
+        % Rover Body (Top View)
+        \draw[fill=gray!20, draw=black, thick] (-7.5, -10) rectangle (7.5, 0);
+        \node at (0, -5) {ROVER BODY};
+        
+        % Camera Position
+        \node[circle, fill=black, inner sep=1.5pt] (cam) at (0, 0) {};
+        \node[above] at (0,0.5) {Camera};
+
+        % FOV Cone (65 degrees)
+        \draw[blue, thick, dashed] (0,0) -- (65:25);
+        \draw[blue, thick, dashed] (0,0) -- (115:25);
+        
+        % Fill visible area
+        \fill[blue, opacity=0.1] (0,0) -- (65:25) arc (65:115:25) -- cycle;
+
+        % Labels
+        \draw[<->, thick] (0, 15) arc (90:65:15) node[midway, below] {$32.5^\circ$};
+        \draw[<->, thick] (0, 15) arc (90:115:15) node[midway, below] {$32.5^\circ$};
+        \node[fill=white] at (0, 20) {Total FOV $\approx 65^\circ$};
+
+        % Blind Spots
+        \fill[red, opacity=0.2] (-15,0) rectangle (-2, 10);
+        \node[red!70!black, rotate=45] at (-10, 5) {Blind Spot};
+        
+        \fill[red, opacity=0.2] (15,0) rectangle (2, 10);
+        \node[red!70!black, rotate=-45] at (10, 5) {Blind Spot};
+
+    \end{tikzpicture}
+    \caption{Field of View (FOV) coverage diagram. The standard lens provides a $65^\circ$ viewing cone. Areas outside this cone (red) are blind spots requiring the rover to rotate for full situational awareness.}
     \label{fig:camera-fov}
 \end{figure}
 
 \subsection{Camera Mounting}
+The camera module is secured to the front chassis using a custom 3D-printed bracket. The mount is designed with a fixed **$15^\circ$ downward tilt**. This angle ensures that the ground is visible starting approximately $10\text{cm}$ from the front bumper, allowing the rover to detect small obstacles on the floor while maintaining visibility of the horizon.
 
-The camera is mounted at the front of the chassis, tilted downward by approximately 15 degrees. This angle provides visibility of both the immediate ground surface and obstacles at medium distance. The mount uses a 3D printed bracket that allows angle adjustment.
-
-% FIGURE PLACEHOLDER
+% FIGURE: MOUNTING SIDE VIEW
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.6\textwidth]{figures/hardware/camera_mount.jpg}
-    \fbox{\parbox{0.6\textwidth}{\centering\vspace{3cm}FIGURE: Camera Mount Detail\\Shows 3D printed bracket and tilt angle\vspace{3cm}}}
-    \caption{Camera mounting bracket showing the tilt angle and attachment method.}
+    \begin{tikzpicture}[scale=0.2, font=\sffamily\footnotesize]
+
+        % Ground
+        \draw[thick] (-5, 0) -- (20, 0);
+        \node[anchor=north east] at (20,0) {Ground Level};
+
+        % Chassis Front
+        \draw[fill=gray!30, draw=black, thick] (-5, 2) -- (0, 2) -- (0, 8) -- (-5, 8);
+        \node[rotate=90] at (-2.5, 5) {Chassis Front};
+
+        % Bracket
+        \draw[fill=black!80] (0, 6) -- (2, 6) -- (2, 4) -- (0, 4) -- cycle;
+        
+        % Camera Module (Side Profile) - Tilted 15 degrees down
+        % Pivot point at (2, 5)
+        \begin{scope}[rotate around={-15:(2,5)}]
+            % PCB
+            \draw[fill=green!40!black] (2, 3.5) rectangle (2.5, 6.5);
+            % Lens Barrel
+            \draw[fill=black] (2.5, 4.2) rectangle (4.0, 5.8);
+            % Lens Element
+            \draw[fill=blue!30] (4.0, 4.2) arc (-90:90:0.2 and 0.8);
+            
+            % Optical Axis
+            \draw[red, dashed, thick, ->] (4.0, 5) -- (15, 5);
+            \node[red, above] at (10, 5.2) {Optical Axis};
+        \end{scope}
+
+        % Angle Indicator
+        \draw[dashed] (2, 5) -- (10, 5); % Horizontal
+        \draw[<->] (6, 5) arc (0:-15:4);
+        \node at (7, 4.5) {$15^\circ$ Tilt};
+
+        % Field of View Lines (Vertical)
+        \draw[blue, dotted] (2,5) -- (12, 0); % Lower ray
+        \node[blue, right] at (12, 0.5) {Ground intersect};
+
+    \end{tikzpicture}
+    \caption{Side-profile schematic of the camera mounting. The $15^\circ$ downward tilt aligns the optical axis to cover the floor surface ahead of the rover, eliminating the "under-nose" blind spot.}
     \label{fig:camera-mount}
 \end{figure}
 
@@ -294,8 +641,7 @@ The motors are brushed DC type with integrated planetary gearboxes. The gearbox 
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.5\textwidth]{figures/hardware/dc_motor_gearbox.jpg}
-    \fbox{\parbox{0.5\textwidth}{\centering\vspace{2.5cm}FIGURE: DC Gear Motor Photo\\Shows motor body, gearbox, and output shaft\vspace{2.5cm}}}
+    % \includegraphics[width=0.5\textwidth]{figures/hardware/dc_motor_gearbox.jpeg}
     \caption{DC gear motor showing the motor body, planetary gearbox, and output shaft.}
     \label{fig:motor-photo}
 \end{figure}
@@ -326,8 +672,7 @@ The L298N is a dual full-bridge driver IC. Each bridge can deliver up to 2A cont
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.6\textwidth]{figures/hardware/l298n_module.jpg}
-    \fbox{\parbox{0.6\textwidth}{\centering\vspace{3cm}FIGURE: L298N Motor Driver Board\\Shows input terminals, motor outputs, and heatsink\vspace{3cm}}}
+    \includegraphics[width=0.6\textwidth]{figures/hardware/l298n_module.jpeg}
     \caption{L298N motor driver module with the characteristic large heatsink and terminal blocks.}
     \label{fig:l298n-module}
 \end{figure}
@@ -360,9 +705,7 @@ The lower efficiency of the L298N means more power is dissipated as heat. For ex
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/charts/driver_efficiency.png}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}FIGURE: Driver Efficiency Graph\\Current vs efficiency curves for both drivers\vspace{3cm}}}
-    \caption{Efficiency comparison between L298N and TB6612FNG at various load currents.}
+    \includegraphics[width=0.8\textwidth]{figures/charts/driver_efficiency.png}
     \label{fig:efficiency-graph}
 \end{figure}
 
@@ -397,10 +740,9 @@ A 3-cell (3S) lithium polymer battery provides the primary power. The 11.1V nomi
 \end{table}
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.5\textwidth]{figures/hardware/lipo_battery.jpg}
-    \fbox{\parbox{0.5\textwidth}{\centering\vspace{2.5cm}FIGURE: LiPo Battery Photo\\Shows 3S pack with balance connector and XT60 plug\vspace{2.5cm}}}
+    \includegraphics[width=0.5\textwidth]{figures/hardware/lipo_battery.jpeg}
     \caption{3S LiPo battery used to power the Rescue Rover.}
     \label{fig:battery-photo}
 \end{figure}
@@ -431,10 +773,9 @@ The power budget analysis ensures the battery can supply all loads simultaneousl
 At typical consumption of 851 mA, the 2200 mAh battery provides approximately 2.5 hours of operation. Under maximum load (both motors stalled), runtime drops to approximately 40 minutes. Actual runtime during normal operation falls between these extremes.
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=\textwidth]{figures/hardware/power_distribution_diagram.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{4cm}FIGURE: Power Distribution Schematic\\Shows battery, regulator, and all loads with current paths\vspace{4cm}}}
+    \includegraphics[width=\textwidth]{figures/hardware/power_distribution_diagram.png}
     \caption{Power distribution schematic showing voltage rails and current flow to all components.}
     \label{fig:power-schematic}
 \end{figure}
@@ -444,10 +785,9 @@ At typical consumption of 851 mA, the 2200 mAh battery provides approximately 2.
 The L298N module includes a 78M05 linear regulator that provides 5V output from the 12V motor supply. This 5V rail powers the ESP32-S3 and ultrasonic sensor. The ESP32's internal LDO then produces 3.3V for the microcontroller core and camera.
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/hardware/voltage_rails.png}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{2.5cm}FIGURE: Voltage Rail Diagram\\Shows 12V, 5V, and 3.3V rails with regulator symbols\vspace{2.5cm}}}
+    \includegraphics[width=\textwidth]{figures/hardware/voltage_rails.png}
     \caption{Voltage rail hierarchy showing the cascade of regulators from battery to components.}
     \label{fig:voltage-rails}
 \end{figure}
@@ -480,10 +820,9 @@ The ultrasonic sensor provides proximity detection for obstacle avoidance. It me
 \end{table}
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.5\textwidth]{figures/hardware/hcsr04_photo.jpg}
-    \fbox{\parbox{0.5\textwidth}{\centering\vspace{2.5cm}FIGURE: HC-SR04 Sensor Photo\\Shows the sensor with two transducer cylinders\vspace{2.5cm}}}
+    \includegraphics[width=0.5\textwidth]{figures/hardware/hcsr04_photo.jpeg}
     \caption{HC-SR04 ultrasonic distance sensor showing the transmitter and receiver transducers.}
     \label{fig:hcsr04-photo}
 \end{figure}
@@ -492,12 +831,43 @@ The ultrasonic sensor provides proximity detection for obstacle avoidance. It me
 
 The sensor is mounted at the front of the chassis, below the camera. This position provides distance measurements along the rover's direction of travel. The narrow 15-degree beam angle means only obstacles directly ahead are detected. Side obstacles require camera based detection.
 
-% FIGURE PLACEHOLDER
-\begin{figure}[h!]
+% FIGURE: ULTRASONIC BEAM PATTERN
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/hardware/ultrasonic_beam.png}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}FIGURE: Ultrasonic Beam Pattern\\Top-down view showing 15 degree detection cone\vspace{3cm}}}
-    \caption{Ultrasonic beam pattern showing the narrow detection cone.}
+    \begin{tikzpicture}[scale=0.18, >=latex, font=\sffamily\footnotesize]
+        % Rover Chassis (Top View)
+        \draw[fill=gray!20, thick] (-4, -5) rectangle (4, 0);
+        \node at (0, -2.5) {Rover Chassis};
+
+        % Ultrasonic Sensor (mounted at the front)
+        \draw[fill=blue!30, thick] (-2, 0) rectangle (2, 1);
+        \node at (0, 0.5) {HC-SR04};
+
+        % Beam Cone (15 degrees total -> +/- 7.5 degrees from center)
+        \begin{scope}[shift={(0,1)}]
+            % Center line
+            \draw[dashed, gray, thin] (0,0) -- (0,32);
+
+            % Cone area
+            \fill[blue!10, opacity=0.7] (0,0) -- (97.5:30) arc (97.5:82.5:30) -- cycle;
+            % Cone edges
+            \draw[blue!70!black, thick] (0,0) -- (97.5:30);
+            \draw[blue!70!black, thick] (0,0) -- (82.5:30);
+
+            % Angle Label
+            \draw[<->, thick] (0, 18) arc (90:97.5:18);
+            \draw[<->, thick] (0, 18) arc (90:82.5:18);
+            \node[fill=white, inner sep=2pt] at (0, 20) {$15^\circ$ Cone};
+
+            % Example Obstacle
+            \draw[fill=red!60, thick] (-1.5, 15) circle (1);
+            \node[left] at (-2.5, 15) {Obstacle};
+            
+            % Direction Arrow
+            \draw[->, thick, very thick] (5, 5) -- (5, 15) node[midway, right] {Direction of Travel};
+        \end{scope}
+    \end{tikzpicture}
+    \caption{Top-down view of the ultrasonic sensor's beam pattern. The narrow $15^\circ$ detection cone is shown relative to the rover chassis, detecting obstacles directly ahead.}
     \label{fig:ultrasonic-beam}
 \end{figure}
 
@@ -512,10 +882,9 @@ V_out = 5V * 2k / 3k = 3.33V
 \end{lstlisting}
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.6\textwidth]{figures/hardware/level_shifter_circuit.png}
-    \fbox{\parbox{0.6\textwidth}{\centering\vspace{2.5cm}FIGURE: Level Shifter Circuit\\Resistor divider schematic for ECHO pin\vspace{2.5cm}}}
+    \includegraphics[width=0.6\textwidth]{figures/hardware/level_shifter_circuit.png}
     \caption{Resistor voltage divider for level shifting the 5V echo signal to 3.3V.}
     \label{fig:level-shifter}
 \end{figure}
@@ -529,10 +898,9 @@ This section documents all electrical connections between components. Dupont jum
 \subsection{Complete Wiring Diagram}
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=\textwidth]{figures/hardware/complete_wiring_diagram.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{6cm}FIGURE: Complete Wiring Diagram\\Fritzing-style diagram showing all connections between components\vspace{6cm}}}
+    \includegraphics[width=\textwidth]{figures/hardware/complete_wiring_diagram.jpg}
     \caption{Complete wiring diagram showing all connections between the ESP32-S3, L298N, motors, sensors, and power supply.}
     \label{fig:complete-wiring}
 \end{figure}
@@ -558,10 +926,9 @@ This section documents all electrical connections between components. Dupont jum
 \end{table}
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/hardware/wiring_photo.jpg}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3.5cm}FIGURE: Actual Wiring Photograph\\Photo of real rover showing wire routing and organization\vspace{3.5cm}}}
+    \includegraphics[width=\textwidth]{figures/hardware/wiring_photo.jpg}
     \caption{Actual wiring on the prototype showing careful routing and color coding.}
     \label{fig:wiring-photo}
 \end{figure}
@@ -588,10 +955,9 @@ The complete assembly follows a specific order to ensure proper fit and cable ro
 \end{enumerate}
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=\textwidth]{figures/hardware/assembly_sequence.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{4cm}FIGURE: Assembly Sequence Photos\\Grid of 4-6 photos showing key assembly steps\vspace{4cm}}}
+    \includegraphics[width=\textwidth]{figures/hardware/assembly_sequence.png}
     \caption{Assembly sequence showing the progressive addition of components to the chassis.}
     \label{fig:assembly-sequence}
 \end{figure}
@@ -619,10 +985,9 @@ After assembly, each subsystem is tested individually before full integration te
 \end{table}
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/hardware/testing_setup.jpg}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}FIGURE: Testing Setup Photo\\Shows multimeter, test equipment, and rover on bench\vspace{3cm}}}
+    \includegraphics[width=\textwidth]{figures/hardware/testing_setup.png}
     \caption{Testing setup for post-assembly verification of subsystems.}
     \label{fig:testing-setup}
 \end{figure}

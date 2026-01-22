@@ -50,13 +50,22 @@
     breakable
 }
 
-% Design Decision Box
-\newtcolorbox{designbox}[1][Design Decision]{
-    colback=purple!5!white,
-    colframe=purple!75!black,
-    fonttitle=\bfseries,
-    title=#1,
-    breakable
+% Design Decision Box - Subtle textbook sidebar style
+\newtcolorbox{designbox}[1][]{%
+    enhanced,
+    breakable,
+    colback=gray!3!white,
+    colframe=gray!60!black,
+    boxrule=0pt,
+    leftrule=3pt,
+    arc=0pt,
+    outer arc=0pt,
+    left=10pt,
+    right=10pt,
+    top=8pt,
+    bottom=8pt,
+    fontupper=\small,
+    before upper={\textbf{#1}\par\smallskip},
 }
 
 % Failed Attempt Box (for documenting what didn't work)

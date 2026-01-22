@@ -4,7 +4,7 @@
 \chapter{Embedded Firmware Design}
 \label{chap:firmware-implementation}
 
-The firmware running on the ESP32-S3 forms the foundation of the Rescue Rover system. This chapter documents the design decisions, implementation details, and technical challenges encountered while developing the embedded software layer. The firmware handles camera streaming, motor control, wireless communication, and safety mechanisms, all running concurrently on the dual-core processor.
+The firmware running on the ESP32-S3 forms the foundation of the Rescue Rover system \cite{lee2017embedded}. This chapter documents the design decisions, implementation details, and technical challenges encountered while developing the embedded software layer. The firmware handles camera streaming, motor control, wireless communication, and safety mechanisms, all running concurrently on the dual-core processor.
 
 % --------------------------------------------------------
 \section{Firmware Architecture Overview}
@@ -13,10 +13,9 @@ The firmware running on the ESP32-S3 forms the foundation of the Rescue Rover sy
 The ESP32-S3 firmware follows a modular architecture where each hardware subsystem is encapsulated in its own compilation unit. This separation allows independent development and testing of each component before integration. The project contains five primary modules, each with a specific responsibility in the system.
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.9\textwidth]{figures/software/firmware_architecture.png}
-    \fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}FIGURE: Firmware Module Architecture Diagram\\Shows relationship between RescueRobot.ino, CameraModule, MotorDriver, ConnectionModule\vspace{3cm}}}
+    \includegraphics[width=\textwidth]{figures/software/firmware_architecture.png}
     \caption{Firmware module architecture showing the main sketch and its dependencies. The main loop coordinates all subsystems while individual modules manage their respective hardware interfaces.}
     \label{fig:firmware-architecture}
 \end{figure}
@@ -27,15 +26,14 @@ The \texttt{RescueRobot.ino} file serves as the main entry point. It initializes
 
 The \texttt{CameraModule} handles all camera operations. This includes initialization of the OV2640 sensor, configuration of frame buffers in PSRAM, and streaming via either HTTP or UDP protocols. The module provides two streaming modes because we discovered during testing that HTTP introduces 80ms additional latency compared to UDP on the same network. Total implementation spans 222 lines across the header and source files.
 
-The \texttt{MotorDriver} module controls the L298N H-bridge through GPIO pins. Movement primitives include forward, backward, left turn, right turn, and emergency stop. The implementation uses simple digital writes rather than PWM because the current prototype focuses on directional control rather than speed modulation. This module is intentionally minimal at 56 lines.
+The \texttt{MotorDriver} module controls the L298N H-bridge through GPIO pins \cite{stmicro2000l298,mishra2018implementation}. Movement primitives include forward, backward, left turn, right turn, and emergency stop. The implementation uses \textbf{PWM (Pulse Width Modulation)} to enable variable speed control, with a speed parameter from 0\% to 100\% mapped to PWM duty cycles 0-255 \cite{siegwart2011robotics}. This module spans 92 lines.
 
 The \texttt{ConnectionModule} manages ESP-NOW bidirectional communication with the gateway. It receives joystick commands, stores them for processing by the main loop, and transmits telemetry at 2Hz. The critical design decision here is that the receive callback does not directly actuate motors. Instead it stores the command and lets the main loop apply safety checks first. This prevents race conditions between sensor readings and motor commands.
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.85\textwidth]{figures/software/module_dependencies.png}
-    \fbox{\parbox{0.85\textwidth}{\centering\vspace{2.5cm}FIGURE: Module Dependency Graph\\Shows include relationships between all firmware files\vspace{2.5cm}}}
+    \includegraphics[width=\textwidth]{figures/software/module_dependencies.png}
     \caption{Compilation dependencies between firmware modules. The main sketch includes all headers while modules only include what they need.}
     \label{fig:module-dependencies}
 \end{figure}
@@ -64,11 +62,11 @@ Camera frame buffers consume the majority of PSRAM. Each QVGA frame requires 320
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/hardware/esp32s3_memory_map.png}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{2.5cm}FIGURE: ESP32-S3 Memory Map\\Visual representation of SRAM, PSRAM, and Flash allocation\vspace{2.5cm}}}
+    \includegraphics[width=0.7\textwidth]{figures/hardware/esp32s3_memory_map.png}
     \caption{Memory allocation for the Rescue Rover firmware showing how camera buffers dominate PSRAM usage.}
     \label{fig:memory-map}
 \end{figure}
+
 
 % --------------------------------------------------------
 \section{Camera Module Implementation}
@@ -80,12 +78,121 @@ The camera module presented the most significant technical challenges during dev
 
 The OV2640 connects to the ESP32-S3 through a DVP (Digital Video Port) interface. This parallel interface uses 8 data lines (D0-D7), synchronization signals (VSYNC, HREF, PCLK), and an I2C bus for register configuration.
 
-% FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=\textwidth]{figures/hardware/camera_wiring_diagram.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{4cm}FIGURE: OV2640 Camera Wiring Diagram\\Complete wiring between camera module ribbon cable and ESP32-S3 GPIO pins\vspace{4cm}}}
-    \caption{Physical wiring between the OV2640 camera module and ESP32-S3 development board. The ribbon cable connects to a breakout board which then connects to individual GPIO pins.}
+    % Define color BEFORE starting the tikzpicture environment
+    \definecolor{gold}{HTML}{FFD700}
+
+    \begin{tikzpicture}[
+        node distance=2cm,
+        font=\sffamily\footnotesize,
+        thick,
+        % Component Styles
+        board/.style={draw=black!80, fill=white, rounded corners=4pt, drop shadow},
+        esp32/.style={board, fill=blue!10, minimum width=4cm, minimum height=8cm},
+        breakout/.style={board, fill=green!10, minimum width=2.5cm, minimum height=7cm},
+        camera/.style={board, fill=black!80, minimum width=2.5cm, minimum height=2.5cm},
+        % Pin Styles
+        pinlabel/.style={font=\sffamily\scriptsize, align=right},
+        gpiolabel/.style={font=\sffamily\scriptsize, align=left},
+        % Usage of 'gold' is now valid because it was defined above
+        headerpin/.style={circle, fill=gold, inner sep=1.5pt, draw=black!50},
+        % Wire Styles
+        wire/.style={line width=1.2pt, rounded corners=5pt},
+        pwr/.style={wire, red},
+        gnd/.style={wire, black},
+        i2c/.style={wire, orange!80!black},
+        clock/.style={wire, green!60!black},
+        data/.style={wire, blue!70!black},
+        nc/.style={wire, gray, dashed}
+    ]
+
+    % --- 1. ESP32-S3 Board (Right Side) ---
+    \node[esp32] (esp) at (8,0) {};
+    \node[above=0.2cm, font=\bfseries] at (esp.north) {ESP32-S3 Dev Board};
+
+    % Define ESP32 Pin coordinates and labels
+    % Left side headers
+    \foreach \y/\lab in {3.5/3V3, 3.0/GND, 2.0/IO10, 1.5/IO13, 0.5/IO15, 0/IO17, -0.5/IO18, -1.0/IO16, -1.5/IO14, -2.0/IO12, -2.5/IO11} {
+        \node[headerpin] (esp_l_\lab) at ($(esp.west) + (0.2, \y)$) {};
+        \node[gpiolabel, right=0.1cm of esp_l_\lab] {\lab};
+    }
+    % Right side headers
+    \foreach \y/\lab in {2.5/IO40, 2.0/IO39, 1.0/IO38, 0.5/IO47, -3.0/IO48} {
+        \node[headerpin] (esp_r_\lab) at ($(esp.east) + (-0.2, \y)$) {};
+        \node[gpiolabel, left=0.1cm of esp_r_\lab] {\lab};
+    }
+
+    % --- 2. FPC Breakout Board (Middle) ---
+    \node[breakout] (brk) at (0,0) {};
+    \node[above=0.2cm, font=\bfseries] at (brk.north) {FPC Breakout};
+
+    % Define Breakout Pin coordinates and labels
+    \foreach \y/\lab/\type in {
+        3.5/3V3/pwr, 3.0/GND/gnd, 
+        2.5/SIOD/i2c, 2.0/SIOC/i2c,
+        1.5/XCLK/clock, 1.0/PCLK/clock, 0.5/VSYNC/clock, 0.0/HREF/clock,
+        -0.5/D0/data, -1.0/D1/data, -1.5/D2/data, -2.0/D3/data, 
+        -2.5/D4/data, -3.0/D5/data, -3.5/D6/data, -4.0/D7/data,
+        -4.5/PWDN/nc, -5.0/RESET/nc
+    } {
+        \node[headerpin] (brk_\lab) at ($(brk.east) + (-0.2, \y)$) {};
+        \node[pinlabel, left=0.1cm of brk_\lab] {\lab};
+    }
+
+    % --- 3. Camera Module (Left Side) ---
+    \node[camera, left=2cm of brk] (cam) {};
+    \node[above=0.2cm, font=\bfseries, align=center] at (cam.north) {OV2640\\Module};
+    % Lens representation
+    \draw[fill=black, draw=gray, thick] (cam.center) circle (0.8cm);
+    \draw[fill=blue!10!black, draw=black] (cam.center) circle (0.3cm);
+
+    % --- Ribbon Cable Connection ---
+    \draw[line width=10pt, gray!40, shorten >=-2pt, shorten <=-2pt] (cam.east) -- (brk.west);
+    \node[font=\tiny\sffamily, color=black!60, rotate=0, align=center, fill=white, opacity=0.8] at ($(cam.east)!0.5!(brk.west)$) {24-Pin FPC\\Ribbon Cable};
+
+
+    % --- 4. Wiring Connections ---
+
+    % Power
+    \draw[pwr] (brk_3V3) -- ++(1,0) |- (esp_l_3V3);
+    \draw[gnd] (brk_GND) -- ++(0.8,0) |- (esp_l_GND);
+
+    % I2C (Control)
+    \draw[i2c] (brk_SIOD) -- ++(1.5,0) |- (esp_r_IO40);
+    \draw[i2c] (brk_SIOC) -- ++(1.7,0) |- (esp_r_IO39);
+
+    % Clocks & Sync
+    \draw[clock] (brk_XCLK) -- ++(1.2,0) |- (esp_l_IO10);
+    \draw[clock] (brk_PCLK) -- ++(1.4,0) |- (esp_l_IO13);
+    \draw[clock] (brk_VSYNC) -- ++(1.9,0) |- (esp_r_IO38);
+    \draw[clock] (brk_HREF) -- ++(2.1,0) |- (esp_r_IO47);
+
+    % Data Bus (D0-D7 mapping to Y2-Y9)
+    \draw[data] (brk_D0) -- ++(0.5,0) |- (esp_l_IO15);
+    \draw[data] (brk_D1) -- ++(0.7,0) |- (esp_l_IO17);
+    \draw[data] (brk_D2) -- ++(0.9,0) |- (esp_l_IO18);
+    \draw[data] (brk_D3) -- ++(1.1,0) |- (esp_l_IO16);
+    \draw[data] (brk_D4) -- ++(1.3,0) |- (esp_l_IO14);
+    \draw[data] (brk_D5) -- ++(1.5,0) |- (esp_l_IO12);
+    \draw[data] (brk_D6) -- ++(1.7,0) |- (esp_l_IO11);
+    \draw[data] (brk_D7) -- ++(2.3,0) |- (esp_r_IO48);
+
+    % Unused (NC) indicating software control or unconnected
+    \draw[nc, ->] (brk_PWDN) -- ++(1,0) node[right, font=\tiny] {NC};
+    \draw[nc, ->] (brk_RESET) -- ++(1,0) node[right, font=\tiny] {NC (SW Control)};
+
+    % Legend
+    \matrix [draw, fill=white, below right=0.5cm and 0cm of brk.south west, anchor=north west, nodes={font=\scriptsize, align=left}] {
+        \draw[pwr, line width=2pt] (0,0) -- (0.5,0); & \node{Power (3.3V)}; \\
+        \draw[gnd, line width=2pt] (0,0) -- (0.5,0); & \node{Ground}; \\
+        \draw[i2c, line width=2pt] (0,0) -- (0.5,0); & \node{I2C Control}; \\
+        \draw[clock, line width=2pt] (0,0) -- (0.5,0); & \node{Clocks/Sync}; \\
+        \draw[data, line width=2pt] (0,0) -- (0.5,0); & \node{Data Bus}; \\
+    };
+
+    \end{tikzpicture}
+    \caption{Physical wiring diagram illustrating the connections between the OV2640 camera module (via FPC breakout) and the ESP32-S3 development board.}
     \label{fig:camera-wiring}
 \end{figure}
 
@@ -115,7 +222,7 @@ The pin mapping was derived from the Freenove ESP32-S3 WROOM CAM board schematic
 
 Camera initialization follows a strict sequence. Any deviation results in cryptic error codes or complete failure to capture frames. We reduced the XCLK frequency from 20MHz to 10MHz after encountering intermittent initialization failures. The lower clock speed sacrifices theoretical maximum framerate but dramatically improves reliability.
 
-\begin{algorithm}[h!]
+\begin{algorithm}[H]
     \caption{Camera Initialization Sequence}
     \label{alg:camera-init-full}
     \begin{algorithmic}[1]
@@ -142,12 +249,73 @@ Camera initialization follows a strict sequence. Any deviation results in crypti
     \end{algorithmic}
 \end{algorithm}
 
-% FIGURE PLACEHOLDER
-\begin{figure}[h!]
+% FIGURE: CAMERA INITIALIZATION FLOWCHART
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/software/camera_init_flowchart.png}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}FIGURE: Camera Initialization Flowchart\\Decision tree showing PSRAM check, config, init, and error handling paths\vspace{3cm}}}
-    \caption{Flowchart for camera initialization showing fail-safe checks and configuration steps.}
+    % Define styles for flowchart symbols
+    \tikzset{
+        font=\sffamily\footnotesize,
+        base/.style = {draw=black, thick, align=center, minimum height=0.8cm},
+        startstop/.style = {base, rounded corners, fill=red!10, minimum width=2.5cm},
+        process/.style = {base, rectangle, fill=blue!10, minimum width=3.5cm, text width=3cm},
+        decision/.style = {base, diamond, fill=yellow!10, aspect=2, inner sep=0pt},
+        io/.style = {base, trapezium, trapezium left angle=70, trapezium right angle=110, fill=green!10, minimum width=3cm},
+        arrow/.style = {thick, ->, >=Latex}
+    }
+
+    \begin{tikzpicture}[node distance=1.5cm and 1cm]
+        % --- Nodes ---
+        \node (start) [startstop] {Start\\initCamera()};
+        
+        \node (check_psram) [decision, below=of start] {PSRAM\\Found?};
+        
+        \node (log_warn) [io, right=of check_psram] {Log Warning:\\"Camera may fail"};
+
+        % Combined configuration steps into one process block for clarity
+        \node (config) [process, below=2cm of check_psram] {\textbf{Configure Structure:}\\Pins, XCLK=10MHz,\\QVGA, JPEG Q30,\\2x FB in PSRAM};
+        
+        \node (call_init) [process, below=of config] {Call\\\texttt{esp\_camera\_init()}};
+        
+        \node (check_success) [decision, below=of call_init] {Init\\Success?};
+        
+        % Failure Path (Right side)
+        \node (log_err) [io, right=2cm of check_success] {Log Error Code\\\& Halt};
+        \node (end_fail) [startstop, below=of log_err] {Return False};
+
+        % Success Path (Straight down)
+        \node (get_sensor) [process, below=1.5cm of check_success] {Get Sensor Handle};
+        \node (disable_test) [process, below=of get_sensor] {Disable Test Pattern};
+        \node (log_ok) [io, below=of disable_test] {Log Success\\\& Resolution};
+        \node (end_ok) [startstop, below=of log_ok] {Return True};
+
+
+        % --- Paths ---
+        \draw [arrow] (start) -- (check_psram);
+        
+        % PSRAM Check paths
+        \draw [arrow] (check_psram) -- node[above] {No} (log_warn);
+        % Create a merge point for after the warning
+        \coordinate (merge_psram) at ($(check_psram.south)!0.5!(config.north)$);
+        \draw [arrow] (check_psram) -- node[right] {Yes} (merge_psram) -- (config);
+        \draw [arrow] (log_warn) |- (merge_psram);
+        
+        % Main Flow
+        \draw [arrow] (config) -- (call_init);
+        \draw [arrow] (call_init) -- (check_success);
+        
+        % Init Success Check paths
+        \draw [arrow] (check_success) -- node[above] {No/Error} (log_err);
+        \draw [arrow] (log_err) -- (end_fail);
+        
+        \draw [arrow] (check_success) -- node[right] {Yes/OK} (get_sensor);
+        
+        % Final Success steps
+        \draw [arrow] (get_sensor) -- (disable_test);
+        \draw [arrow] (disable_test) -- (log_ok);
+        \draw [arrow] (log_ok) -- (end_ok);
+
+    \end{tikzpicture}
+    \caption{Flowchart for camera initialization showing fail-safe checks, critical configuration steps (including the reduced 10MHz XCLK), and error handling paths.}
     \label{fig:camera-init-flow}
 \end{figure}
 
@@ -198,32 +366,34 @@ static esp_err_t stream_handler(httpd_req_t *req) {
 \end{lstlisting}
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/software/http_stream_sequence.png}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}FIGURE: HTTP MJPEG Sequence Diagram\\Shows request/response flow between browser and ESP32-S3\vspace{3cm}}}
+    \includegraphics[width=\textwidth]{figures/software/http_stream_sequence.png}
     \caption{Sequence diagram for HTTP MJPEG streaming showing the continuous frame transmission loop.}
     \label{fig:http-sequence}
 \end{figure}
 
-\subsubsection{UDP Streaming}
+\subsubsection{UDP Streaming (Experimental)}
 
-UDP mode sends frames directly without the HTTP overhead. The target IP address and port are configured at compile time. Each frame is transmitted as a single UDP packet, which works reliably on local networks where MTU is 1500 bytes and frames are under 15KB.
+UDP mode was initially designed to minimize latency by bypassing the HTTP overhead.
 
-\begin{lstlisting}[language=C++, caption={UDP frame transmission function}]
+\begin{designbox}[UDP Buffer Overflow]
+During integration testing, we observed that the ESP32-S3's network stack struggled to sustain high-bandwidth UDP transmission at 30FPS. The internal buffers frequently overflowed, causing a \textbf{Watchdog Timer Reset} that crashed the system.
+
+While UDP offered superior latency ($<$100ms), the instability was critical. We ultimately pivoted to TCP/HTTP for the final build. The TCP flow control mechanism prevents the application from overwhelming the network stack, ensuring system stability at the cost of slightly higher latency. Implementing a custom reliable UDP protocol was deemed out of scope for this iteration.
+\end{designbox}
+
+\begin{lstlisting}[language=C++, caption={UDP frame transmission function (Deprecated)}]
 void streamFrameUDP() {
     // Check prerequisites
     if (!cameraReady || !udpMode || udpTargetIP == nullptr)
         return;
     
     camera_fb_t *fb = esp_camera_fb_get();
-    if (!fb) {
-        Serial.println("UDP capture failed");
-        return;
-    }
+    if (!fb) return;
     
-    // Send entire frame as single packet
-    // Works on local WiFi where fragmentation is handled
+    // Chunking logic was attempted here but 
+    // stack overflows persisted.
     udp.beginPacket(udpTargetIP, udpTargetPort);
     udp.write(fb->buf, fb->len);
     udp.endPacket();
@@ -235,8 +405,7 @@ void streamFrameUDP() {
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.85\textwidth]{figures/charts/http_vs_udp_latency.png}
-    \fbox{\parbox{0.85\textwidth}{\centering\vspace{3cm}FIGURE: HTTP vs UDP Latency Comparison\\Bar chart showing measured latency for both protocols\vspace{3cm}}}
+    \includegraphics[width=0.85\textwidth]{figures/charts/http_vs_udp_latency.png}
     \caption{Measured latency comparison between HTTP MJPEG and UDP streaming modes. UDP consistently shows 80ms lower latency.}
     \label{fig:latency-comparison}
 \end{figure}
@@ -263,7 +432,7 @@ void streamFrameUDP() {
 \section{Motor Control Implementation}
 \label{sec:motor-impl}
 
-The motor control subsystem translates high level movement commands into GPIO signals for the L298N driver. The current implementation uses binary on/off control rather than PWM speed modulation. This choice simplifies the code and proved sufficient for indoor testing where precise speed control is less important than reliable direction changes.
+The motor control subsystem translates high level movement commands into GPIO signals for the L298N driver. The implementation uses \textbf{PWM speed modulation}, allowing both manual operators and AI modules to control the rover's velocity. A speed parameter (0-100\%) is mapped to a PWM duty cycle (0-255) using a linear conversion function.
 
 \subsection{Differential Drive Model}
 
@@ -282,21 +451,25 @@ The rover uses a differential drive configuration with two independently control
 where $v_{robot}$ is the linear velocity of the robot center, $\omega_{robot}$ is the angular velocity, $v_R$ and $v_L$ are the right and left wheel velocities respectively, and $W$ is the wheelbase width.
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.6\textwidth]{figures/hardware/differential_drive_kinematics.png}
-    \fbox{\parbox{0.6\textwidth}{\centering\vspace{3cm}FIGURE: Differential Drive Kinematics\\Diagram showing wheel velocities, turning radius, and angular velocity\vspace{3cm}}}
+    \includegraphics[width=0.6\textwidth]{figures/hardware/differential_drive_kinematics.png}
     \caption{Differential drive kinematic model showing how independent wheel speeds create linear and angular motion.}
     \label{fig:diff-drive}
 \end{figure}
 
 \subsection{L298N Driver Interface}
 
-The L298N accepts four digital inputs (IN1 through IN4) that control two H-bridge circuits. Each motor connects to one H-bridge. The truth table for motor direction is straightforward: setting one input HIGH and the other LOW drives the motor in one direction. Reversing which input is HIGH reverses the rotation.
+The L298N accepts four digital inputs (IN1 through IN4) that control two H-bridge circuits. Each motor connects to one H-bridge. For direction control, one pin is set HIGH while the other is LOW. For speed control, the HIGH signal is replaced with a PWM waveform using \texttt{analogWrite()}.
 
-\begin{lstlisting}[language=C++, caption={Motor driver initialization and movement functions}]
+\begin{lstlisting}[language=C++, caption={PWM-based motor driver with speed control}]
 #include "MotorDriver.h"
 #include "PinConfig.h"
+
+// Convert 0-100% speed to 0-255 PWM duty cycle
+int speedToPWM(int speed) {
+    return map(speed, 0, 100, 0, 255); 
+}
 
 void initMotors() {
     pinMode(PIN_LEFT_FWD, OUTPUT);
@@ -304,22 +477,21 @@ void initMotors() {
     pinMode(PIN_RIGHT_FWD, OUTPUT);
     pinMode(PIN_RIGHT_BWD, OUTPUT);
     
-    stopMoving();  // Ensure motors are off at startup
-    Serial.println("Motor Driver Ready (GPIO: 4,5,6,7)");
+    stopMoving();
+    Serial.println("Motor Driver Ready (PWM Control Enabled)");
 }
 
-void goForward() {
-    digitalWrite(PIN_LEFT_FWD, HIGH);
+void goForward(int speed) {
+    if (speed < 1 || speed > 100) return;
+    int pwm = speedToPWM(speed);
+    
+    // Left motor forward
+    analogWrite(PIN_LEFT_FWD, pwm);
     digitalWrite(PIN_LEFT_BWD, LOW);
-    digitalWrite(PIN_RIGHT_FWD, HIGH);
+    
+    // Right motor forward
+    analogWrite(PIN_RIGHT_FWD, pwm);
     digitalWrite(PIN_RIGHT_BWD, LOW);
-}
-
-void goBackward() {
-    digitalWrite(PIN_LEFT_FWD, LOW);
-    digitalWrite(PIN_LEFT_BWD, HIGH);
-    digitalWrite(PIN_RIGHT_FWD, LOW);
-    digitalWrite(PIN_RIGHT_BWD, HIGH);
 }
 
 void stopMoving() {
@@ -330,11 +502,20 @@ void stopMoving() {
 }
 \end{lstlisting}
 
+\begin{designbox}[AI-Controlled Speed]
+The speed parameter (0-100\%) can be set by multiple sources:
+\begin{itemize}
+    \item \textbf{Manual operator}: Joystick Y-axis distance from center determines speed.
+    \item \textbf{Strategic AI}: The VLM can suggest "slow down" when navigating tight spaces.
+    \item \textbf{Tactical AI}: When a person is detected but not yet at emergency threshold, YOLO can reduce speed as a precaution.
+\end{itemize}
+The Command Arbiter's joystick coordinate system (0-4095) is mapped to this 0-100\% scale before being sent to the firmware.
+\end{designbox}
+
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.9\textwidth]{figures/hardware/l298n_wiring.png}
-    \fbox{\parbox{0.9\textwidth}{\centering\vspace{3.5cm}FIGURE: L298N Motor Driver Wiring\\Complete schematic showing ESP32-S3 GPIO connections, motor terminals, and power input\vspace{3.5cm}}}
+    \includegraphics[width=0.9\textwidth]{figures/hardware/l298n_wiring.png}
     \caption{L298N motor driver wiring diagram showing all connections between ESP32-S3, the driver board, and both DC motors.}
     \label{fig:l298n-wiring}
 \end{figure}
@@ -361,13 +542,12 @@ The motor pins were chosen to avoid conflicts with camera interface and JTAG deb
 
 \subsection{Turning Mechanics}
 
-Point turns are achieved by running motors in opposite directions. The left motor runs backward while the right motor runs forward for a left turn. This creates rotation around the robot's center point. Arc turns for smoother motion would require PWM speed control, which is planned for a future revision.
+Point turns are achieved by running motors in opposite directions. The left motor runs backward while the right motor runs forward for a left turn. This creates rotation around the robot's center point. The PWM speed control enables \textbf{arc turns} by running one motor faster than the other, creating curved paths for smoother navigation.
 
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/hardware/turn_mechanics.png}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}FIGURE: Turning Mechanics Diagram\\Shows point turn vs arc turn wheel direction arrows\vspace{3cm}}}
+    \includegraphics[width=0.8\textwidth]{figures/hardware/turn_mechanics.jpg}
     \caption{Comparison of point turn (current implementation) versus arc turn (future enhancement). Point turns rotate in place while arc turns follow a curved path.}
     \label{fig:turn-mechanics}
 \end{figure}
@@ -383,10 +563,9 @@ The ConnectionModule handles all wireless communication between the rover and th
 ESP-NOW allows direct device to device communication using MAC addresses. Packets are limited to 250 bytes, but this is more than sufficient for joystick commands (8 bytes) and telemetry (8 bytes). The protocol does not guarantee delivery, but at close range with clear line of sight, packet loss is negligible.
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=\textwidth]{figures/software/espnow_protocol_stack.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{3cm}FIGURE: ESP-NOW Protocol Stack\\Shows position in networking layers compared to standard WiFi TCP/IP\vspace{3cm}}}
+    \includegraphics[width=\textwidth]{figures/software/espnow_protocol_stack.jpg}
     \caption{ESP-NOW protocol positioning in the network stack. It operates below IP, directly on top of the 802.11 MAC layer.}
     \label{fig:espnow-stack}
 \end{figure}
@@ -414,8 +593,7 @@ The \texttt{\_\_attribute\_\_((packed))} directive ensures no padding bytes are 
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/software/packet_format.png}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{2.5cm}FIGURE: Packet Format Diagram\\Shows byte layout of command and feedback structures\vspace{2.5cm}}}
+    \includegraphics[width=0.7\textwidth]{figures/software/packet_format.png}
     \caption{Binary layout of ESP-NOW packet structures showing byte offsets for each field.}
     \label{fig:packet-format}
 \end{figure}
@@ -424,7 +602,7 @@ The \texttt{\_\_attribute\_\_((packed))} directive ensures no padding bytes are 
 
 The receive callback executes in an interrupt context when a packet arrives. Long operations in this callback would block the WiFi stack and cause instability. Our initial implementation called motor control functions directly from the callback, which created race conditions with the ultrasonic sensor readings in the main loop.
 
-\begin{designbox}[Critical Design Decision: Deferred Motor Actuation]
+\begin{designbox}[Deferred Motor Actuation]
 The receive callback stores commands but does not actuate motors. Motor actuation happens in the main loop after safety checks. This prevents race conditions where an obstacle appears between receiving a "forward" command and executing it. The main loop always has the latest sensor data when deciding whether to execute a command.
 \end{designbox}
 
@@ -451,12 +629,77 @@ static void onDataRecv(const esp_now_recv_info_t *info,
 }
 \end{lstlisting}
 
-% FIGURE PLACEHOLDER
+% FIGURE: CALLBACK VS LOOP DIAGRAM (COMPACT VERSION)
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=\textwidth]{figures/software/callback_vs_loop_diagram.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{3cm}FIGURE: Callback vs Main Loop Processing\\Sequence showing how commands flow from ESP-NOW to motor actuation\vspace{3cm}}}
-    \caption{Data flow from ESP-NOW callback to motor actuation through the main loop safety checks.}
+    % Load required libraries locally
+    \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, backgrounds}
+    
+    % Added 'scale=0.75, transform shape' to shrink everything
+    \begin{tikzpicture}[
+        scale=0.75, transform shape,
+        node distance=1.5cm and 0.8cm, % Reduced distance
+        auto,
+        >=Latex,
+        font=\sffamily\small,
+        % Compacted node styles
+        block/.style = {rectangle, draw=black, thick, fill=blue!10, text width=2.0cm, align=center, minimum height=1.0cm, font=\footnotesize},
+        decision/.style = {diamond, draw=black, thick, fill=yellow!10, text width=1.5cm, align=center, inner sep=0pt, aspect=1.5, font=\footnotesize},
+        data/.style = {cylinder, shape border rotate=90, draw=black, thick, fill=gray!20, text width=1.8cm, align=center, minimum height=1.2cm, aspect=0.25, font=\footnotesize},
+        sensor/.style = {trapezium, trapezium left angle=70, trapezium right angle=110, draw=black, thick, fill=green!10, text width=2.2cm, align=center, minimum height=0.8cm, font=\footnotesize},
+        actuator/.style = {rectangle, draw=red!80!black, thick, fill=red!10, text width=2.2cm, align=center, minimum height=1.0cm, rounded corners, font=\footnotesize},
+        line/.style = {draw, thick, ->},
+        dashedline/.style = {draw, thick, dashed, ->},
+        contextbox/.style = {draw=gray, dashed, thick, rounded corners, fill=gray!5, inner sep=8pt}
+    ]
+
+        % --- Left Column: Interrupt Context ---
+        \node [block, fill=red!5] (isr) {\textbf{ESP-NOW Callback}};
+        \node [above=0.6cm of isr, font=\bfseries\footnotesize] (packet) {Incoming Packet};
+        \draw [line, ultra thick] (packet) -- node[right, font=\scriptsize] {Trigger} (isr);
+
+        % --- Center: Shared Memory ---
+        % Reduced spacing from 3cm to 1.2cm
+        \node [data, right=2cm of isr] (sharedMem) {\textbf{Global Struct}\\recvCommand};
+
+        % --- Right Column: Main Loop Context ---
+        % Reduced spacing from 3cm to 1.2cm
+        \node [block, right=1.8cm of sharedMem] (loopStart) {\textbf{Main Loop}};
+        \node [sensor, below=0.8cm of loopStart] (readSensors) {Read Sensor};
+        \node [block, below=0.8cm of readSensors] (readGlobal) {Read Global};
+        \node [decision, below=0.8cm of readGlobal] (safetyCheck) {Safe?\\($>$25cm)};
+        
+        % Actuation paths
+        \node [actuator, below=1.0cm of safetyCheck] (actuate) {\textbf{Actuate}};
+        \node [actuator, right=0.5cm of safetyCheck, fill=orange!20] (blockCmd) {\textbf{BLOCK}};
+
+        % --- Context Boxes (Background layers) ---
+        \begin{pgfonlayer}{background}
+            \node [contextbox, fit=(packet) (isr), label={[anchor=north,red!70!black,font=\scriptsize]north:\textbf{INTERRUPT}}] (isrContext) {};
+            \node [contextbox, fit=(loopStart) (actuate) (blockCmd), label={[anchor=north,blue!70!black,font=\scriptsize]north:\textbf{MAIN LOOP}}] (loopContext) {};
+        \end{pgfonlayer}
+
+        % --- Connections ---
+        % ISR to Shared Memory
+        \draw [line, ultra thick, red!70!black] (isr) -- node[above, font=\scriptsize\bfseries] {memcpy} (sharedMem);
+
+        % Main Loop Flow
+        \draw [line] (loopStart) -- (readSensors);
+        \draw [line] (readSensors) -- (readGlobal);
+        \draw [line] (readGlobal) -- (safetyCheck);
+
+        % Shared Memory to Main Loop
+        \draw [dashedline, blue!70!black] (sharedMem) -- node[above, font=\scriptsize] {Fetch} (readGlobal);
+
+        % Safety Decisions
+        \draw [line, green!50!black, thick] (safetyCheck) -- node[right, font=\scriptsize] {Yes} (actuate);
+        \draw [line, red!70!black, thick] (safetyCheck) -- node[above, font=\scriptsize] {No} (blockCmd);
+
+        % Loopback
+        \draw [dashed, ->] (actuate.south) to[out=270,in=180] ++(-1.0,-0.6) to[out=0,in=270] ($(loopContext.south west)!0.5!(loopContext.south east)$);
+
+    \end{tikzpicture}
+    \caption{Data flow diagram illustrating the deferred motor actuation design. The high-priority ESP-NOW callback quickly stores incoming data into shared memory. The lower-priority main loop reads the latest sensor data and the stored command, performing safety checks before any physical motor actuation occurs.}
     \label{fig:callback-flow}
 \end{figure}
 
@@ -526,10 +769,9 @@ bool isConnectionAlive(unsigned long timeoutMs) {
 \end{lstlisting}
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=0.85\textwidth]{figures/software/heartbeat_state_machine.png}
-    \fbox{\parbox{0.85\textwidth}{\centering\vspace{3cm}FIGURE: Heartbeat State Machine\\Shows CONNECTED, WARNING, and STOPPED states with transitions\vspace{3cm}}}
+    \includegraphics[width=0.85\textwidth]{figures/software/heartbeat_state_machine.jpg}
     \caption{State machine for heartbeat monitoring showing transitions between connected and stopped states.}
     \label{fig:heartbeat-fsm}
 \end{figure}
@@ -596,10 +838,9 @@ bool updateUltrasonicDistance() {
 \end{lstlisting}
 
 % FIGURE PLACEHOLDER
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
-    % \includegraphics[width=\textwidth]{figures/software/ultrasonic_state_machine.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{3.5cm}FIGURE: Ultrasonic State Machine\\Shows all states with timing conditions for transitions\vspace{3.5cm}}}
+    \includegraphics[width=\textwidth]{figures/software/ultrasonic_state_machine.jpg}
     \caption{State machine diagram for non-blocking ultrasonic distance measurement.}
     \label{fig:ultrasonic-fsm}
 \end{figure}
@@ -651,8 +892,7 @@ void handleControlLoop() {
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=\textwidth]{figures/software/control_loop_flowchart.png}
-    \fbox{\parbox{\textwidth}{\centering\vspace{4cm}FIGURE: Unified Control Loop Flowchart\\Complete decision tree showing heartbeat, distance, and command processing\vspace{4cm}}}
+    \includegraphics[width=\textwidth]{figures/software/control_loop_flowchart.jpg}
     \caption{Flowchart of the unified control loop showing all safety checks and their precedence.}
     \label{fig:control-loop-flow}
 \end{figure}
@@ -672,6 +912,41 @@ void handleControlLoop() {
         \bottomrule
     \end{tabular}
 \end{table}
+
+\begin{designbox}[Escape Maneuver Override]
+During early testing, we encountered a frustrating scenario: the rover would detect an obstacle at 20cm and freeze completely. The operator could not back up or turn away because all motor commands were blocked by the safety system.
+
+The solution was to make the safety check directional. Forward motion is blocked when an obstacle is close, but \textbf{backward and turning commands are always allowed}. This ensures the rover never gets permanently stuck. The logic checks if the joystick Y-value is below 1500 (backward) or if X is at the extremes (<1000 or >3000, meaning a sharp turn). These "escape maneuvers" bypass the emergency stop and allow the operator to retreat safely.
+
+This is a classic example of safety systems needing to be designed with recovery scenarios in mind, not just failure prevention.
+\end{designbox}
+
+% --------------------------------------------------------
+\subsection{Development Log: Hardware Procurement Saga}
+\label{sec:hardware-procurement}
+
+Acquiring the ESP32-S3-CAM module proved to be a significant learning experience about sourcing components for IoT projects. The team went through three iterations of purchasing before obtaining a working unit.
+
+\textbf{Attempt 1: The Wrong Product.}
+The first module was ordered from a low-cost Chinese seller on Lazada. The listing advertised "ESP32-S3 with OV2640 Camera" at an attractive price. When the package arrived, we discovered the board was an older ESP32 variant without the S3 suffix, and crucially, it had no camera connector at all. The 24-pin FPC socket for the camera was simply absent from the PCB. After contacting the seller and providing photographic evidence, we processed a return.
+
+\textbf{Attempt 2: Dead on Arrival.}
+The second attempt was from a more reputable seller with verified reviews. The board arrived and appeared correct: ESP32-S3-WROOM-1 module, 8MB PSRAM, and a proper camera connector. Initial serial output was promising. However, when we ran the camera initialization code, it returned \texttt{ESP\_ERR\_NOT\_FOUND}. We suspected a wiring issue and spent hours debugging before realizing the OV2640 sensor flex cable was connected but the sensor itself had a physical crack across its surface, invisible without magnification. The camera was dead on arrival.
+
+\textbf{Attempt 3: No Pins, No Problem.}
+Armed with frustration, we ordered a replacement camera module (just the OV2640, not the entire board) from a third seller. This arrived intact and was verified to work on a test jig. However, when we tried to connect it to the ESP32-S3 board, we discovered the board's GPIO header was unpopulated. The gold pads were present, but no pins were soldered. The product listing had mentioned "with headers" but clearly, this batch was shipped without them.
+
+Rather than waiting for another return and shipment cycle, we contacted a local electronics repair shop near the university. For a small fee, they hand-soldered a 2x20 pin header onto the board. The quality was excellent, and the pins aligned perfectly.
+
+\begin{designbox}[IoT Component Sourcing]
+\begin{itemize}
+    \item Always verify seller reputation and read recent reviews mentioning the specific product variant you need.
+    \item "ESP32" is a family with many variants (ESP32, ESP32-S2, ESP32-S3, ESP32-C3). Confirm the exact chip before ordering.
+    \item Camera modules are fragile. Inspect the sensor surface under light immediately upon arrival.
+    \item Unpopulated headers are common on development boards. Either order from a listing that explicitly shows assembled headers, or budget for local soldering.
+    \item Having a local electronics repair contact can save weeks of waiting for returns and replacements.
+\end{itemize}
+\end{designbox}
 
 % --------------------------------------------------------
 \section{Main Loop Structure}
@@ -703,8 +978,7 @@ The 5ms delay at the end of each loop iteration ensures the watchdog timer is no
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.7\textwidth]{figures/software/loop_timing_diagram.png}
-    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}FIGURE: Main Loop Timing Diagram\\Shows time allocation for each subsystem per iteration\vspace{3cm}}}
+    \includegraphics[width=\textwidth]{figures/software/loop_timing_diagram.jpg}
     \caption{Timing breakdown of a single main loop iteration showing relative time spent in each subsystem.}
     \label{fig:loop-timing}
 \end{figure}
@@ -738,8 +1012,7 @@ The "Huge APP" partition scheme allocates maximum space for application code, wh
 % FIGURE PLACEHOLDER
 \begin{figure}[h!]
     \centering
-    % \includegraphics[width=0.8\textwidth]{figures/software/arduino_board_settings.png}
-    \fbox{\parbox{0.8\textwidth}{\centering\vspace{3cm}FIGURE: Arduino IDE Board Settings Screenshot\\Shows Tools menu with all required settings highlighted\vspace{3cm}}}
+    \includegraphics[width=\textwidth]{figures/software/arduino_board_settings.png}
     \caption{Arduino IDE Tools menu configuration for ESP32-S3 with PSRAM enabled.}
     \label{fig:arduino-settings}
 \end{figure}

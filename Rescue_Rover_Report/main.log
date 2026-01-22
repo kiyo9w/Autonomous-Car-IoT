@@ -1,39 +1,36 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.30)  15 JAN 2026 17:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.1.15)  16 JAN 2026 07:44
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
-**main.tex
-(./main.tex
-LaTeX2e <2024-11-01> patch level 2
-L3 programming layer <2025-01-18>
-(/usr/local/texlive/2025/texmf-dist/tex/latex/base/report.cls
-Document Class: report 2024/06/29 v1.4n Standard LaTeX document class
-(/usr/local/texlive/2025/texmf-dist/tex/latex/base/size12.clo
-File: size12.clo 2024/06/29 v1.4n Standard LaTeX file (size option)
+**c:/Users/duydu/Github/GitHub/Rescue-Rover/Rescue_Rover_Report/main.tex
+(c:/Users/duydu/Github/GitHub/Rescue-Rover/Rescue_Rover_Report/main.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-12-29>
+(C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/base\report.cls
+Document Class: report 2025/01/22 v1.4n Standard LaTeX document class
+(C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.clo
+File: size12.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
 )
-\c@part=\count196
-\c@chapter=\count197
-\c@section=\count198
-\c@subsection=\count199
-\c@subsubsection=\count266
-\c@paragraph=\count267
-\c@subparagraph=\count268
-\c@figure=\count269
-\c@table=\count270
+\c@part=\count275
+\c@chapter=\count276
+\c@section=\count277
+\c@subsection=\count278
+\c@subsubsection=\count279
+\c@paragraph=\count280
+\c@subparagraph=\count281
+\c@figure=\count282
+\c@table=\count283
 \abovecaptionskip=\skip49
 \belowcaptionskip=\skip50
-\bibindent=\dimen141
-)
-(./settings/packages.tex
-(/usr/local/texlive/2025/texmf-dist/tex/latex/base/inputenc.sty
+\bibindent=\dimen148
+) (settings/packages.tex (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/base\inputenc.sty
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks17
 \inpenc@posthook=\toks18
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/base/fontenc.sty
-Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/lmodern.sty
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+Package: fontenc 2025/07/18 v2.1d Standard LaTeX package
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/lm\lmodern.sty
 Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
@@ -67,274 +64,135 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/keyval.sty
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks19
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
 ))
-\Gm@cnth=\count271
-\Gm@cntv=\count272
-\c@Gm@tempcnt=\count273
-\Gm@bindingoffset=\dimen142
-\Gm@wd@mp=\dimen143
-\Gm@odd@mp=\dimen144
-\Gm@even@mp=\dimen145
-\Gm@layoutwidth=\dimen146
-\Gm@layoutheight=\dimen147
-\Gm@layouthoffset=\dimen148
-\Gm@layoutvoffset=\dimen149
+\Gm@cnth=\count284
+\Gm@cntv=\count285
+\c@Gm@tempcnt=\count286
+\Gm@bindingoffset=\dimen149
+\Gm@wd@mp=\dimen150
+\Gm@odd@mp=\dimen151
+\Gm@even@mp=\dimen152
+\Gm@layoutwidth=\dimen153
+\Gm@layoutheight=\dimen154
+\Gm@layouthoffset=\dimen155
+\Gm@layoutvoffset=\dimen156
 \Gm@dimlist=\toks20
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/setspace/setspace.sty
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
 Package: setspace 2022/12/04 v6.7b set line spacing
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 106.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2025/09/29 v1.2d Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen150
-\Gin@req@width=\dimen151
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/float/float.sty
+\Gin@req@height=\dimen157
+\Gin@req@width=\dimen158
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count274
+\c@float@type=\count287
 \float@exts=\toks21
-\float@box=\box52
+\float@box=\box53
 \@float@everytoks=\toks22
-\@floatcapt=\box53
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/caption/subcaption.sty
+\@floatcapt=\box54
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/caption\subcaption.sty
 Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/caption/caption.sty
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption.sty
 Package: caption 2023/08/05 v3.6o Customizing captions (AR)
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/caption/caption3.sty
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/caption\caption3.sty
 Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
-\caption@tempdima=\dimen152
-\captionmargin=\dimen153
-\caption@leftmargin=\dimen154
-\caption@rightmargin=\dimen155
-\caption@width=\dimen156
-\caption@indent=\dimen157
-\caption@parindent=\dimen158
-\caption@hangindent=\dimen159
+\caption@tempdima=\dimen159
+\captionmargin=\dimen160
+\caption@leftmargin=\dimen161
+\caption@rightmargin=\dimen162
+\caption@width=\dimen163
+\caption@indent=\dimen164
+\caption@parindent=\dimen165
+\caption@hangindent=\dimen166
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count275
-\c@continuedfloat=\count276
+\c@caption@flags=\count288
+\c@continuedfloat=\count289
 Package caption Info: float package is loaded.
 )
 Package caption Info: New subtype `subfigure' on input line 238.
-\c@subfigure=\count277
+\c@subfigure=\count290
 Package caption Info: New subtype `subtable' on input line 238.
-\c@subtable=\count278
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/booktabs/booktabs.sty
-Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen160
-\lightrulewidth=\dimen161
-\cmidrulewidth=\dimen162
-\belowrulesep=\dimen163
-\belowbottomsep=\dimen164
-\aboverulesep=\dimen165
-\abovetopsep=\dimen166
-\cmidrulesep=\dimen167
-\cmidrulekern=\dimen168
-\defaultaddspace=\dimen169
-\@cmidla=\count279
-\@cmidlb=\count280
-\@aboverulesep=\dimen170
-\@belowrulesep=\dimen171
-\@thisruleclass=\count281
-\@lastruleclass=\count282
-\@thisrulewidth=\dimen172
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/tabularx.sty
-Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/array.sty
-Package: array 2024/10/17 v2.6g Tabular extension package (FMi)
-\col@sep=\dimen173
-\ar@mcellbox=\box54
-\extrarowheight=\dimen174
-\NC@list=\toks23
-\extratabsurround=\skip51
-\backup@length=\skip52
-\ar@cellbox=\box55
-)
-\TX@col@width=\dimen175
-\TX@old@table=\dimen176
-\TX@old@col=\dimen177
-\TX@target=\dimen178
-\TX@delta=\dimen179
-\TX@cols=\count283
-\TX@ftn=\toks24
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/multirow/multirow.sty
-Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
-\multirow@colwidth=\skip53
-\multirow@cntb=\count284
-\multirow@dima=\skip54
-\bigstrutjot=\dimen180
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/longtable.sty
-Package: longtable 2024-10-27 v4.22 Multi-page Table package (DPC)
-\LTleft=\skip55
-\LTright=\skip56
-\LTpre=\skip57
-\LTpost=\skip58
-\LTchunksize=\count285
-\LTcapwidth=\dimen181
-\LT@head=\box56
-\LT@firsthead=\box57
-\LT@foot=\box58
-\LT@lastfoot=\box59
-\LT@gbox=\box60
-\LT@cols=\count286
-\LT@rows=\count287
-\c@LT@tables=\count288
-\c@LT@chunks=\count289
-\LT@p@ftn=\toks25
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
-Package: amsmath 2024/11/05 v2.17t AMS math features
-\@mathmargin=\skip59
-
-For additional information on amsmath, use the `?' option.
-(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amstext.sty
-Package: amstext 2021/08/26 v2.01 AMS text
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsgen.sty
-File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks26
-\ex@=\dimen182
+\c@subtable=\count291
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/pgf/frontendlayer\tikz.sty (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfrcs.sty (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil-common.tex
+\pgfutil@everybye=\toks23
+\pgfutil@tempdima=\dimen167
+\pgfutil@tempdimb=\dimen168
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil-latex.def
+\pgfutil@abb=\box55
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfrcs.code.tex (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf\pgf.revision.tex)
+Package: pgfrcs 2025-08-29 v3.1.11a (3.1.11a)
 ))
-(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsbsy.sty
-Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen183
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/amsmath/amsopn.sty
-Package: amsopn 2022/04/08 v2.04 operator names
-)
-\inf@bad=\count290
-LaTeX Info: Redefining \frac on input line 233.
-\uproot@=\count291
-\leftroot@=\count292
-LaTeX Info: Redefining \overline on input line 398.
-LaTeX Info: Redefining \colon on input line 409.
-\classnum@=\count293
-\DOTSCASE@=\count294
-LaTeX Info: Redefining \ldots on input line 495.
-LaTeX Info: Redefining \dots on input line 498.
-LaTeX Info: Redefining \cdots on input line 619.
-\Mathstrutbox@=\box61
-\strutbox@=\box62
-LaTeX Info: Redefining \big on input line 721.
-LaTeX Info: Redefining \Big on input line 722.
-LaTeX Info: Redefining \bigg on input line 723.
-LaTeX Info: Redefining \Bigg on input line 724.
-\big@size=\dimen184
-LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
-\macc@depth=\count295
-LaTeX Info: Redefining \bmod on input line 904.
-LaTeX Info: Redefining \pmod on input line 909.
-LaTeX Info: Redefining \smash on input line 939.
-LaTeX Info: Redefining \relbar on input line 969.
-LaTeX Info: Redefining \Relbar on input line 970.
-\c@MaxMatrixCols=\count296
-\dotsspace@=\muskip17
-\c@parentequation=\count297
-\dspbrk@lvl=\count298
-\tag@help=\toks27
-\row@=\count299
-\column@=\count300
-\maxfields@=\count301
-\andhelp@=\toks28
-\eqnshift@=\dimen185
-\alignsep@=\dimen186
-\tagshift@=\dimen187
-\tagwidth@=\dimen188
-\totwidth@=\dimen189
-\lineht@=\dimen190
-\@envbody=\toks29
-\multlinegap=\skip60
-\multlinetaggap=\skip61
-\mathdisplay@stack=\toks30
-LaTeX Info: Redefining \[ on input line 2953.
-LaTeX Info: Redefining \] on input line 2954.
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
-Package: amssymb 2013/01/14 v3.01 AMS font symbols
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty
-Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\symAMSa=\mathgroup4
-\symAMSb=\mathgroup5
-LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
-LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
-(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+Package: pgf 2025-08-29 v3.1.11a (3.1.11a)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.sty (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.sty (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsys.code.tex
+Package: pgfsys 2025-08-29 v3.1.11a (3.1.11a)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks24
+\pgfkeys@temptoks=\toks25
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeyslibraryfiltered.code.tex
+\pgfkeys@tmptoks=\toks26
 ))
-(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count302
-\lst@gtempboxa=\box63
-\lst@token=\toks31
-\lst@length=\count303
-\lst@currlwidth=\dimen191
-\lst@column=\count304
-\lst@pos=\count305
-\lst@lostspace=\dimen192
-\lst@width=\dimen193
-\lst@newlines=\count306
-\lst@lineno=\count307
-\lst@maxwidth=\dimen194
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstpatch.sty
-File: lstpatch.sty 2024/09/23 1.10c (Carsten Heinz)
+\pgf@x=\dimen169
+\pgf@y=\dimen170
+\pgf@xa=\dimen171
+\pgf@ya=\dimen172
+\pgf@xb=\dimen173
+\pgf@yb=\dimen174
+\pgf@xc=\dimen175
+\pgf@yc=\dimen176
+\pgf@xd=\dimen177
+\pgf@yd=\dimen178
+\w@pgf@writea=\write3
+\r@pgf@reada=\read2
+\c@pgf@counta=\count292
+\c@pgf@countb=\count293
+\c@pgf@countc=\count294
+\c@pgf@countd=\count295
+\t@pgf@toka=\toks27
+\t@pgf@tokb=\toks28
+\t@pgf@tokc=\toks29
+\pgf@sys@id@count=\count296
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf.cfg
+File: pgf.cfg 2025-08-29 v3.1.11a (3.1.11a)
 )
-(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
-\c@lstnumber=\count308
-\lst@skipnumbers=\count309
-\lst@framebox=\box64
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/listings.cfg
-File: listings.cfg 2024/09/23 1.10c listings configuration
-))
-Package: listings 2024/09/23 1.10c (Carsten Heinz)
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+Driver file for pgf: pgfsys-pdftex.def
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2025-08-29 v3.1.11a (3.1.11a)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsys-common-pdf.def
+File: pgfsys-common-pdf.def 2025-08-29 v3.1.11a (3.1.11a)
+))) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfsyssoftpath@smallbuffer@items=\count297
+\pgfsyssoftpath@bigbuffer@items=\count298
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 274.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
 Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
 Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
 Package xcolor Info: Model `RGB' extended on input line 1365.
@@ -344,180 +202,461 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcore.code.tex
+Package: pgfcore 2025-08-29 v3.1.11a (3.1.11a)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathutil.code.tex) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathparser.code.tex
+\pgfmath@dimen=\dimen179
+\pgfmath@count=\count299
+\pgfmath@box=\box56
+\pgfmath@toks=\toks30
+\pgfmath@stack@operand=\toks31
+\pgfmath@stack@operation=\toks32
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.code.tex) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.basic.code.tex) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.trigonometric.code.tex) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.random.code.tex) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.comparison.code.tex) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.base.code.tex) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.round.code.tex) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.misc.code.tex) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.integerarithmetics.code.tex) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathcalc.code.tex) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count300
+)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.code.tex) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepoints.code.tex
+File: pgfcorepoints.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@picminx=\dimen180
+\pgf@picmaxx=\dimen181
+\pgf@picminy=\dimen182
+\pgf@picmaxy=\dimen183
+\pgf@pathminx=\dimen184
+\pgf@pathmaxx=\dimen185
+\pgf@pathminy=\dimen186
+\pgf@pathmaxy=\dimen187
+\pgf@xx=\dimen188
+\pgf@xy=\dimen189
+\pgf@yx=\dimen190
+\pgf@yy=\dimen191
+\pgf@zx=\dimen192
+\pgf@zy=\dimen193
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathconstruct.code.tex
+File: pgfcorepathconstruct.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@path@lastx=\dimen194
+\pgf@path@lasty=\dimen195
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathusage.code.tex
+File: pgfcorepathusage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@shorten@end@additional=\dimen196
+\pgf@shorten@start@additional=\dimen197
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfpic=\box57
+\pgf@hbox=\box58
+\pgf@layerbox@main=\box59
+\pgf@picture@serial@count=\count301
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoregraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgflinewidth=\dimen198
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransformations.code.tex
+File: pgfcoretransformations.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@pt@x=\dimen199
+\pgf@pt@y=\dimen256
+\pgf@pt@temp=\dimen257
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreobjects.code.tex
+File: pgfcoreobjects.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepathprocessing.code.tex
+File: pgfcorepathprocessing.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorearrows.code.tex
+File: pgfcorearrows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowsep=\dimen258
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@max=\dimen259
+\pgf@sys@shading@range@num=\count302
+\pgf@shadingcount=\count303
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoreexternal.code.tex
+File: pgfcoreexternal.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfexternal@startupbox=\box60
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorelayers.code.tex
+File: pgfcorelayers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransparency.code.tex
+File: pgfcoretransparency.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepatterns.code.tex
+File: pgfcorepatterns.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorerdf.code.tex
+File: pgfcorerdf.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmoduleshapes.code.tex
+File: pgfmoduleshapes.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfnodeparttextbox=\box61
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-0-65.sty
+Package: pgfcomp-version-0-65 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@nodesepstart=\dimen260
+\pgf@nodesepend=\dimen261
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/pgf/compatibility\pgfcomp-version-1-18.sty
+Package: pgfcomp-version-1-18 2025-08-29 v3.1.11a (3.1.11a)
+)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgffor.sty (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfkeys.sty (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/pgf/math\pgfmath.sty (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmath.code.tex)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor.code.tex
+Package: pgffor 2025-08-29 v3.1.11a (3.1.11a)
+\pgffor@iter=\dimen262
+\pgffor@skip=\dimen263
+\pgffor@stack=\toks33
+\pgffor@toks=\toks34
+)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz\tikz.code.tex
+Package: tikz 2025-08-29 v3.1.11a (3.1.11a)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibraryplothandlers.code.tex
+File: pgflibraryplothandlers.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@plot@mark@count=\count304
+\pgfplotmarksize=\dimen264
 )
-(/usr/local/texlive/2025/texmf-dist/tex/latex/algorithms/algorithm.sty
-Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
-nment
+\tikz@lastx=\dimen265
+\tikz@lasty=\dimen266
+\tikz@lastxsaved=\dimen267
+\tikz@lastysaved=\dimen268
+\tikz@lastmovetox=\dimen269
+\tikz@lastmovetoy=\dimen270
+\tikzleveldistance=\dimen271
+\tikzsiblingdistance=\dimen272
+\tikz@figbox=\box62
+\tikz@figbox@bg=\box63
+\tikz@tempbox=\box64
+\tikz@tempbox@bg=\box65
+\tikztreelevel=\count305
+\tikznumberofchildren=\count306
+\tikznumberofcurrentchild=\count307
+\tikz@fig@count=\count308
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfmatrixcurrentrow=\count309
+\pgfmatrixcurrentcolumn=\count310
+\pgf@matrix@numberofcolumns=\count311
+)
+\tikz@expandcount=\count312
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibraryarrows.meta.code.tex
+File: pgflibraryarrows.meta.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgfarrowinset=\dimen273
+\pgfarrowlength=\dimen274
+\pgfarrowwidth=\dimen275
+\pgfarrowlinewidth=\dimen276
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\pgflibraryshapes.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries/circuits\tikzlibrarycircuits.logic.IEC.code.tex (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries/circuits\tikzlibrarycircuits.logic.code.tex (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries/circuits\tikzlibrarycircuits.code.tex (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarydecorations.markings.code.tex (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarydecorations.code.tex (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmoduledecorations.code.tex
+\pgfdecoratedcompleteddistance=\dimen277
+\pgfdecoratedremainingdistance=\dimen278
+\pgfdecoratedinputsegmentcompleteddistance=\dimen279
+\pgfdecoratedinputsegmentremainingdistance=\dimen280
+\pgf@decorate@distancetomove=\dimen281
+\pgf@decorate@repeatstate=\count313
+\pgfdecorationsegmentamplitude=\dimen282
+\pgfdecorationsegmentlength=\dimen283
+)
+\tikz@lib@dec@box=\box66
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/decorations\pgflibrarydecorations.markings.code.tex))
+\tikz@lib@circ@count=\count314
+\tikzcircuitssizeunit=\dimen284
+)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes/circuits\pgflibraryshapes.gates.logic.IEC.code.tex (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes/circuits\pgflibraryshapes.gates.logic.code.tex))) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryshadows.code.tex
+File: tikzlibraryshadows.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryfadings.code.tex
+File: tikzlibraryfadings.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibraryfadings.code.tex
+File: pgflibraryfadings.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+))) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/booktabs\booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen285
+\lightrulewidth=\dimen286
+\cmidrulewidth=\dimen287
+\belowrulesep=\dimen288
+\belowbottomsep=\dimen289
+\aboverulesep=\dimen290
+\abovetopsep=\dimen291
+\cmidrulesep=\dimen292
+\cmidrulekern=\dimen293
+\defaultaddspace=\dimen294
+\@cmidla=\count315
+\@cmidlb=\count316
+\@aboverulesep=\dimen295
+\@belowrulesep=\dimen296
+\@thisruleclass=\count317
+\@lastruleclass=\count318
+\@thisrulewidth=\dimen297
+)
+(C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
+\col@sep=\dimen298
+\ar@mcellbox=\box67
+\extrarowheight=\dimen299
+\NC@list=\toks35
+\extratabsurround=\skip51
+\backup@length=\skip52
+\ar@cellbox=\box68
+)
+\TX@col@width=\dimen300
+\TX@old@table=\dimen301
+\TX@old@col=\dimen302
+\TX@target=\dimen303
+\TX@delta=\dimen304
+\TX@cols=\count319
+\TX@ftn=\toks36
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
+Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
+\multirow@colwidth=\skip53
+\multirow@cntb=\count320
+\multirow@dima=\skip54
+\bigstrutjot=\dimen305
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty
+Package: longtable 2025-10-13 v4.24 Multi-page Table package (DPC)
+\LTleft=\skip55
+\LTright=\skip56
+\LTpre=\skip57
+\LTpost=\skip58
+\LTchunksize=\count321
+\LTcapwidth=\dimen306
+\LT@head=\box69
+\LT@firsthead=\box70
+\LT@foot=\box71
+\LT@lastfoot=\box72
+\LT@gbox=\box73
+\LT@cols=\count322
+\LT@rows=\count323
+\c@LT@tables=\count324
+\c@LT@chunks=\count325
+\LT@p@ftn=\toks37
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
+Package: amsmath 2025/07/09 v2.17z AMS math features
+\@mathmargin=\skip59
 
-(/usr/local/texlive/2025/texmf-dist/tex/latex/base/ifthen.sty
+For additional information on amsmath, use the `?' option.
+(C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
+Package: amstext 2024/11/17 v2.01 AMS text
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks38
+\ex@=\dimen307
+)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen308
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count326
+LaTeX Info: Redefining \frac on input line 233.
+\uproot@=\count327
+\leftroot@=\count328
+LaTeX Info: Redefining \overline on input line 398.
+LaTeX Info: Redefining \colon on input line 409.
+\classnum@=\count329
+\DOTSCASE@=\count330
+LaTeX Info: Redefining \ldots on input line 495.
+LaTeX Info: Redefining \dots on input line 498.
+LaTeX Info: Redefining \cdots on input line 619.
+\Mathstrutbox@=\box74
+\strutbox@=\box75
+LaTeX Info: Redefining \big on input line 721.
+LaTeX Info: Redefining \Big on input line 722.
+LaTeX Info: Redefining \bigg on input line 723.
+LaTeX Info: Redefining \Bigg on input line 724.
+\big@size=\dimen309
+LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
+\macc@depth=\count331
+LaTeX Info: Redefining \bmod on input line 904.
+LaTeX Info: Redefining \pmod on input line 909.
+LaTeX Info: Redefining \smash on input line 939.
+LaTeX Info: Redefining \relbar on input line 969.
+LaTeX Info: Redefining \Relbar on input line 970.
+\c@MaxMatrixCols=\count332
+\dotsspace@=\muskip17
+\c@parentequation=\count333
+\dspbrk@lvl=\count334
+\tag@help=\toks39
+\row@=\count335
+\column@=\count336
+\maxfields@=\count337
+\andhelp@=\toks40
+\eqnshift@=\dimen310
+\alignsep@=\dimen311
+\tagshift@=\dimen312
+\tagwidth@=\dimen313
+\totwidth@=\dimen314
+\lineht@=\dimen315
+\@envbody=\toks41
+\multlinegap=\skip60
+\multlinetaggap=\skip61
+\mathdisplay@stack=\toks42
+LaTeX Info: Redefining \[ on input line 2950.
+LaTeX Info: Redefining \] on input line 2951.
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count338
+\lst@gtempboxa=\box76
+\lst@token=\toks43
+\lst@length=\count339
+\lst@currlwidth=\dimen316
+\lst@column=\count340
+\lst@pos=\count341
+\lst@lostspace=\dimen317
+\lst@width=\dimen318
+\lst@newlines=\count342
+\lst@lineno=\count343
+\lst@maxwidth=\dimen319
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstpatch.sty
+File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
+\c@lstnumber=\count344
+\lst@skipnumbers=\count345
+\lst@framebox=\box77
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
+File: listings.cfg 2025/11/14 1.11b listings configuration
+))
+Package: listings 2025/11/14 1.11b (Carsten Heinz)
+
+==> First Aid for listings.sty no longer applied!
+    Expected:
+        2024/09/23 1.10c (Carsten Heinz)
+    but found:
+        2025/11/14 1.11b (Carsten Heinz)
+    so I'm assuming it got fixed.
+(C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/algorithms\algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
 Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 )
-\@float@every@algorithm=\toks32
-\c@algorithm=\count310
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/algorithms/algorithmic.sty
+\@float@every@algorithm=\toks44
+\c@algorithm=\count346
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/algorithms\algorithmic.sty
 Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
-\c@ALC@unique=\count311
-\c@ALC@line=\count312
-\c@ALC@rem=\count313
-\c@ALC@depth=\count314
+\c@ALC@unique=\count347
+\c@ALC@line=\count348
+\c@ALC@rem=\count349
+\c@ALC@depth=\count350
 \ALC@tlm=\skip62
 \algorithmicindent=\skip63
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2024-11-05 v7.01l Hypertext links for LaTeX
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+Package: hyperref 2025-07-12 v7.01o Hypertext links for LaTeX
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
-)
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-))
-(/usr/local/texlive/2025/texmf-dist/tex/latex/hycolor/hycolor.sty
+)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/nameref.sty
-Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/refcount/refcount.sty
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+Package: nameref 2025-06-21 v2.57 Cross-referencing by name of section
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
-ty
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
- (/usr/local/texlive/2025/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count315
+\c@section@level=\count351
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+Package: etoolbox 2025/10/02 v2.5m e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count352
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\stringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO)
 )
-(/usr/local/texlive/2025/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count316
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/stringenc/stringenc.sty
-Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
-)
-)
-\@linkdim=\dimen195
-\Hy@linkcounter=\count317
-\Hy@pagecounter=\count318
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2024-11-05 v7.01l Hyperref: PDFDocEncoding definition (HO)
+\@linkdim=\dimen320
+\Hy@linkcounter=\count353
+\Hy@pagecounter=\count354
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+File: pd1enc.def 2025-07-12 v7.01o Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/intcalc/intcalc.sty
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count319
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/puenc.def
-File: puenc.def 2024-11-05 v7.01l Hyperref: PDF Unicode definition (HO)
+\Hy@SavedSpaceFactor=\count355
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
+File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
-Package hyperref Info: Hyper figures OFF on input line 4157.
-Package hyperref Info: Link nesting OFF on input line 4162.
-Package hyperref Info: Hyper index ON on input line 4165.
-Package hyperref Info: Plain pages OFF on input line 4172.
-Package hyperref Info: Backreferencing OFF on input line 4177.
+Package hyperref Info: Hyper figures OFF on input line 4195.
+Package hyperref Info: Link nesting OFF on input line 4200.
+Package hyperref Info: Hyper index ON on input line 4203.
+Package hyperref Info: Plain pages OFF on input line 4210.
+Package hyperref Info: Backreferencing OFF on input line 4215.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4424.
-\c@Hy@tempcnt=\count320
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/url/url.sty
+Package hyperref Info: Bookmarks ON on input line 4462.
+\c@Hy@tempcnt=\count356
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 4763.
-\XeTeXLinkMargin=\dimen196
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/bitset/bitset.sty
+LaTeX Info: Redefining \url on input line 4801.
+\XeTeXLinkMargin=\dimen321
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
-Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
-)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
-\Fld@menulength=\count321
-\Field@Width=\dimen197
-\Fld@charsize=\dimen198
-Package hyperref Info: Hyper figures OFF on input line 6042.
-Package hyperref Info: Link nesting OFF on input line 6047.
-Package hyperref Info: Hyper index ON on input line 6050.
-Package hyperref Info: backreferencing OFF on input line 6057.
-Package hyperref Info: Link coloring OFF on input line 6062.
-Package hyperref Info: Link coloring with OCG OFF on input line 6067.
-Package hyperref Info: PDF/A mode OFF on input line 6072.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/base/atbegshi-ltx.sty
-Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
-package with kernel methods
-)
-\Hy@abspage=\count322
-\c@Item=\count323
-\c@Hfootnote=\count324
+\Fld@menulength=\count357
+\Field@Width=\dimen322
+\Fld@charsize=\dimen323
+Package hyperref Info: Hyper figures OFF on input line 6078.
+Package hyperref Info: Link nesting OFF on input line 6083.
+Package hyperref Info: Hyper index ON on input line 6086.
+Package hyperref Info: backreferencing OFF on input line 6093.
+Package hyperref Info: Link coloring OFF on input line 6098.
+Package hyperref Info: Link coloring with OCG OFF on input line 6103.
+Package hyperref Info: PDF/A mode OFF on input line 6108.
+\Hy@abspage=\count358
+\c@Item=\count359
+\c@Hfootnote=\count360
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2024-11-05 v7.01l Hyperref driver for pdfTeX
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/base/atveryend-ltx.sty
-Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
-kage
-with kernel methods
-)
-\Fld@listcount=\count325
-\c@bookmark@seq@number=\count326
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
-Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
+\Fld@listcount=\count361
+\c@bookmark@seq@number=\count362
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
+Package: rerunfilecheck 2025-06-21 v1.11 Rerun checks for auxiliary files (HO)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
-Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
-85.
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 284.
 )
 \Hy@SectionHShift=\skip64
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 47.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/cite/cite.sty
+Package hyperref Info: Option `colorlinks' set `true' on input line 49.
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/cite\cite.sty
 LaTeX Info: Redefining \cite on input line 302.
 LaTeX Info: Redefining \nocite on input line 332.
 Package: cite 2015/02/27  v 5.5
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/enumitem/enumitem.sty
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
 Package: enumitem 2025/02/06 v3.11 Customized lists
 \labelindent=\skip65
-\enit@outerparindent=\dimen199
-\enit@toks=\toks33
-\enit@inbox=\box65
-\enit@count@id=\count327
-\enitdp@description=\count328
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+\enit@outerparindent=\dimen324
+\enit@toks=\toks45
+\enit@inbox=\box78
+\enit@count@id=\count363
+\enitdp@description=\count364
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
 Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
-
 \f@nch@headwidth=\skip66
 \f@nch@offset@elh=\skip67
 \f@nch@offset@erh=\skip68
@@ -532,486 +671,185 @@ Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@widthL=\skip77
 \f@nch@widthC=\skip78
 \f@nch@widthR=\skip79
-\@temptokenb=\toks34
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/titlesec/titlesec.sty
+\@temptokenb=\toks46
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
-\ttl@box=\box66
+\ttl@box=\box79
 \beforetitleunit=\skip80
 \aftertitleunit=\skip81
-\ttl@plus=\dimen256
-\ttl@minus=\dimen257
-\ttl@toksa=\toks35
-\titlewidth=\dimen258
-\titlewidthlast=\dimen259
-\titlewidthfirst=\dimen260
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/appendix/appendix.sty
+\ttl@plus=\dimen325
+\ttl@minus=\dimen326
+\ttl@toksa=\toks47
+\titlewidth=\dimen327
+\titlewidthlast=\dimen328
+\titlewidthfirst=\dimen329
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/appendix\appendix.sty
 Package: appendix 2020/02/08 v1.2c extra appendix facilities
-\c@@pps=\count329
-\c@@ppsavesec=\count330
-\c@@ppsaveapp=\count331
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/glossaries/base/glossaries.sty
-Package: glossaries 2025/03/03 v4.56 (NLCT)
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+\c@@pps=\count365
+\c@@ppsavesec=\count366
+\c@@ppsaveapp=\count367
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/base\glossaries.sty
+Package: glossaries 2025/11/09 v4.9 (NLCT)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/xkeyval\xkeyval.sty
 Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-(/usr/local/texlive/2025/texmf-dist/tex/generic/xkeyval/xkvutils.tex
-\XKV@toks=\toks36
-\XKV@tempa@toks=\toks37
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkeyval.tex (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/xkeyval\xkvutils.tex
+\XKV@toks=\toks48
+\XKV@tempa@toks=\toks49
 )
-\XKV@depth=\count332
+\XKV@depth=\count368
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
-))
-(/usr/local/texlive/2025/texmf-dist/tex/latex/mfirstuc/mfirstuc.sty
-Package: mfirstuc 2022/10/14 v2.08 (NLCT)
-\@glsmfirst=\toks38
-\@glsmrest=\toks39
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/xfor/xfor.sty
+)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/mfirstuc\mfirstuc.sty
+Package: mfirstuc 2025/04/03 v2.09 (NLCT)
+\@glsmfirst=\toks50
+\@glsmrest=\toks51
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/xfor\xfor.sty
 Package: xfor 2009/02/05 v1.05 (NLCT)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/datatool\datatool-base.sty
+Package: datatool-base 2025/12/04 v3.4.3 (NLCT)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/tracklang\tracklang.sty
+Package: tracklang 2025/03/11 v1.6.6 (NLCT) Track Languages
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/tracklang\tracklang.tex))
+\l__datatool_tmpa_int=\count369
+\l__datatool_tmpb_int=\count370
+\l__datatool_tmpc_int=\count371
+\l__datatool_tmpd_int=\count372
+\l__datatool_count_int=\count373
+\l__datatool_tmp_datatype_int=\count374
+\l__datatool_tmpa_dim=\dimen330
+\l__datatool_tmpb_dim=\dimen331
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/datatool\datatool-l3fp.def
+File: datatool-l3fp.def 2025/12/04 v3.4.3 (NLCT)
 )
-(/usr/local/texlive/2025/texmf-dist/tex/latex/datatool/datatool-base.sty
-Package: datatool-base 2025/03/05 v3.0.1 (NLCT)
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/tracklang/tracklang.sty
-Package: tracklang 2025/03/04 v1.6.5 (NLCT) Track Languages
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/tracklang/tracklang.tex))
-(/usr/local/texlive/2025/texmf-dist/tex/latex/datatool/datatool-l3fp.def
-File: datatool-l3fp.def 2025/03/05 v3.0.1 (NLCT)
-)
-\@dtl@toks=\toks40
-\@dtl@tmpcount=\count333
+\@dtl@toks=\toks52
+\@dtl@tmpcount=\count375
 \dtl@tmplength=\skip82
-\l__datatool_measure_box=\box67
-\dtl@sortresult=\count334
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/datatool/datatool-utf8.ldf
-File: datatool-utf8.ldf 2025/03/05 v3.0.1 (NLCT)
+\l__datatool_measure_box=\box80
+\dtl@sortresult=\count376
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/datatool\datatool-utf8.ldf
+File: datatool-utf8.ldf 2025/12/04 v3.4.3 (NLCT)
 )
-\@dtl@datatype=\count335
-\l__datatool_tmpa_int=\count336
-\l__datatool_tmpb_int=\count337
-\l__datatool_tmpc_int=\count338
-\l__datatool_tmpd_int=\count339
-\l__datatool_count_int=\count340
-\l__datatool_tmp_datatype_int=\count341
-\l__datatool_tmpa_dim=\dimen261
-\l__datatool_tmpb_dim=\dimen262
-\c_datatool_unknown_int=\count342
-\l__datatool_year_int=\count343
-\l__datatool_month_int=\count344
-\l__datatool_day_int=\count345
-\l__datatool_hour_int=\count346
-\l__datatool_minute_int=\count347
-\l__datatool_second_int=\count348
-\l__datatool_tzhour_int=\count349
-\l__datatool_tzminute_int=\count350
-\l__datatool_julian_int=\count351
-\l__datatool_local_julian_int=\count352
-\l__datatool_prefix_int=\count353
-\l__datatool_suffix_int=\count354
-\@dtl@foreach@level=\count355
-\dtl@codeA=\count356
-\dtl@codeB=\count357
+\@dtl@datatype=\count377
+\c_datatool_unknown_int=\count378
+\l__datatool_year_int=\count379
+\l__datatool_month_int=\count380
+\l__datatool_day_int=\count381
+\l__datatool_hour_int=\count382
+\l__datatool_minute_int=\count383
+\l__datatool_second_int=\count384
+\l__datatool_tzhour_int=\count385
+\l__datatool_tzminute_int=\count386
+\l__datatool_julian_int=\count387
+\l__datatool_local_julian_int=\count388
+\l__datatool_prefix_int=\count389
+\l__datatool_suffix_int=\count390
+\@dtl@foreach@level=\count391
+\dtl@codeA=\count392
+\dtl@codeB=\count393
 )
-\gls@level=\count358
-\@gls@tmpb=\toks41
+\gls@level=\count394
+\@gls@tmpb=\toks53
 \gls@tmplen=\skip83
-\glskeylisttok=\toks42
-\glslabeltok=\toks43
-\glsshorttok=\toks44
-\glslongtok=\toks45
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/glossaries/styles/glossary-hypern
-av.sty
-Package: glossary-hypernav 2025/03/03 v4.56 (NLCT)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/glossaries/styles/glossary-list.s
-ty
-Package: glossary-list 2025/03/03 v4.56 (NLCT)
+\l__glossaries_tmpa_dim=\dimen332
+\l__glossaries_tmpb_dim=\dimen333
+\glskeylisttok=\toks54
+\glslabeltok=\toks55
+\glsshorttok=\toks56
+\glslongtok=\toks57
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/styles\glossary-hypernav.sty
+Package: glossary-hypernav 2025/11/09 v4.9 (NLCT)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/styles\glossary-list.sty
+Package: glossary-list 2025/11/09 v4.9 (NLCT)
 \glslistdottedwidth=\skip84
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/glossaries/styles/glossary-long.s
-ty
-Package: glossary-long 2025/03/03 v4.56 (NLCT)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/styles\glossary-long.sty
+Package: glossary-long 2025/11/09 v4.9 (NLCT)
 \glsdescwidth=\skip85
 \glspagelistwidth=\skip86
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/glossaries/styles/glossary-super.
-sty
-Package: glossary-super 2025/03/03 v4.56 (NLCT)
- (/usr/local/texlive/2025/texmf-dist/tex/latex/supertabular/supertabular.sty
-Package: supertabular 2024/07/20 v4.2c the supertabular environment
-\c@tracingst=\count359
-\ST@wd=\dimen263
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/styles\glossary-super.sty
+Package: glossary-super 2025/11/09 v4.9 (NLCT)
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/supertabular\supertabular.sty
+Package: supertabular 2025/06/26 v4.2d the supertabular environment
+\c@tracingst=\count395
+\ST@wd=\dimen334
 \ST@rightskip=\skip87
 \ST@leftskip=\skip88
 \ST@parfillskip=\skip89
-\ST@pageleft=\dimen264
-\ST@headht=\dimen265
-\ST@tailht=\dimen266
-\ST@pagesofar=\dimen267
-\ST@pboxht=\dimen268
-\ST@rowht=\dimen269
-\ST@prevht=\dimen270
-\ST@toadd=\dimen271
-\ST@dimen=\dimen272
-\ST@pbox=\box68
-))
-(/usr/local/texlive/2025/texmf-dist/tex/latex/glossaries/styles/glossary-tree.s
-ty
-Package: glossary-tree 2025/03/03 v4.56 (NLCT)
+\ST@pageleft=\dimen335
+\ST@headht=\dimen336
+\ST@tailht=\dimen337
+\ST@pagesofar=\dimen338
+\ST@pboxht=\dimen339
+\ST@rowht=\dimen340
+\ST@prevht=\dimen341
+\ST@toadd=\dimen342
+\ST@dimen=\dimen343
+\ST@pbox=\box81
+)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/glossaries/styles\glossary-tree.sty
+Package: glossary-tree 2025/11/09 v4.9 (NLCT)
+\l__glossaries_tree_max_known_level_int=\count396
+\l__glossaries_tree_offset_dim=\dimen344
+\l__glossaries_tree_namewidth_dim=\dimen345
+\l__glossaries_tree_symbolwidth_dim=\dimen346
+\l__glossaries_tree_prenamesym_width_dim=\dimen347
+\l__glossaries_tree_presubnamesym_width_dim=\dimen348
+\l__glossaries_tree_namewidth_padding_dim=\dimen349
+\l__glossaries_tree_symbolwidth_padding_dim=\dimen350
+\l__glossaries_tree_namesymbolwidth_dim=\dimen351
+\l__glossaries_tree_namesymbolwidth_padding_dim=\dimen352
+\l__glossaries_tree_level_int=\count397
 \glstreeindent=\skip90
-))) (./settings/commands.tex) (./settings/environments.tex
-(/usr/local/texlive/2025/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
-Package: tcolorbox 2024/10/22 version 6.4.1 text color boxes
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
-(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
-(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
-x
-\pgfutil@everybye=\toks46
-\pgfutil@tempdima=\dimen273
-\pgfutil@tempdimb=\dimen274
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box69
-) (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/pgf.revision.tex)
-Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
-))
-Package: pgf 2023-01-15 v3.1.10 (3.1.10)
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
-(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
-Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks47
-\pgfkeys@temptoks=\toks48
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfil
-tered.code.tex
-\pgfkeys@tmptoks=\toks49
-))
-\pgf@x=\dimen275
-\pgf@y=\dimen276
-\pgf@xa=\dimen277
-\pgf@ya=\dimen278
-\pgf@xb=\dimen279
-\pgf@yb=\dimen280
-\pgf@xc=\dimen281
-\pgf@yc=\dimen282
-\pgf@xd=\dimen283
-\pgf@yd=\dimen284
-\w@pgf@writea=\write3
-\r@pgf@reada=\read2
-\c@pgf@counta=\count360
-\c@pgf@countb=\count361
-\c@pgf@countc=\count362
-\c@pgf@countd=\count363
-\t@pgf@toka=\toks50
-\t@pgf@tokb=\toks51
-\t@pgf@tokc=\toks52
-\pgf@sys@id@count=\count364
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
-File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
-)
-Driver file for pgf: pgfsys-pdftex.def
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.d
-ef
-File: pgfsys-pdftex.def 2023-01-15 v3.1.10 (3.1.10)
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
-df.def
-File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
-)))
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
-code.tex
-File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfsyssoftpath@smallbuffer@items=\count365
-\pgfsyssoftpath@bigbuffer@items=\count366
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
-code.tex
-File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
-))
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
-Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen285
-\pgfmath@count=\count367
-\pgfmath@box=\box70
-\pgfmath@toks=\toks53
-\pgfmath@stack@operand=\toks54
-\pgfmath@stack@operation=\toks55
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
-tex)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
-.code.tex)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
-nometric.code.tex)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
-m.code.tex)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
-rison.code.tex)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
-code.tex)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
-.code.tex)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
-code.tex)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
-erarithmetics.code.tex)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count368
-)) (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
-de.tex
-File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@picminx=\dimen286
-\pgf@picmaxx=\dimen287
-\pgf@picminy=\dimen288
-\pgf@picmaxy=\dimen289
-\pgf@pathminx=\dimen290
-\pgf@pathmaxx=\dimen291
-\pgf@pathminy=\dimen292
-\pgf@pathmaxy=\dimen293
-\pgf@xx=\dimen294
-\pgf@xy=\dimen295
-\pgf@yx=\dimen296
-\pgf@yy=\dimen297
-\pgf@zx=\dimen298
-\pgf@zy=\dimen299
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
-ruct.code.tex
-File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@path@lastx=\dimen300
-\pgf@path@lasty=\dimen301
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
-.code.tex
-File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@shorten@end@additional=\dimen302
-\pgf@shorten@start@additional=\dimen303
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
-de.tex
-File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfpic=\box71
-\pgf@hbox=\box72
-\pgf@layerbox@main=\box73
-\pgf@picture@serial@count=\count369
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
-ate.code.tex
-File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgflinewidth=\dimen304
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
-ations.code.tex
-File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@pt@x=\dimen305
-\pgf@pt@y=\dimen306
-\pgf@pt@temp=\dimen307
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
-e.tex
-File: pgfcorequick.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
-ode.tex
-File: pgfcoreobjects.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
-ssing.code.tex
-File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
-de.tex
-File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfarrowsep=\dimen308
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
-e.tex
-File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@max=\dimen309
-\pgf@sys@shading@range@num=\count370
-\pgf@shadingcount=\count371
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
-e.tex
-File: pgfcoreimage.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
-code.tex
-File: pgfcoreexternal.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfexternal@startupbox=\box74
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
-de.tex
-File: pgfcorelayers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
-ncy.code.tex
-File: pgfcoretransparency.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
-code.tex
-File: pgfcorepatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.
-tex
-File: pgfcorerdf.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)))
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
-e.tex
-File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfnodeparttextbox=\box75
-)
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
-tex
-File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
--0-65.sty
-Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
-\pgf@nodesepstart=\dimen310
-\pgf@nodesepend=\dimen311
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
--1-18.sty
-Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
-))
-(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
-(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)
-) (/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/math/pgfmath.sty
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
-Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
-\pgffor@iter=\dimen312
-\pgffor@skip=\dimen313
-\pgffor@stack=\toks56
-\pgffor@toks=\toks57
-))
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
-e.tex
-Package: tikz 2023-01-15 v3.1.10 (3.1.10)
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
-dlers.code.tex
-File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@plot@mark@count=\count372
-\pgfplotmarksize=\dimen314
-)
-\tikz@lastx=\dimen315
-\tikz@lasty=\dimen316
-\tikz@lastxsaved=\dimen317
-\tikz@lastysaved=\dimen318
-\tikz@lastmovetox=\dimen319
-\tikz@lastmovetoy=\dimen320
-\tikzleveldistance=\dimen321
-\tikzsiblingdistance=\dimen322
-\tikz@figbox=\box76
-\tikz@figbox@bg=\box77
-\tikz@tempbox=\box78
-\tikz@tempbox@bg=\box79
-\tikztreelevel=\count373
-\tikznumberofchildren=\count374
-\tikznumberofcurrentchild=\count375
-\tikz@fig@count=\count376
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
-e.tex
-File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfmatrixcurrentrow=\count377
-\pgfmatrixcurrentcolumn=\count378
-\pgf@matrix@numberofcolumns=\count379
-)
-\tikz@expandcount=\count380
-
-(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
-s/tikzlibrarytopaths.code.tex
-File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)))
-(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/verbatim.sty
+))) (settings/commands.tex) (settings/environments.tex (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcolorbox.sty
+Package: tcolorbox 2025/11/28 version 6.9.0 text color boxes
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/tools\verbatim.sty
 Package: verbatim 2024-01-22 v1.5x LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks58
 \verbatim@line=\toks59
 \verbatim@in@stream=\read3
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/environ/environ.sty
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/environ\environ.sty
 Package: environ 2014/05/04 v0.3 A new way to define environments
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/trimspaces\trimspaces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
-\tcb@titlebox=\box80
-\tcb@upperbox=\box81
-\tcb@lowerbox=\box82
-\tcb@phantombox=\box83
-\c@tcbbreakpart=\count381
-\c@tcblayer=\count382
-\c@tcolorbox@number=\count383
-\l__tcobox_tmpa_box=\box84
-\l__tcobox_tmpa_dim=\dimen323
-\tcb@temp=\box85
-\tcb@temp=\box86
+\tcb@titlebox=\box82
+\tcb@upperbox=\box83
+\tcb@lowerbox=\box84
+\tcb@phantombox=\box85
+\c@tcbbreakpart=\count398
+\c@tcblayer=\count399
+\c@tcolorbox@number=\count400
+\l__tcobox_tmpa_box=\box86
+\l__tcobox_tmpa_dim=\dimen353
 \tcb@temp=\box87
 \tcb@temp=\box88
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/tcolorbox/tcbskins.code.tex
-Library (tcolorbox): 'tcbskins.code.tex' version '6.4.1'
-(/usr/local/texlive/2025/texmf-dist/tex/latex/tikzfill/tikzfill.image.sty
+\tcb@temp=\box89
+\tcb@temp=\box90
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcbskins.code.tex
+Library (tcolorbox): 'tcbskins.code.tex' version '6.9.0'
+(C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/tikzfill\tikzfill.image.sty
 Package: tikzfill.image 2023/08/08 v1.0.1 Image filling library for TikZ
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/tikzfill/tikzfill-common.sty
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/tikzfill\tikzfill-common.sty
 Package: tikzfill-common 2023/08/08 v1.0.1 Auxiliary code for tikzfill
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/tikzfill/tikzlibraryfill.image.co
-de.tex
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/tikzfill\tikzlibraryfill.image.code.tex
 File: tikzlibraryfill.image.code.tex 2023/08/08 v1.0.1 Image filling library
-\l__tikzfill_img_box=\box89
-))
-(/usr/local/texlive/2025/texmf-dist/tex/latex/tcolorbox/tcbskinsjigsaw.code.tex
-Library (tcolorbox): 'tcbskinsjigsaw.code.tex' version '6.4.1'
-))
-(/usr/local/texlive/2025/texmf-dist/tex/latex/tcolorbox/tcbbreakable.code.tex
-Library (tcolorbox): 'tcbbreakable.code.tex' version '6.4.1'
-(/usr/local/texlive/2025/texmf-dist/tex/latex/pdfcol/pdfcol.sty
+\l__tikzfill_img_box=\box91
+)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcbskinsjigsaw.code.tex
+Library (tcolorbox): 'tcbskinsjigsaw.code.tex' version '6.9.0'
+)) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcbbreakable.code.tex
+Library (tcolorbox): 'tcbbreakable.code.tex' version '6.9.0'
+(C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/pdfcol\pdfcol.sty
 Package: pdfcol 2022-09-21 v1.7 Handle new color stacks for pdfTeX (HO)
 )
 Package pdfcol Info: New color stack `tcb@breakable' = 1 on input line 23.
-\tcb@testbox=\box90
-\tcb@totalupperbox=\box91
-\tcb@totallowerbox=\box92
+\tcb@testbox=\box92
+\tcb@totalupperbox=\box93
+\tcb@totallowerbox=\box94
 ))
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 29
-.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmr.fd
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 29.
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count384
-\l__pdf_internal_box=\box93
-)
-(./main.aux)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count401
+) (main.aux)
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
@@ -1067,68 +905,60 @@ LaTeX Font Info:    ... okay on input line 29.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-(/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+(C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count385
-\scratchdimen=\dimen324
-\scratchbox=\box94
-\nofMPsegments=\count386
-\nofMParguments=\count387
+\scratchcounter=\count402
+\scratchdimen=\dimen354
+\scratchbox=\box95
+\nofMPsegments=\count403
+\nofMParguments=\count404
 \everyMPshowfont=\toks60
-\MPscratchCnt=\count388
-\MPscratchDim=\dimen325
-\MPnumerator=\count389
-\makeMPintoPDFobject=\count390
+\MPscratchCnt=\count405
+\MPscratchDim=\dimen355
+\MPnumerator=\count406
+\makeMPintoPDFobject=\count407
 \everyMPtoPDFconversion=\toks61
-) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
-85.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: longtable package is loaded.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/caption/ltcaption.sty
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/caption\ltcaption.sty
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: supertabular package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count391
+\c@lstlisting=\count408
 Package hyperref Info: Link coloring ON on input line 29.
-
-(./main.out) (./main.out)
+ (main.out) (main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
- (./frontmatter/titlepage.tex
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 3
-1.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/ot1lmr.fd
+ (frontmatter/titlepage.tex
+<figures/university_logo.png, id=706, 569.12625pt x 331.2375pt>
+File: figures/university_logo.png Graphic file (type png)
+<use figures/university_logo.png>
+Package pdftex.def Info: figures/university_logo.png  used on input line 8.
+(pdftex.def)             Requested size: 136.57462pt x 79.48851pt.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 31.
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 3
-1.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omllmm.fd
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 31.
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-31.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omslmsy.fd
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 31.
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-31.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omxlmex.fd
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 31.
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -1138,211 +968,157 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 31.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 31.
-
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 31.
-
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
+) [1
 
-[1
-
-{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
-al/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}])
-(./frontmatter/declaration.tex) (./frontmatter/abstract.tex
-
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.i}) has 
-been already used, duplicate ignored
+{C:/Users/duydu/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc} <./figures/university_logo.png>]) (frontmatter/declaration.tex) (frontmatter/abstract.tex
+pdfTeX warning (ext4): destination with the same identifier (name{page.i}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.4 \chapter
             *{Abstract} [1
 
-]
-
-[2]
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-8.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/ts1lmr.fd
+] [2]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 18.
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 Overfull \hbox (5.99844pt too wide) in paragraph at lines 20--21
-[]\T1/lmr/bx/n/12 Gateway/Courier Mod-ule: \T1/lmr/m/n/12 Python-based mid-dle-
-ware han-dling ESP-NOW packet
+[]\T1/lmr/bx/n/12 Gateway/Courier Mod-ule: \T1/lmr/m/n/12 Python-based mid-dle-ware han-dling ESP-NOW packet
  []
-
-
 
 [3
 
-{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}])
-(./frontmatter/acknowledgments.tex
-
-[4]
+{C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}]) (frontmatter/acknowledgments.tex [4]
 Overfull \hbox (1.33289pt too wide) in paragraph at lines 23--24
-\T1/lmr/m/n/12 and li-braries we used in this project, in-clud-ing the Ar-duino
- frame-work, NiceGUI, YOLOv8,
+\T1/lmr/m/n/12 and li-braries we used in this project, in-clud-ing the Ar-duino frame-work, NiceGUI, YOLOv8,
  []
 
-)
+) [5
 
-[5
+] (main.toc [6
 
-] (./main.toc
-
-[6
-
-]
-
-[7]
-
-[8]
-
-[9]
-
-[10])
+] [7] [8] [9])
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
+ [10] (main.lof [11
 
 
-[11] (./main.lof
-
-[12
-
-
-]
-
-[13]
-Overfull \hbox (3.48257pt too wide) in paragraph at lines 45--45
- [][] [][][]\T1/lmr/m/n/12 L298N mo-tor driver wiring di-a-gram show-ing all co
-n-nec-tions be-tween ESP32- 
+] [12{C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}]
+Overfull \hbox (3.48257pt too wide) in paragraph at lines 43--43
+ [][] [][][]\T1/lmr/m/n/12 L298N mo-tor driver wiring di-a-gram show-ing all con-nec-tions be-tween ESP32- 
  []
 
-
-
-[14])
+[13])
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
-
-
-[15] (./main.lot
-
-[16
+ [14] (main.lot [15
 
 
 ])
 \tf@lot=\write7
 \openout7 = `main.lot'.
 
+ [16] (frontmatter/acronyms.tex
+frontmatter/acronyms.tex:71: ignored error: Infinite glue shrinkage found in box being split [17
 
 
-[17] (./frontmatter/acronyms.tex [18
-
-
-])
-
-[19] (./chapters/01_introduction.tex
+]) [18] (chapters/01_introduction.tex
 Chapter 1.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
 [1
 
 
 ]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 42--43
- [][] 
- []
+<figures/hardware/challenge_grid.png, id=1267, 1413.28pt x 770.88pt>
+File: figures/hardware/challenge_grid.png Graphic file (type png)
+<use figures/hardware/challenge_grid.png>
+Package pdftex.def Info: figures/hardware/challenge_grid.png  used on input line 32.
+(pdftex.def)             Requested size: 455.24411pt x 248.30989pt.
+ [2 <./figures/hardware/challenge_grid.png>]
+<figures/software/objectives_diagram.png, id=1276, 1413.28pt x 770.88pt>
+File: figures/software/objectives_diagram.png Graphic file (type png)
+<use figures/software/objectives_diagram.png>
+Package pdftex.def Info: figures/software/objectives_diagram.png  used on input line 68.
+(pdftex.def)             Requested size: 318.66948pt x 173.81693pt.
+ [3 <./figures/software/objectives_diagram.png>] [4]
+<figures/charts/timeline_gantt.png, id=1290, 763.85374pt x 101.37875pt>
+File: figures/charts/timeline_gantt.png Graphic file (type png)
+<use figures/charts/timeline_gantt.png>
+Package pdftex.def Info: figures/charts/timeline_gantt.png  used on input line 137.
+(pdftex.def)             Requested size: 455.24411pt x 60.41933pt.
+<figures/hardware/commercial_robots.png, id=1291, 888.31876pt x 403.5075pt>
+File: figures/hardware/commercial_robots.png Graphic file (type png)
+<use figures/hardware/commercial_robots.png>
+Package pdftex.def Info: figures/hardware/commercial_robots.png  used on input line 167.
+(pdftex.def)             Requested size: 364.19667pt x 165.42683pt.
 
-
-
-[2]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-
-[3]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[4]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 149--150
- [][] 
- []
+[5 <./figures/charts/timeline_gantt.png>] [6 <./figures/hardware/commercial_robots.png>]
+<figures/charts/report_structure.png, id=1308, 201.75375pt x 613.29124pt>
+File: figures/charts/report_structure.png Graphic file (type png)
+<use figures/charts/report_structure.png>
+Package pdftex.def Info: figures/charts/report_structure.png  used on input line 227.
+(pdftex.def)             Requested size: 227.62505pt x 562.26024pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-
-[5]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[6]
-
-[7]) (./chapters/02_system_architecture.tex
-
-[8]
+) (chapters/02_system_architecture.tex [7] [8 <./figures/charts/report_structure.png>]
 Chapter 2.
-
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 26--27
- [][] 
- []
-
+<figures/software/system_overview_hybrid.png, id=1325, 246.6816pt x 246.6816pt>
+File: figures/software/system_overview_hybrid.png Graphic file (type png)
+<use figures/software/system_overview_hybrid.png>
+Package pdftex.def Info: figures/software/system_overview_hybrid.png  used on input line 25.
+(pdftex.def)             Requested size: 455.24411pt x 455.28856pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 43--44
+Underfull \hbox (badness 10000) in paragraph at lines 40--41
 []|\T1/lmr/m/n/12 Dashboard UI, Tac-ti-cal AI
  []
 
 
-Underfull \hbox (badness 1400) in paragraph at lines 44--45
+Underfull \hbox (badness 1400) in paragraph at lines 41--42
 []|\T1/lmr/m/n/12 Strategic AI (Vi-sion Lan-guage
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+<figures/software/hybrid_layers_cloud.png, id=1326, 246.6816pt x 246.6816pt>
+File: figures/software/hybrid_layers_cloud.png Graphic file (type png)
+<use figures/software/hybrid_layers_cloud.png>
+Package pdftex.def Info: figures/software/hybrid_layers_cloud.png  used on input line 55.
+(pdftex.def)             Requested size: 364.19667pt x 364.23236pt.
 
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [9
 
 ]
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+LaTeX Warning: Text page 10 contains only floats.
 
-
-
-[10{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
-
-[11{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-14.
-
-(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmtt.fd
+[10 <./figures/software/system_overview_hybrid.png>] [11{C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc} <./figures/software/hybrid_layers_cloud.png>]
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 106.
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 120--121
- [][] 
- []
+<figures/software/hybrid_data_flow.png, id=1354, 246.6816pt x 246.6816pt>
+File: figures/software/hybrid_data_flow.png Graphic file (type png)
+<use figures/software/hybrid_data_flow.png>
+Package pdftex.def Info: figures/software/hybrid_data_flow.png  used on input line 111.
+(pdftex.def)             Requested size: 455.24411pt x 455.28856pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1350,454 +1126,538 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-) (./chapters/03_hardware_design.tex
+) (chapters/03_hardware_design.tex [12]
 
-[12]
+LaTeX Warning: Text page 13 contains only floats.
 
-[13]
+[13 <./figures/software/hybrid_data_flow.png>]
 Chapter 3.
-
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 21--22
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
+<figures/hardware/rover_complete_photo.png, id=1368, 5733.42pt x 4300.065pt>
+File: figures/hardware/rover_complete_photo.png Graphic file (type png)
+<use figures/hardware/rover_complete_photo.png>
+Package pdftex.def Info: figures/hardware/rover_complete_photo.png  used on input line 24.
+(pdftex.def)             Requested size: 455.24411pt x 341.38768pt.
 [14
 
 ]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[15]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 85--86
- [][] 
+Underfull \hbox (badness 10000) in paragraph at lines 42--42
+[]|\T1/lmr/m/n/12 ESP32-S3 Sense N16R8
  []
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+Underfull \hbox (badness 7186) in paragraph at lines 52--52
+[]|\T1/lmr/m/n/12 LM2596 Buck Con-verter
+ []
 
 
+Underfull \hbox (badness 2042) in paragraph at lines 59--59
+[]|\T1/lmr/m/n/12 4WD Chas-sis (Alu-minum
+ []
+
+[15 <./figures/hardware/rover_complete_photo.png>]
+
+LaTeX Warning: Reference `chap:firmware' on page 16 undefined on input line 76.
 
 [16]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 144.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 144.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 144.
+ [17] [18] [19]
+<figures/hardware/esp32s3_module_photo.jpeg, id=1406, 558.085pt x 503.8825pt>
+File: figures/hardware/esp32s3_module_photo.jpeg Graphic file (type jpg)
+<use figures/hardware/esp32s3_module_photo.jpeg>
+Package pdftex.def Info: figures/hardware/esp32s3_module_photo.jpeg  used on input line 322.
+(pdftex.def)             Requested size: 318.66948pt x 287.72345pt.
+ [20] [21 <./figures/hardware/esp32s3_module_photo.jpeg>]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+<figures/hardware/ov2640_module.jpeg, id=1418, 521.95pt x 426.59375pt>
+File: figures/hardware/ov2640_module.jpeg Graphic file (type jpg)
+<use figures/hardware/ov2640_module.jpeg>
+Package pdftex.def Info: figures/hardware/ov2640_module.jpeg  used on input line 470.
+(pdftex.def)             Requested size: 227.62206pt x 186.03545pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 159--160
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[17]
-
-[18]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 234--235
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[19]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[20]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[21]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Overfull \hbox (12.27158pt too wide) in paragraph at lines 337--338
-\T1/lmr/m/n/12 During com-po-nent se-lec-tion, we com-pared the L298N against t
-he more mod-ern TB6612FNG.
- []
-
-
 
 [22]
-Overfull \vbox (9.35094pt too high) has occurred while \output is active []
+Underfull \hbox (badness 10000) in paragraph at lines 484--484
+[]|\T1/lmr/bx/n/12 UDP Ef-fi-
+ []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 486--486
+[]|\T1/lmr/m/n/12 QQVGA
+ []
 
-[23]
 
-[24]
+Underfull \hbox (badness 10000) in paragraph at lines 486--487
+[]|\T1/lmr/m/n/12 Rejected (Low
+ []
+
+
+Underfull \hbox (badness 5652) in paragraph at lines 487--487
+[]|\T1/lmr/bx/n/12 Medium (4-8
+ []
+
+
+Underfull \hbox (badness 7256) in paragraph at lines 488--489
+[]|\T1/lmr/m/n/12 Rejected (High
+ []
+
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 506.
+(C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmss.fd
+File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 506.
+
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+[23 <./figures/hardware/ov2640_module.jpeg>] [24] [25]
+<figures/hardware/l298n_module.jpeg, id=1443, 557.08125pt x 486.81876pt>
+File: figures/hardware/l298n_module.jpeg Graphic file (type jpg)
+<use figures/hardware/l298n_module.jpeg>
+Package pdftex.def Info: figures/hardware/l298n_module.jpeg  used on input line 675.
+(pdftex.def)             Requested size: 273.14923pt x 238.69926pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 437--438
- [][] 
+Overfull \hbox (12.27158pt too wide) in paragraph at lines 682--683
+\T1/lmr/m/n/12 During com-po-nent se-lec-tion, we com-pared the L298N against the more mod-ern TB6612FNG.
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-
-[25]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
+<figures/charts/driver_efficiency.png, id=1444, 2826.56pt x 1541.76pt>
+File: figures/charts/driver_efficiency.png Graphic file (type png)
+<use figures/charts/driver_efficiency.png>
+Package pdftex.def Info: figures/charts/driver_efficiency.png  used on input line 708.
+(pdftex.def)             Requested size: 364.19667pt x 198.6479pt.
+[26 <./figures/hardware/l298n_module.jpeg>]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-
-[26]
-Overfull \vbox (13.31755pt too high) has occurred while \output is active []
-
-
-
-[27]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 508.
-
-
-[28]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 535--536
- [][] 
- []
-
+<figures/hardware/lipo_battery.jpeg, id=1449, 531.9875pt x 596.2275pt>
+File: figures/hardware/lipo_battery.jpeg Graphic file (type jpg)
+<use figures/hardware/lipo_battery.jpeg>
+Package pdftex.def Info: figures/hardware/lipo_battery.jpeg  used on input line 745.
+(pdftex.def)             Requested size: 227.62206pt x 255.10825pt.
+[27 <./figures/charts/driver_efficiency.png>]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[29]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 594--595
- [][] 
- []
-
-
-
-[30]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-) (./chapters/04_firmware_implementation.tex
-
-[31]
-
-[32]
+<figures/hardware/power_distribution_diagram.png, id=1456, 735.74875pt x 470.75874pt>
+File: figures/hardware/power_distribution_diagram.png Graphic file (type png)
+<use figures/hardware/power_distribution_diagram.png>
+Package pdftex.def Info: figures/hardware/power_distribution_diagram.png  used on input line 778.
+(pdftex.def)             Requested size: 455.24411pt x 291.29276pt.
+[28 <./figures/hardware/lipo_battery.jpeg>]
+<figures/hardware/voltage_rails.png, id=1461, 774.895pt x 237.88875pt>
+File: figures/hardware/voltage_rails.png Graphic file (type png)
+<use figures/hardware/voltage_rails.png>
+Package pdftex.def Info: figures/hardware/voltage_rails.png  used on input line 790.
+(pdftex.def)             Requested size: 455.24411pt x 139.75783pt.
+ [29 <./figures/hardware/power_distribution_diagram.png>]
+<figures/hardware/hcsr04_photo.jpeg, id=1467, 469.755pt x 349.305pt>
+File: figures/hardware/hcsr04_photo.jpeg Graphic file (type jpg)
+<use figures/hardware/hcsr04_photo.jpeg>
+Package pdftex.def Info: figures/hardware/hcsr04_photo.jpeg  used on input line 825.
+(pdftex.def)             Requested size: 227.62206pt x 169.25815pt.
+ [30 <./figures/hardware/voltage_rails.png>]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 878.
+ [31 <./figures/hardware/hcsr04_photo.jpeg>]
+<figures/hardware/level_shifter_circuit.png, id=1481, 603.25375pt x 196.735pt>
+File: figures/hardware/level_shifter_circuit.png Graphic file (type png)
+<use figures/hardware/level_shifter_circuit.png>
+Package pdftex.def Info: figures/hardware/level_shifter_circuit.png  used on input line 887.
+(pdftex.def)             Requested size: 273.14923pt x 89.07927pt.
+<figures/hardware/complete_wiring_diagram.jpg, id=1482, 765.86125pt x 523.9575pt>
+File: figures/hardware/complete_wiring_diagram.jpg Graphic file (type jpg)
+<use figures/hardware/complete_wiring_diagram.jpg>
+Package pdftex.def Info: figures/hardware/complete_wiring_diagram.jpg  used on input line 903.
+(pdftex.def)             Requested size: 455.24411pt x 311.45078pt.
+ [32 <./figures/hardware/level_shifter_circuit.png> <./figures/hardware/complete_wiring_diagram.jpg>]
+<figures/hardware/wiring_photo.jpg, id=1490, 1376.0208pt x 1032.0156pt>
+File: figures/hardware/wiring_photo.jpg Graphic file (type jpg)
+<use figures/hardware/wiring_photo.jpg>
+Package pdftex.def Info: figures/hardware/wiring_photo.jpg  used on input line 931.
+(pdftex.def)             Requested size: 455.24411pt x 341.4323pt.
+ [33 <./figures/hardware/wiring_photo.jpg>]
+<figures/hardware/assembly_sequence.png, id=1495, 1806.75pt x 1349.04pt>
+File: figures/hardware/assembly_sequence.png Graphic file (type png)
+<use figures/hardware/assembly_sequence.png>
+Package pdftex.def Info: figures/hardware/assembly_sequence.png  used on input line 960.
+(pdftex.def)             Requested size: 455.24411pt x 339.9146pt.
+ [34 <./figures/hardware/assembly_sequence.png>]
+<figures/hardware/testing_setup.png, id=1511, 1806.75pt x 1349.04pt>
+File: figures/hardware/testing_setup.png Graphic file (type png)
+<use figures/hardware/testing_setup.png>
+Package pdftex.def Info: figures/hardware/testing_setup.png  used on input line 990.
+(pdftex.def)             Requested size: 455.24411pt x 339.9146pt.
+) (chapters/04_firmware_implementation.tex [35 <./figures/hardware/testing_setup.png>]
 Chapter 4.
-
-
-[33
+<figures/software/firmware_architecture.png, id=1518, 914.41624pt x 512.91624pt>
+File: figures/software/firmware_architecture.png Graphic file (type png)
+<use figures/software/firmware_architecture.png>
+Package pdftex.def Info: figures/software/firmware_architecture.png  used on input line 18.
+(pdftex.def)             Requested size: 455.24411pt x 255.35396pt.
+[36
 
 ]
-Underfull \hbox (badness 3078) in paragraph at lines 55--56
+<figures/software/module_dependencies.png, id=1528, 698.61pt x 500.87125pt>
+File: figures/software/module_dependencies.png Graphic file (type png)
+<use figures/software/module_dependencies.png>
+Package pdftex.def Info: figures/software/module_dependencies.png  used on input line 36.
+(pdftex.def)             Requested size: 455.24411pt x 326.3955pt.
+ [37 <./figures/software/firmware_architecture.png>]
+Underfull \hbox (badness 3078) in paragraph at lines 53--54
 []|\T1/lmr/m/n/12 Stack, heap, global vari-ables,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 56--57
+Underfull \hbox (badness 10000) in paragraph at lines 54--55
 []|\T1/lmr/m/n/12 Camera frame buffers (2 x
  []
 
+<figures/hardware/esp32s3_memory_map.png, id=1537, 603.25375pt x 382.42876pt>
+File: figures/hardware/esp32s3_memory_map.png Graphic file (type png)
+<use figures/hardware/esp32s3_memory_map.png>
+Package pdftex.def Info: figures/hardware/esp32s3_memory_map.png  used on input line 65.
+(pdftex.def)             Requested size: 318.66948pt x 202.0152pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-
-[34]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 87--88
+[38 <./figures/software/module_dependencies.png>]
+Overfull \hbox (4.29153pt too wide) in paragraph at lines 194--195
  [][] 
  []
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+(C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
+) [39 <./figures/hardware/esp32s3_memory_map.png>]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on input line 226.
+ [40]
+Overfull \hbox (3.89148pt too wide) in paragraph at lines 277--277
+ []\T1/lmtt/m/n/10 esp_camera_init() 
+ []
+
+[41]
+Overfull \vbox (36.51704pt too high) has occurred while \output is active []
+
+ [42] [43]
+<figures/software/http_stream_sequence.png, id=1634, 565.11125pt x 563.10374pt>
+File: figures/software/http_stream_sequence.png Graphic file (type png)
+<use figures/software/http_stream_sequence.png>
+Package pdftex.def Info: figures/software/http_stream_sequence.png  used on input line 371.
+(pdftex.def)             Requested size: 455.24411pt x 453.63696pt.
+ [44 <./figures/software/http_stream_sequence.png>]
+<figures/charts/http_vs_udp_latency.png, id=1645, 468.75125pt x 542.025pt>
+File: figures/charts/http_vs_udp_latency.png Graphic file (type png)
+<use figures/charts/http_vs_udp_latency.png>
+Package pdftex.def Info: figures/charts/http_vs_udp_latency.png  used on input line 408.
+(pdftex.def)             Requested size: 386.96027pt x 447.4408pt.
 
 
-[35] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
-)
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[36]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 119.
+[45] [46 <./figures/charts/http_vs_udp_latency.png>]
+<figures/hardware/differential_drive_kinematics.png, id=1674, 302.12875pt x 276.03125pt>
+File: figures/hardware/differential_drive_kinematics.png Graphic file (type png)
+<use figures/hardware/differential_drive_kinematics.png>
+Package pdftex.def Info: figures/hardware/differential_drive_kinematics.png  used on input line 456.
+(pdftex.def)             Requested size: 273.14923pt x 249.5546pt.
+ [47 <./figures/hardware/differential_drive_kinematics.png>]
+<figures/hardware/l298n_wiring.png, id=1695, 603.25375pt x 362.35374pt>
+File: figures/hardware/l298n_wiring.png Graphic file (type png)
+<use figures/hardware/l298n_wiring.png>
+Package pdftex.def Info: figures/hardware/l298n_wiring.png  used on input line 518.
+(pdftex.def)             Requested size: 409.71692pt x 246.09871pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-
-[37]
-
-[38]
-
-[39]
-
-[40]
-
-[41{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}]
-
 LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[42]
-
-[43]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 389--390
- [][] 
- []
-
-
-
-[44]
-
-[45]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 458--459
- [][] 
- []
-
-
-
-[46]
-
-[47]
 
 [48]
+<figures/hardware/turn_mechanics.jpg, id=1726, 1027.84pt x 561.09625pt>
+File: figures/hardware/turn_mechanics.jpg Graphic file (type jpg)
+<use figures/hardware/turn_mechanics.jpg>
+Package pdftex.def Info: figures/hardware/turn_mechanics.jpg  used on input line 550.
+(pdftex.def)             Requested size: 364.19667pt x 198.81813pt.
 
-[49]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 602--603
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[49 <./figures/hardware/l298n_wiring.png>]
+<figures/software/espnow_protocol_stack.jpg, id=1732, 1027.84pt x 561.09625pt>
+File: figures/software/espnow_protocol_stack.jpg Graphic file (type jpg)
+<use figures/software/espnow_protocol_stack.jpg>
+Package pdftex.def Info: figures/software/espnow_protocol_stack.jpg  used on input line 568.
+(pdftex.def)             Requested size: 455.24411pt x 248.51839pt.
+ [50 <./figures/hardware/turn_mechanics.jpg> <./figures/software/espnow_protocol_stack.jpg>]
+<figures/software/packet_format.png, id=1737, 481.8pt x 401.5pt>
+File: figures/software/packet_format.png Graphic file (type png)
+<use figures/software/packet_format.png>
+Package pdftex.def Info: figures/software/packet_format.png  used on input line 596.
+(pdftex.def)             Requested size: 318.66948pt x 265.5667pt.
+ [51 <./figures/software/packet_format.png>] (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibraryfit.code.tex
+File: tikzlibraryfit.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz/libraries\tikzlibrarybackgrounds.code.tex
+File: tikzlibrarybackgrounds.code.tex 2025-08-29 v3.1.11a (3.1.11a)
+\pgf@layerbox@background=\box96
+\pgf@layerboxsaved@background=\box97
+)
+Overfull \hbox (11.8676pt too wide) in paragraph at lines 663--663
+ []\T1/lmr/m/n/10 recvCommand 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[52] [53]
+<figures/software/heartbeat_state_machine.jpg, id=1809, 1027.84pt x 561.09625pt>
+File: figures/software/heartbeat_state_machine.jpg Graphic file (type jpg)
+<use figures/software/heartbeat_state_machine.jpg>
+Package pdftex.def Info: figures/software/heartbeat_state_machine.jpg  used on input line 774.
+(pdftex.def)             Requested size: 386.96027pt x 211.24104pt.
+ [54] [55 <./figures/software/heartbeat_state_machine.jpg>]
+<figures/software/ultrasonic_state_machine.jpg, id=1864, 1027.84pt x 561.09625pt>
+File: figures/software/ultrasonic_state_machine.jpg Graphic file (type jpg)
+<use figures/software/ultrasonic_state_machine.jpg>
+Package pdftex.def Info: figures/software/ultrasonic_state_machine.jpg  used on input line 843.
+(pdftex.def)             Requested size: 455.24411pt x 248.51839pt.
+ [56] [57 <./figures/software/ultrasonic_state_machine.jpg>]
+<figures/software/control_loop_flowchart.jpg, id=1927, 1027.84pt x 561.09625pt>
+File: figures/software/control_loop_flowchart.jpg Graphic file (type jpg)
+<use figures/software/control_loop_flowchart.jpg>
+Package pdftex.def Info: figures/software/control_loop_flowchart.jpg  used on input line 895.
+(pdftex.def)             Requested size: 455.24411pt x 248.51839pt.
+
+Overfull \hbox (11.84001pt too wide) in paragraph at lines 904--914
  [][] 
  []
 
 
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[50]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 655--656
- [][] 
+[58 <./figures/software/control_loop_flowchart.jpg>]
+Overfull \hbox (2.63882pt too wide) in paragraph at lines 933--935
+\T1/lmr/m/n/12 ing. How-ever, when we ran the cam-era ini-tial-iza-tion code, it re-turned \T1/lmtt/m/n/12 ESP_ERR_NOT_FOUND\T1/lmr/m/n/12 .
  []
 
-
-Overfull \hbox (11.84001pt too wide) in paragraph at lines 664--674
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[51]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+[59] [60]
+<figures/software/loop_timing_diagram.jpg, id=1974, 1027.84pt x 561.09625pt>
+File: figures/software/loop_timing_diagram.jpg Graphic file (type jpg)
+<use figures/software/loop_timing_diagram.jpg>
+Package pdftex.def Info: figures/software/loop_timing_diagram.jpg  used on input line 981.
+(pdftex.def)             Requested size: 455.24411pt x 248.51839pt.
+<figures/software/arduino_board_settings.png, id=1975, 1927.2pt x 1084.05pt>
+File: figures/software/arduino_board_settings.png Graphic file (type png)
+<use figures/software/arduino_board_settings.png>
+Package pdftex.def Info: figures/software/arduino_board_settings.png  used on input line 1015.
+(pdftex.def)             Requested size: 455.24411pt x 256.07509pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-) (./chapters/05_ai_software_design.tex
-
-[52]
-
-[53]
+) (chapters/05_ai_software_design.tex [61 <./figures/software/loop_timing_diagram.jpg>] [62 <./figures/software/arduino_board_settings.png>]
 Chapter 5.
-
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 22--23
- [][] 
- []
-
+<figures/software/host_architecture_hybrid.png, id=1984, 994.71625pt x 583.17876pt>
+File: figures/software/host_architecture_hybrid.png Graphic file (type png)
+<use figures/software/host_architecture_hybrid.png>
+Package pdftex.def Info: figures/software/host_architecture_hybrid.png  used on input line 21.
+(pdftex.def)             Requested size: 455.24411pt x 266.904pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--42
+Underfull \hbox (badness 10000) in paragraph at lines 38--39
 []|\T1/lmr/m/n/12 Strategic scene un-der-stand-ing
  []
 
+[63
+
+] [64 <./figures/software/host_architecture_hybrid.png>]
+<figures/software/cloud_architecture.jpg, id=2006, 1027.84pt x 561.09625pt>
+File: figures/software/cloud_architecture.jpg Graphic file (type jpg)
+<use figures/software/cloud_architecture.jpg>
+Package pdftex.def Info: figures/software/cloud_architecture.jpg  used on input line 111.
+(pdftex.def)             Requested size: 364.19667pt x 198.81813pt.
 
 
-[54
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-]
-
-[55] (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-)
-
-[56]
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 151--152
- [][] 
+[65] (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+) [66 <./figures/software/cloud_architecture.jpg>]
+Underfull \hbox (badness 2772) in paragraph at lines 172--173
+[]|\T1/lmr/m/n/12 Firmware-level emer-gency stop
  []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[57]) (./chapters/06_testing_results.tex
-
-[58]
-Chapter 6.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[59
-
-]
-
-[60]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[61]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[62]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 222--223
- [][] 
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[63]
-
-LaTeX Warning: Text page 64 contains only floats.
-
-
-
-[64]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-
-[65]
-
-[66]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
 
 [67]
+<figures/software/arbiter_logic.png, id=2051, 432.61626pt x 693.59125pt>
+File: figures/software/arbiter_logic.png Graphic file (type png)
+<use figures/software/arbiter_logic.png>
+Package pdftex.def Info: figures/software/arbiter_logic.png  used on input line 193.
+(pdftex.def)             Requested size: 364.19667pt x 583.92502pt.
 
-[68]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) (chapters/06_testing_results.tex [68] [69 <./figures/software/arbiter_logic.png>]
+Chapter 6.
+<figures/hardware/test_environment.jpg, id=2062, 801.99625pt x 519.9425pt>
+File: figures/hardware/test_environment.jpg Graphic file (type jpg)
+<use figures/hardware/test_environment.jpg>
+Package pdftex.def Info: figures/hardware/test_environment.jpg  used on input line 22.
+(pdftex.def)             Requested size: 364.19667pt x 236.11406pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[69]
+[70
 
-[70]
+] [71 <./figures/hardware/test_environment.jpg>]
+<figures/charts/latency_histogram.jpg, id=2081, 1027.84pt x 561.09625pt>
+File: figures/charts/latency_histogram.jpg Graphic file (type jpg)
+<use figures/charts/latency_histogram.jpg>
+Package pdftex.def Info: figures/charts/latency_histogram.jpg  used on input line 90.
+(pdftex.def)             Requested size: 455.24411pt x 248.51839pt.
 
-[71]
-
-[72]
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-) (./chapters/07_conclusion.tex
+<figures/charts/udp_vs_http_latency.jpg, id=2082, 1027.84pt x 561.09625pt>
+File: figures/charts/udp_vs_http_latency.jpg Graphic file (type jpg)
+<use figures/charts/udp_vs_http_latency.jpg>
+Package pdftex.def Info: figures/charts/udp_vs_http_latency.jpg  used on input line 118.
+(pdftex.def)             Requested size: 409.71692pt x 223.66397pt.
 
-[73]
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[74]
+[72 <./figures/charts/latency_histogram.jpg>]
+<figures/charts/packet_loss_vs_distance.png, id=2088, 246.6816pt x 246.6816pt>
+File: figures/charts/packet_loss_vs_distance.png Graphic file (type png)
+<use figures/charts/packet_loss_vs_distance.png>
+Package pdftex.def Info: figures/charts/packet_loss_vs_distance.png  used on input line 149.
+(pdftex.def)             Requested size: 318.66948pt x 318.69861pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[73 <./figures/charts/udp_vs_http_latency.jpg>]
+<figures/charts/fps_over_time.png, id=2098, 246.6816pt x 246.6816pt>
+File: figures/charts/fps_over_time.png Graphic file (type png)
+<use figures/charts/fps_over_time.png>
+Package pdftex.def Info: figures/charts/fps_over_time.png  used on input line 187.
+(pdftex.def)             Requested size: 364.19667pt x 364.23236pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[74 <./figures/charts/packet_loss_vs_distance.png>]
+<figures/software/jpeg_comparison.png, id=2104, 985.6825pt x 633.36626pt>
+File: figures/software/jpeg_comparison.png Graphic file (type png)
+<use figures/software/jpeg_comparison.png>
+Package pdftex.def Info: figures/software/jpeg_comparison.png  used on input line 216.
+(pdftex.def)             Requested size: 455.24411pt x 292.53107pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[75 <./figures/charts/fps_over_time.png>]
+<figures/hardware/track_deviation.png, id=2109, 246.6816pt x 246.6816pt>
+File: figures/hardware/track_deviation.png Graphic file (type png)
+<use figures/hardware/track_deviation.png>
+Package pdftex.def Info: figures/hardware/track_deviation.png  used on input line 257.
+(pdftex.def)             Requested size: 318.66948pt x 318.69861pt.
+ [76 <./figures/software/jpeg_comparison.png>]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/hardware/turning_trace.png, id=2114, 246.6816pt x 246.6816pt>
+File: figures/hardware/turning_trace.png Graphic file (type png)
+<use figures/hardware/turning_trace.png>
+Package pdftex.def Info: figures/hardware/turning_trace.png  used on input line 301.
+(pdftex.def)             Requested size: 273.14923pt x 273.17615pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[77 <./figures/hardware/track_deviation.png>]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/charts/precision_recall_curve.png, id=2121, 246.6816pt x 246.6816pt>
+File: figures/charts/precision_recall_curve.png Graphic file (type png)
+<use figures/charts/precision_recall_curve.png>
+Package pdftex.def Info: figures/charts/precision_recall_curve.png  used on input line 359.
+(pdftex.def)             Requested size: 364.19667pt x 364.23236pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[78 <./figures/hardware/turning_trace.png>]
+
+LaTeX Warning: Text page 79 contains only floats.
+
+[79 <./figures/charts/precision_recall_curve.png>]
+<figures/charts/inference_time_histogram.png, id=2136, 246.6816pt x 246.6816pt>
+File: figures/charts/inference_time_histogram.png Graphic file (type png)
+<use figures/charts/inference_time_histogram.png>
+Package pdftex.def Info: figures/charts/inference_time_histogram.png  used on input line 391.
+(pdftex.def)             Requested size: 318.66948pt x 318.69861pt.
+ [80 <./figures/charts/inference_time_histogram.png>]
+<figures/charts/ultrasonic_accuracy.png, id=2145, 246.6816pt x 246.6816pt>
+File: figures/charts/ultrasonic_accuracy.png Graphic file (type png)
+<use figures/charts/ultrasonic_accuracy.png>
+Package pdftex.def Info: figures/charts/ultrasonic_accuracy.png  used on input line 426.
+(pdftex.def)             Requested size: 318.66948pt x 318.69861pt.
+ [81 <./figures/charts/ultrasonic_accuracy.png>]
+<figures/charts/voltage_discharge.png, id=2151, 246.6816pt x 246.6816pt>
+File: figures/charts/voltage_discharge.png Graphic file (type png)
+<use figures/charts/voltage_discharge.png>
+Package pdftex.def Info: figures/charts/voltage_discharge.png  used on input line 483.
+(pdftex.def)             Requested size: 364.19667pt x 364.23236pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<figures/hardware/thermal_image.jpg, id=2152, 246.6816pt x 246.6816pt>
+File: figures/hardware/thermal_image.jpg Graphic file (type jpg)
+<use figures/hardware/thermal_image.jpg>
+Package pdftex.def Info: figures/hardware/thermal_image.jpg  used on input line 513.
+(pdftex.def)             Requested size: 273.14923pt x 273.17615pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[82] [83 <./figures/charts/voltage_discharge.png>] [84 <./figures/hardware/thermal_image.jpg>] [85]
+
+LaTeX Warning: Reference `sec:video-latency' on page 86 undefined on input line 628.
+
+[86]) (chapters/07_conclusion.tex [87]
 Chapter 7.
+[88
 
-
-[75
-
-]
-
-[76]
-
-[77]) (./appendices/A_pinout_tables.tex
-
-[78]
+] [89] [90]) (appendices/A_pinout_tables.tex [91]
 Appendix A.
 
 Overfull \hbox (6.58476pt too wide) in paragraph at lines 49--65
@@ -1816,111 +1676,69 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-) (./appendices/B_circuit_diagrams.tex
+) (appendices/B_circuit_diagrams.tex [92
 
-[79
-
-]
-
-[80]
-
-[81]
+] [93] [94]
 Appendix B.
+[95
 
-
-[82
-
-]
-
-[83]
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-161.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/ts1lmtt.fd
+] [96]
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 156.
+ (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-))
-(./appendices/C_source_code_snippets.tex
-
-[84]
+)) (appendices/C_source_code_snippets.tex [97]
 Appendix C.
+[98
 
-
-[85
-
-]
-
-[86]
-
-[87]
-
-[88]
-
-[89]
-
-[90]) (./appendices/D_user_manual.tex
-
-[91]
+] [99] [100] [101] [102] [103]) (appendices/D_user_manual.tex [104]
 Appendix D.
-(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-)
-(/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-)
+(C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+) (C:\Users\duydu\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/11/14 1.11b listings language file
+) [105
 
-[92
-
-]
-Overfull \hbox (161.90555pt too wide) in paragraph at lines 104--106
-\T1/lmtt/m/n/12 https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pa
-ges/package_esp32_index.json 
+] [106]
+Underfull \hbox (badness 1052) in paragraph at lines 117--117
+[]|\T1/lmr/m/n/12 Motors not re-spond-
  []
 
 
-
-[93]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
+Underfull \hbox (badness 10000) in paragraph at lines 123--123
+[]|\T1/lmr/m/n/12 Dashboard shows
+ []
 
 
-[94]
+Underfull \hbox (badness 2150) in paragraph at lines 126--126
+[]|\T1/lmr/m/n/12 Camera ini-tial-iza-tion
+ []
 
-[95])
-No file main.bbl.
+[107] [108]) (main.bbl [109] [110
 
-
-[96] (./main.aux)
+] [111] [112]) [113] (main.aux)
  ***********
-LaTeX2e <2024-11-01> patch level 2
-L3 programming layer <2025-01-18>
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-12-29>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: CB2F11769C42BE1CFB30CC7C1090BF10;32587.
+(rerunfilecheck)             Checksum: 3A9C09269E6FE85C7823783F2814CD2C;27914.
  ) 
 Here is how much of TeX's memory you used:
- 38790 strings out of 473190
- 752895 string characters out of 5715800
- 1724591 words of memory out of 5000000
- 60288 multiletter control sequences out of 15000+600000
- 622799 words of font info for 76 fonts, out of 8000000 for 9000
+ 43037 strings out of 467871
+ 884237 string characters out of 5418376
+ 1853809 words of memory out of 5000000
+ 70033 multiletter control sequences out of 15000+600000
+ 743732 words of font info for 113 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 103i,12n,104p,2376b,2168s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/lo
-cal/texlive/2025/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texli
-ve/2025/texmf-dist/fonts/type1/public/lm/lmmi12.pfb></usr/local/texlive/2025/te
-xmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2025/texmf-dist/fo
-nts/type1/public/lm/lmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/p
-ublic/lm/lmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lm
-r17.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr6.pfb></us
-r/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texl
-ive/2025/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/local/texlive/2025/t
-exmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2025/texmf-dist/
-fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type
-1/public/lm/lmtt12.pfb>
-Output written on main.pdf (116 pages, 531357 bytes).
+ 89i,16n,107p,2560b,2204s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx6.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmcsc10.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss10.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss8.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmssbx10.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt10.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmtt12.pfb><C:/Users/duydu/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (132 pages, 49437112 bytes).
 PDF statistics:
- 2787 PDF objects out of 2984 (max. 8388607)
- 2612 compressed objects within 27 object streams
- 1131 named destinations out of 1200 (max. 500000)
- 1573 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2976 PDF objects out of 2984 (max. 8388607)
+ 1170 named destinations out of 1200 (max. 500000)
+ 1731 words of extra memory for PDF output out of 10000 (max. 10000000)
 

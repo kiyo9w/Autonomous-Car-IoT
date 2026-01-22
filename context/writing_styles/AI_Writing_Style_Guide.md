@@ -51,4 +51,37 @@ Never use the following words or phrases. They are instant markers of AI text.
     *   *Specific (Human):* "The system processes pH, salinity, and dissolved oxygen levels."
 *   **Show, Don't Summarize:** Do not say "The results were promising." Show the specific numbers (e.g., "The accuracy reached 92%.").
 *   **Opening:** Avoid generic openers like "Recent strides have been made...".
-*   **Preferred:** "New studies have confirmed..." or "[Author] showed that..."
+*   **Preferred:** "New studies have confirmed..." or "[Author] showed that...".
+
+## 5. Document Structure & Formatting
+
+*   **Flat Section Hierarchy:** Prefer flat section numbering over deep nesting.
+    *   ❌ Avoid: 3.1.1, 3.1.2, 3.1.3 (subsubsection numbering)
+    *   ✅ Prefer: 3.1, 3.2, 3.3 with `\textbf{Topic.}` paragraph leads inside sections
+    *   For topics within a section, use bold paragraph leads: `\textbf{Topic Name.} Content follows...`
+
+*   **Visual Callouts:** Use subtle styling, not attention-grabbing colored boxes.
+    *   ❌ Avoid: Colored borders, header bars with contrasting backgrounds
+    *   ✅ Prefer: Light gray background with thin left border (textbook sidebar style)
+    *   Callout titles should be concise nouns/phrases, not prefixed labels
+
+*   **Callout Title Prefixes:** Remove redundant category prefixes from titles.
+    *   ❌ Avoid: "Design Decision: Deferred Motor Actuation", "Fun Fact: Joystick Space"
+    *   ✅ Prefer: "Deferred Motor Actuation", "Joystick Space"
+    *   The context is already clear from placement; prefixes add clutter
+
+## 6. Word Choice Refinements
+
+Additional words to avoid or replace:
+
+| **Avoid** | **Prefer** | **Reason** |
+| :--- | :--- | :--- |
+| Reconnaissance | Scouting, Assessment, Survey | Sounds overly military/formal |
+| It's worth noting | (Delete or state directly) | Filler phrase |
+| Comprehensive | Complete, Full, Thorough | Overused AI marker |
+
+## 7. Balance & Tone
+
+*   **50/50 Rule:** Balance formal academic language with direct, practical phrasing. Do not over-simplify to the point of sounding unprofessional, but do not over-formalize either.
+*   **Show Lessons, Don't Label Them:** Instead of "Lesson Learned: X", write `\textit{Lesson}: X` or integrate the insight into the narrative.
+*   **Tables Over Lists:** When presenting structured data (priorities, specifications, comparisons), prefer tables over bulleted lists.

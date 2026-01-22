@@ -1,4 +1,4 @@
 venv/
 .venv/
 env/
-RoverInterface-OLD/
+RoverInterface-OLD/"node_modules/" 
