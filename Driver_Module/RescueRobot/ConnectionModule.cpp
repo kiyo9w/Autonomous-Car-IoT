@@ -1,78 +1,174 @@
+/**
+ * ConnectionModule.cpp - ESP-NOW Connection Handler for Rover
+ *
+ * Role: Handle bidirectional communication between Rover and Gateway
+ * - Receive motor commands via ESP-NOW (STORE ONLY, no motor actuation)
+ * - Send telemetry (voltage, distance) back to Gateway
+ *
+ * CRITICAL: Motor actuation is handled by main loop after safety checks!
+ * The callback ONLY stores the command - it does NOT call motor functions.
+ */
+
 #include "ConnectionModule.h"
-#include <esp_now.h>
+#include "MotorDriver.h"
 #include <WiFi.h>
-#include "MotorDriver.h" // Gọi module Motor để điều khiển
+#include <esp_now.h>
 
-// 🔴 QUAN TRỌNG: ĐIỀN MAC CỦA CON REMOTE (CH340) VÀO ĐÂY
-// Ví dụ: {0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0xFF}
-uint8_t remoteMAC[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}; 
+// --- CẤU HÌNH ---
+// 🔴 MAC CỦA CON GATEWAY (ESP32 cắm máy tính)
+// Lấy MAC bằng cách chạy WiFi.macAddress() trên Gateway
+static uint8_t gatewayMAC[] = {0x78, 0x1C, 0x3C, 0xE1, 0x0F, 0x0C};
 
-command_struct recvCommand;
-feedback_struct sendFeedback;
-esp_now_peer_info_t peerInfo;
+// State variables
+static command_struct recvCommand = {2048, 2048}; // Center = stop
+static feedback_struct sendFeedback;
+static esp_now_peer_info_t peerInfo;
+static unsigned long lastTelemetryTime = 0;
+static const unsigned long TELEMETRY_INTERVAL = 500; // 500ms = 2Hz
 
-// --- HÀM XỬ LÝ KHI NHẬN LỆNH ---
-void OnDataRecv(const esp_now_recv_info_t * info, const uint8_t *incomingData, int len) {
-  memcpy(&recvCommand, incomingData, sizeof(recvCommand));
-  
-  // Debug (chỉ mở khi cần thiết để tránh làm chậm Cam)
-  // Serial.printf("Cmd: X=%d, Y=%d\n", recvCommand.x, recvCommand.y);
+// Heartbeat tracking for signal loss detection
+static unsigned long lastPacketTime = 0;
 
-  // --- LOGIC ĐIỀU KHIỂN MOTOR ---
-  // Giả sử Joystick trả về giá trị từ -100 đến 100
-  // Vùng chết (Deadzone) là 30 để tránh trôi cần
-  int threshold = 30;
+// Joystick threshold constants
+static const int CENTER = 2048;
+static const int THRESHOLD_HIGH = CENTER + 200; // Giảm xuống 200 để nhạy hơn
+static const int THRESHOLD_LOW = CENTER - 200;
 
-  if (recvCommand.y > threshold) {
-    goForward();
+/**
+ * Execute motor command based on joystick values
+ *
+ * QUAN TRỌNG: Hàm này được gọi từ main loop() SAU KHI đã kiểm tra an toàn!
+ * KHÔNG được gọi trực tiếp từ callback ESP-NOW.
+ *
+ * @param x Giá trị X: 0=Full Left, 2048=Center, 4095=Full Right
+ * @param y Giá trị Y: 0=Full Back, 2048=Center, 4095=Full Forward
+ */
+void executeMotorCommand(int x, int y) {
+  int speed = 0;
+
+  if (y > THRESHOLD_HIGH) {
+    speed = map(y, THRESHOLD_HIGH, 4095, 1, 100);
+    goForward(speed);
   } 
-  else if (recvCommand.y < -threshold) {
-    goBackward();
+  else if (y < THRESHOLD_LOW) {
+    speed = map(y, THRESHOLD_LOW, 0, 1, 100);
+    goBackward(speed);
+  }
+  else if (x < THRESHOLD_LOW) {
+    speed = map(x, THRESHOLD_LOW, 0, 1, 100);
+    turnLeft(speed);
   } 
-  else if (recvCommand.x < -threshold) { // Trái
-    turnLeft();
-  } 
-  else if (recvCommand.x > threshold) { // Phải
-    turnRight();
-  } 
+  else if (x > THRESHOLD_HIGH) {
+    speed = map(x, THRESHOLD_HIGH, 4095, 1, 100);
+    turnRight(speed);
+  }
   else {
     stopMoving();
   }
 }
-
-// --- HÀM XỬ LÝ KHI GỬI PHẢN HỒI ---
-void OnDataSent(const wifi_tx_info_t *info, esp_now_send_status_t status) {
-  // Callback này để biết gói tin phản hồi có đến nơi không
-  // Không nên Serial.print nhiều ở đây khi đang Stream Cam
-}
-
-void initESPNow() {
-  // Lưu ý: Wifi mode đã được CameraModule set là AP_STA hoặc AP
-  // Chúng ta không set lại WiFi.mode(WIFI_STA) ở đây để tránh mất Camera
-
-  if (esp_now_init() != ESP_OK) {
-    Serial.println("❌ Lỗi khởi tạo ESP-NOW");
+static void onDataRecv(const esp_now_recv_info_t *info,
+                       const uint8_t *incomingData, int len) {
+  if (len != sizeof(command_struct)) {
+    Serial.printf("Wrong packet size: %d (expected %d)\n", len,
+                  sizeof(command_struct));
     return;
   }
 
-  // Đăng ký hàm xử lý
-  esp_now_register_recv_cb(OnDataRecv); // Khi nhận lệnh -> Điều khiển xe
-  esp_now_register_send_cb(OnDataSent); // Khi gửi phản hồi
+  // Chỉ lưu lệnh - KHÔNG gọi executeMotorCommand ở đây!
+  memcpy(&recvCommand, incomingData, sizeof(recvCommand));
 
-  // Đăng ký Remote là Peer (Đối tác)
-  memcpy(peerInfo.peer_addr, remoteMAC, 6);
-  peerInfo.channel = 0;  // 0: Dùng kênh hiện tại của Wifi (tránh xung đột với Cam)
+  // Cập nhật thời gian nhận gói tin (cho heartbeat failsafe)
+  lastPacketTime = millis();
+
+  // Debug: In ra lệnh nhận được
+  Serial.printf("RX: X=%d Y=%d\n", recvCommand.x, recvCommand.y);
+}
+
+/**
+ * ESP-NOW Send Callback (ESP32 Core 3.x signature)
+ */
+static void onDataSent(const wifi_tx_info_t *info,
+                       esp_now_send_status_t status) {
+  // Uncomment for debugging
+  // Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Telemetry OK" : "Telemetry
+  // FAIL");
+}
+
+/**
+ * Initialize ESP-NOW connection
+ * Call this AFTER WiFi.mode(WIFI_STA) in main setup()
+ */
+void initConnection() {
+  // Initialize ESP-NOW
+  if (esp_now_init() != ESP_OK) {
+    Serial.println("❌ ESP-NOW init failed!");
+    return;
+  }
+
+  // Register callbacks
+  esp_now_register_recv_cb(onDataRecv);
+  esp_now_register_send_cb(onDataSent);
+
+  // Add Gateway as peer
+  memset(&peerInfo, 0, sizeof(peerInfo));
+  memcpy(peerInfo.peer_addr, gatewayMAC, 6);
+  peerInfo.channel = 0;
   peerInfo.encrypt = false;
-  
-  if (esp_now_add_peer(&peerInfo) != ESP_OK){
-    Serial.println("⚠️ Không tìm thấy Remote (Kiểm tra lại MAC Address)");
-  } else {
-    Serial.println("✅ ESP-NOW Ready! Đang chờ lệnh từ Remote...");
+
+  if (esp_now_add_peer(&peerInfo) != ESP_OK) {
+    Serial.println("❌ Failed to add Gateway peer");
+    return;
+  }
+
+  Serial.println("✅ ESP-NOW Connection Ready");
+  Serial.printf("   Gateway MAC: %02X:%02X:%02X:%02X:%02X:%02X\n",
+                gatewayMAC[0], gatewayMAC[1], gatewayMAC[2], gatewayMAC[3],
+                gatewayMAC[4], gatewayMAC[5]);
+}
+
+/**
+ * Handle periodic telemetry transmission
+ * Call this in main loop() with actual sensor values
+ */
+void handleConnection(float voltage, int distance) {
+  unsigned long now = millis();
+
+  // Throttle telemetry to avoid flooding
+  if (now - lastTelemetryTime >= TELEMETRY_INTERVAL) {
+    lastTelemetryTime = now;
+
+    sendFeedback.voltage = voltage;
+    sendFeedback.distance = distance;
+
+    esp_err_t result = esp_now_send(gatewayMAC, (uint8_t *)&sendFeedback,
+                                    sizeof(sendFeedback));
+
+    if (result != ESP_OK) {
+      Serial.println("⚠️ Telemetry send failed");
+    }
   }
 }
 
-void sendFeedbackToRemote(float voltage, int distance) {
-  sendFeedback.voltage = voltage;
-  sendFeedback.distance = distance;
-  esp_now_send(remoteMAC, (uint8_t *) &sendFeedback, sizeof(sendFeedback));
+/**
+ * Get the last received command
+ */
+command_struct getLastCommand() { return recvCommand; }
+
+/**
+ * Get timestamp of last received packet
+ * Used for heartbeat/signal loss detection
+ */
+unsigned long getLastPacketTime() { return lastPacketTime; }
+
+/**
+ * Check if connection is still alive
+ * @param timeoutMs How long without packets before considered dead
+ * @return true if received packet within timeout period
+ */
+bool isConnectionAlive(unsigned long timeoutMs) {
+  // At startup, before first packet, consider alive to allow initialization
+  if (lastPacketTime == 0)
+    return true;
+
+  return (millis() - lastPacketTime) < timeoutMs;
 }

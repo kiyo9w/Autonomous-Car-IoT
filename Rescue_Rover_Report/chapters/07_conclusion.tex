@@ -1,0 +1,114 @@
+% chapters/07_conclusion.tex - Chapter 7: Conclusion & Future Work
+% =================================================================
+
+\chapter{Conclusion \& Future Work}
+\label{chap:conclusion}
+
+This chapter summarizes what we built, what we learned, and where the project could go next. After 14 weeks of development, the Rescue Rover stands as a functional prototype that exceeded our initial expectations in several areas while revealing important lessons about embedded systems and cloud AI integration.
+
+% --------------------------------------------------------
+\section{Summary of Achievements}
+\label{sec:achievements}
+
+The project delivered a working rescue rover prototype that meets all primary objectives and most secondary objectives.
+
+\textbf{Remote video operation.} Live video streams from the rover to the dashboard with 85ms latency (UDP) or 165ms latency (HTTP fallback). Both values are well under the 200ms target. The operator sees what the rover sees in near real-time.
+
+\textbf{Motor control.} The rover responds to joystick commands with 28ms average latency. PWM speed control (0-100\%) allows graduated movement rather than simple on/off. Differential steering enables both point turns and arc turns.
+
+\textbf{Obstacle avoidance.} The ultrasonic sensor detects obstacles within 25cm and blocks forward movement. The non-blocking state machine implementation maintains 60Hz control loop frequency. The "escape maneuver" logic allows backward movement to recover from corners.
+
+\textbf{Object detection.} YOLOv8n running on Apple Silicon identifies people, chairs, and other obstacles at 30ms inference time. The 40\% frame threshold triggers safety stops when a person is too close.
+
+\textbf{Scene understanding.} The Qwen2.5-VL-7B model running on an NVIDIA H100 (via Google Colab) provides high-level navigation suggestions. Response time averages 1.2 seconds, which is too slow for reactive control but suitable for strategic planning.
+
+\textbf{Telemetry monitoring.} Battery voltage and distance readings update on the dashboard at 2Hz. Cloud connection status is displayed separately.
+
+\textbf{Mission logging.} All operator actions, AI detections, and system events are logged with timestamps.
+
+\begin{table}[h!]
+    \centering
+    \caption{Final project metrics}
+    \label{tab:project-metrics}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Metric} & \textbf{Value} \\
+        \midrule
+        Development time       & 14 weeks \\
+        Firmware (C++)         & 727 lines \\
+        Host Application (Python) & 850 lines \\
+        Hardware budget        & $\approx$ 850,000₫ ($\approx$ \$35 USD) \\
+        Cloud resource         & Google Colab (H100 GPU) \\
+        Battery runtime        & 2.3 hours typical \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% --------------------------------------------------------
+\section{Key Technical Achievements}
+\label{sec:technical-achievements}
+
+\textbf{Split-Brain Architecture.} The most significant design decision was separating "reflexes" from "reasoning" \cite{labib2021edgeslam}. Safety-critical functions run locally (firmware obstacle detection, YOLO person detection) while complex reasoning runs in the cloud (VLM scene understanding). This hybrid approach solves the classic trade-off between latency and intelligence.
+
+\textbf{5-Level Command Arbiter.} The command arbitration system cleanly resolves conflicts between manual control, tactical AI, strategic AI, and safety overrides. The priority ladder (SAFETY > TACTICAL > STRATEGIC > MANUAL > IDLE) ensures predictable behavior even when multiple sources issue conflicting commands.
+
+\textbf{Non-Blocking Sensor Fusion.} The ultrasonic state machine avoids blocking the main loop, maintaining 60Hz control frequency. Combined with the camera stream and ESP-NOW telemetry, the rover fuses multiple data sources without sacrificing responsiveness.
+
+% --------------------------------------------------------
+\section{Lessons Learned}
+\label{sec:lessons-learned}
+
+\textbf{Hardware Procurement.} Ordering components from online marketplaces is not as simple as it appears. We went through three failed ESP32-S3-CAM purchases before getting a working unit:
+\begin{itemize}
+    \item \textbf{Attempt 1}: Received ESP32-CAM (no S3) despite ordering S3 version.
+    \item \textbf{Attempt 2}: Correct board, but camera module was dead on arrival.
+    \item \textbf{Attempt 3}: Working camera, but no header pins soldered. Required local repair shop (50,000₫) to solder pins.
+    \item \textbf{Attempt 4}: Bought replacement OV2640 camera module (80,000₫) as a spare.
+\end{itemize}
+\textit{Lesson}: Budget 1-2 weeks for component issues. Buy from reputable sellers with verified reviews. Have backup plans.
+
+\textbf{UDP vs HTTP Trade-offs.} Initial development used UDP streaming for its lower latency (80ms vs 165ms). However, the ESP32-S3 suffered buffer overflows under sustained load, causing "Guru Meditation" crashes after 2-5 minutes. We pivoted to HTTP MJPEG, accepting higher latency for stability.
+
+\textit{Lesson}: Measure reliability, not just latency. A 165ms stream that never crashes beats an 80ms stream that dies randomly.
+
+\textbf{Cloud GPU Memory.} The VLM server crashed immediately on startup due to vLLM attempting to allocate KV-cache for the model's default 128k token context. Setting \texttt{max\_model\_len=8192} fixed the issue since our actual queries are under 200 tokens.
+
+\textit{Lesson}: Default configurations are often optimized for benchmarks, not real workloads. Tune for your actual use case.
+
+\textbf{Serial Port Detection.} Early versions required manual configuration of the serial port path, which varied across operating systems and USB hubs. Auto-detection by scanning for common chip identifiers (CP210x, CH340) eliminated this friction.
+
+\textit{Lesson}: Friction in setup discourages testing. Automate configuration wherever possible.
+
+% --------------------------------------------------------
+\section{Limitations}
+\label{sec:limitations}
+
+\textbf{Internet Dependency.} The "Strategic" AI layer requires an active internet connection. In RF-denied environments (underground, inside metal structures), the rover degrades to manual control with local YOLO safety checks. The strategic reasoning disappears entirely.
+
+\textbf{Sensor Blind Spots.} The single forward-facing ultrasonic sensor covers only a 15-degree cone. Objects approaching from the side are invisible until the rover turns or the camera detects them. Side-mounted sensors would improve coverage.
+
+\textbf{Terrain Limitations.} The wheeled chassis struggles with obstacles taller than 1cm. Tracked designs would improve traversability but add mechanical complexity and cost.
+
+% --------------------------------------------------------
+\section{Future Work}
+\label{sec:future-work}
+
+\textbf{Offline VLM fallback.} Implement a smaller quantized model (e.g., Phi-3-Vision at 4-bit) to run locally when cloud is unavailable. Quality would decrease but functionality would persist.
+
+\textbf{Two-way audio.} Add microphone and speaker to enable voice communication with victims. The existing cloud link could carry audio alongside video.
+
+\textbf{NiceGUI Dashboard.} Replace the legacy React frontend with a Python-native NiceGUI dashboard, eliminating the need for Node.js tooling.
+
+\textbf{Multi-rover coordination.} A single cloud brain could coordinate multiple rovers, building a shared map and assigning search zones \cite{moosavi2024collaborative,ijisrt2023humancontrolledsar}. ESP-NOW mesh networking could enable rover-to-rover communication.
+
+\textbf{Satellite connectivity.} Integrating Starlink or similar LEO satellite services would enable operation in disaster zones where terrestrial networks are destroyed.
+
+\textbf{Thermal imaging.} Adding an infrared camera would help locate victims in smoke-filled or dark environments where the visible-light camera is ineffective.
+
+% --------------------------------------------------------
+\section{Closing Remarks}
+\label{sec:closing}
+
+The Rescue Rover demonstrates that capable AI-powered robots can be built on a student budget \cite{reddy2021socialdistance}. By treating the cloud as a "cognitive co-processor," we achieved VLM-level scene understanding on hardware that costs less than a textbook \cite{shah2023lmnav,cheng2025navila}. The hybrid architecture—local reflexes, cloud reasoning—offers a template for similar projects where compute power and budget are mismatched.
+
+We hope this documentation enables others to build upon our work, whether for rescue applications, educational robotics, or simply exploring the intersection of embedded systems and modern AI.

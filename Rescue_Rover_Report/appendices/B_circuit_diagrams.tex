@@ -1,0 +1,163 @@
+% appendices/B_circuit_diagrams.tex - Appendix B: Circuit Diagrams
+% =================================================================
+
+\chapter{Circuit Diagrams}
+\label{app:circuit-diagrams}
+
+% --------------------------------------------------------
+\section{System Wiring Overview}
+\label{sec:wiring-overview}
+
+% TODO: Insert main wiring diagram
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/hardware/main_wiring_diagram.png}
+%     \caption{Complete system wiring diagram}
+%     \label{fig:main-wiring}
+% \end{figure}
+
+The following sections provide detailed wiring information for each subsystem.
+
+% --------------------------------------------------------
+\section{Power Distribution Schematic}
+\label{sec:power-schematic}
+
+% TODO: Insert power distribution diagram
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{figures/hardware/power_distribution.png}
+%     \caption{Power distribution schematic}
+%     \label{fig:power-distribution}
+% \end{figure}
+
+\subsection{Power Flow}
+
+\begin{verbatim}
+LiPo Battery (11.1V 3S)
+    |
+    +----> L298N VCC (Motor Power)
+    |           |
+    |           +----> Left Motor (M1)
+    |           +----> Right Motor (M2)
+    |           |
+    |           +----> 5V Regulator Output
+    |                       |
+    |                       +----> ESP32-S3 VIN
+    |                               |
+    |                               +----> 3.3V LDO
+    |                                       |
+    |                                       +----> OV2640
+    |                                       +----> Ultrasonic VCC
+    |
+    +----> Voltage Divider (4:1)
+                |
+                +----> ESP32-S3 ADC (GPIO 14)
+\end{verbatim}
+
+% --------------------------------------------------------
+\section{Motor Driver Connections}
+\label{sec:motor-connections}
+
+% TODO: Insert motor driver wiring diagram
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{figures/hardware/motor_driver_wiring.png}
+%     \caption{L298N motor driver wiring}
+%     \label{fig:motor-wiring}
+% \end{figure}
+
+\subsection{Wiring Notes}
+
+\begin{enumerate}
+    \item \textbf{Enable Jumpers}: Keep ENA and ENB jumpers installed for full-speed operation. Remove them and connect PWM signals for variable speed control.
+    
+    \item \textbf{Common Ground}: The ESP32-S3 GND must be connected to L298N GND. Floating grounds cause erratic motor behavior.
+    
+    \item \textbf{Motor Polarity}: If a motor spins in the wrong direction, swap its two leads on the L298N terminal block.
+    
+    \item \textbf{Heat Dissipation}: The L298N requires adequate airflow or a heatsink when operating above 1A continuous current.
+\end{enumerate}
+
+% --------------------------------------------------------
+\section{Camera Module Connections}
+\label{sec:camera-connections}
+
+% TODO: Insert camera wiring diagram
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{figures/hardware/camera_wiring.png}
+%     \caption{OV2640 camera module wiring}
+%     \label{fig:camera-wiring}
+% \end{figure}
+
+\subsection{Camera Cable Pinout}
+
+The OV2640 module typically uses a 24-pin FFC (Flat Flexible Cable) connector:
+
+\begin{table}[h!]
+    \centering
+    \caption{OV2640 Module Connector Pinout}
+    \label{tab:ov2640-connector}
+    \begin{tabular}{clcl}
+        \toprule
+        \textbf{Pin} & \textbf{Function} & \textbf{Pin} & \textbf{Function} \\
+        \midrule
+        1  & 3.3V     & 13 & PCLK   \\
+        2  & GND      & 14 & D0     \\
+        3  & SCL      & 15 & D1     \\
+        4  & SDA      & 16 & D2     \\
+        5  & VSYNC    & 17 & D3     \\
+        6  & HREF     & 18 & D4     \\
+        7  & PWDN     & 19 & D5     \\
+        8  & XCLK     & 20 & D6     \\
+        9  & RESET    & 21 & D7     \\
+        10 & 3.3V     & 22 & GND    \\
+        11 & GND      & 23 & 3.3V   \\
+        12 & N/C      & 24 & GND    \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% --------------------------------------------------------
+\section{Sensor Connections}
+\label{sec:sensor-connections}
+
+\subsection{Ultrasonic Sensor (HC-SR04)}
+
+\begin{verbatim}
+HC-SR04         ESP32-S3
+--------        --------
+VCC   ---------> 5V
+GND   ---------> GND
+TRIG  ---------> GPIO 1
+ECHO  --[R1]---> GPIO 2
+      |
+     [R2]
+      |
+     GND
+
+R1 = 1k Ohm, R2 = 2k Ohm (Voltage divider 5V -> 3.3V for ECHO)
+\end{verbatim}
+
+\textbf{Note}: The HC-SR04 ECHO pin outputs 5V logic, which exceeds the ESP32-S3 GPIO maximum of 3.3V. Use the voltage divider shown above ($R_1 = 1k\Omega, R_2 = 2k\Omega$) or a bidirectional level shifter to avoid damaging the microcontroller.
+\subsection{Battery Voltage Monitor}
+
+\begin{verbatim}
+Battery+
+    |
+   [R1]  30k Ohm
+    |
+    +---------> GPIO 14 (ADC)
+    |
+   [R2]  10k Ohm
+    |
+   GND
+
+Voltage at ADC = Battery_Voltage × R2 / (R1 + R2)
+                = Battery_Voltage × 10k / 40k
+                = Battery_Voltage × 0.25
+
+For 12V battery: ADC reads 3.0V
+For 11.1V (nominal): ADC reads 2.775V
+For 9.9V (low warning): ADC reads 2.475V
+\end{verbatim}

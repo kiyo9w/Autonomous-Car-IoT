@@ -1,5 +1,8 @@
 nicegui
 opencv-python-headless
 requests
-# Add your LLM client libs below, e.g. ollama/gemini clients
-# ollama (example) - pip install ollama
+pyserial
+ultralytics>=8.4.0
+mlx-vlm>=0.3.9
+pillow>=10.0.0
+numpy>=1.24.0

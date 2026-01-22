@@ -1,0 +1,202 @@
+% appendices/D_user_manual.tex - Appendix D: User Manual
+% =======================================================
+
+\chapter{User Manual}
+\label{app:user-manual}
+
+This appendix provides practical guidance for operating the Rescue Rover system, from initial setup through routine maintenance.
+
+% --------------------------------------------------------
+\section{Quick Start}
+\label{sec:quick-start}
+
+\textbf{Step 1: Power the Rover}
+\begin{itemize}
+    \item Connect a fully charged LiPo battery (11.1V 3S) to the L298N power terminals.
+    \item Verify the power LED on L298N illuminates.
+    \item The ESP32-S3 onboard LED should turn on within 2 seconds.
+\end{itemize}
+
+\textbf{Step 2: Verify Hardware}
+\begin{itemize}
+    \item Confirm the camera ribbon cable is securely seated in the FPC connector.
+    \item Place the rover on a flat surface with unobstructed wheels.
+    \item Ensure the ultrasonic sensor at the front is clean and unblocked.
+\end{itemize}
+
+\textbf{Step 3: Start the Host Application}
+
+\vspace{0.5em}
+\begin{lstlisting}[language=bash]
+cd RoverInterface
+python -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+python app.py
+\end{lstlisting}
+
+\textbf{Step 4: Connect to the Dashboard}
+\begin{itemize}
+    \item Open a browser to \url{http://localhost:8080}
+    \item Wait for the video feed to appear (may take 5--10 seconds on first connection).
+    \item Verify the ``Connection'' indicator shows green.
+\end{itemize}
+
+% --------------------------------------------------------
+\section{Dashboard Interface}
+\label{sec:dashboard-interface}
+
+The operator dashboard is divided into four main areas:
+
+\begin{description}[style=nextline]
+    \item[Video Panel (Left)]
+    Live MJPEG stream from the rover camera. Displays frame rate overlay in the top corner. Click to toggle full-screen mode.
+    
+    \item[Telemetry Panel (Top Right)]
+    Real-time status indicators:
+    \begin{itemize}
+        \item \textbf{Battery}: Green ($>$11V), Yellow (10--11V), Red ($<$10V, land immediately)
+        \item \textbf{Distance}: Ultrasonic reading in centimeters
+        \item \textbf{Cloud Status}: Green (connected), Yellow (lagging), Red (offline)
+    \end{itemize}
+    
+    \item[Mission Log (Center Right)]
+    Scrollable event log showing AI decisions, hazard alerts, and system messages.
+    
+    \item[Control Panel (Bottom Right)]
+    Manual control buttons and evidence capture trigger.
+\end{description}
+
+% --------------------------------------------------------
+\section{Firmware Upload}
+\label{sec:firmware-upload}
+
+\textbf{Requirements}
+\begin{itemize}
+    \item Arduino IDE 2.0+ (or PlatformIO)
+    \item ESP32 Board Support Package installed
+    \item USB-C data cable (not charge-only)
+\end{itemize}
+
+\textbf{Arduino IDE Configuration}
+
+Open \texttt{Tools} menu and set:
+\begin{itemize}
+    \item Board: \texttt{ESP32S3 Dev Module}
+    \item PSRAM: \texttt{OPI PSRAM}
+    \item Flash Mode: \texttt{QIO 80MHz}
+    \item Partition Scheme: \texttt{Huge APP (3MB No OTA/1MB SPIFFS)}
+    \item Upload Speed: \texttt{921600}
+\end{itemize}
+
+\textbf{Upload Procedure}
+\begin{enumerate}
+    \item Connect the ESP32-S3 to your computer via USB-C.
+    \item Select the correct COM port (look for ``CP2102'' or ``CH340'' in device name).
+    \item Click the Upload button.
+    \item If upload fails, hold the BOOT button on the board, click Upload again, then release BOOT when progress begins.
+\end{enumerate}
+
+% --------------------------------------------------------
+\section{Troubleshooting}
+\label{sec:troubleshooting}
+
+\begin{longtable}{p{4cm}p{10cm}}
+    \toprule
+    \textbf{Symptom} & \textbf{Solution} \\
+    \midrule
+    \endfirsthead
+    \toprule
+    \textbf{Symptom} & \textbf{Solution} \\
+    \midrule
+    \endhead
+    
+    No video feed & 
+    Check camera ribbon cable is fully inserted. Verify PSRAM is enabled in Arduino IDE. Try reducing resolution to QQVGA in \texttt{CameraModule.cpp}. \\
+    
+    Motors not responding & 
+    Check L298N power connections. Verify enable jumpers (ENA/ENB) are installed. Test motors directly with 5V to confirm they work. \\
+    
+    WiFi not connecting & 
+    Verify SSID and password in \texttt{RescueRobot.ino}. Confirm router is 2.4GHz (ESP32 does not support 5GHz). \\
+    
+    Dashboard shows ``Disconnected'' & 
+    Verify rover and host are on the same network. Check that Gateway device is plugged in and receiving packets. \\
+    
+    Camera initialization fails & 
+    Reduce XCLK frequency to 8MHz in camera config. Verify all camera pins are correctly connected. Check PSRAM is functional. \\
+    
+    Intermittent control & 
+    Move closer to router. Reduce WiFi interference (microwaves, other 2.4GHz devices). Verify ESP-NOW peer MAC address matches. \\
+    
+    \bottomrule
+\end{longtable}
+
+\textbf{LED Status Indicators}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{lll}
+        \toprule
+        \textbf{LED} & \textbf{Pattern} & \textbf{Meaning} \\
+        \midrule
+        L298N Power LED    & Solid      & Power connected \\
+        ESP32-S3 LED       & Solid      & Booting or idle \\
+        ESP32-S3 LED       & Fast blink & Streaming video \\
+        ESP32-S3 LED       & Slow blink & Connecting to WiFi \\
+        ESP32-S3 LED       & Off        & No power or boot failure \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% --------------------------------------------------------
+\section{Safety Guidelines}
+\label{sec:safety-guidelines}
+
+\textbf{Battery Safety}
+\begin{itemize}
+    \item Never leave a charging LiPo battery unattended.
+    \item Do not puncture, crush, short-circuit, or expose to extreme heat.
+    \item Dispose of swollen or damaged batteries at proper recycling facilities.
+    \item For long-term storage, charge to 3.8V per cell (approximately 40--60\% capacity).
+\end{itemize}
+
+\textbf{Operational Safety}
+\begin{itemize}
+    \item Keep fingers and loose clothing away from moving wheels.
+    \item Do not operate on stairs, ledges, or unstable surfaces.
+    \item Avoid extended full-power operation to prevent motor overheating.
+    \item Always test in a controlled environment before field deployment.
+\end{itemize}
+
+\textbf{Electrical Safety}
+\begin{itemize}
+    \item Never modify wiring while the system is powered.
+    \item Protect electronics from water, dust, and static discharge.
+    \item Ensure all wire connections are insulated with heat shrink or electrical tape.
+\end{itemize}
+
+% --------------------------------------------------------
+\section{Maintenance Schedule}
+\label{sec:maintenance}
+
+\textbf{After Each Mission}
+\begin{itemize}
+    \item Download mission logs from the dashboard.
+    \item Charge battery to storage voltage (3.8V/cell) if not operating within 24 hours.
+    \item Inspect chassis for physical damage.
+\end{itemize}
+
+\textbf{Weekly}
+\begin{itemize}
+    \item Clean camera lens with a microfiber cloth.
+    \item Check wheel attachment screws for tightness.
+    \item Inspect all wiring for loose connections or fraying.
+\end{itemize}
+
+\textbf{Monthly}
+\begin{itemize}
+    \item Clean chassis internals with compressed air.
+    \item Test battery capacity with a LiPo checker.
+    \item Check for firmware updates in the project repository.
+\end{itemize}

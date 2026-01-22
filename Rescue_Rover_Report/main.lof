@@ -1,0 +1,75 @@
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces The four primary challenges facing rescue robotics platforms.}}{2}{figure.caption.8}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Project objectives organized by priority.}}{3}{figure.caption.9}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Project timeline showing development phases.}}{5}{figure.caption.11}%
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Commercial rescue robots: PackBot (left) and Throwbot (right).}}{6}{figure.caption.12}%
+\contentsline {figure}{\numberline {1.5}{\ignorespaces Report structure showing the relationship between chapters.}}{8}{figure.caption.13}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces High level system architecture showing the four processing nodes and their data links.}}{10}{figure.caption.14}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces The three-layer hybrid intelligence model distributed across Edge and Cloud.}}{11}{figure.caption.16}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Data flow diagram comparing the high-frequency local control loop and the low-frequency cloud analysis loop.}}{13}{figure.caption.18}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Fully assembled Rescue Rover showing the ESP32-S3 camera module, motor driver, battery, and chassis.}}{15}{figure.caption.20}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Top-down dimensional schematic of the 4WD Rover chassis. The platform utilizes a double-layer acrylic frame with four independently driven DC geared motors.}}{18}{figure.caption.23}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Drive assembly detail. The 1:48 ratio DC Gear Motor (left) couples directly to the 65mm wheel (right). The yellow plastic rim is press-fitted onto the motor output shaft.}}{18}{figure.caption.24}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Schematic top-down view of the component layout. The ultrasonic sensor and camera are positioned at the front for unobstructed sensing. The heavier battery pack is placed at the rear to balance the center of gravity. Power and signal lines are shown logically.}}{19}{figure.caption.25}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces ESP32-S3 WROOM development board used in the Rescue Rover.}}{21}{figure.caption.27}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Comparison of development boards. The Freenove S3 (left) was selected for its dedicated FPC camera connector and dual USB-C interfaces, features absent on standard development boards (right).}}{22}{figure.caption.29}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces OV2640 camera module showing the lens assembly and 24-pin FPC connector.}}{23}{figure.caption.31}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Relative frame size comparison. The selected QVGA resolution (green) offers 4x the pixel data of QQVGA while remaining significantly smaller than VGA, fitting within the bandwidth constraints of the ESP32.}}{24}{figure.caption.33}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Field of View (FOV) coverage diagram. The standard lens provides a $65^\circ $ viewing cone. Areas outside this cone (red) are blind spots requiring the rover to rotate for full situational awareness.}}{24}{figure.caption.34}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Side-profile schematic of the camera mounting. The $15^\circ $ downward tilt aligns the optical axis to cover the floor surface ahead of the rover, eliminating the "under-nose" blind spot.}}{25}{figure.caption.35}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces DC gear motor showing the motor body, planetary gearbox, and output shaft.}}{25}{figure.caption.37}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces L298N motor driver module with the characteristic large heatsink and terminal blocks.}}{26}{figure.caption.39}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces 3S LiPo battery used to power the Rescue Rover.}}{28}{figure.caption.43}%
+\contentsline {figure}{\numberline {3.14}{\ignorespaces Power distribution schematic showing voltage rails and current flow to all components.}}{29}{figure.caption.45}%
+\contentsline {figure}{\numberline {3.15}{\ignorespaces Voltage rail hierarchy showing the cascade of regulators from battery to components.}}{30}{figure.caption.46}%
+\contentsline {figure}{\numberline {3.16}{\ignorespaces HC-SR04 ultrasonic distance sensor showing the transmitter and receiver transducers.}}{31}{figure.caption.48}%
+\contentsline {figure}{\numberline {3.17}{\ignorespaces Top-down view of the ultrasonic sensor's beam pattern. The narrow $15^\circ $ detection cone is shown relative to the rover chassis, detecting obstacles directly ahead.}}{31}{figure.caption.49}%
+\contentsline {figure}{\numberline {3.18}{\ignorespaces Resistor voltage divider for level shifting the 5V echo signal to 3.3V.}}{32}{figure.caption.50}%
+\contentsline {figure}{\numberline {3.19}{\ignorespaces Complete wiring diagram showing all connections between the ESP32-S3, L298N, motors, sensors, and power supply.}}{32}{figure.caption.51}%
+\contentsline {figure}{\numberline {3.20}{\ignorespaces Actual wiring on the prototype showing careful routing and color coding.}}{33}{figure.caption.53}%
+\contentsline {figure}{\numberline {3.21}{\ignorespaces Assembly sequence showing the progressive addition of components to the chassis.}}{34}{figure.caption.54}%
+\contentsline {figure}{\numberline {3.22}{\ignorespaces Testing setup for post-assembly verification of subsystems.}}{35}{figure.caption.56}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Firmware module architecture showing the main sketch and its dependencies. The main loop coordinates all subsystems while individual modules manage their respective hardware interfaces.}}{37}{figure.caption.57}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Compilation dependencies between firmware modules. The main sketch includes all headers while modules only include what they need.}}{38}{figure.caption.58}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Memory allocation for the Rescue Rover firmware showing how camera buffers dominate PSRAM usage.}}{39}{figure.caption.60}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Physical wiring diagram illustrating the connections between the OV2640 camera module (via FPC breakout) and the ESP32-S3 development board.}}{40}{figure.caption.61}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Flowchart for camera initialization showing fail-safe checks, critical configuration steps (including the reduced 10MHz XCLK), and error handling paths.}}{42}{figure.caption.62}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Sequence diagram for HTTP MJPEG streaming showing the continuous frame transmission loop.}}{44}{figure.caption.63}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Measured latency comparison between HTTP MJPEG and UDP streaming modes. UDP consistently shows 80ms lower latency.}}{46}{figure.caption.64}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Differential drive kinematic model showing how independent wheel speeds create linear and angular motion.}}{47}{figure.caption.66}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces L298N motor driver wiring diagram showing all connections between ESP32-S3, the driver board, and both DC motors.}}{49}{figure.caption.67}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Comparison of point turn (current implementation) versus arc turn (future enhancement). Point turns rotate in place while arc turns follow a curved path.}}{50}{figure.caption.69}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces ESP-NOW protocol positioning in the network stack. It operates below IP, directly on top of the 802.11 MAC layer.}}{50}{figure.caption.70}%
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Binary layout of ESP-NOW packet structures showing byte offsets for each field.}}{51}{figure.caption.71}%
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Data flow diagram illustrating the deferred motor actuation design. The high-priority ESP-NOW callback quickly stores incoming data into shared memory. The lower-priority main loop reads the latest sensor data and the stored command, performing safety checks before any physical motor actuation occurs.}}{53}{figure.caption.72}%
+\contentsline {figure}{\numberline {4.14}{\ignorespaces State machine for heartbeat monitoring showing transitions between connected and stopped states.}}{55}{figure.caption.73}%
+\contentsline {figure}{\numberline {4.15}{\ignorespaces State machine diagram for non-blocking ultrasonic distance measurement.}}{57}{figure.caption.74}%
+\contentsline {figure}{\numberline {4.16}{\ignorespaces Flowchart of the unified control loop showing all safety checks and their precedence.}}{58}{figure.caption.75}%
+\contentsline {figure}{\numberline {4.17}{\ignorespaces Timing breakdown of a single main loop iteration showing relative time spent in each subsystem.}}{61}{figure.caption.77}%
+\contentsline {figure}{\numberline {4.18}{\ignorespaces Arduino IDE Tools menu configuration for ESP32-S3 with PSRAM enabled.}}{62}{figure.caption.79}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces High level architecture showing the split between local processing and cloud delegation.}}{64}{figure.caption.80}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Cloud infrastructure layout for the Strategic Layer.}}{66}{figure.caption.83}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Logic flow for the Command Arbiter ensuring safety protocols execute first.}}{69}{figure.caption.85}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Indoor test environment used for all experiments.}}{71}{figure.caption.86}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Distribution of command round trip latency across 1000 measurements.}}{72}{figure.caption.89}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparison of video latency between UDP and HTTP streaming modes.}}{73}{figure.caption.91}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Packet loss rate as a function of distance from the access point.}}{74}{figure.caption.93}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Frame rate stability over a 5 minute continuous operation test.}}{75}{figure.caption.95}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Visual comparison of different JPEG quality settings.}}{76}{figure.caption.97}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Path deviation during straight line driving test.}}{77}{figure.caption.99}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Path traced during a point turn, showing rotation approximately about center.}}{78}{figure.caption.102}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Precision-recall curves for each object class.}}{79}{figure.caption.105}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Distribution of YOLOv8 inference times.}}{80}{figure.caption.107}%
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Ultrasonic sensor accuracy across measurement range.}}{81}{figure.caption.109}%
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Battery voltage during continuous operation discharge test.}}{83}{figure.caption.112}%
+\contentsline {figure}{\numberline {6.13}{\ignorespaces Infrared thermal image showing component temperatures during operation.}}{84}{figure.caption.114}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

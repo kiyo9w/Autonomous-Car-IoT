@@ -1,0 +1,210 @@
+% chapters/05_ai_software_design.tex - Chapter 5: AI & Software Design
+% =====================================================================
+
+\chapter{AI \& Software Design}
+\label{chap:ai-software-design}
+
+This chapter documents the software architecture of the host application and its integration with cloud-based AI services. The design uses a "Hybrid Cloud" approach: real-time tactical processing runs locally on the host computer, while complex strategic reasoning is offloaded to a cloud server equipped with high-performance GPUs.
+
+% --------------------------------------------------------
+\section{Host Application Architecture}
+\label{sec:host-architecture}
+
+The RoverInterface application acts as the central coordinator. It manages three critical loops running at different frequencies:
+1.  \textbf{The Control Loop (100Hz)}: Reads joystick inputs and sends serial commands.
+2.  \textbf{The Tactical Loop (30Hz)}: Captures video and runs local object detection (YOLO).
+3.  \textbf{The Strategic Loop (0.5Hz)}: Asynchronously sends frames to the cloud for detailed analysis.
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/software/host_architecture_hybrid.png}
+    \caption{High level architecture showing the split between local processing and cloud delegation.}
+    \label{fig:host-architecture}
+\end{figure}
+
+\textbf{Tech Stack.} To support this architecture, the software stack includes networking components to reliably bridge the local application with the cloud instance.
+
+\begin{table}[h!]
+    \centering
+    \caption{Software components and roles}
+    \label{tab:python-deps}
+    \begin{tabular}{llp{6cm}}
+        \toprule
+        \textbf{Component} & \textbf{Type} & \textbf{Purpose} \\
+        \midrule
+        NiceGUI \cite{nicegui2023}      & Framework  & Operator Dashboard (Local) \\
+        YOLOv8-Nano  & Local AI   & Fast obstacle detection (Safety) \\
+        Qwen2.5-VL   & Remote AI  & Strategic scene understanding (Intelligence) \\
+        ngrok        & Network    & Secure tunnel to Cloud GPU \\
+        FastAPI \cite{fastapi2023}      & Server     & Cloud inference API host \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% --------------------------------------------------------
+\section{Computer Vision Layer (Local)}
+\label{sec:computer-vision}
+
+The local computer vision layer allows the rover to react immediately to dynamic hazards. It runs entirely on the Host computer (MacBook Pro), ensuring that safety reflexes are not dependent on internet connectivity.
+
+\textbf{YOLOv8 Integration.} We use YOLOv8-Nano \cite{redmon2016yolo,terven2024comprehensive} exported to CoreML format to leverage the Apple Neural Engine (ANE). This allows inference times of approximately 12ms per frame, leaving the main CPU and GPU free for video decoding and network I/O.
+
+Detailed class filtering ensures the rover stops for "Person" and "Chair" detections with high confidence ($>$ 0.6), but ignores smaller objects that it can traverse.
+
+\begin{designbox}[40\% Frame Threshold]
+If a detected person's bounding box covers more than \textbf{40\% of the camera frame}, the rover triggers an emergency stop. This threshold was carefully tuned:
+\begin{itemize}
+    \item \textbf{Too sensitive (e.g., 20\%)}: The rover would stop for people standing 5 meters away in the background.
+    \item \textbf{Too lenient (e.g., 60\%)}: The rover might not stop until it was dangerously close.
+\end{itemize}
+The 40\% value means the person must be close enough (within approximately 1.5 meters) to be a genuine collision risk. This allows the rover to navigate populated areas without constant false positives.
+\end{designbox}
+
+\textbf{Frame Preprocessing Pipeline.} Before feeding frames to the AI models, the \texttt{FramePreprocessor} class converts the raw JPEG bytes into the appropriate format for each layer using OpenCV \cite{opencv2023}:
+
+\begin{enumerate}
+    \item \textbf{YOLO}: Full-resolution RGB numpy array. No resizing is applied because the model handles variable input sizes.
+    \item \textbf{VLM}: Resized to 320x240 using \textbf{LANCZOS} resampling. This high-quality downscaling algorithm preserves edge details important for spatial reasoning.
+\end{enumerate}
+
+The \texttt{duplicate\_frame} method creates both copies from a single JPEG decode, avoiding redundant processing.
+
+% --------------------------------------------------------
+\section{Vision Language Model Integration (Cloud)}
+\label{sec:vlm-integration}
+
+Previous iterations of this project attempted to run a Vision Language Model (Moondream2) locally. However, testing revealed that running both video streaming and VLM inference on the same machine caused thermal throttling and system freezes, endangering the control loop.
+
+The final design moves this workload to the cloud.
+
+\textbf{Cloud Architecture.} We utilize a Google Colab instance provisioned with an **NVIDIA H100** GPU (80GB VRAM). This server hosts:
+1.  \textbf{Qwen2.5-VL-7B-Instruct} \cite{bai2025qwen2vl}: A state-of-the-art VLM capable of spatial reasoning.
+2.  \textbf{vLLM Engine}: A high-throughput serving engine for LLMs.
+3.  \textbf{FastAPI + ngrok}: Exposes a public \texttt{https} endpoint for the rover to contact.
+
+\begin{table}[h!]
+    \centering
+    \caption{Local vs Cloud VLM Comparison}
+    \label{tab:vlm-comparison}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Metric} & \textbf{Local (Moondream2)} & \textbf{Cloud (Qwen2.5-VL)} \\
+        \midrule
+        Model Size      & 1.8 Billion & 7 Billion \\
+        Inference Time  & 400 ms & 150 ms (H100) \\
+        Spatial IQ      & Low & High \\
+        System Load     & Extreme (Freezes) & Minimal (Network I/O) \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{designbox}[The "Rescue Swarm" Potential]
+Hosting the strategic brain on a monstrous NVIDIA H100 (80GB VRAM) unlocks massive scalability. With the vLLM engine's continuous batching capabilities and our low query rate of 0.5Hz, a single GPU instance could theoretically drive a fleet of \textbf{50 to 100 simultaneous Rescue Rovers}.
+
+This architecture effectively creates a "swarm" of cheap ESP32 units sharing a single super-intelligent brain \cite{kumar2025swarm,saravanan2019iot}. In a large-scale disaster, one centralized server could coordinate a swarm of hundreds of explorers for a fraction of the cost of equipping each unit with onboard Jetson-class AI.
+\end{designbox}
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/software/cloud_architecture.jpg}
+    \caption{Cloud infrastructure layout for the Strategic Layer.}
+    \label{fig:cloud-architecture}
+\end{figure}
+
+\textbf{Client Implementation.} The Host application implements a \texttt{StrategicNavigator} class that acts as the HTTP client. It samples the video feed at 0.5Hz (once every 2 seconds).
+
+\begin{lstlisting}[language=Python, caption={Cloud Client Implementation}]
+def analyze_frame(self, frame):
+    """Send frame to cloud for analysis"""
+    # 1. Compress frame to JPEG (Quality 85)
+    # 2. Send HTTP POST to config.REMOTE_VLM_URL
+    try:
+        response = requests.post(
+            self.url, 
+            files={'file': frame_bytes}, 
+            timeout=2.0
+        )
+        return parse_json(response.text)
+    except Timeout:
+        return None # Fail silently, don't block
+\end{lstlisting}
+
+This asynchronous approach ensures that network lag never blocks the main UI or the serial control thread. If the cloud hangs, the rover simply continues its last safe behavior or defaults to manual control.
+
+\textbf{Prompt Engineering.} The cloud model is prompted to act as a "Robot Driver". We enforce a strict JSON output schema to ensure the Python client can parse the decision deterministically.
+
+\begin{lstlisting}[language=json, caption={VLM JSON Output Schema}]
+{
+    "hazard": false,
+    "nav_goal": "open_space",
+    "steering": "left",
+    "reasoning": "The center path is blocked by a box. Immediate left is clear."
+}
+\end{lstlisting}
+
+The system prompt is minimal but directive:
+
+\begin{lstlisting}[language=Python, caption={VLM System and User Prompts}]
+SYSTEM: You are a robot navigator. Analyze the scene for walkability.
+Output JSON ONLY: {hazard, nav_goal, steering, reasoning}.
+
+USER: Analyze this view. Where should I drive?
+\end{lstlisting}
+
+This constrained prompting style was developed after early experiments produced verbose, unparseable outputs. Forcing a strict JSON format ensures the Python client can deterministically parse the VLM's decision.
+
+% --------------------------------------------------------
+\section{Command Arbitration}
+\label{sec:command-arbiter}
+
+With two AI brains (Local YOLO and Cloud VLM) plus a human operator, conflicting commands are inevitable. A \texttt{CommandArbiter} module resolves these conflicts using a \textbf{5-level priority ladder}.
+
+\begin{table}[h!]
+    \centering
+    \caption{Full Command Priority Hierarchy}
+    \label{tab:priority-levels}
+    \begin{tabular}{clp{6cm}}
+        \toprule
+        \textbf{Priority} & \textbf{Source} & \textbf{Description} \\
+        \midrule
+        100 & SAFETY & Firmware-level emergency stop (sonar, watchdog). Overrides everything. \\
+        30  & TACTICAL & YOLO person detection (bounding box $>$40\% frame). \\
+        20  & STRATEGIC & VLM navigation suggestion from cloud. \\
+        10  & MANUAL & Human joystick input. Active for 5 seconds after last input. \\
+        0   & IDLE & No command (rover stops). \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{designbox}["Joystick Space" Abstraction]
+Instead of discrete commands like FORWARD, BACKWARD, LEFT, RIGHT, the arbiter uses a \textbf{virtual joystick coordinate system}:
+\begin{itemize}
+    \item \texttt{x}: 0-4095, center = 2048 (left/right)
+    \item \texttt{y}: 0-4095, center = 2048 (forward/backward)
+\end{itemize}
+This allows \textbf{graduated speed and turning}. A gentle left turn might be \texttt{x=1500, y=3000}, while a sharp pivot is \texttt{x=500, y=2048}. The result is smooth, analog-like control even though the underlying motor driver is digital. The AI models output steering commands ("left", "right") which are converted into joystick coordinates before being sent to the gateway.
+\end{designbox}
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/software/arbiter_logic.png}
+    \caption{Logic flow for the Command Arbiter ensuring safety protocols execute first.}
+    \label{fig:arbiter-logic}
+\end{figure}
+
+% --------------------------------------------------------
+\section{Dashboard \& Telemetry}
+\label{sec:dashboard}
+
+The logic for the dashboard remains largely similar to the local design, but now includes a "Cloud Status" indicator.
+
+\begin{itemize}
+    \item \textbf{Cloud Connected (Green)}: Pings to ngrok URL < 500ms.
+    \item \textbf{Cloud Lagging (Yellow)}: Latency > 1000ms.
+    \item \textbf{Cloud Offline (Red)}: Connection timeout.
+\end{itemize}
+
+This feedback allows the operator to know if the autonomous "Strategic" mode is available or if the rover has degraded to "Reflex Only" mode.

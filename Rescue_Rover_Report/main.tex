@@ -1,0 +1,116 @@
+% main.tex - Root Document for Rescue Rover Project Report
+% =========================================================
+% 
+% Compile with: pdflatex main.tex (run twice for TOC)
+% Or use latexmk: latexmk -pdf main.tex
+%
+% This is the master file that imports all chapters and appendices.
+% To compile a specific chapter for faster iteration, comment out others.
+
+\documentclass[12pt, a4paper, oneside]{report}
+
+% ============================================================
+% 1. Import Settings (Packages, Commands, Environments)
+% ============================================================
+\input{settings/packages}
+\input{settings/commands}
+\input{settings/environments}
+
+% ============================================================
+% 2. Document Metadata
+% ============================================================
+\title{Rescue Rover: An IoT-Based Autonomous Rescue Robot System}
+\author{Ngo Thanh Trung, Pham Thai Duong, Nguyen Van Duc, Le Quang Huy}
+\date{January 2025}
+
+% ============================================================
+% Begin Document
+% ============================================================
+\begin{document}
+
+% ============================================================
+% 3. Front Matter (Roman page numbering)
+% ============================================================
+\pagenumbering{roman}
+
+% Title Page
+\input{frontmatter/titlepage}
+
+% Declaration
+\input{frontmatter/declaration}
+
+% Abstract
+\input{frontmatter/abstract}
+
+% Acknowledgments
+\input{frontmatter/acknowledgments}
+
+% Table of Contents
+\tableofcontents
+\clearpage
+
+% List of Figures
+\listoffigures
+\addcontentsline{toc}{chapter}{List of Figures}
+\clearpage
+
+% List of Tables
+\listoftables
+\addcontentsline{toc}{chapter}{List of Tables}
+\clearpage
+
+% List of Abbreviations
+\input{frontmatter/acronyms}
+
+% ============================================================
+% 4. Main Content (Arabic page numbering)
+% ============================================================
+\clearpage
+\pagenumbering{arabic}
+
+% Chapter 1: Introduction
+\input{chapters/01_introduction}
+
+% Chapter 2: System Architecture
+\input{chapters/02_system_architecture}
+
+% Chapter 3: Hardware Design
+\input{chapters/03_hardware_design}
+
+% Chapter 4: Firmware Implementation
+\input{chapters/04_firmware_implementation}
+
+% Chapter 5: AI & Software Design
+\input{chapters/05_ai_software_design}
+
+% Chapter 6: Testing & Results
+\input{chapters/06_testing_results}
+
+% Chapter 7: Conclusion & Future Work
+\input{chapters/07_conclusion}
+
+% ============================================================
+% 5. Appendices
+% ============================================================
+\appendix
+
+% Appendix A: Pinout Tables
+\input{appendices/A_pinout_tables}
+
+% Appendix B: Circuit Diagrams
+\input{appendices/B_circuit_diagrams}
+
+% Appendix C: Source Code Snippets
+\input{appendices/C_source_code_snippets}
+
+% Appendix D: User Manual
+\input{appendices/D_user_manual}
+
+% ============================================================
+% 6. Bibliography
+% ============================================================
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+\addcontentsline{toc}{chapter}{References}
+
+\end{document}

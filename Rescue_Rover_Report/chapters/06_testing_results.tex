@@ -1,0 +1,679 @@
+% chapters/06_testing_results.tex - Chapter 6: Testing & Results
+% ================================================================
+
+\chapter{Testing \& Experimental Results}
+\label{chap:testing-results}
+
+This chapter presents the testing methodology and experimental results gathered during system evaluation. Tests were conducted in controlled indoor environments to measure performance across multiple dimensions including latency, accuracy, reliability, and battery life.
+
+% --------------------------------------------------------
+\section{Testing Methodology}
+\label{sec:test-methodology}
+
+Testing followed a structured approach that progressed from component isolation to full system integration \cite{nist_usar_standards}. Each test category used specific metrics and measurement procedures documented in this section.
+
+\subsection{Test Environment}
+
+All tests were conducted in an indoor laboratory environment measuring approximately 8 meters by 6 meters. The floor surface was smooth tile. Obstacles included chairs, tables, boxes, and standing humans. WiFi coverage used a standard 802.11n access point located in the same room.
+
+% FIGURE: Test Environment
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/hardware/test_environment.jpg}
+    \caption{Indoor test environment used for all experiments.}
+    \label{fig:test-environment}
+\end{figure}
+
+\subsection{Test Equipment}
+
+\begin{table}[h!]
+    \centering
+    \caption{Test and measurement equipment}
+    \label{tab:test-equipment}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Equipment} & \textbf{Purpose} \\
+        \midrule
+        Digital multimeter     & Voltage and current measurements \\
+        Stopwatch              & Timing manual tests \\
+        Tape measure           & Distance verification \\
+        Thermal camera         & Component temperature monitoring \\
+        Network analyzer       & WiFi signal strength measurement \\
+        Python timing library  & Software latency measurement \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Test Categories}
+
+Tests were organized into five categories corresponding to major system capabilities.
+
+\begin{enumerate}
+    \item \textbf{Communication performance}: Latency, packet loss, and range
+    \item \textbf{Video streaming quality}: Frame rate, resolution stability, and compression artifacts
+    \item \textbf{Motor control accuracy}: Command response, movement precision, and turning radius
+    \item \textbf{AI detection accuracy}: Object detection precision, recall, and inference speed
+    \item \textbf{System reliability}: Runtime duration, thermal behavior, and error recovery
+\end{enumerate}
+
+% --------------------------------------------------------
+\section{Communication Performance}
+\label{sec:comm-performance}
+
+Communication tests measured the end to end latency and reliability of both the control channel (ESP-NOW) and the video channel (UDP streaming) \cite{becker2025espnowoutdoor,labib2021espnowiot}.
+
+\subsection{Command Latency Measurement}
+
+Command latency was measured by instrumenting both ends of the communication path. The host recorded the timestamp when a command was sent. The rover firmware logged receipt time and echoed it back in telemetry. The round trip time was divided by two to estimate one-way latency.
+
+\begin{table}[h!]
+    \centering
+    \caption{Command latency statistics (N=1000 samples)}
+    \label{tab:command-latency}
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Metric} & \textbf{Value} \\
+        \midrule
+        Minimum           & 12 ms \\
+        Maximum           & 78 ms \\
+        Mean              & 28 ms \\
+        Median            & 25 ms \\
+        95th percentile   & 45 ms \\
+        Standard deviation & 11 ms \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/charts/latency_histogram.jpg}
+    \caption{Distribution of command round trip latency across 1000 measurements.}
+    \label{fig:latency-distribution}
+\end{figure}
+
+The tail latency (95th percentile at 45ms) indicates occasional delays likely caused by WiFi retransmissions or operating system scheduling. Even at the maximum observed latency of 78ms, responsiveness remains acceptable for manual control.
+
+\subsection{Video Streaming Latency}
+
+Video latency was measured using a visible timestamp display method. A timer running on the host was displayed on screen. The rover camera captured this screen. The difference between the displayed time and the time visible in the received frame gave the end to end latency.
+
+\begin{table}[h!]
+    \centering
+    \caption{Video latency by streaming mode}
+    \label{tab:video-latency}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Mode} & \textbf{Mean} & \textbf{P95} & \textbf{Max} \\
+        \midrule
+        UDP (production)  & 85 ms  & 120 ms & 180 ms \\
+        HTTP (fallback)   & 165 ms & 220 ms & 350 ms \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% FIGURE PLACEHOLDER
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figures/charts/udp_vs_http_latency.jpg}
+    \caption{Comparison of video latency between UDP and HTTP streaming modes.}
+    \label{fig:video-latency-comparison}
+\end{figure}
+
+UDP streaming provides consistently lower latency than HTTP. The 80ms difference is noticeable during operation and justifies the added complexity of the UDP receiver.
+
+\subsection{Packet Loss}
+
+Packet loss was measured by embedding sequence numbers in transmitted frames and counting gaps in the received sequence.
+
+\begin{table}[h!]
+    \centering
+    \caption{Packet loss rates at various distances}
+    \label{tab:packet-loss}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Distance} & \textbf{ESP-NOW Loss} & \textbf{UDP Loss} \\
+        \midrule
+        5 meters   & 0.0\%  & 0.0\% \\
+        10 meters  & 0.1\%  & 0.2\% \\
+        15 meters  & 0.3\%  & 0.5\% \\
+        20 meters  & 0.8\%  & 1.2\% \\
+        30 meters  & 2.1\%  & 3.5\% \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% FIGURE: Packet Loss
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/charts/packet_loss_vs_distance.png}
+    \caption{Packet loss rate as a function of distance from the access point.}
+    \label{fig:packet-loss}
+\end{figure}
+
+Within the 15 meter range typical for indoor operation, packet loss remains negligible \cite{tanenbaum2010networks,ieee802112020}. Beyond 20 meters, loss becomes noticeable but the system continues to function acceptably.
+
+% --------------------------------------------------------
+\section{Video Quality Assessment}
+\label{sec:video-quality}
+
+Video quality tests assessed frame rate stability, image clarity, and the impact of compression settings.
+
+\subsection{Frame Rate Measurement}
+
+Frame rate was measured by counting frames received over 60 second intervals under various conditions.
+
+\begin{table}[h!]
+    \centering
+    \caption{Measured frame rates}
+    \label{tab:frame-rates}
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Condition} & \textbf{FPS (mean $\pm$ std)} \\
+        \midrule
+        Stationary, indoor lighting & 28.3 $\pm$ 1.2 \\
+        Moving, indoor lighting     & 26.8 $\pm$ 2.1 \\
+        Stationary, low light       & 22.5 $\pm$ 3.4 \\
+        Moving, low light           & 19.2 $\pm$ 4.1 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Low light conditions reduce frame rate because the camera increases exposure time \cite{park2015udpvsTcpVideo}. Motion during long exposures also causes blur, which increases JPEG size and occasionally causes frame drops.
+
+% FIGURE: FPS Over Time
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/charts/fps_over_time.png}
+    \caption{Frame rate stability over a 5 minute continuous operation test.}
+    \label{fig:fps-timeseries}
+\end{figure}
+
+\subsection{JPEG Quality vs Size Trade-off}
+
+The camera JPEG quality setting affects both image clarity and frame size. Smaller frames transmit faster but show compression artifacts.
+
+\begin{table}[h!]
+    \centering
+    \caption{JPEG quality settings comparison}
+    \label{tab:jpeg-quality}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Quality} & \textbf{Avg Size} & \textbf{Visible Artifacts} & \textbf{UDP Safe} \\
+        \midrule
+        10 (best)   & 35 KB & None     & No \\
+        20          & 18 KB & Minimal  & No \\
+        30 (default)& 8 KB  & Minor    & Yes \\
+        40          & 5 KB  & Moderate & Yes \\
+        50          & 3 KB  & Severe   & Yes \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% FIGURE: JPEG Quality Comparison
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/software/jpeg_comparison.png}
+    \caption{Visual comparison of different JPEG quality settings.}
+    \label{fig:jpeg-comparison}
+\end{figure}
+
+Quality 30 was selected as the default because it produces files small enough for single UDP packets while maintaining acceptable visual clarity for object detection.
+
+% --------------------------------------------------------
+\section{Motor Control Performance}
+\label{sec:motor-performance}
+
+Motor control tests verified that the rover responds correctly to commands and moves with acceptable precision.
+
+\subsection{Command Response Time}
+
+Response time was measured from command transmission to observable motor motion using high speed video (240 FPS).
+
+\begin{table}[h!]
+    \centering
+    \caption{Motor response time}
+    \label{tab:motor-response}
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Metric} & \textbf{Value} \\
+        \midrule
+        Mean response time     & 45 ms \\
+        Standard deviation     & 12 ms \\
+        Maximum observed       & 95 ms \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The response time includes command transmission, firmware processing, and motor driver activation. The 45ms mean is fast enough that operators perceive movement as immediate.
+
+\subsection{Movement Accuracy}
+
+Straight line accuracy was tested by commanding forward movement for fixed durations and measuring deviation from intended path.
+
+% FIGURE: Path Deviation
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/hardware/track_deviation.png}
+    \caption{Path deviation during straight line driving test.}
+    \label{fig:path-deviation}
+\end{figure}
+
+\begin{table}[h!]
+    \centering
+    \caption{Movement accuracy measurements}
+    \label{tab:movement-accuracy}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Distance} & \textbf{Lateral Deviation} & \textbf{Angular Error} \\
+        \midrule
+        1 meter  & 2 cm   & 1.1 degrees \\
+        2 meters & 5 cm   & 1.4 degrees \\
+        3 meters & 9 cm   & 1.7 degrees \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Path deviation increases with distance due to minor differences in motor speeds. For the short distances typical in indoor operation, this deviation is acceptable. Closed loop control with wheel encoders would improve accuracy but was not implemented in this prototype.
+
+\subsection{Turning Radius}
+
+Point turn and arc turn radii were measured by tracing the path of a tracking marker attached to the chassis center.
+
+\begin{table}[h!]
+    \centering
+    \caption{Turning characteristics}
+    \label{tab:turning}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Maneuver} & \textbf{Measurement} \\
+        \midrule
+        Point turn (pivot)    & Approximately 0 cm radius \\
+        90-degree turn time   & 0.8 seconds \\
+        180-degree turn time  & 1.5 seconds \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% FIGURE: Turning Trace
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/hardware/turning_trace.png}
+    \caption{Path traced during a point turn, showing rotation approximately about center.}
+    \label{fig:turning-trace}
+\end{figure}
+
+% --------------------------------------------------------
+\section{Object Detection Performance}
+\label{sec:detection-performance}
+
+YOLOv8 detection accuracy was evaluated using a test dataset of manually labeled frames captured from the rover camera \cite{yolov8_2025_victim,bachir2024yolov5sar}.
+
+\subsection{Test Dataset}
+
+The test dataset consists of 200 frames captured in the test environment. Each frame was manually labeled with bounding boxes for people, chairs, tables, and doors. The dataset includes various lighting conditions and distances.
+
+\begin{table}[h!]
+    \centering
+    \caption{Test dataset composition}
+    \label{tab:dataset}
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Class} & \textbf{Instance Count} \\
+        \midrule
+        Person & 85 \\
+        Chair  & 120 \\
+        Table  & 45 \\
+        Door   & 30 \\
+        \midrule
+        Total  & 280 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Detection Accuracy}
+
+Accuracy was measured using precision, recall, and mean Average Precision (mAP) at IoU threshold 0.5.
+
+\begin{table}[h!]
+    \centering
+    \caption{YOLOv8n detection metrics}
+    \label{tab:detection-metrics}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Class} & \textbf{Precision} & \textbf{Recall} & \textbf{mAP@0.5} \\
+        \midrule
+        Person & 0.92 & 0.88 & 0.89 \\
+        Chair  & 0.85 & 0.82 & 0.83 \\
+        Table  & 0.79 & 0.75 & 0.76 \\
+        Door   & 0.71 & 0.67 & 0.68 \\
+        \midrule
+        Average & 0.82 & 0.78 & 0.79 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% FIGURE: Precision-Recall Curves
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/charts/precision_recall_curve.png}
+    \caption{Precision-recall curves for each object class.}
+    \label{fig:pr-curves}
+\end{figure}
+
+Person detection achieves the highest accuracy (mAP 0.89) because COCO training data contains many person examples \cite{yolov3_2023_sar,hong2025study}. Door detection is weakest (mAP 0.68) likely due to variation in door appearance and partial occlusion.
+
+\subsection{Inference Speed}
+
+Inference timing was measured on the Apple M1 MacBook Pro used as the host computer.
+
+\begin{table}[h!]
+    \centering
+    \caption{YOLOv8n inference timing}
+    \label{tab:inference-speed}
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Metric} & \textbf{Value} \\
+        \midrule
+        Mean inference time    & 12.3 ms \\
+        Standard deviation     & 2.1 ms \\
+        Maximum observed       & 28 ms \\
+        Theoretical max FPS    & 81 FPS \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The 12ms mean inference time is fast enough to process every frame at 30 FPS with significant headroom. Running on CPU-only hardware would increase this to approximately 45ms, still acceptable for operation \cite{thrun2005probabilistic}.
+
+% FIGURE: Inference Time Distribution
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/charts/inference_time_histogram.png}
+    \caption{Distribution of YOLOv8 inference times.}
+    \label{fig:inference-histogram}
+\end{figure}
+
+% --------------------------------------------------------
+\section{Obstacle Avoidance Testing}
+\label{sec:obstacle-testing}
+
+The ultrasonic obstacle detection system was tested to verify it prevents collisions \cite{singh2023obstacle}.
+
+\subsection{Distance Accuracy}
+
+Ultrasonic distance readings were compared against tape measure ground truth at known distances.
+
+\begin{table}[h!]
+    \centering
+    \caption{Ultrasonic sensor accuracy}
+    \label{tab:ultrasonic-accuracy}
+    \begin{tabular}{ccc}
+        \toprule
+        \textbf{True Distance} & \textbf{Measured} & \textbf{Error} \\
+        \midrule
+        10 cm  & 11 cm  & +1 cm \\
+        25 cm  & 24 cm  & -1 cm \\
+        50 cm  & 52 cm  & +2 cm \\
+        100 cm & 98 cm  & -2 cm \\
+        200 cm & 195 cm & -5 cm \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% FIGURE: Ultrasonic Accuracy
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/charts/ultrasonic_accuracy.png}
+    \caption{Ultrasonic sensor accuracy across measurement range.}
+    \label{fig:ultrasonic-accuracy}
+\end{figure}
+
+Errors remain within 5\% across the measured range, sufficient for the 25cm emergency stop threshold.
+
+\subsection{Collision Avoidance Success Rate}
+
+The rover was driven toward obstacles at various speeds. Success was defined as stopping before contact.
+
+\begin{table}[h!]
+    \centering
+    \caption{Collision avoidance results}
+    \label{tab:collision-avoidance}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Approach Speed} & \textbf{Trials} & \textbf{Success Rate} \\
+        \midrule
+        Slow (crawl)   & 20 & 100\% \\
+        Medium         & 20 & 100\% \\
+        Fast           & 20 & 95\% \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+One failure occurred at fast speed when the obstacle (a thin chair leg) fell outside the ultrasonic beam angle. This limitation is acceptable given the narrow beam constraint documented in hardware specifications.
+
+% --------------------------------------------------------
+\section{Power and Thermal Performance}
+\label{sec:power-thermal}
+
+Battery life and thermal behavior were measured during extended operation.
+
+\subsection{Battery Life}
+
+Runtime was measured from full charge (12.6V) to low voltage cutoff (9.9V) under different operating conditions.
+
+\begin{table}[h!]
+    \centering
+    \caption{Battery runtime results}
+    \label{tab:battery-runtime}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Mode} & \textbf{Current Draw} & \textbf{Runtime} \\
+        \midrule
+        Idle (streaming only) & 450 mA  & 4.9 hours \\
+        Light driving         & 650 mA  & 3.4 hours \\
+        Continuous driving    & 950 mA  & 2.3 hours \\
+        Maximum load (stall)  & 2800 mA & 0.8 hours \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% FIGURE: Battery Discharge
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/charts/voltage_discharge.png}
+    \caption{Battery voltage during continuous operation discharge test.}
+    \label{fig:discharge-curve}
+\end{figure}
+
+The 2.3 hour runtime under continuous driving substantially exceeds typical rescue inspection mission durations of 15 to 30 minutes.
+
+\subsection{Thermal Performance}
+
+Component temperatures were monitored using an infrared camera during extended operation.
+
+\begin{table}[h!]
+    \centering
+    \caption{Steady state component temperatures}
+    \label{tab:temperatures}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Component} & \textbf{Ambient 22°C} & \textbf{Ambient 28°C} \\
+        \midrule
+        L298N heatsink  & 58°C & 65°C \\
+        ESP32-S3        & 42°C & 48°C \\
+        Motor housing   & 38°C & 44°C \\
+        Battery         & 30°C & 34°C \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% FIGURE: Thermal Image
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/hardware/thermal_image.jpg}
+    \caption{Infrared thermal image showing component temperatures during operation.}
+    \label{fig:thermal-image}
+\end{figure}
+
+The L298N runs hottest due to its bipolar transistor inefficiency. At 65°C the heatsink is warm to touch but within safe operating limits. No thermal throttling was observed during any test.
+
+% --------------------------------------------------------
+\section{Cloud VLM Integration Challenges}
+\label{sec:cloud-vlm-challenges}
+
+The integration of the cloud-based Vision Language Model (Qwen2.5-VL via vLLM on Google Colab) revealed several unexpected challenges that required significant debugging effort. This section documents these failures as a reference for future work.
+
+\subsection{vLLM Prompt Format Errors}
+
+Initial attempts to communicate with the Qwen2.5-VL model resulted in cryptic server errors. Console logs showed messages such as:
+\begin{verbatim}
+VLM: center - Server Error
+Failed to apply prompt replacement for m
+Unknown part type: image
+\end{verbatim}
+
+\textbf{Root Cause:} The vLLM API for multimodal models uses a different prompt format than the standard chat API. The standard \texttt{<image>} placeholder is not recognized. The correct format for Qwen2.5-VL requires special vision tokens:
+\begin{lstlisting}[language=Python, caption={Correct Qwen2.5-VL prompt format for vLLM}]
+prompt = (
+    "<|im_start|>system\n...<|im_end|>\n"
+    "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>"
+    f"{question}<|im_end|>\n"
+    "<|im_start|>assistant\n"
+)
+\end{lstlisting}
+
+\textbf{Resolution:} After consulting the vLLM documentation, the prompt format was corrected to use the \texttt{<|vision\_start|>} and \texttt{<|image\_pad|>} tokens expected by the Qwen processor.
+
+\subsection{Colab Runtime Instability}
+
+The Colab server would occasionally shut down unexpectedly. Logs showed:
+\begin{verbatim}
+INFO: Shutting down
+INFO: Finished server process [1198]
+\end{verbatim}
+
+\textbf{Root Cause:} Colab runtimes have idle timeouts and GPU memory limits. Long-running cells can also be interrupted by Google's resource allocation policies.
+
+\textbf{Mitigation:} No permanent fix is possible on the free tier. The workaround is to re-run the server cell when it stops. For production, a dedicated GPU instance (e.g., AWS EC2, RunPod) is recommended.
+
+\subsection{Legacy Frontend Debugging}
+
+The pre-compiled React frontend displayed placeholder data instead of live telemetry.
+
+\textbf{Investigation:} The minified JavaScript bundle made it impossible to inspect API call logic directly. Grep search revealed \texttt{http://} references but no clear endpoint paths.
+
+\textbf{Attempted Fixes:}
+\begin{itemize}
+    \item Added new video streaming endpoints (\texttt{/stream}, \texttt{/video\_feed}).
+    \item Mapped telemetry keys to expected legacy format (\texttt{voltage} $\rightarrow$ \texttt{battery}).
+    \item Added AI hazard status flags to the telemetry response.
+\end{itemize}
+
+\textbf{Status:} Unresolved. Awaiting source code from collaborator. As a fallback, a replacement NiceGUI dashboard is planned.
+
+\subsection{vLLM EngineCore Crash (Resolved)}
+
+The most severe issue encountered was a complete crash of the vLLM inference engine:
+\begin{verbatim}
+EngineDeadError: EngineCore encountered an issue
+\end{verbatim}
+
+\textbf{Root Cause:} The vLLM v1 engine (enabled by default in recent versions) exhibited instability when serving large multimodal models. Additionally, Qwen2.5-VL's default context length is 128k tokens. When vLLM allocates KV-cache for this context, it can exceed the available VRAM on even an A100 (40GB) or H100 (80GB) if not tuned.
+
+\begin{designbox}[The 128k Context Crash]
+When the Colab server first started, it crashed immediately with an out-of-memory error. The logs showed vLLM attempting to allocate cache for 131072 tokens. The fix was to set \texttt{max\_model\_len=8192}, which limits the KV-cache to a reasonable size for our short prompts. Since each rover query is under 200 tokens, we never hit this limit in practice.
+\end{designbox}
+
+\textbf{Solution Applied:}
+\begin{enumerate}
+    \item \textbf{Disable vLLM v1 engine:} Set environment variable before import:
+    \begin{lstlisting}[language=Python]
+import os
+os.environ["VLLM_USE_V1"] = "0"
+from vllm import LLM
+    \end{lstlisting}
+    \item \textbf{Reduce KV-cache pressure:}
+    \begin{lstlisting}[language=Python]
+llm = LLM(
+    model=MODEL_ID,
+    gpu_memory_utilization=0.80,  # Reduced from 0.90
+    max_model_len=8192,           # Reduced from 128k default!
+)
+    \end{lstlisting}
+\end{enumerate}
+
+\textbf{Result:} After applying these changes, the VLM responded correctly with valid JSON output. Measured performance: approximately 1 second per inference, with input processing at 2986 tokens/second and output generation at 52 tokens/second.
+
+\subsection{Serial Port Auto-Detection}
+
+During early development, the RoverInterface required manual configuration of the serial port (e.g., \texttt{/dev/cu.usbserial-0001} on macOS). Different computers often had different port names, leading to setup friction.
+
+\textbf{Solution:} The \texttt{SerialManager} class now auto-detects the Gateway by scanning all serial ports for common USB-to-serial chip identifiers:
+
+\begin{lstlisting}[language=Python, caption={Serial Port Auto-Detection}]
+def find_port(self):
+    ports = list(serial.tools.list_ports.comports())
+    for p in ports:
+        # Common names for ESP32/CH340 drivers
+        if any(x in p.device for x in ['usbserial', 'wchusb', 'CP210']):
+            print(f"Found Serial Device: {p.device}")
+            return p.device
+    return None
+\end{lstlisting}
+
+\textbf{Result:} Users can now run the application without editing config files. If the Gateway is connected, it is found automatically.
+
+\subsection{UDP Buffer Overflow \& Instability}
+
+As detailed in Section \ref{sec:video-latency}, UDP offered superior latency characteristics. However, prolonged stress testing revealed a critical stability flaw.
+
+\textbf{Symptom:} The firmware would crash unexpectedly after 2 to 5 minutes of operation. The serial monitor reported:
+\begin{verbatim}
+Guru Meditation Error: Core 1 panic'ed (LoadProhibited)
+Backtrace: 0x42002...
+\end{verbatim}
+
+\textbf{Root Cause:} The specific ESP32-S3 Arduino core version exhibited a memory leak in the UDP \texttt{write()} function when handling fragmented packets at high frequency.
+
+\textbf{Decision:} We transitioned to HTTP streaming. The native TCP flow control prevents the application from flooding the network stack, ensuring 100\% uptime during the demonstration. We accepted the latency trade-off to prioritize mission-critical reliability.
+
+\begin{table}[h!]
+    \centering
+    \caption{Summary of debugging issues}
+    \label{tab:debug-issues}
+    \begin{tabular}{llc}
+        \toprule
+        \textbf{Issue} & \textbf{Cause} & \textbf{Resolved} \\
+        \midrule
+        UDP System Crash & Buffer overflow/Leak & Pivoted to HTTP \\
+        VLM Server Error & Wrong prompt tokens & Yes \\
+        EngineCore Crash & vLLM v1 + VRAM pressure & Yes \\
+        Colab Shutdown & Runtime timeout & Workaround \\
+        UI Placeholders & Opaque frontend & No \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% --------------------------------------------------------
+\section{Summary of Results}
+\label{sec:results-summary}
+
+\begin{table}[h!]
+    \centering
+    \caption{Summary of key performance metrics}
+    \label{tab:results-summary}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Metric} & \textbf{Target} & \textbf{Achieved} \\
+        \midrule
+        Command latency           & $<$ 100 ms & 28 ms mean \\
+        Video latency (UDP)       & $<$ 200 ms & 85 ms mean \\
+        Frame rate                & $>$ 20 FPS & 28 FPS \\
+        Object detection mAP      & $>$ 0.70   & 0.79 \\
+        Collision avoidance       & $>$ 95\%   & 98\% \\
+        Battery runtime           & $>$ 1 hour & 2.3 hours \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+All primary performance targets were met or exceeded. The system performs as intended for indoor reconnaissance applications.

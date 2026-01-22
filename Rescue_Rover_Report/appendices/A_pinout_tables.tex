@@ -1,0 +1,140 @@
+% appendices/A_pinout_tables.tex - Appendix A: Pinout Tables
+% ===========================================================
+
+\chapter{Pinout Tables}
+\label{app:pinout-tables}
+
+% --------------------------------------------------------
+\section{ESP32-S3 Camera Pin Configuration}
+\label{sec:camera-pinout}
+
+\begin{table}[h!]
+    \centering
+    \caption{OV2640 Camera to ESP32-S3 Pin Mapping}
+    \label{tab:camera-pinout}
+    \begin{tabular}{llll}
+        \toprule
+        \textbf{Function} & \textbf{ESP32-S3 GPIO} & \textbf{Camera Pin} & \textbf{Notes} \\
+        \midrule
+        PWDN    & -1    & N/C       & Not connected (no power down) \\
+        RESET   & -1    & N/C       & Internal reset used \\
+        XCLK    & 15    & XCLK      & 10 MHz clock output \\
+        SIOD    & 4     & SDA       & I2C Data \\
+        SIOC    & 5     & SCL       & I2C Clock \\
+        \midrule
+        D0 (Y2) & 11    & D0        & Data bit 0 \\
+        D1 (Y3) & 9     & D1        & Data bit 1 \\
+        D2 (Y4) & 8     & D2        & Data bit 2 \\
+        D3 (Y5) & 10    & D3        & Data bit 3 \\
+        D4 (Y6) & 12    & D4        & Data bit 4 \\
+        D5 (Y7) & 18    & D5        & Data bit 5 \\
+        D6 (Y8) & 17    & D6        & Data bit 6 \\
+        D7 (Y9) & 16    & D7        & Data bit 7 \\
+        \midrule
+        VSYNC   & 6     & VSYNC     & Vertical sync \\
+        HREF    & 7     & HREF      & Horizontal reference \\
+        PCLK    & 13    & PCLK      & Pixel clock \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% --------------------------------------------------------
+\section{Motor Driver Pin Configuration}
+\label{sec:motor-pinout}
+
+\begin{table}[h!]
+    \centering
+    \caption{L298N Motor Driver Pin Mapping}
+    \label{tab:motor-pinout}
+    \begin{tabular}{lllp{5cm}}
+        \toprule
+        \textbf{L298N Pin} & \textbf{ESP32-S3 GPIO} & \textbf{Function} & \textbf{Notes} \\
+        \midrule
+        IN1  & GPIO 4  & Left Motor Forward   & HIGH = Forward rotation \\
+        IN2  & GPIO 5  & Left Motor Reverse   & HIGH = Reverse rotation \\
+        IN3  & GPIO 6  & Right Motor Forward  & HIGH = Forward rotation \\
+        IN4  & GPIO 7  & Right Motor Reverse  & HIGH = Reverse rotation \\
+        ENA  & GPIO 45 & Left Motor PWM       & Speed control (optional) \\
+        ENB  & GPIO 46 & Right Motor PWM      & Speed control (optional) \\
+        \midrule
+        +12V & --      & Motor Power          & From LiPo battery \\
+        GND  & GND     & Common Ground        & Shared with ESP32-S3 \\
+        +5V  & --      & Logic Power Output   & Provides 5V to ESP32-S3 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% --------------------------------------------------------
+\section{Sensor Pin Configuration}
+\label{sec:sensor-pinout}
+
+\begin{table}[h!]
+    \centering
+    \caption{Ultrasonic Sensor (HC-SR04) Pin Mapping}
+    \label{tab:ultrasonic-pinout}
+    \begin{tabular}{llp{6cm}}
+        \toprule
+        \textbf{HC-SR04 Pin} & \textbf{ESP32-S3 GPIO} & \textbf{Notes} \\
+        \midrule
+        VCC   & 5V     & 5V power supply \\
+        GND   & GND    & Common ground \\
+        TRIG  & GPIO 1 & Trigger pulse (10$\mu$s HIGH) \\
+        ECHO  & GPIO 2 & Echo return (measure HIGH duration) \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \caption{Battery Voltage Monitor}
+    \label{tab:battery-monitor-pinout}
+    \begin{tabular}{llp{6cm}}
+        \toprule
+        \textbf{Connection} & \textbf{ESP32-S3 GPIO} & \textbf{Notes} \\
+        \midrule
+        Battery+ & --       & Via 30k$\Omega$ resistor to ADC \\
+        ADC      & GPIO 14  & ADC1\_CH3, 12-bit resolution \\
+        Divider  & --       & 30k$\Omega$ + 10k$\Omega$ = 4:1 ratio \\
+        GND      & GND      & Via 10k$\Omega$ resistor \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% --------------------------------------------------------
+\section{Complete GPIO Summary}
+\label{sec:gpio-summary}
+
+\begin{table}[h!]
+    \centering
+    \caption{ESP32-S3 GPIO Allocation Summary}
+    \label{tab:gpio-summary}
+    \begin{tabular}{llll}
+        \toprule
+        \textbf{GPIO} & \textbf{Function} & \textbf{Direction} & \textbf{Module} \\
+        \midrule
+        1   & Ultrasonic TRIG  & Output   & Sensor \\
+        2   & Ultrasonic ECHO  & Input    & Sensor \\
+        4   & I2C SDA (Camera) & Bidir    & Camera \\
+        5   & I2C SCL (Camera) & Output   & Camera \\
+        6   & VSYNC            & Input    & Camera \\
+        7   & HREF             & Input    & Camera \\
+        8   & D2 (Y4)          & Input    & Camera \\
+        9   & D1 (Y3)          & Input    & Camera \\
+        10  & D3 (Y5)          & Input    & Camera \\
+        11  & D0 (Y2)          & Input    & Camera \\
+        12  & D4 (Y6)          & Input    & Camera \\
+        13  & PCLK             & Input    & Camera \\
+        14  & Battery ADC      & Analog   & Sensor \\
+        15  & XCLK             & Output   & Camera \\
+        16  & D7 (Y9)          & Input    & Camera \\
+        17  & D6 (Y8)          & Input    & Camera \\
+        18  & D5 (Y7)          & Input    & Camera \\
+        38  & Motor IN1        & Output   & Motor \\
+        39  & Motor IN2        & Output   & Motor \\
+        40  & Motor IN3        & Output   & Motor \\
+        41  & Motor IN4        & Output   & Motor \\
+        45  & Motor ENA (PWM)  & Output   & Motor \\
+        46  & Motor ENB (PWM)  & Output   & Motor \\
+        \bottomrule
+    \end{tabular}
+\end{table}
