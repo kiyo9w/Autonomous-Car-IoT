@@ -1,4 +1,7 @@
 venv/
 .venv/
 env/
-RoverInterface-OLD/"node_modules/" 
+RoverInterface-OLD/"node_modules/"
+__pycache__/
+*.pyc
+*.pyo 

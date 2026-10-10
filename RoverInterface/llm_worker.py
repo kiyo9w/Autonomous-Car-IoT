@@ -7,6 +7,8 @@ Feeds decisions to the CommandArbiter for priority-based execution.
 import time
 import threading
 from typing import Optional
+import cv2
+import numpy as np
 
 from ai import (
     TacticalDetector, 
@@ -104,8 +106,6 @@ class AIWorker:
                 continue
             
             # Decode for processing
-            import cv2
-            import numpy as np
             nparr = np.frombuffer(frame_bytes, np.uint8)
             img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
             
